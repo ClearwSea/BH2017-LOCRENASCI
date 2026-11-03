@@ -57,6 +57,17 @@ Install the generated APK, import the companion video pack and a compatible save
 
 Covering updates keep the same signature. When using the graphical builder, leaving the key path empty generates a local key and reuses it. How to fill in and back up the key: [signing notes](docs/desktop-builder.md#签名). The game and the Python runtime use ARM32. Device requirements: [Android compatibility notes](docs/android-compatibility.md).
 
+### Tested devices
+
+The following devices were actually tested by the maintainer and are listed for reference; devices not listed here are not guaranteed to behave the same.
+
+| Device | OS | SoC | RAM |
+| --- | --- | --- | --- |
+| SONY SOV36 | Android 8.1 / Android 9 (official near-stock) | Snapdragon 835 | 4 GB |
+| Razer Phone 1 | Android 9 (official near-stock) | Snapdragon 835 | 8 GB |
+| Razer Phone 2 | Android 9 (official near-stock) | Snapdragon 845 | 8 GB |
+| OnePlus PJZ110 | Android 15 (PJZ110_15.0.0.860(CN01), system built-in Tango translation layer) | Snapdragon 8 Elite | 16 GB |
+
 ## Source map
 
 | Location | Contents |

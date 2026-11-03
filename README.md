@@ -55,6 +55,17 @@ BH2017-LOCRENASCI 是面向 Android 1.9 客户端的本地运行与兼容适配�
 
 覆盖更新沿用相同签名。使用图形构建器时，密钥路径留空会自动生成并复用本机密钥；填写及备份方式见[签名说明](docs/desktop-builder.md#签名)。游戏和Python运行时使用ARM32，设备要求见[Android兼容说明](docs/android-compatibility.md)。
 
+### 已实测设备
+
+以下设备由维护者实际运行测试，供参考；未列出的设备不保证相同表现。
+
+| 设备 | 系统环境 | SoC | RAM |
+| --- | --- | --- | --- |
+| SONY SOV36 | Android 8.1 / Android 9（官方类原生） | Snapdragon 835 | 4 GB |
+| Razer Phone 1 | Android 9（官方类原生） | Snapdragon 835 | 8 GB |
+| Razer Phone 2 | Android 9（官方类原生） | Snapdragon 845 | 8 GB |
+| OnePlus PJZ110 | Android 15（PJZ110_15.0.0.860(CN01)，系统自带Tango转译层） | Snapdragon 8 Elite | 16 GB |
+
 ## 源码导航
 
 | 位置 | 内容 |
