@@ -1,0 +1,14 @@
+[
+  {
+    "ID": "Menu_Label_EndlessDynamicHardLevel",
+    "Text": "核心温度：#1℃"
+  },
+  {
+    "ID": "Menu_Desc_EndlessDynamicHardLevelIncrease",
+    "Text": "深渊核心的温度上升到#1℃，敌人更加狂躁了！"
+  },
+  {
+    "ID": "Menu_Desc_EndlessDynamicHardLevelDecrease",
+    "Text": "深渊核心的温度下降到#1℃，敌人似乎冷静下来了。"
+  }
+]

@@ -1,0 +1,30 @@
+plugins {
+    id 'com.android.application'
+    id 'com.chaquo.python'
+}
+android {
+    namespace 'local.bh3.server19probe'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'local.bh3.server19probe'
+        minSdk 24
+        targetSdk 28
+        versionCode 5
+        versionName '0.5-common-v8'
+        ndk { abiFilters 'armeabi-v7a' }
+    }
+}
+chaquopy {
+    defaultConfig {
+        version = '3.11'
+        buildPython(System.getenv('SERVER19_BUILD_PYTHON'))
+        pip {
+            def wheelhouse = System.getenv('BH3_PYTHON_WHEELHOUSE')
+            if (wheelhouse) {
+                options('--no-index', '--find-links', wheelhouse)
+            }
+            install 'numpy==1.26.2'
+            install 'tzdata==2025.2'
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "source_policy": "local_authored_conservative_v1",
+  "version": 1,
+  "slots_per_attempt": 1,
+  "weights": {"material": 49, "equipment": 1, "none": 50},
+  "quantity": 1,
+  "equipment_level": 1,
+  "eligible_source": "deployed24_stagedata_main.displayDropList"
+}

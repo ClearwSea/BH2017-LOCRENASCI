@@ -1,0 +1,21 @@
+{
+  "client19": {
+    "label": "1.9 客户端参考 APK",
+    "bytes": 1155479822,
+    "sha256": "672c3eadd1300accb265f09dfce52f05965b15e4b1a8d54114913f3f4f87d5be"
+  },
+  "client24": {
+    "label": "2.4 客户端参考 APK",
+    "bytes": 494904416,
+    "sha256": "41b0dfa3ed7ffb07cee808acab3691c7ada5f28361023b0c88f3b2aa2a2af042"
+  },
+  "supplements": {
+    "label": "外部补充资源包 · 2026-11-03参考 ZIP",
+    "bytes": 20496091,
+    "sha256": "5915a1b0b7282d9d0a24e9fa64a2c8e8e49e0ac7663204283a67589650115cf1"
+  },
+  "resources7x": {
+    "label": "7.0 音视频参考目录",
+    "manifest": "resources7x-reference.json"
+  }
+}

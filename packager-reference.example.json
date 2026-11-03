@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "mode": "reference-artifacts",
+  "client19": "inputs/client-1.9.apk",
+  "reference_runtime": "inputs/reference-runtime.zip",
+  "resource_ledger": "inputs/reference-resource-ledger.json",
+  "resource_root": "inputs/reference-resources",
+  "resource_ledger_sha256": "9b0a3ac9a5808d752e0691e0ee4191a8655e711c052fc6b72b6275e9b833276a",
+  "native": "inputs/reference-arm.so",
+  "tools_root": "tools/android",
+  "zig": "tools/zig/zig.exe",
+  "keystore": "inputs/build.keystore",
+  "key_alias": "androiddebugkey",
+  "work_dir": "work/reference-build",
+  "supplements": "inputs/supplements.zip"
+}

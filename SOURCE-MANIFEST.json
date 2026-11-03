@@ -1,0 +1,2098 @@
+{
+  "schema": 1,
+  "source_date": "2026-11-02",
+  "source_version": "android-launcher2",
+  "packager_entry": "python -B -m packager build --target apk",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "role": "configuration",
+      "bytes": 85,
+      "sha256": "1fd6893984932d18596f67fde256c7f1d60de7a4371f12e2cada76526251bfea"
+    },
+    {
+      "path": ".gitignore",
+      "role": "configuration",
+      "bytes": 518,
+      "sha256": "b8627897b2ca4d801ba328d7952563c69bc06f033e41dd4ee233b63d640d2ca9"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "documentation",
+      "bytes": 1511,
+      "sha256": "eeae4c3b47f950ab7c21ac385b55792b533ed057924f4ebbe60355551f2870d9"
+    },
+    {
+      "path": "LICENSE",
+      "role": "license",
+      "bytes": 1066,
+      "sha256": "967677927b68961f9996ad68a8188dde8d3d299094af751f7841f59956e63877"
+    },
+    {
+      "path": "NOTICE.md",
+      "role": "documentation",
+      "bytes": 591,
+      "sha256": "ae1d1cc7a48b07fa83b3ad629c1d2879d4ff2d88fa4e6c8e429d24519f0a34d5"
+    },
+    {
+      "path": "README.md",
+      "role": "documentation",
+      "bytes": 5737,
+      "sha256": "84a8506475ec9043a5ca1eb38b962631b56389f03c4ea2dfd510800185a08c81"
+    },
+    {
+      "path": "SOURCE-FILES.md",
+      "role": "documentation",
+      "bytes": 18041,
+      "sha256": "e94fbd9768eca495beb968f5978e955c3dcd6ad50daec1b96dc930fed6169f75"
+    },
+    {
+      "path": "analyze19.py",
+      "role": "offline_tool",
+      "bytes": 2761,
+      "sha256": "cbbb70f397c8d46229a5d7901e18d0fa5461d974db07507ec5aaa4dc50db1d9d"
+    },
+    {
+      "path": "android-server-probe/app/build.gradle",
+      "role": "android",
+      "bytes": 753,
+      "sha256": "23b14fab90bc56b17a598bcb95502e4ec55bd041952ec01c74e663792cd8658c"
+    },
+    {
+      "path": "android-server-probe/app/src/main/AndroidManifest.xml",
+      "role": "android",
+      "bytes": 803,
+      "sha256": "e12c0c31dd9ea8fe8d228759336c3be69251e5ee7fe2b10e15c03c43ed8a8d0a"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/DamageMode.java",
+      "role": "android",
+      "bytes": 1627,
+      "sha256": "a3102f95cd6aa667cde3f40af20a85336a0f7ad9b4725963c6ae77cf905c8562"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/EmbeddedResources.java",
+      "role": "android",
+      "bytes": 7857,
+      "sha256": "cb3ef0e732d53af7f523a260d612f5372cc14b95ade2dd8d5dc53384948ddfbb"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/IntegratedActivity.java",
+      "role": "android",
+      "bytes": 24722,
+      "sha256": "9c6df5da392a61c9d8151a4c64f6be8d4483a53b7a6c8b45f04295139db1d8a9"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/IntegratedService.java",
+      "role": "android",
+      "bytes": 2345,
+      "sha256": "07931c2dd074e2d15c3336e239e40c9cc6b89a3c85fd5d41053ee4c8d0613edb"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/LauncherStore.java",
+      "role": "android",
+      "bytes": 11288,
+      "sha256": "cb89d153b2f69b86a121639b9df33b638d1a603df4708cd05814373018e537dc"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/NativePaths.java",
+      "role": "android",
+      "bytes": 397,
+      "sha256": "acb9b6ccc973ccacb02e4157ac8ab55866196a032d41a826027973f33f68d042"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/ProbeService.java",
+      "role": "android",
+      "bytes": 3852,
+      "sha256": "18e11b4785d744be75e7f2e30db82b84183cd889388b83ac6fc5f92905990b1a"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/PythonPlatform.java",
+      "role": "android",
+      "bytes": 1573,
+      "sha256": "0c71159ad463dca46371460c3f08a596b43bfe07e70fd3aaac78513bbe80b26c"
+    },
+    {
+      "path": "android-server-probe/app/src/main/java/local/bh3/server19probe/ServerActivity.java",
+      "role": "android",
+      "bytes": 1638,
+      "sha256": "59c626ad05adf65c23f64930af96b16d24a5f5c48048ca692ab6b3b3c2aff201"
+    },
+    {
+      "path": "android-server-probe/app/src/main/python/benchmark_entry.py",
+      "role": "android",
+      "bytes": 4203,
+      "sha256": "50048840f89a78ae886a2f75296c85236f7fb627683afde2d31d9616ba030953"
+    },
+    {
+      "path": "android-server-probe/app/src/main/python/probe_entry.py",
+      "role": "android",
+      "bytes": 3002,
+      "sha256": "5aa6a6a2682ad052a400f7d7e136fedbfc1bc307c86846437589a4ffcec9c035"
+    },
+    {
+      "path": "android-server-probe/app/src/main/python/server_entry.py",
+      "role": "android",
+      "bytes": 2447,
+      "sha256": "98cb7bb4a4e4633c74be3f4cbbffa3bc2a71e47ea58826549661b4c068fe4e65"
+    },
+    {
+      "path": "android-server-probe/build.gradle",
+      "role": "android",
+      "bytes": 129,
+      "sha256": "f51b675e41e372ce4f19ad774dacc57bc126706b6c41773a6f36e348e7317972"
+    },
+    {
+      "path": "android-server-probe/gradle.properties",
+      "role": "android",
+      "bytes": 102,
+      "sha256": "ae98a4d9b9db9e25d6c7a4e09d722394658abf3f397469c0390117bbaee990d6"
+    },
+    {
+      "path": "android-server-probe/native/paths.c",
+      "role": "android",
+      "bytes": 749,
+      "sha256": "440a0466d12168ab4e0868aedb5156b2825c7df18953f61a798e36c3f4dbbb6a"
+    },
+    {
+      "path": "android-server-probe/settings.gradle",
+      "role": "android",
+      "bytes": 279,
+      "sha256": "7f520202bfeeaaadb6c99877ca972ffd720cdf492f9100bb1753a0100f23283a"
+    },
+    {
+      "path": "assets/README.md",
+      "role": "documentation",
+      "bytes": 991,
+      "sha256": "a79a5c9b950bcfdcd862e07df692054cb698a9c0acb7431ea435db12342d8005"
+    },
+    {
+      "path": "bh3_reference_guard.py",
+      "role": "configuration",
+      "bytes": 302,
+      "sha256": "0744a21589619e98e21f96255c864d0f80cc1ac190f1b1b89d65512aef34c0c1"
+    },
+    {
+      "path": "data/endless-climate-calibration.json",
+      "role": "policy",
+      "bytes": 26738,
+      "sha256": "c91b0b3f0b81f3f3b702b307db6b39bcfbe2cd04c59d5b1bd84fa37bb2d7b480"
+    },
+    {
+      "path": "data/endless-item-description-overrides.json",
+      "role": "policy",
+      "bytes": 399,
+      "sha256": "f28161966036de336e0a4c12779a4458bbfa66566fefa62a1e1a6acbf920aa0a"
+    },
+    {
+      "path": "data/endless-temperature-text-overrides.json",
+      "role": "policy",
+      "bytes": 383,
+      "sha256": "6b84b9b3e48873d30d1b15f92e7b6487e77496bfd2343c6500c7a13f2a8c17b9"
+    },
+    {
+      "path": "docs/README.md",
+      "role": "documentation",
+      "bytes": 1323,
+      "sha256": "a3e535792cd69b873694e077bf0b020595e4e41e5ed7767d67702857193312ac"
+    },
+    {
+      "path": "docs/android-compatibility.md",
+      "role": "documentation",
+      "bytes": 1838,
+      "sha256": "ce8474450cf0ede2edfb3c29cd08e143384a8cd6c1fe3c6c102fe90a267d8099"
+    },
+    {
+      "path": "docs/build.md",
+      "role": "documentation",
+      "bytes": 4895,
+      "sha256": "510191b7435b29e214e9333717880ce556dd3b24cb383b9f2933e80f66d1c373"
+    },
+    {
+      "path": "docs/data-sources.md",
+      "role": "documentation",
+      "bytes": 1784,
+      "sha256": "014a5c54049e4181975c24e477cecc37a60fd57c9949dc71043b891af2975dea"
+    },
+    {
+      "path": "docs/dependencies.md",
+      "role": "documentation",
+      "bytes": 1204,
+      "sha256": "3b115c617da7cc5659a362a9f4dd815999c80d236b49cea0dcf2e54b28508bf3"
+    },
+    {
+      "path": "docs/desktop-builder.md",
+      "role": "documentation",
+      "bytes": 3902,
+      "sha256": "fe8dd8606696db9d7693353e5e6b33238331a1d950cc67fdc4b98b146b235780"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "role": "documentation",
+      "bytes": 3484,
+      "sha256": "02046b260203b0bc62148283c1974a412e8248fc1a8154e4e7f13f18319c3160"
+    },
+    {
+      "path": "docs/status.md",
+      "role": "documentation",
+      "bytes": 1607,
+      "sha256": "06f557a5f4c30fe7440955fb205c41d5163aafac3258ffb18db658665bfc57ce"
+    },
+    {
+      "path": "docs/third-party-tools.md",
+      "role": "documentation",
+      "bytes": 1764,
+      "sha256": "310a2898aed87777e26a0accf8d10f997ac148d266af5e97e2bff6828821b069"
+    },
+    {
+      "path": "launch_gui.py",
+      "role": "packager",
+      "bytes": 153,
+      "sha256": "fdc68341a87f8045a6cf11ad2f221a44773df4d3702c3d70c229ae5fabf2d01a"
+    },
+    {
+      "path": "packager-original.example.json",
+      "role": "configuration",
+      "bytes": 494,
+      "sha256": "7f0a19c8a5e1b9136741dcf47e0330cadbfc49281403771e227c67e31e306c59"
+    },
+    {
+      "path": "packager-reference.example.json",
+      "role": "configuration",
+      "bytes": 624,
+      "sha256": "5ce986e6cc6bef720b1e857a4e0a8bde3ffe53901a3e420ae372b671fa140062"
+    },
+    {
+      "path": "packager.example.json",
+      "role": "configuration",
+      "bytes": 159,
+      "sha256": "c7a6cd367e3b4eb8e5d2224504356208ae93824750e8d2f5152d93216973c6da"
+    },
+    {
+      "path": "packager/README.md",
+      "role": "documentation",
+      "bytes": 5213,
+      "sha256": "c8701316dbd4bb2eb22773181b9256762c877cc63a0cdfea45b7d8a56c2fbc18"
+    },
+    {
+      "path": "packager/__init__.py",
+      "role": "offline_tool",
+      "bytes": 105,
+      "sha256": "d5a1bbc829b7fc2a37e4afc94d3503f4be87b249ca6d0f2e07fb20b97acb39de"
+    },
+    {
+      "path": "packager/__main__.py",
+      "role": "offline_tool",
+      "bytes": 49,
+      "sha256": "889f673c2145e28095264339dbb3be024859a0bd7242435c479850567be2fd49"
+    },
+    {
+      "path": "packager/apk_format.py",
+      "role": "offline_tool",
+      "bytes": 10850,
+      "sha256": "fec9d735b9f3a962a4cb431bddd7a9ec82be0c83b0549c64a9e50d079d626525"
+    },
+    {
+      "path": "packager/assemble.py",
+      "role": "offline_tool",
+      "bytes": 19870,
+      "sha256": "a9a2c3989a3521af59398efffd7dd0a059bf33f71f84fd60f80db7dfa5fe3806"
+    },
+    {
+      "path": "packager/audio.py",
+      "role": "packager",
+      "bytes": 8073,
+      "sha256": "0876f539685f5199b7b4a3d09d86f09c3e36a43cbaa274138ac56b6bb1c18a87"
+    },
+    {
+      "path": "packager/core.py",
+      "role": "offline_tool",
+      "bytes": 18184,
+      "sha256": "2cbd28d4bfd88b172da0f7f7bf9fec5dfda254be5a750aef80ccb7dd1851b303"
+    },
+    {
+      "path": "packager/desktop.py",
+      "role": "packager",
+      "bytes": 17384,
+      "sha256": "429f77b0b7983c8df2ad625c48fb610c5dd0b4685cc5fb9bdb63018566b72c9c"
+    },
+    {
+      "path": "packager/desktop_runtime.py",
+      "role": "packager",
+      "bytes": 3250,
+      "sha256": "0d884404961844fa5a9d26f914a52c709e22c986d17aef0052b49347dd60b3f1"
+    },
+    {
+      "path": "packager/desktop_worker.py",
+      "role": "packager",
+      "bytes": 3643,
+      "sha256": "0c9f248b5aacebb139ef818a613cf482fe35517e9faa6929032e419b2bd66381"
+    },
+    {
+      "path": "packager/input_reference.py",
+      "role": "packager",
+      "bytes": 2912,
+      "sha256": "88f248fee476255af174cb57b17f40e027c1f24c85aa48ea37617b20c12bef7c"
+    },
+    {
+      "path": "packager/json_recipes.py",
+      "role": "packager",
+      "bytes": 4179,
+      "sha256": "facb4aa2ca5bb0d43f12fa4a8ca9d4df3bc98ca5c4945ed3688bc5fc13f18208"
+    },
+    {
+      "path": "packager/native.py",
+      "role": "packager",
+      "bytes": 2709,
+      "sha256": "2194d7273e886badc094a91420778b30bd39b3e105d647526c479d39c9933410"
+    },
+    {
+      "path": "packager/original.py",
+      "role": "packager",
+      "bytes": 8233,
+      "sha256": "5ff45f57d013f1b34a257fd4bbd3b8cfe37abb7c12faff323a9ec6d0375a0986"
+    },
+    {
+      "path": "packager/reference_window.py",
+      "role": "packager",
+      "bytes": 6959,
+      "sha256": "a9c0c6ce67072820ea19aca3dce9ed2316d0e1b6215bb5ceaa6464a6dc007c98"
+    },
+    {
+      "path": "packager/resources.py",
+      "role": "packager",
+      "bytes": 2873,
+      "sha256": "1b04dddd6304c355bbf5288d5335ff3bf905d85631e0bbb47cb4587db6d559cf"
+    },
+    {
+      "path": "packager/runtime_data.py",
+      "role": "packager",
+      "bytes": 5824,
+      "sha256": "74e889cd0eab2d690ce1602f77ceaa499830e84fd7b28eb446ec5727948acde1"
+    },
+    {
+      "path": "packager/splice.py",
+      "role": "packager",
+      "bytes": 711,
+      "sha256": "1d4b1fcb77d4a7a4d7c9bcae67cc18165a619352c1ce95a396d06b2cd31df6e0"
+    },
+    {
+      "path": "packager/supplements.py",
+      "role": "packager",
+      "bytes": 2760,
+      "sha256": "7e66f8134c35e3a194d926c295318b4b3e971cc98b7886665955540506317cbe"
+    },
+    {
+      "path": "packager/tables.py",
+      "role": "packager",
+      "bytes": 7473,
+      "sha256": "df8eca58e97d6d3618259058f8b7c1d8bf7252e13cb128c3b86adcbcf6e588c0"
+    },
+    {
+      "path": "packager/toolchain/README.md",
+      "role": "documentation",
+      "bytes": 2042,
+      "sha256": "e84e436b67b2c6fa0de48332ff71c01f60fa14decab1904ef50d5dc9edf42ba0"
+    },
+    {
+      "path": "packager/toolchain/UnityPy-optional-FMOD.patch",
+      "role": "offline_tool",
+      "bytes": 540,
+      "sha256": "32daef8eb5ca2dfdb3147c5c669af63e70b64cdd9f07670f46ff05c3429b06b0"
+    },
+    {
+      "path": "packager/toolchain/rebuild_ffmpeg.sh",
+      "role": "offline_tool",
+      "bytes": 1557,
+      "sha256": "36982fb55e9386342f307793f46e3a01b74444ac00626baf0150dc2d72786cba"
+    },
+    {
+      "path": "packager/toolchain/rebuild_vgmstream.py",
+      "role": "offline_tool",
+      "bytes": 2423,
+      "sha256": "a9e75dd84de7b096758acca3bcdeb8750c9ac2cd1d65c0d5c6cf53f1564ca365"
+    },
+    {
+      "path": "packager/video.py",
+      "role": "packager",
+      "bytes": 3081,
+      "sha256": "9c7f038d1e22e3661997b6935ebd314e9a5c0e7c04eea3b38cfc01b36bcdd47e"
+    },
+    {
+      "path": "packager/worker.py",
+      "role": "offline_tool",
+      "bytes": 1816,
+      "sha256": "2c1f5b5748fcfdd21abdc0d5d322d0bbea55863418b092dcaf765e681b900e37"
+    },
+    {
+      "path": "probe19.py",
+      "role": "reference_recipe",
+      "bytes": 5585,
+      "sha256": "7040f53d55004bcef5ea744f2d4f10edbf71f58ee324d4436bc0b4e8e7f62e94"
+    },
+    {
+      "path": "probe19_trace.py",
+      "role": "reference_recipe",
+      "bytes": 2378,
+      "sha256": "e95b5a1da25ff1b82fb8634d496afb1479362e8b8306981a29ce230cc3cb84f8"
+    },
+    {
+      "path": "profiles/android-launcher-20261102.json",
+      "role": "rule",
+      "bytes": 2193,
+      "sha256": "c3f4766f8fb194f9d93d68eea69abdc0cc62fb7979c8879d936a5412dc3afdbd"
+    },
+    {
+      "path": "profiles/generated-data-contract.json",
+      "role": "rule",
+      "bytes": 2532,
+      "sha256": "a69deccb1a0e33595c9cf5a886a23a092467340e8ff3aea0330bfd18dd1ed1eb"
+    },
+    {
+      "path": "profiles/input-references.json",
+      "role": "configuration",
+      "bytes": 658,
+      "sha256": "0d38486b34d16a25dd46e8b6fa05b0f34a7b89c692d2021c7965cbd3b89590db"
+    },
+    {
+      "path": "profiles/legacy-dependencies.json",
+      "role": "rule",
+      "bytes": 85895,
+      "sha256": "f1f57ba83e91e483335e0ecceecfb7a88574f7d3b9d60e998c517feb9c87d89a"
+    },
+    {
+      "path": "profiles/resources7x-reference.json",
+      "role": "configuration",
+      "bytes": 179291,
+      "sha256": "46ec9aa2aa55b03d628d5bd5088900179533f301ded8c059c5846437cede7bb4"
+    },
+    {
+      "path": "profiles/table-recipes.json",
+      "role": "rule",
+      "bytes": 282584,
+      "sha256": "3709481abd511a9fd9224c79932c0d09240ad322bb9a2585c2ec91f8dc48281b"
+    },
+    {
+      "path": "read19.py",
+      "role": "reference_recipe",
+      "bytes": 1119,
+      "sha256": "bf51ed8ad0c75ca8d0112e9f311241ab5b9be903c4b58ea059d1542253257f52"
+    },
+    {
+      "path": "requirements-build.txt",
+      "role": "configuration",
+      "bytes": 120,
+      "sha256": "37c1374c1169d027641b00774f5fbdb45f763ee5721c9c93e9a7a49cdc233fda"
+    },
+    {
+      "path": "requirements-native-checks.txt",
+      "role": "configuration",
+      "bytes": 93,
+      "sha256": "761d93eb70dd292d01b114b0e4ccadf2fd05b5e644fa5d2f083d5396b6b8de09"
+    },
+    {
+      "path": "requirements-runtime.txt",
+      "role": "configuration",
+      "bytes": 106,
+      "sha256": "bb54d726a85da0d9c3fece736cfb0a1b64d5e89a60bf4ebfb946f72ed96e7763"
+    },
+    {
+      "path": "rules/catalog.json",
+      "role": "rule",
+      "bytes": 1054,
+      "sha256": "3e512d4a83830b38b0c151dd74a0fd546ded305a280e189c48192d6aa9778e33"
+    },
+    {
+      "path": "rules/client-resource-splices.json",
+      "role": "generation_rule",
+      "bytes": 1198204,
+      "sha256": "61419b502cd746111140517ce069051538a8ee24b85d936f7f65f916aeed683a"
+    },
+    {
+      "path": "rules/commission-rarity.json",
+      "role": "generation_rule",
+      "bytes": 13423,
+      "sha256": "e32d1574d0a1b3f05b8b00fc4499842137fdc241ea0cfaa5f944664f142f66b6"
+    },
+    {
+      "path": "rules/daily-missions.json",
+      "role": "rule",
+      "bytes": 3081,
+      "sha256": "60d7003de37b037491b86292cf7e5b100d080d2f221de94a2bffbd76353b4315"
+    },
+    {
+      "path": "rules/endless-bot-names.json",
+      "role": "generation_rule",
+      "bytes": 4858,
+      "sha256": "1770a3f41833f519424b0c52e085353c5770f83936f3019416e1309dccdb8b16"
+    },
+    {
+      "path": "rules/generated-data-recipes.json",
+      "role": "generation_rule",
+      "bytes": 2595681,
+      "sha256": "1c3fe4e1e25c50ea3c2cfe77b2f3ae3e4f0fd8d3b9269d25e823309c3cfaaf0b"
+    },
+    {
+      "path": "rules/material-navigation.json",
+      "role": "rule",
+      "bytes": 47415,
+      "sha256": "a5e32255e54700990ccc602b275758e19de4f0e91941b80cab6e69c9ab3e5206"
+    },
+    {
+      "path": "rules/native-armv7.json",
+      "role": "generation_rule",
+      "bytes": 3036579,
+      "sha256": "c00cc5f8656816171647ced9fa745dcd3419bed6920f1724afecf67299a0f1af"
+    },
+    {
+      "path": "rules/table-adaptations.json",
+      "role": "generation_rule",
+      "bytes": 182193,
+      "sha256": "94d6095716b5fb28b7321368bf07b493ab26c0bcd76fbd9f0c869e364ca247fb"
+    },
+    {
+      "path": "rules/voice-events.json",
+      "role": "generation_rule",
+      "bytes": 136348,
+      "sha256": "e9bf204f4411219858afa7bd0cb35eb0bff5c23a83b59babd60884a867b5feae"
+    },
+    {
+      "path": "scripts/apply_all_shop_refactor.py",
+      "role": "reference_recipe",
+      "bytes": 10729,
+      "sha256": "db35267d2629ac6ec76bafc54039aed008281b1b4f5f804f32b9cdf728a52ad2"
+    },
+    {
+      "path": "scripts/apply_cabin_unlock.py",
+      "role": "reference_recipe",
+      "bytes": 6556,
+      "sha256": "358fd7fb55e285404df6bce54fe41dcd669d5658634f37c69a49294ad934883c"
+    },
+    {
+      "path": "scripts/apply_shop_fine_refactor.py",
+      "role": "reference_recipe",
+      "bytes": 14172,
+      "sha256": "e24ebc440f4c000a0185cb2491376c946f3d287a93bf66d236788f11b4f2e3a2"
+    },
+    {
+      "path": "scripts/apply_touch_feel_boost.py",
+      "role": "reference_recipe",
+      "bytes": 5311,
+      "sha256": "3aafb18d51a0dc498ba09ada6b2fc96d1a2c4762199a2f3f01363b2496bc5b74"
+    },
+    {
+      "path": "scripts/audit_endless_numpy_portability.py",
+      "role": "reference_recipe",
+      "bytes": 4438,
+      "sha256": "61d8a6c83ca866a8b92f3dbc890e203457db6daf2735a4cb831b3aa232012620"
+    },
+    {
+      "path": "scripts/build_server19_android_probe.ps1",
+      "role": "offline_tool",
+      "bytes": 1447,
+      "sha256": "f874d362c54684b04269a9035e22206bd8fdc9ae97f4d765e7ef05a4f8adf180"
+    },
+    {
+      "path": "scripts/build_server19_integrated.py",
+      "role": "reference_recipe",
+      "bytes": 11135,
+      "sha256": "44a2112bc353067b80df39f3e357f9aeb94d85c03d2551ec5244b713a9e779b2"
+    },
+    {
+      "path": "scripts/build_server19_portable.py",
+      "role": "reference_recipe",
+      "bytes": 6230,
+      "sha256": "789ed1b5c9e474921dd57500ddee94915064752789d5146b56dc80d7a1a9b795"
+    },
+    {
+      "path": "scripts/check_chiyou_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 4152,
+      "sha256": "d90873e5b0e6945a43612a8e38610fdbafd6c4dd772452d60d699973de702250"
+    },
+    {
+      "path": "scripts/check_commission_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 1821,
+      "sha256": "859b4720b355081164373488be417831be286efc93ffab70bab6ac46d5c9a379"
+    },
+    {
+      "path": "scripts/check_cooking_native.py",
+      "role": "reference_recipe",
+      "bytes": 3242,
+      "sha256": "2bfb6f113714e76aec7c84945c380e4e39889418270eece750f0ebf09658a149"
+    },
+    {
+      "path": "scripts/check_endless_climate.py",
+      "role": "reference_recipe",
+      "bytes": 4900,
+      "sha256": "8675ea35e3fdf527f245adf1a021d49659fa996bf09b8c6f50123dbaed06d28d"
+    },
+    {
+      "path": "scripts/check_kallen_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 3302,
+      "sha256": "071ea47b9beee99b94c9bdf8c4b733636f16d7b98b9116f35cb35c5e1feb4ee5"
+    },
+    {
+      "path": "scripts/check_sakura_cycle4.py",
+      "role": "reference_recipe",
+      "bytes": 4425,
+      "sha256": "e92683c494f66059a942d06e58fc461429cf651fb7860179131725faafe808cf"
+    },
+    {
+      "path": "scripts/check_server19_damage_switch.py",
+      "role": "reference_recipe",
+      "bytes": 4041,
+      "sha256": "d1a4e5903d9420056457c0ed671e63146f6c3369141644e6b671621539060f89"
+    },
+    {
+      "path": "scripts/check_server19_gacha_cache.py",
+      "role": "reference_recipe",
+      "bytes": 6552,
+      "sha256": "41ea467568115fd3bdbb8493518f68930a742772fbb476961b3ddaca7452116b"
+    },
+    {
+      "path": "scripts/check_server19_read_cache.py",
+      "role": "reference_recipe",
+      "bytes": 3830,
+      "sha256": "3260130b866227351533e16ad7ac6e58da264eed6ca1a91a3d3c6ddbd7ad5282"
+    },
+    {
+      "path": "scripts/check_server19_signin_coins.py",
+      "role": "reference_recipe",
+      "bytes": 3832,
+      "sha256": "45a8451a1b87c7f480b395e8957551e91626814caf8cac3d505865ea95146f15"
+    },
+    {
+      "path": "scripts/check_server19_signin_missing_item.py",
+      "role": "reference_recipe",
+      "bytes": 3196,
+      "sha256": "63e4afc96a756727738f0830ad2007657caf55a8a45f5f6d010c3384de94f70c"
+    },
+    {
+      "path": "scripts/check_server19_signin_null_sprite.py",
+      "role": "reference_recipe",
+      "bytes": 3842,
+      "sha256": "461575e909f7a4d4d982e6cfa9de71350b3adbfb91cbb3d440d8cb2a92d20a57"
+    },
+    {
+      "path": "scripts/check_server19_table_index.py",
+      "role": "reference_recipe",
+      "bytes": 2989,
+      "sha256": "bdbce31ee09897ef1284560616f307745a633a65929b3b79b5e21ef567e89058"
+    },
+    {
+      "path": "scripts/check_stage_reward_compat.py",
+      "role": "reference_recipe",
+      "bytes": 6160,
+      "sha256": "d3907a1bb40b7e73492cdebf73ce77cd4239f5be694568605e78320950ecc248"
+    },
+    {
+      "path": "scripts/check_story_npc_level_closure.py",
+      "role": "reference_recipe",
+      "bytes": 3157,
+      "sha256": "bc99b055117cb3f737691a62f8d7c22529074e2927055cb6ec94b61984ac5dfd"
+    },
+    {
+      "path": "scripts/clean_and_update_shops.py",
+      "role": "reference_recipe",
+      "bytes": 3892,
+      "sha256": "02aa4ab5838172828dd284f6a77ee2bf2c0eb83fc4abc522cd2a8d7bf5234fcb"
+    },
+    {
+      "path": "scripts/package_server19_backport.py",
+      "role": "reference_recipe",
+      "bytes": 3030,
+      "sha256": "af5b07d9da91f728a15d3851371623ccd656aa74dc305bc83f74f1111210c052"
+    },
+    {
+      "path": "scripts/package_server19_damage_switch.py",
+      "role": "reference_recipe",
+      "bytes": 3395,
+      "sha256": "9dfd07d40ca003fc32561a4f8c2997d9a98dd8700f1b73d5a33db4d64579eb67"
+    },
+    {
+      "path": "scripts/package_server19_launcher_countdown.py",
+      "role": "reference_recipe",
+      "bytes": 3006,
+      "sha256": "4babf5d4c8cee1dc21143b767b954aa42d6c2798800bfb3fd6ce98ed29f83ec9"
+    },
+    {
+      "path": "scripts/package_server19_launcher_notice.py",
+      "role": "reference_recipe",
+      "bytes": 2970,
+      "sha256": "d8447bb3a97b40030fd4d9e97567d9b1f3d6a348a0bed829f5945bd03b060934"
+    },
+    {
+      "path": "scripts/package_server19_manual_launcher.py",
+      "role": "reference_recipe",
+      "bytes": 2989,
+      "sha256": "f2b42b7a28db49d1a0ccdae091d055ca32ccc13eb763b1e59ea2bc3ada6bc2e5"
+    },
+    {
+      "path": "scripts/package_server19_save_export_release.py",
+      "role": "reference_recipe",
+      "bytes": 3256,
+      "sha256": "c2900fe90140668296023ea0a815013a0babf721419509d279e9fe470afcce19"
+    },
+    {
+      "path": "scripts/prepare_endless_balance.py",
+      "role": "reference_recipe",
+      "bytes": 2734,
+      "sha256": "4f86196511af0c29d16be5f0e7bdd64ad70345c5a43798acb34e5ea48d6d0ba0"
+    },
+    {
+      "path": "scripts/prepare_endless_boss_rotation.py",
+      "role": "reference_recipe",
+      "bytes": 3547,
+      "sha256": "3b0f0020bd5b7f7487d65aa855a03f9c522c9467bf2bd954246908502b87dd3f"
+    },
+    {
+      "path": "scripts/prepare_endless_final_hp12.py",
+      "role": "reference_recipe",
+      "bytes": 3190,
+      "sha256": "3edd6132fad04902247b8d01c0cc7587095202bb0061252d6b571c8914654bc2"
+    },
+    {
+      "path": "scripts/prepare_endless_help.py",
+      "role": "reference_recipe",
+      "bytes": 2539,
+      "sha256": "da708947a7bd5f1c13acb8ba158d1bb755dbde74a82983890d0f336b925c0a46"
+    },
+    {
+      "path": "scripts/prepare_endless_hp_climate.py",
+      "role": "reference_recipe",
+      "bytes": 5914,
+      "sha256": "095261aabe75281ea382ddf933cb7027624e595edf1d839867197256019248db"
+    },
+    {
+      "path": "scripts/prepare_endless_npc_levels.py",
+      "role": "reference_recipe",
+      "bytes": 3033,
+      "sha256": "6cf04d861ccc1f73e02825196fc0d52b15c244251f009eebe169ecb3adbb13d3"
+    },
+    {
+      "path": "scripts/prepare_endless_resources.py",
+      "role": "reference_recipe",
+      "bytes": 1270,
+      "sha256": "dc6d15d1a561449134aac326b1281e151962979e7e06d4bbad219bdc604ce0ed"
+    },
+    {
+      "path": "scripts/prepare_endless_retry_native.py",
+      "role": "reference_recipe",
+      "bytes": 3041,
+      "sha256": "c9fbbf38cbc0dba6cba22ea3576ae2c0d421762c2d8307d0ca37f1d746c859e2"
+    },
+    {
+      "path": "scripts/prepare_endless_temperature_mapping.py",
+      "role": "reference_recipe",
+      "bytes": 5764,
+      "sha256": "3f455df569fce6883fdd9b8fc8737c6f0b3dcf769c3d97c426879f32aff8e82a"
+    },
+    {
+      "path": "scripts/prepare_sakura_deferred_branches.py",
+      "role": "reference_recipe",
+      "bytes": 2821,
+      "sha256": "f94d2e719ee9d1955d68f2392a0fc0d5911d3dd73e463aa61651d945639b8f06"
+    },
+    {
+      "path": "scripts/prepare_sakura_hunt_chain.py",
+      "role": "reference_recipe",
+      "bytes": 3794,
+      "sha256": "1d1e6ad4a7a13fedfe63317e5896afeb2b2100c958179c48027f73b128b93e35"
+    },
+    {
+      "path": "scripts/prepare_sakura_hunt_tutorial.py",
+      "role": "reference_recipe",
+      "bytes": 3306,
+      "sha256": "b6522b890538e45d452a4d611b3e6ca5e3713a5289f6f3c4838bee2c33b7010b"
+    },
+    {
+      "path": "scripts/prepare_server19_announcement_layout.py",
+      "role": "reference_recipe",
+      "bytes": 4205,
+      "sha256": "8676a93081f19a7907430950c603f36f3cb81d52bac99707c05318b0400d84a8"
+    },
+    {
+      "path": "scripts/prepare_server19_damage_switch.py",
+      "role": "reference_recipe",
+      "bytes": 4188,
+      "sha256": "db51d4eaef0f4ac5b0a2a8192878ab0279db2bce55adde2687e2f2898b8a70fe"
+    },
+    {
+      "path": "scripts/prepare_server19_embedded.py",
+      "role": "reference_recipe",
+      "bytes": 3225,
+      "sha256": "ab597c384c871b9a44db956a9cef78c121f94b2dd86b229e50c0f117197e78d2"
+    },
+    {
+      "path": "scripts/prepare_server19_signin.py",
+      "role": "reference_recipe",
+      "bytes": 4515,
+      "sha256": "eaadd5cf3001e71b14e15f2cbdcc5687730360b9593dca0de5d45d620872a199"
+    },
+    {
+      "path": "scripts/restore_island_gate_and_level39.py",
+      "role": "reference_recipe",
+      "bytes": 5238,
+      "sha256": "51b81146e36eac2205b906359769c00449065853a965c8acca706a536f7beed0"
+    },
+    {
+      "path": "scripts/server19_portable.py",
+      "role": "reference_recipe",
+      "bytes": 5519,
+      "sha256": "f4b38d15e20b974fde4f2c1b80783757b1e422d993217f068b4271e891eb6713"
+    },
+    {
+      "path": "scripts/server19_portable_smoke.py",
+      "role": "reference_recipe",
+      "bytes": 6883,
+      "sha256": "1f9e61ec82a5f18184ba8423cdd1f11a3c982671e910c6c156db1d3cd39e5f9d"
+    },
+    {
+      "path": "scripts/simulate_endless_cooling.py",
+      "role": "reference_recipe",
+      "bytes": 8107,
+      "sha256": "1b425934782e20864c934c0051149d9d5cc81a460c1d6051791002ca135c713d"
+    },
+    {
+      "path": "scripts/simulate_endless_temperature.py",
+      "role": "reference_recipe",
+      "bytes": 6903,
+      "sha256": "db3d12a216a513237f7b707bcc9b6732a5ae16c0bb69e2716c152b2845df7dab"
+    },
+    {
+      "path": "scripts/update_shop_goods_unit.py",
+      "role": "reference_recipe",
+      "bytes": 1767,
+      "sha256": "6eaf3d5e4211578d4218bad88adbc8b7ea2b24bdc8c7dd731bb0e4fd1cd4fd99"
+    },
+    {
+      "path": "scripts/verify_server19_replay.py",
+      "role": "reference_recipe",
+      "bytes": 7963,
+      "sha256": "ad237668ed18d95bb8090e9b901ee0c27d43fc899c2bce49fd16bd5cfe79ee4b"
+    },
+    {
+      "path": "scripts/verify_server19_shutdown.py",
+      "role": "reference_recipe",
+      "bytes": 2684,
+      "sha256": "f5b0c1341148f77c96badcee29d93a334c8ab4ac501121c7c324aedc0d2b1042"
+    },
+    {
+      "path": "server19.py",
+      "role": "runtime",
+      "bytes": 40364,
+      "sha256": "a4b4f03cad2cedadc06d1aa731bf825ad3bf8ab354c39411927e6f6fdea6813e"
+    },
+    {
+      "path": "server19_account_maintenance.py",
+      "role": "runtime",
+      "bytes": 940,
+      "sha256": "ae05bba0a18cd747c75b108f12df987d5ed3adb9e1d4f0836328a025fb97e2cc"
+    },
+    {
+      "path": "server19_achievement.py",
+      "role": "runtime",
+      "bytes": 5751,
+      "sha256": "a109f303104656ba10b39578741e0c4551729b0f4eeb3bb786137d700c37cfa0"
+    },
+    {
+      "path": "server19_arm_build.py",
+      "role": "reference_recipe",
+      "bytes": 3175,
+      "sha256": "62f49ef4d8346b06f3ee47a30b85544e6d3f055a5d335a8912ff1bd24165ac25"
+    },
+    {
+      "path": "server19_arm_daily_quick.py",
+      "role": "reference_recipe",
+      "bytes": 2761,
+      "sha256": "7be9daa8470d836731ee33ee569c9c552aa9eee2e2cb8f544aaffd82bbc0c690"
+    },
+    {
+      "path": "server19_arm_dialog_interrupt.py",
+      "role": "reference_recipe",
+      "bytes": 6592,
+      "sha256": "e5a8a1407e874c35c24bec28c7946d94802c5000eb7f852af34cd4f7722f40a8"
+    },
+    {
+      "path": "server19_arm_extra_entry.py",
+      "role": "reference_recipe",
+      "bytes": 4591,
+      "sha256": "eee014af5e47d62031408b7c1814af1edf4aea00a5bbc11c6deb5e4aec68c295"
+    },
+    {
+      "path": "server19_arm_extra_story.py",
+      "role": "reference_recipe",
+      "bytes": 4271,
+      "sha256": "72083ca1f497c83856c256e5eccfb6932e1e9714ed173851d8e982962ab036cd"
+    },
+    {
+      "path": "server19_arm_face_prewarm.py",
+      "role": "reference_recipe",
+      "bytes": 2646,
+      "sha256": "20c684476a58952c4b91a6e0398cc8863c9a3b0b9d8fba46801ed2093d40e3c3"
+    },
+    {
+      "path": "server19_arm_feedback_disable.py",
+      "role": "reference_recipe",
+      "bytes": 2138,
+      "sha256": "a08ab9da171385848d14334461d260d17e1cc96453923738f4444ab92b44f7af"
+    },
+    {
+      "path": "server19_arm_fuka601.py",
+      "role": "reference_recipe",
+      "bytes": 7293,
+      "sha256": "98bf4596d4f66fe0fa3aa3575d4892e14cf16e0529ea35e78b6c4127dacfb351"
+    },
+    {
+      "path": "server19_arm_gacha_recharge.py",
+      "role": "reference_recipe",
+      "bytes": 10021,
+      "sha256": "71fecb2e5a500c4f4f63859e503be264cd8591f62b32c53e8ff568cc9bef026a"
+    },
+    {
+      "path": "server19_arm_local_weather.py",
+      "role": "reference_recipe",
+      "bytes": 4347,
+      "sha256": "862fb7ca1589e5b47e08b9c858477f54ef7b7b2ca56d8810014138e65cdef09e"
+    },
+    {
+      "path": "server19_arm_lock_acceleration.py",
+      "role": "reference_recipe",
+      "bytes": 5976,
+      "sha256": "9886760eca85a914d053af2c300d00bed465def7d306b601c07d202974e61dc6"
+    },
+    {
+      "path": "server19_arm_native.py",
+      "role": "offline_tool",
+      "bytes": 25298,
+      "sha256": "c94cb50ba612504b232fa2b6a772d45248d6ce23f9d49bb84a92387cf34ebcb2"
+    },
+    {
+      "path": "server19_arm_network.py",
+      "role": "reference_recipe",
+      "bytes": 15015,
+      "sha256": "701ad2e6d237e28e8046a6efcc6f934d088b1873ead1998a1b79216260c219f7"
+    },
+    {
+      "path": "server19_arm_resources.c",
+      "role": "offline_tool",
+      "bytes": 16116,
+      "sha256": "7b6a02731c5fe0c166bdb687815891854cae4dbc7c45d60ee94e552d48e31b15"
+    },
+    {
+      "path": "server19_arm_resources.py",
+      "role": "reference_recipe",
+      "bytes": 25204,
+      "sha256": "dec130d56269274f4fce7866d932514a739e47ec43fd2e6cd2c2c309da004d42"
+    },
+    {
+      "path": "server19_arm_shield_cap.py",
+      "role": "reference_recipe",
+      "bytes": 4549,
+      "sha256": "1400130246067502105dd0816769680353667ded6f09170fed0a6dba4b8e6eff"
+    },
+    {
+      "path": "server19_arm_story_presentation.py",
+      "role": "reference_recipe",
+      "bytes": 9804,
+      "sha256": "fba33689937e0d95ae68ed77e0484e378bd97b9e4c8ec497b6ff63d92860fc0e"
+    },
+    {
+      "path": "server19_arm_story_test_acceleration.py",
+      "role": "reference_recipe",
+      "bytes": 7305,
+      "sha256": "6ecc5d6f96a0da4f52b5f5f8a4def4e2bc9a42cdc874d8ac7966c5c89eb0b250"
+    },
+    {
+      "path": "server19_arm_toolchain.py",
+      "role": "offline_tool",
+      "bytes": 3747,
+      "sha256": "04036fd30fd0768b93cd205fe5c3297b907ed8fed384b2c83a9ca7022b040a61"
+    },
+    {
+      "path": "server19_arm_typed_isolation.py",
+      "role": "reference_recipe",
+      "bytes": 2163,
+      "sha256": "e0ae4b2ce9c5c56566cb2fa7d4671c7bb6ce637f0d64efe6581bf928ff490656"
+    },
+    {
+      "path": "server19_arm_weekly_voice.py",
+      "role": "reference_recipe",
+      "bytes": 4520,
+      "sha256": "f59cccf244e2d4a9870a7dbd3db989daa5d03f58e24ddf23dff87ac8e78e4a56"
+    },
+    {
+      "path": "server19_avatar_battle_resources.py",
+      "role": "reference_recipe",
+      "bytes": 59757,
+      "sha256": "0ae477e8991e8fc05a6bb2a862fd2b155c80af3715303ade380fe396a7668d06"
+    },
+    {
+      "path": "server19_avatar_cultivation.py",
+      "role": "runtime",
+      "bytes": 11045,
+      "sha256": "2e0a3a6efbe582704ac840afeca7f1f5f97b49ec007b819a803d13f18ecef3d6"
+    },
+    {
+      "path": "server19_avatar_fragments.py",
+      "role": "runtime",
+      "bytes": 2956,
+      "sha256": "5fe6ed27b659dff90ec4304a5be95c8d4a1539d516965fd78b9c1356586a41b1"
+    },
+    {
+      "path": "server19_avatar_skills.py",
+      "role": "runtime",
+      "bytes": 13879,
+      "sha256": "97a38aa4c56e1c4adc9ab7a03937529c45b29c8c5068670cd51d94af3bfb23aa"
+    },
+    {
+      "path": "server19_avatar_teams.py",
+      "role": "runtime",
+      "bytes": 8708,
+      "sha256": "be920c8e11937a2a1ab301bbb6afa5cf9b0fef51bdf4de74685dd31ca3dd29c5"
+    },
+    {
+      "path": "server19_baked.py",
+      "role": "offline_tool",
+      "bytes": 62588,
+      "sha256": "796c8ed883ca997ac29ad310b851de92fb9188c8054c2a8f980529bf9669cbe6"
+    },
+    {
+      "path": "server19_baked_trace.py",
+      "role": "reference_recipe",
+      "bytes": 5961,
+      "sha256": "30d2b3320ffafe1a7d75c059a2488a84737371d0fc4c9dd8411a3d93371d063b"
+    },
+    {
+      "path": "server19_batch_diagnostics.py",
+      "role": "reference_recipe",
+      "bytes": 17556,
+      "sha256": "b2c05a6fc1577a66a7a8acaf5024400a22724809baa67363f5673d3da2522666"
+    },
+    {
+      "path": "server19_battle_session.py",
+      "role": "runtime",
+      "bytes": 2301,
+      "sha256": "58e7b18f9fffb7f8febc6f3e577fde42cd3dce418bb64053b03db405df0e2e09"
+    },
+    {
+      "path": "server19_build.py",
+      "role": "reference_recipe",
+      "bytes": 6189,
+      "sha256": "b1bb91e22f25e1ae309e490d13fc72cb95afbe0876d2a90ef9a1ad971e89a620"
+    },
+    {
+      "path": "server19_build_capabilities.py",
+      "role": "runtime",
+      "bytes": 1924,
+      "sha256": "3d183be6c388179a6cd310699fc76348cebc7f12b4e8566d18b844d7d445eb93"
+    },
+    {
+      "path": "server19_bulletin.py",
+      "role": "runtime",
+      "bytes": 2848,
+      "sha256": "85dd69d0e37d24526c80e60818b705db5fca6d9bcbd307c4614806984bb11091"
+    },
+    {
+      "path": "server19_business_clock.py",
+      "role": "runtime",
+      "bytes": 891,
+      "sha256": "db0e1c863db36f161a2fbfcd4e9642cd3c64c68d94f4220d856967abb7994900"
+    },
+    {
+      "path": "server19_cabin.py",
+      "role": "runtime",
+      "bytes": 21268,
+      "sha256": "b8b134c8ccfa4aaf90f67235c8fc249388c3ae798a5b5531193bba85a6c3bfcd"
+    },
+    {
+      "path": "server19_cg_resources.py",
+      "role": "reference_recipe",
+      "bytes": 52281,
+      "sha256": "0e650220a98d098074edadc7ae464a2d3171f76090852d5eee6dda60f2239457"
+    },
+    {
+      "path": "server19_challenge_texts.py",
+      "role": "reference_recipe",
+      "bytes": 3502,
+      "sha256": "80252da7d3a1af2df7662ca614a060020904e22a069db6abbed8855854e09d5d"
+    },
+    {
+      "path": "server19_chapter1_delivery.py",
+      "role": "reference_recipe",
+      "bytes": 6922,
+      "sha256": "1e15bba59733ff11147688d033055e9ae071d7d7accd07d9c2aed63009755faf"
+    },
+    {
+      "path": "server19_chapter1_metadata.py",
+      "role": "reference_recipe",
+      "bytes": 6731,
+      "sha256": "bcc145e0bebdff42075be781604a23cbaad73e428fcf2293f825c3a6f6847eee"
+    },
+    {
+      "path": "server19_chapter1_readonly_audit.py",
+      "role": "reference_recipe",
+      "bytes": 20961,
+      "sha256": "68eeca07ee201ddf22aa6aa69fec15d8edc0f6d6ed761f4dff514cc5cf78371b"
+    },
+    {
+      "path": "server19_chapter1_resources.py",
+      "role": "reference_recipe",
+      "bytes": 58847,
+      "sha256": "1ae3dd1820a6787f93cd22f5f24c3b58fe1f80f51fe0f8d6e397d93f18d11ab5"
+    },
+    {
+      "path": "server19_chiyou_buffs.py",
+      "role": "reference_recipe",
+      "bytes": 4872,
+      "sha256": "207d626766b594409a2b673af07663c436dc6710b8d5b6b59e6942a63a8b38d2"
+    },
+    {
+      "path": "server19_chiyou_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 5296,
+      "sha256": "cce9c9d238fa7518c4c007cab04c657c617a54f6f02843668cdf9147f4235e37"
+    },
+    {
+      "path": "server19_chiyou_dependencies.py",
+      "role": "reference_recipe",
+      "bytes": 7097,
+      "sha256": "a8ce86b81a441482316721a43ec3d75ef5b42a117e14bed3ccf9edb234476d64"
+    },
+    {
+      "path": "server19_chiyou_rooms.py",
+      "role": "reference_recipe",
+      "bytes": 5996,
+      "sha256": "1d8f711af79ef466caca547a91bdc7313b9faa74ce7c5013d06293d667297eab"
+    },
+    {
+      "path": "server19_client_patch.py",
+      "role": "reference_recipe",
+      "bytes": 5416,
+      "sha256": "85a78279eea639370160fef34321892d0c85c0e6169c5968e41be0ee5ae19862"
+    },
+    {
+      "path": "server19_commission_catalog.py",
+      "role": "runtime",
+      "bytes": 2636,
+      "sha256": "4016cf780f34a573ad6434f0e45600173740b8e4194200f1a7da0609c95b3b55"
+    },
+    {
+      "path": "server19_commission_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 5083,
+      "sha256": "7d4ff94c82680dd2ccf4bbd0d39619e3091c7ed7e7ade93c93db4036535f0823"
+    },
+    {
+      "path": "server19_commissions.py",
+      "role": "runtime",
+      "bytes": 14685,
+      "sha256": "14dbf6ee9c52ea13059bdb028df84f2c2bbe8577ae4542d578a04c60da2c41b1"
+    },
+    {
+      "path": "server19_config_cache.py",
+      "role": "runtime",
+      "bytes": 1057,
+      "sha256": "0bb7126646f239a2593e2f166faa8a6a531156f0bcd005dfc508dc4d3747951e"
+    },
+    {
+      "path": "server19_cooking.py",
+      "role": "runtime",
+      "bytes": 3337,
+      "sha256": "d600c4844988ac2cbf3ddbc76b3173f0577549f8496d81eaec37eac0c70d7532"
+    },
+    {
+      "path": "server19_cooking_native.py",
+      "role": "reference_recipe",
+      "bytes": 4182,
+      "sha256": "611fdd98736554ec8abdd6abb544cf42071401683240ef7177ec4b2b719c0022"
+    },
+    {
+      "path": "server19_cooking_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 2346,
+      "sha256": "1da03370ab4ff5943005ff26af06d7bbd5c57b6d98f3b34f7a6a72803c988022"
+    },
+    {
+      "path": "server19_cultivation_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 4765,
+      "sha256": "9c8a3e9202e43dcd6f0b43b1d569d2ab6e2d7cab6a8d80e91b9bda7eb893f3e0"
+    },
+    {
+      "path": "server19_decode_trace.py",
+      "role": "reference_recipe",
+      "bytes": 6097,
+      "sha256": "11a5a5e8f4beb19f18fe1720ad3f6607d33b66040b1545609b2018be5ed5f2b2"
+    },
+    {
+      "path": "server19_device.py",
+      "role": "reference_recipe",
+      "bytes": 7096,
+      "sha256": "862618485272749ebfbf0bfbd88271a96512e85dc89c59493f998f91263ce081"
+    },
+    {
+      "path": "server19_duty.py",
+      "role": "runtime",
+      "bytes": 20146,
+      "sha256": "83ea8fe4be23f059dedd0c6cf4e995562837f229d43f669049588e8643239544"
+    },
+    {
+      "path": "server19_endless.py",
+      "role": "runtime",
+      "bytes": 14629,
+      "sha256": "3704cdd6e32b903ec611ddd9349d1e43a69de3f62e0e823013cde617431053d0"
+    },
+    {
+      "path": "server19_endless_climate.py",
+      "role": "runtime",
+      "bytes": 6429,
+      "sha256": "f370fd1815d3a44cd4037d1b348efaab1225fa4d46bcc773adbd669085be92b8"
+    },
+    {
+      "path": "server19_endless_native.py",
+      "role": "reference_recipe",
+      "bytes": 4574,
+      "sha256": "dc464b202abfca3fa1155f9e0bbbe0436c695d1b79c60049b69cc9ccdbb258e6"
+    },
+    {
+      "path": "server19_endless_pool_fix.py",
+      "role": "reference_recipe",
+      "bytes": 1154,
+      "sha256": "8917f9d1ab9c9dccb6ae8aeb8e1938fdf39ef8776c0a73588da537d121463653"
+    },
+    {
+      "path": "server19_endless_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 8749,
+      "sha256": "fbcb1ccdfd8f7911029d2970f21c834ad09e0d4e051de4369a1283b58f477dc1"
+    },
+    {
+      "path": "server19_equip_sweep.py",
+      "role": "reference_recipe",
+      "bytes": 7205,
+      "sha256": "2c4b8bb855eb6d5ccd507cac8cb22b379f8bf037b169666c273f5750f857bea4"
+    },
+    {
+      "path": "server19_equipment.py",
+      "role": "runtime",
+      "bytes": 33060,
+      "sha256": "d512c3b3820cb1ae3371df575a92ee505d7f09339c88f2c329cddcc859e0f517"
+    },
+    {
+      "path": "server19_equipment_battle_closure.py",
+      "role": "reference_recipe",
+      "bytes": 36724,
+      "sha256": "f6d73188a676b2a2be445ef5540421a9601cb270fa2468948d732c52f890adf1"
+    },
+    {
+      "path": "server19_exchange.py",
+      "role": "runtime",
+      "bytes": 5633,
+      "sha256": "ab7636aaf0c81476a2a0b904f7dd2e74f50aa1a02424d37d12c462b7f2bca1fe"
+    },
+    {
+      "path": "server19_extra_achievements.py",
+      "role": "runtime",
+      "bytes": 2145,
+      "sha256": "3751c647a5a2f9ed2b1807d40e17371c94c27b7e4a10d7cf4cc986080d43e702"
+    },
+    {
+      "path": "server19_extra_story.py",
+      "role": "runtime",
+      "bytes": 5204,
+      "sha256": "f577ccb55b7cee35dd37d002d2ffc087bef82a731327d4b00382dee01ef2a5ac"
+    },
+    {
+      "path": "server19_extra_story_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 4654,
+      "sha256": "7bc6e170d52ef379441ad7b18a4f44119788d2dc03358a9dbf7f06d2cd6c2808"
+    },
+    {
+      "path": "server19_extract_protocol.py",
+      "role": "offline_tool",
+      "bytes": 4097,
+      "sha256": "f56544eba449570dafbb8f7dba19f5820507a8687f391df6674c102dad30065e"
+    },
+    {
+      "path": "server19_fastcopy.py",
+      "role": "runtime",
+      "bytes": 653,
+      "sha256": "8e48bfa58719f32c77a615a28e63fb420d7642201b0d9ab5c4e092bd535053b6"
+    },
+    {
+      "path": "server19_friends.py",
+      "role": "runtime",
+      "bytes": 3527,
+      "sha256": "cf322b787186cbbfdc39a243d35fde985ddc0ca58271ea682ad1b8de30757a13"
+    },
+    {
+      "path": "server19_friends_build.py",
+      "role": "reference_recipe",
+      "bytes": 3358,
+      "sha256": "add6ba2e3f9e00f7dbd1f9e544cc6e2c3bc8cec24310eb2021a6f589098461a4"
+    },
+    {
+      "path": "server19_fuka601_abilities.py",
+      "role": "reference_recipe",
+      "bytes": 8558,
+      "sha256": "5f0f30cf9c471b091cc118087a099a1b207a84a2cd4558b7ef2624d42f07fc39"
+    },
+    {
+      "path": "server19_fuka601_asset_bundle.py",
+      "role": "reference_recipe",
+      "bytes": 20295,
+      "sha256": "9d194e63745c8fa29843a004aa5c36ff7aa2bed6835a1440d30975040a64dc66"
+    },
+    {
+      "path": "server19_fuka601_asset_extract.py",
+      "role": "reference_recipe",
+      "bytes": 10978,
+      "sha256": "de7ab0af2cd838caa6abcde7c7cc88f30f9770a0f3b46776880f0823592edd3a"
+    },
+    {
+      "path": "server19_fuka601_candidate.py",
+      "role": "reference_recipe",
+      "bytes": 10647,
+      "sha256": "ab23e2673a2df8f775355b66d9628efe6e4d5b335164da18ce097d7612e415ff"
+    },
+    {
+      "path": "server19_fuka601_deploy.py",
+      "role": "reference_recipe",
+      "bytes": 6848,
+      "sha256": "d4f7bec91be711d76ac2dd4bbfe0b92c1d4cd1502a0578041808e3f49557f730"
+    },
+    {
+      "path": "server19_fuka601_native_audit.py",
+      "role": "reference_recipe",
+      "bytes": 4486,
+      "sha256": "6c9cf464cfc8b29d09a7c02e91541c37c89f5f022a0aefa59e9452beaf60a37f"
+    },
+    {
+      "path": "server19_fuka601_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 11335,
+      "sha256": "e1a82019c9ff0f51dbeb39d90c6a030a4f49cf3262fcf323589a6a5df76c8a14"
+    },
+    {
+      "path": "server19_fuka601_runtime.c",
+      "role": "offline_tool",
+      "bytes": 5854,
+      "sha256": "bed05ed9b7ec08c968dbac3f61eb9c1063cfd1545d8b56beee32fe0d362641cc"
+    },
+    {
+      "path": "server19_fuka601_server.py",
+      "role": "reference_recipe",
+      "bytes": 4301,
+      "sha256": "ae9938c19f39653804e9dbf4c96eba0233135a6bd1bc64a91c5b01bb90422aa9"
+    },
+    {
+      "path": "server19_gacha.py",
+      "role": "runtime",
+      "bytes": 38104,
+      "sha256": "6fe5b4d89e2c9c3890d0af4984b2a152750ac8e2f22116a6a4352f5a5a757894"
+    },
+    {
+      "path": "server19_gacha_cache.py",
+      "role": "runtime",
+      "bytes": 2711,
+      "sha256": "e5063f96010e078964e2547d89a51ff5ec2afb60d709dad6292a13648201f96a"
+    },
+    {
+      "path": "server19_gacha_compose.py",
+      "role": "reference_recipe",
+      "bytes": 5717,
+      "sha256": "24303b3ee603890c47287706bb6b355bdcada0b3634df31ed9883206d4613cb7"
+    },
+    {
+      "path": "server19_gacha_images.c",
+      "role": "offline_tool",
+      "bytes": 4985,
+      "sha256": "72e9b14e4171f854ac8cb56df6d585cf52406bc4974d3cc8fd3122bcf8363a8d"
+    },
+    {
+      "path": "server19_gacha_images.py",
+      "role": "reference_recipe",
+      "bytes": 8658,
+      "sha256": "395f6ab5596f77e0e468dd049a23c08a4aa6a66f87cf643bc67072552dcd56b7"
+    },
+    {
+      "path": "server19_gacha_native_art.py",
+      "role": "reference_recipe",
+      "bytes": 3382,
+      "sha256": "7cfbc98302362e557c2fc11b66ff1aa5b42e367209ff19402e9e422a47e0c71a"
+    },
+    {
+      "path": "server19_gacha_policy.json",
+      "role": "policy",
+      "bytes": 434,
+      "sha256": "ac0b594987c9e6e70ea2baf84979b852e487afec7ebf8f4e162b68adc87d894d"
+    },
+    {
+      "path": "server19_gacha_policy.py",
+      "role": "runtime",
+      "bytes": 12731,
+      "sha256": "b4fb884e1c6fa3f782709035242dd9185cdbf1191825e8b79b24590d5decd51a"
+    },
+    {
+      "path": "server19_galtouch.py",
+      "role": "runtime",
+      "bytes": 1758,
+      "sha256": "c15f21c02a38a1352a4bfa631bde41cb5813a460eeb2b79eb55b28e731329ad5"
+    },
+    {
+      "path": "server19_gyro_guard.py",
+      "role": "reference_recipe",
+      "bytes": 11834,
+      "sha256": "37630a37a19567ee67396791303647bd6399cbef62aac933e8e51d85e526a7de"
+    },
+    {
+      "path": "server19_http.py",
+      "role": "runtime",
+      "bytes": 4331,
+      "sha256": "43fc21af852fd39bf891621e45b34ca043ffe253f61147846d1c8216a1e51c42"
+    },
+    {
+      "path": "server19_initialization.py",
+      "role": "runtime",
+      "bytes": 13968,
+      "sha256": "76d54bf1bc64f8ff9ab86b3c3b63e3d273e3b5b0cf57e4436b16ad09e7689840"
+    },
+    {
+      "path": "server19_json_resources.py",
+      "role": "reference_recipe",
+      "bytes": 7882,
+      "sha256": "a929d62b1367928c47d4f5b1d15384759321a144e7df3b3fca794b3e4cb47c85"
+    },
+    {
+      "path": "server19_kallen_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 3342,
+      "sha256": "6b29800b271be700322b96415b3b9b421081e92d1ce337c59a071fffa5e206cc"
+    },
+    {
+      "path": "server19_medal_ability_fix.py",
+      "role": "reference_recipe",
+      "bytes": 3673,
+      "sha256": "113c4faca6a389b6120da00dfa9f86dc67102a21b3f27d9694dcd70947f32663"
+    },
+    {
+      "path": "server19_metadata.py",
+      "role": "reference_recipe",
+      "bytes": 8212,
+      "sha256": "df85c06d81506efef81af841c1258bf38f6a040f69aac88eea4f397c1f9ef6d7"
+    },
+    {
+      "path": "server19_metadata_export.py",
+      "role": "offline_tool",
+      "bytes": 60357,
+      "sha256": "c702610ca24dde2f5e5721b5b436199ff2cc00b25d7e5d9204319e45f79d586e"
+    },
+    {
+      "path": "server19_missions.py",
+      "role": "runtime",
+      "bytes": 24787,
+      "sha256": "f8d14f02f07d0b86aeda67abb7d42d9f459972e250d26ce58d0d72b4fa7f9662"
+    },
+    {
+      "path": "server19_missions_selftest.py",
+      "role": "reference_recipe",
+      "bytes": 16892,
+      "sha256": "eede1224fb5aabe316fa75e2ec77262ff1e6bb0612dd78fa8437f275d2e0b517"
+    },
+    {
+      "path": "server19_mixed_team_ability.py",
+      "role": "reference_recipe",
+      "bytes": 4997,
+      "sha256": "108f4e157d384ca08a7e3539406cdcf25f9b46530f6ac5e572c9c6bb403082d8"
+    },
+    {
+      "path": "server19_newbie.py",
+      "role": "runtime",
+      "bytes": 7483,
+      "sha256": "5f70af91d98a2da94187c62eac3331ca8c154a5be7a64124ba876f28671aa132"
+    },
+    {
+      "path": "server19_offline_channel_settings.py",
+      "role": "reference_recipe",
+      "bytes": 7830,
+      "sha256": "f29613e781e696ad641bbbf804611ed33f8e027403bf5c9686cdaafc82d4c4b2"
+    },
+    {
+      "path": "server19_openworld.py",
+      "role": "runtime",
+      "bytes": 19095,
+      "sha256": "221e410816a2f65cea547582c6d70ae80ef987d3491e429ad2639623c4933b53"
+    },
+    {
+      "path": "server19_player_progression.py",
+      "role": "runtime",
+      "bytes": 3471,
+      "sha256": "6ea0034c4580925bcc8a451bc33316fbf7725a79178d83f09dc3c8454c3ce310"
+    },
+    {
+      "path": "server19_portable.py",
+      "role": "runtime",
+      "bytes": 5199,
+      "sha256": "323af1327505e8800f0e5c4e24a2fb0f4e22bbdb2412a469d68c5d3c78fea0d5"
+    },
+    {
+      "path": "server19_profile.py",
+      "role": "runtime",
+      "bytes": 5422,
+      "sha256": "60e9913a60830a9af335333ce39cfe631801a5a065dfb2e753f7a76dab49f3b1"
+    },
+    {
+      "path": "server19_progression.py",
+      "role": "runtime",
+      "bytes": 6403,
+      "sha256": "6cd7981db706dfb08d17f17fa3e1cd2d5e58219bca581d86253ea6f69c3fc7ae"
+    },
+    {
+      "path": "server19_protocol.py",
+      "role": "runtime",
+      "bytes": 9560,
+      "sha256": "145b3d59468df29ba8fc51822f6566db5aec5cb415fc13d600dae30bde194a70"
+    },
+    {
+      "path": "server19_readonly_bundle_sprites.py",
+      "role": "reference_recipe",
+      "bytes": 4278,
+      "sha256": "4e6135c260094abeb2545a8f2af64f9890354481d645980404056639378a314d"
+    },
+    {
+      "path": "server19_recharge.py",
+      "role": "runtime",
+      "bytes": 3362,
+      "sha256": "f6daa1e8518818609d8affe7b36b994fff155c5e6155b5a96ddd52110167e5ec"
+    },
+    {
+      "path": "server19_recharge_client.c",
+      "role": "offline_tool",
+      "bytes": 2375,
+      "sha256": "55d5a2d4c8635fc353f11a64bb7fd2ea78bd896667c9cb78562027c471a6da70"
+    },
+    {
+      "path": "server19_recharge_client.py",
+      "role": "reference_recipe",
+      "bytes": 6925,
+      "sha256": "71f1bd8dac75425a6bb0be8d614b115b0093913d830f57d49bbf01662795f1bd"
+    },
+    {
+      "path": "server19_recharge_welfare.py",
+      "role": "runtime",
+      "bytes": 4801,
+      "sha256": "2cce0eafa6498a1458de95088b80a71bbb0ef4baa66d152d12b2cfd68838e3bc"
+    },
+    {
+      "path": "server19_repeat_drop_policy.json",
+      "role": "policy",
+      "bytes": 264,
+      "sha256": "540203c59865a42526799e4860f08d79a2cb9e3d3dbf42882bef9ed08e4a27cd"
+    },
+    {
+      "path": "server19_repeat_drops.py",
+      "role": "runtime",
+      "bytes": 6930,
+      "sha256": "442ffb9e78cfe43b0881a7fca731105a375bc5b14507ea72a759d4f61deba1a6"
+    },
+    {
+      "path": "server19_request_cost.py",
+      "role": "runtime",
+      "bytes": 2713,
+      "sha256": "1fdd81b080fb0ac2899cf82b7be5cccfa22e3a0e978578e6ab7f92699d0180ee"
+    },
+    {
+      "path": "server19_resources.py",
+      "role": "offline_tool",
+      "bytes": 18062,
+      "sha256": "991165867da442bc58ff35441ebaac75e1b8beaa9c0f35124cfe4bf47f05a978"
+    },
+    {
+      "path": "server19_restart_trace.py",
+      "role": "reference_recipe",
+      "bytes": 5387,
+      "sha256": "061c60ea55f2bfa8ed65966dc6a3b8bccd5ec953930db0a54a87d23609a6cf1a"
+    },
+    {
+      "path": "server19_revive_resources.py",
+      "role": "reference_recipe",
+      "bytes": 2256,
+      "sha256": "b527be9e96ca5a4876c299d8f020b8201281cd929e625fb4653fc22b47fa2e18"
+    },
+    {
+      "path": "server19_sakura_areas.py",
+      "role": "runtime",
+      "bytes": 1742,
+      "sha256": "0f25566a09774559ca4f6b3fbc0e2261c25f17a5de1f973198ff51314d883278"
+    },
+    {
+      "path": "server19_sakura_cycle3_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 3319,
+      "sha256": "59e27aad848bc309b2f0676053ec79ffd3d49505ad1b7eac06631276a44aa531"
+    },
+    {
+      "path": "server19_sakura_cycle4_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 6398,
+      "sha256": "8d1a10a5fdf01593c0a4882ed83f161e710249050579565c02967e912d1ebc0c"
+    },
+    {
+      "path": "server19_sakura_equipment.py",
+      "role": "reference_recipe",
+      "bytes": 3420,
+      "sha256": "7484454935272eb00ee7f98d5aff464045236be897c48c377a5f3f372e7db108"
+    },
+    {
+      "path": "server19_sakura_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 4043,
+      "sha256": "e4a6cb4b424a5a9579acf045d7e165596963bf6d85fbe0fc901ab5b67d9d8ce7"
+    },
+    {
+      "path": "server19_sakura_resources.py",
+      "role": "reference_recipe",
+      "bytes": 11961,
+      "sha256": "c834919541b28ace93c79d3a53e2558d14db01c052d5c1f16fd1212a631319fb"
+    },
+    {
+      "path": "server19_sakura_servant.py",
+      "role": "runtime",
+      "bytes": 1684,
+      "sha256": "ef3ec8ad6f9b224591ab225a558a0c44e4121b4f3abe2dcaea93f6ceddbb11f3"
+    },
+    {
+      "path": "server19_shared_animation_fix.py",
+      "role": "reference_recipe",
+      "bytes": 6721,
+      "sha256": "87844cfacfb49d0b3fc86a198ff442241357ce8619755d14a567b1ea6429acb4"
+    },
+    {
+      "path": "server19_shop.py",
+      "role": "runtime",
+      "bytes": 14621,
+      "sha256": "751e1e4fe72124b3aff438d073a0bf28dd2507f39768b6731eb6a912fc9aab89"
+    },
+    {
+      "path": "server19_shop_config.json",
+      "role": "policy",
+      "bytes": 5476,
+      "sha256": "ce620084ffc7098445141a9f5bb1b5ffcd587829586da20a33aea345b4f94261"
+    },
+    {
+      "path": "server19_shop_resources.py",
+      "role": "reference_recipe",
+      "bytes": 2773,
+      "sha256": "8ffb5d597334a0678a6d26d54f95a8e69f021214bed15954f8940f74903a8994"
+    },
+    {
+      "path": "server19_signin.py",
+      "role": "runtime",
+      "bytes": 4961,
+      "sha256": "0e922a8c2b9f099afcefd4090507f6422f39437b13116656b2364ddb847e2efc"
+    },
+    {
+      "path": "server19_sony_backtrace.py",
+      "role": "reference_recipe",
+      "bytes": 2744,
+      "sha256": "81aab9f5c3661fab0dcb32071ffcc777ebe1939283cf4dd8061b540a1ea26cdb"
+    },
+    {
+      "path": "server19_sony_monitor.py",
+      "role": "reference_recipe",
+      "bytes": 2081,
+      "sha256": "ef95c3713ceca677d3b32e932dd34c32e8bda179ea20450366aaf875d015b242"
+    },
+    {
+      "path": "server19_sony_update_bundle.py",
+      "role": "reference_recipe",
+      "bytes": 5408,
+      "sha256": "0a8dc7bfca710a7b8cc9921dae515de7b88cbf6e96bb10217a293857a2917fb6"
+    },
+    {
+      "path": "server19_stage.py",
+      "role": "runtime",
+      "bytes": 50790,
+      "sha256": "5528fcab716eb25ba5579fc0bb01800381a884ab1fd895953a4ca1247be23028"
+    },
+    {
+      "path": "server19_stage10107_check.py",
+      "role": "reference_recipe",
+      "bytes": 10603,
+      "sha256": "e6099b055beea4d1dc03a5932adf708690e0f3a9e735f0ee1553713f7fc20972"
+    },
+    {
+      "path": "server19_stage10116_fix.py",
+      "role": "reference_recipe",
+      "bytes": 5152,
+      "sha256": "f74a69f6e0e8e1bc94c8da8293f3b51c88fba73b7ebb54beaf7a86c66c62c7d0"
+    },
+    {
+      "path": "server19_stage_abilities.py",
+      "role": "reference_recipe",
+      "bytes": 136819,
+      "sha256": "302567d1145033ee15b73a1ba5ae74699844b6158b9545b912025983ffec13f3"
+    },
+    {
+      "path": "server19_stage_display.py",
+      "role": "runtime",
+      "bytes": 5148,
+      "sha256": "0f3050c67a2c955bdac31e118bea48e1e63230d45ba8c1bd505927d8273bdb91"
+    },
+    {
+      "path": "server19_stage_monsters.py",
+      "role": "reference_recipe",
+      "bytes": 52600,
+      "sha256": "c2dcf9f9678709b35c078a175a7d4a704e7e392bfcbcc274bbd9f9d4cc24b63a"
+    },
+    {
+      "path": "server19_stage_npc_levels.py",
+      "role": "reference_recipe",
+      "bytes": 21188,
+      "sha256": "080d6e9e28fbd7a5fff7aecf7a63e3e5952d5df2405c0c2b8c5938e36f753c12"
+    },
+    {
+      "path": "server19_stage_props.py",
+      "role": "reference_recipe",
+      "bytes": 40192,
+      "sha256": "dedea73e68092a41118e77b488c587c6f72bbe003aaaccdd6181e69aee32fcd8"
+    },
+    {
+      "path": "server19_stage_resources.py",
+      "role": "reference_recipe",
+      "bytes": 62860,
+      "sha256": "135202f1c79252f74aac5f77d3f63411f5521a4487de40bd74bbede0381f5a29"
+    },
+    {
+      "path": "server19_stage_reward_compat.py",
+      "role": "offline_tool",
+      "bytes": 2847,
+      "sha256": "fc259f52e83d9d2ab94e43e699030c1f7cf26dbf29b1ccab460126a36d8afa66"
+    },
+    {
+      "path": "server19_stage_rewards.py",
+      "role": "runtime",
+      "bytes": 13298,
+      "sha256": "6110cd3cf7062f9affab77b4ced724fab39db7662b7deeaa441368d5616b0006"
+    },
+    {
+      "path": "server19_stage_rewards_check.py",
+      "role": "reference_recipe",
+      "bytes": 17181,
+      "sha256": "ba4bfbdd0ad3fd4af71e4fa611298f533af4d43ff0705dcc9b5b6a6379291f43"
+    },
+    {
+      "path": "server19_story_all_resources.py",
+      "role": "reference_recipe",
+      "bytes": 40908,
+      "sha256": "3b0dd483a9021cc3a2996dd7f0e9c1f2a882a6dc14cb680c436af83324c0ea6f"
+    },
+    {
+      "path": "server19_story_all_server.py",
+      "role": "runtime",
+      "bytes": 4418,
+      "sha256": "684eca731dd5c240f65c7d4037e2e6d0f53c67f673eaf6f331fd44ddc0364ba5"
+    },
+    {
+      "path": "server19_story_avatar_runtime.py",
+      "role": "reference_recipe",
+      "bytes": 6545,
+      "sha256": "b0a63b3a00e6c0303894e2378ef8cb73fe63e0014a3f28863b61b5765fa704be"
+    },
+    {
+      "path": "server19_story_batch_check.py",
+      "role": "reference_recipe",
+      "bytes": 15730,
+      "sha256": "44577669c1a5e698479f5973cd17545c1e8abf195a0df683d3b4305c2c5e96ed"
+    },
+    {
+      "path": "server19_story_batch_delivery.py",
+      "role": "reference_recipe",
+      "bytes": 7445,
+      "sha256": "0b24be727d3345afcf61d6ba78d6feb3db306f4cda38d38fda3c336dbcb1599f"
+    },
+    {
+      "path": "server19_story_batch_deploy.py",
+      "role": "reference_recipe",
+      "bytes": 8200,
+      "sha256": "d76a5afa7897de7631b7e0048654a91da69d8900bc749543007d1470956ed1ad"
+    },
+    {
+      "path": "server19_story_batch_monitor.py",
+      "role": "reference_recipe",
+      "bytes": 12334,
+      "sha256": "abd8f88d3d894631d98464bc9e5c1a1cb03cd2872af423b2a91e11ef0f152f6a"
+    },
+    {
+      "path": "server19_story_batch_resources.py",
+      "role": "reference_recipe",
+      "bytes": 29187,
+      "sha256": "751b9a5dc1881e944506e177efa7f92d6ac46d33ed31d1223688709ca91fbfd9"
+    },
+    {
+      "path": "server19_story_chapter6_abilities.py",
+      "role": "reference_recipe",
+      "bytes": 12185,
+      "sha256": "06dc3888f27980819b0b96db4f50f9d17c1ec02e2ff0357b9578953c8091be0c"
+    },
+    {
+      "path": "server19_story_exitfield.py",
+      "role": "reference_recipe",
+      "bytes": 4396,
+      "sha256": "255b69e7cf8058b7a1c75921211ed340b8c3c9e54f0c3e7b587f8d5594ab1a97"
+    },
+    {
+      "path": "server19_story_fake_avatars.py",
+      "role": "reference_recipe",
+      "bytes": 3890,
+      "sha256": "b5784c446f34d2a405b4e14e4610eb6e4ddcc92995807438a23b0fe3458e4417"
+    },
+    {
+      "path": "server19_story_fire_prop_runtime.py",
+      "role": "reference_recipe",
+      "bytes": 6622,
+      "sha256": "67bc6a7198f4860ac7eaf64d106edfc1cd09e2581977fea3030964e40e6c95fe"
+    },
+    {
+      "path": "server19_story_followup_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 3916,
+      "sha256": "d02e36f8e0fcef26d4c5cf854ba5e879afe999a8a020ff390e0c3a94e9523214"
+    },
+    {
+      "path": "server19_story_goal_prepare.py",
+      "role": "reference_recipe",
+      "bytes": 7341,
+      "sha256": "d51850f1477ac16688542c3b85f454c09de6ac11fec252150365892cd9b3b98c"
+    },
+    {
+      "path": "server19_story_goods_elite.py",
+      "role": "reference_recipe",
+      "bytes": 4453,
+      "sha256": "8ed9017673cc3a30b38caea405f7ff8e9daea29c223123f14903cd0dd6f8ac85"
+    },
+    {
+      "path": "server19_story_lua_compat.py",
+      "role": "reference_recipe",
+      "bytes": 1812,
+      "sha256": "38ac3ead0eb6994193830b5de919745615811ac616658168cabe3c2443829c08"
+    },
+    {
+      "path": "server19_story_mission_extension.py",
+      "role": "runtime",
+      "bytes": 3365,
+      "sha256": "2051e7176350e0c4adc3ba4ed5a17e89f68a29644fb6fbcc03d2a9ac16908b82"
+    },
+    {
+      "path": "server19_story_movement_bridge.py",
+      "role": "reference_recipe",
+      "bytes": 3919,
+      "sha256": "efabed3fc739b7f49c4d61e006cef9759819967f5d8b3500b71c123aff397ee8"
+    },
+    {
+      "path": "server19_story_npc_level_closure.py",
+      "role": "reference_recipe",
+      "bytes": 5765,
+      "sha256": "f402a344dcf092a4dc6e9a95cbdc9fc9ce87b5fd2a37d179d7d2f8ed14ecac04"
+    },
+    {
+      "path": "server19_story_openworld_abilities.py",
+      "role": "reference_recipe",
+      "bytes": 5833,
+      "sha256": "cb084897dc7ce0b631210030a5d024ec6d76f72c8f0aff8c7fac05f64c910e69"
+    },
+    {
+      "path": "server19_story_openworld_monsters.py",
+      "role": "reference_recipe",
+      "bytes": 4583,
+      "sha256": "1d82ee34ebc88824efbb58541526d1a8fa19123595013fcb5b51e986e14349a1"
+    },
+    {
+      "path": "server19_story_openworld_scope.py",
+      "role": "reference_recipe",
+      "bytes": 8512,
+      "sha256": "6bd84974c55da125f6f7392fcc8d5cecff4aad599d4dbe175620e45d989e5d1e"
+    },
+    {
+      "path": "server19_story_poly_dispatch.py",
+      "role": "reference_recipe",
+      "bytes": 4998,
+      "sha256": "8e18d8b38ca36a305b6a3316ebba6991caa1c059ffeaa0ef0dedb22e91c00de2"
+    },
+    {
+      "path": "server19_story_shield_bridge.py",
+      "role": "reference_recipe",
+      "bytes": 4936,
+      "sha256": "2b22a7636a7c66959882e3a60d80b4c6342cc8a7491f0465e6034ef530fa4a52"
+    },
+    {
+      "path": "server19_story_streaming_voice.py",
+      "role": "reference_recipe",
+      "bytes": 3948,
+      "sha256": "aded7c3b72df86bc6162d9a87bf4fb646fe53c6eb9c8974a9a543f1393a695c0"
+    },
+    {
+      "path": "server19_story_trial_policy.py",
+      "role": "runtime",
+      "bytes": 3457,
+      "sha256": "de401e0ee290c9e4f9ca40ce38262543706d3362f9c4126902fd3782b21f9a63"
+    },
+    {
+      "path": "server19_story_voice_audit.py",
+      "role": "reference_recipe",
+      "bytes": 3578,
+      "sha256": "1f9c3a398f5d8254efa4f2e349af025c92ce9368ab061a81452b541c14f75267"
+    },
+    {
+      "path": "server19_story_voice_bank.py",
+      "role": "reference_recipe",
+      "bytes": 10367,
+      "sha256": "9a3b273e920227f8ed93fdd62544dd0607bca29a3dc54693483aa46812d849d5"
+    },
+    {
+      "path": "server19_story_voice_coverage.py",
+      "role": "reference_recipe",
+      "bytes": 2157,
+      "sha256": "df6d57aac057be36d3cae96af6b394bff1c847177cd6e45cdd6cb91895f88b63"
+    },
+    {
+      "path": "server19_story_wave_abilities.py",
+      "role": "reference_recipe",
+      "bytes": 7660,
+      "sha256": "f1216e428c37c0f26096c779bff62102b664ea93d812f95337fae8370690fdce"
+    },
+    {
+      "path": "server19_story_weapon_runtime.py",
+      "role": "reference_recipe",
+      "bytes": 5457,
+      "sha256": "2ce3a974352fe28cec0299771f518db3330914801b52df70c6fdb2bb450fa938"
+    },
+    {
+      "path": "server19_table_cache.py",
+      "role": "runtime",
+      "bytes": 3679,
+      "sha256": "7c8f8abbab2bc8b7dbe2e2724f891d6ea6f242e27292d079e5ff1ef16a4c3757"
+    },
+    {
+      "path": "server19_text_loader.py",
+      "role": "reference_recipe",
+      "bytes": 5951,
+      "sha256": "b7df1e2c3594fa95823b6ef16ce0a586fba7f9b9c437f337263b0036792faef3"
+    },
+    {
+      "path": "server19_theresa_catalog.py",
+      "role": "reference_recipe",
+      "bytes": 5693,
+      "sha256": "3f446e6d7325d9fb128ba0d43f2f95621cce10196e7d3163cd37a399deb4618d"
+    },
+    {
+      "path": "server19_trace.py",
+      "role": "reference_recipe",
+      "bytes": 2813,
+      "sha256": "ca448e2d394e60abfe46b66b5838b05767270d675df37bf11cf594c6e36c2f5b"
+    },
+    {
+      "path": "server19_triumph_weapon_fix.py",
+      "role": "reference_recipe",
+      "bytes": 4577,
+      "sha256": "ae4435c427b0a48cb3a17d6004100d08208dfd42af271f8fb262591b3bc927cc"
+    },
+    {
+      "path": "server19_tutorial_ability_fix.py",
+      "role": "reference_recipe",
+      "bytes": 2945,
+      "sha256": "0b92654878adaa75872f9bd070e1d691ba8b0efe94a8f62006e09671e1721277"
+    },
+    {
+      "path": "server19_unlock_stage.py",
+      "role": "reference_recipe",
+      "bytes": 2563,
+      "sha256": "501235824437b27bbac66913588f5e9919cf7a6cfc254de2dec5871b978924a9"
+    },
+    {
+      "path": "tests/java/android/system/Os.java",
+      "role": "offline_tool",
+      "bytes": 814,
+      "sha256": "360d2e894b20262828eee31b54b7830bbce4d9857bfc7671917df09565c4a1bf"
+    },
+    {
+      "path": "tests/java/local/bh3/server19probe/LauncherStoreCheck.java",
+      "role": "offline_tool",
+      "bytes": 9715,
+      "sha256": "2d8e91bb33cdad373e56a9feefdec6ba1af08e21ad80ee9a87b9f0522b195971"
+    },
+    {
+      "path": "tests/test_build_capabilities.py",
+      "role": "offline_tool",
+      "bytes": 2493,
+      "sha256": "5b0fc2e6e85c0a35b56cf190b4498e4a198c1f3bfa96d3cfdb6df62750a49339"
+    },
+    {
+      "path": "tests/test_input_reference.py",
+      "role": "test",
+      "bytes": 2184,
+      "sha256": "fd261485ede37872e890a4691735017f21584b65af925dc566fb89841d4d5e16"
+    },
+    {
+      "path": "tests/test_packager.py",
+      "role": "offline_tool",
+      "bytes": 7376,
+      "sha256": "1ee08a7b079db4314f3fcea5404d0ce331da5add9e151b0633cd19218f778501"
+    },
+    {
+      "path": "tests/test_reference_assembly.py",
+      "role": "offline_tool",
+      "bytes": 2542,
+      "sha256": "c49d3ecdecb69cbfa8b11c34a65cc110736949f75d2e680f0b6a537d4caf8dc7"
+    },
+    {
+      "path": "tests/test_supplements.py",
+      "role": "tests",
+      "bytes": 2215,
+      "sha256": "eae32ee6c1bfb939de8b393361aca523635004f20bdeab7c2c7c49ca12493390"
+    },
+    {
+      "path": "tools/DesktopLauncher.cs",
+      "role": "tool_source",
+      "bytes": 1561,
+      "sha256": "6c2c11d38fc4ea205117594fdb43eb23802d4c88d95d602e7363596f6a9c89d1"
+    },
+    {
+      "path": "tools/check_source_boundary.py",
+      "role": "standalone_tool",
+      "bytes": 3025,
+      "sha256": "453e194f7d7b95055a694edbe53cb7c0a44924e81dd6925880f5d591feb83eb8"
+    },
+    {
+      "path": "tools/extract_client19.py",
+      "role": "standalone_tool",
+      "bytes": 1932,
+      "sha256": "abea7b455db3b144d17af7912ebc1c2a8b7822bf881b198817124450140e51f0"
+    },
+    {
+      "path": "tools/material_navigation.py",
+      "role": "standalone_tool",
+      "bytes": 2865,
+      "sha256": "5800c32d226c23636ca9ba485b87a2d0dace698d2cb6cdf416e1e80c9e9b1b49"
+    },
+    {
+      "path": "verify19_arm_external_unwind.py",
+      "role": "reference_recipe",
+      "bytes": 5010,
+      "sha256": "ef7d0dccb3499e61ea4ddddb08b9ef6444dbc29122fa62fce458e0ecffc57286"
+    },
+    {
+      "path": "verify19_arm_native.py",
+      "role": "reference_recipe",
+      "bytes": 6745,
+      "sha256": "d502de5f11fe0965cf2f06b38f91512e32cf1cd98ae07855c52eb7477e81c06a"
+    }
+  ],
+  "desktop_entry": "launch_gui.py",
+  "external_supplements_required": true
+}

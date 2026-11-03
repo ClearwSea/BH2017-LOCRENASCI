@@ -1,0 +1,2542 @@
+{
+  "schema": 1,
+  "status": "explicit migration backlog; not required user artifacts",
+  "files": [
+    {
+      "path": "probe19.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "ADB=['adb','-s','REFERENCE_DEVICE'];PKG='com.miHoYo.enterprise.NGHSoD'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/apply_all_shop_refactor.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "META_DIR = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        },
+        {
+          "line": 16,
+          "reference": "ACCOUNT_PATH = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json\""
+        },
+        {
+          "line": 147,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/shopgoodsdata\","
+        },
+        {
+          "line": 224,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-human-fixes-v1/textmap\","
+        },
+        {
+          "line": 269,
+          "reference": "ROOT / \".local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset/materialdata\","
+        },
+        {
+          "line": 270,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/materialdata\","
+        }
+      ]
+    },
+    {
+      "path": "scripts/apply_cabin_unlock.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 25,
+          "reference": "ROOT / \".local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 26,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 27,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 28,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 32,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/cabinleveldata\","
+        },
+        {
+          "line": 33,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/cabinleveldata\","
+        },
+        {
+          "line": 34,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/cabinleveldata\","
+        },
+        {
+          "line": 54,
+          "reference": "tsv_path = ROOT / \".local-baseline/server19-dev/resource-fallback/data/_exceloutput/cabinleveldata\""
+        },
+        {
+          "line": 96,
+          "reference": "device_id = \"REFERENCE_DEVICE\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/apply_shop_fine_refactor.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "META_DIR = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        },
+        {
+          "line": 16,
+          "reference": "TEXTMAP_PATH = ROOT / \".local-baseline/server19-dev/sony-human-fixes-v1/textmap\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/apply_touch_feel_boost.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/touchdata\","
+        },
+        {
+          "line": 29,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/touchdata\","
+        },
+        {
+          "line": 30,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/touchdata\","
+        },
+        {
+          "line": 34,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/touchleveldata\","
+        },
+        {
+          "line": 35,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/touchleveldata\","
+        },
+        {
+          "line": 36,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/touchleveldata\","
+        },
+        {
+          "line": 80,
+          "reference": "device_id = \"REFERENCE_DEVICE\""
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_server19_android_probe.ps1",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "& (Join-Path $repo '.local-baseline/server19-dev/sony-arm-tools/zig-0.15.2/zig.exe') cc -target arm-linux-musleabi -shared -nostdlib -fPIC -Os -fomit-frame-pointer -fno-stack-protector (Join-Path $project 'native/paths.c') -o (Join-Path $nativeOutput 'libserver19paths.so')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_server19_portable.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 56,
+          "reference": "base = '.local-baseline/server19-dev/'"
+        },
+        {
+          "line": 62,
+          "reference": "'chapter1-remaining-ready/runtime-ready.json', 'sony-human-fixes-v1/textmap',"
+        },
+        {
+          "line": 63,
+          "reference": "'cultivation-full-equipment-ready/runtime-ready.json',"
+        },
+        {
+          "line": 66,
+          "reference": "'story-all-20261015/runtime-ready.json', 'story-all-20261015/metadata/materialdata',"
+        },
+        {
+          "line": 71,
+          "reference": "files.update('server19-run/' + n for n in ["
+        },
+        {
+          "line": 81,
+          "reference": "extra = 'server19-run/kallen-20261025/all-open-delivery/'"
+        },
+        {
+          "line": 82,
+          "reference": "ready = json.loads((ROOT / extra / 'runtime-ready.json').read_bytes())"
+        },
+        {
+          "line": 84,
+          "reference": "files.update(extra + n for n in ['runtime-ready.json', 'stagedata_main', 'extrastorychapter',"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_chiyou_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "live=ROOT/'server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json'"
+        },
+        {
+          "line": 22,
+          "reference": "p=fixture/'runtime-ready.json';ready=read(p);ready['deployed']=True;p.write_text(json.dumps(ready))"
+        },
+        {
+          "line": 24,
+          "reference": "for name in read(BASE/'runtime-ready.json')['table_sha256']:"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_commission_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 31,
+          "reference": "catalog = CommissionCatalog(ROOT / 'server19-run/sakura-commissions-20261025/candidate-v1/catalog.json')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_cooking_native.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 14,
+          "reference": "ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        },
+        {
+          "line": 18,
+          "reference": "out=ROOT/'server19-run/sakura-cooking-20261026';r=json.loads((out/'native-currency-patch.json').read_bytes());im=ArmImage(out/'libil2cpp.cooking-coins.so',r['sha256']);cases=[]"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_endless_climate.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 18,
+          "reference": "out=ROOT/'server19-run/endless-temperature-mapping-20261027/integration';out.mkdir(exist_ok=True)"
+        },
+        {
+          "line": 50,
+          "reference": "cat=json.loads((ROOT/'server19-run/endless-20261026/candidate-v2-33/catalog.json').read_bytes());cat['climate_version']=1"
+        },
+        {
+          "line": 52,
+          "reference": "account=json.loads((ROOT/'server19-run/endless-baseline-20261027-v1/sony-account.json').read_bytes());s=account['endless_runtime'];now=s['begin']+100"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_kallen_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "prepare();live=ROOT/'server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json';raw=live.read_bytes();launcher=live.parent.parent/'run-comparison-server.py'"
+        },
+        {
+          "line": 21,
+          "reference": "p=fixture/'runtime-ready.json';ready=read(p);ready['deployed']=True;p.write_text(json.dumps(ready));extra.configure(fixture)"
+        },
+        {
+          "line": 23,
+          "reference": "for name in read(BASE/'runtime-ready.json')['table_sha256']:"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_sakura_cycle4.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "world.configure(ROOT / 'server19-run/sakura-cycle4-20261026/candidate-v1/catalog.json')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_server19_damage_switch.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "sys.path[:0]=[str(ROOT/'analysis-deps'),str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python')]"
+        },
+        {
+          "line": 18,
+          "reference": "O=ROOT/'server19-run/damage-switch-20261102';spec=json.loads((O/'native-patch.json').read_bytes());raw=(O/'client-damage-switch.so').read_bytes()"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_server19_read_cache.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 25,
+          "reference": "source = ROOT / 'server19-run/nx-backport-20261102/account.json'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_server19_signin_coins.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "sys.path[:0]=[str(ROOT/'tools'),str(REF),str(REF/'analysis-deps'),str(REF/'.local-baseline/server19-dev/story-goal-tools/python')]"
+        },
+        {
+          "line": 19,
+          "reference": "O=ROOT/'server19-run/nx-backport-20261102';spec=json.loads((O/'signin-patch.json').read_bytes());im=ArmImage(O/'client-signin.so',spec['sha256']);results=[]"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_server19_signin_missing_item.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "sys.path[:0]=[str(REF),str(REF/'analysis-deps'),str(REF/'.local-baseline/server19-dev/story-goal-tools/python')]"
+        },
+        {
+          "line": 19,
+          "reference": "O=ROOT/'server19-run/nx-backport-20261102';spec=json.loads((O/'signin-patch.json').read_bytes());results=[]"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_server19_signin_null_sprite.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "sys.path[:0]=[str(REF),str(REF/'analysis-deps'),str(REF/'.local-baseline/server19-dev/story-goal-tools/python')]"
+        },
+        {
+          "line": 19,
+          "reference": "O=ROOT/'server19-run/nx-backport-20261102';spec=json.loads((O/'signin-patch.json').read_bytes());im=ArmImage(O/'client-signin.so',spec['sha256']);rows=[]"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_stage_reward_compat.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 21,
+          "reference": "sys.path.insert(0, str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        },
+        {
+          "line": 30,
+          "reference": "folder = ROOT/'server19-run/sony-resume-20261025/settlement-failure-10433'"
+        },
+        {
+          "line": 82,
+          "reference": "run = ROOT/'server19-run/black3d-repair/local-comparison-1791780361'"
+        },
+        {
+          "line": 85,
+          "reference": "pc = ROOT/'server19-run/emulator-recording-20261017/scratch-server/account.json'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/check_story_npc_level_closure.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 18,
+          "reference": "sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        }
+      ]
+    },
+    {
+      "path": "scripts/clean_and_update_shops.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "META_DIR = ROOT / \".local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset\""
+        },
+        {
+          "line": 16,
+          "reference": "corrected_meta = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        },
+        {
+          "line": 107,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/shopgoodsdata\","
+        }
+      ]
+    },
+    {
+      "path": "scripts/package_server19_backport.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / 'server19-run/nx-backport-20261102'"
+        },
+        {
+          "line": 27,
+          "reference": "source = ROOT / 'server19-run/announcement-banner-20261027/candidate.apk'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/package_server19_launcher_countdown.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / 'server19-run/launcher-notice-countdown-20261102'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/package_server19_launcher_notice.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / 'server19-run/launcher-notice-20261102'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/package_server19_manual_launcher.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / 'server19-run/manual-launcher-20261102'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/package_server19_save_export_release.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "OUT = ROOT / 'server19-run/save-export-20261102'"
+        },
+        {
+          "line": 30,
+          "reference": "parser.add_argument('--source', type=Path, default=ROOT / 'server19-run/manual-launcher-20261102/candidate.apk')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_balance.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 14,
+          "reference": "ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        },
+        {
+          "line": 16,
+          "reference": "p=ROOT/'server19-run/endless-20261026/candidate-v2-33';out=p.parent/'cap-balance-fix'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_boss_rotation.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "base=ROOT/'server19-run/endless-20261026/candidate-v2-33'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_final_hp12.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "OUT=ROOT/'server19-run/endless-base-audit-20261027/hp12-candidate'"
+        },
+        {
+          "line": 18,
+          "reference": "source=ROOT/'server19-run/endless-temperature-mapping-20261027/hp-only-delivery/levelinfinitecommon.lua'"
+        },
+        {
+          "line": 19,
+          "reference": "original=ROOT/'server19-run/endless-20261026/candidate-v3-boss-rotation/metadata/_exceloutputasset/uniquemonsterdata'"
+        },
+        {
+          "line": 32,
+          "reference": "shutil.copytree(ROOT/'server19-run/endless-20261026/pool-fix/candidate/lua',OUT/'lua',dirs_exist_ok=True)"
+        },
+        {
+          "line": 36,
+          "reference": "shutil.copy2(ROOT/'server19-run/endless-20261026/candidate-v3-boss-rotation/metadata/_exceloutputasset/monsterconfigdata',meta/'monsterconfigdata')"
+        },
+        {
+          "line": 37,
+          "reference": "shutil.copy2(ROOT/'server19-run/endless-temperature-mapping-20261027/hp-only-delivery/catalog.json',OUT/'catalog.json')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_hp_climate.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 14,
+          "reference": "ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        },
+        {
+          "line": 16,
+          "reference": "OUT=ROOT/'server19-run/endless-temperature-mapping-20261027/hp-only-delivery'"
+        },
+        {
+          "line": 20,
+          "reference": "source=ROOT/'server19-run/endless-20261026/candidate-v3-boss-rotation/lua/base/levelinfinitecommon.lua'"
+        },
+        {
+          "line": 21,
+          "reference": "meta=ROOT/'server19-run/endless-20261026/candidate-v2-33/metadata/_exceloutputasset/npclevellogic'"
+        },
+        {
+          "line": 22,
+          "reference": "catalog=ROOT/'server19-run/endless-20261026/candidate-v2-33/catalog.json'"
+        },
+        {
+          "line": 51,
+          "reference": "textmap=json.loads((ROOT/'server19-run/endless-baseline-20261027-v1/runtime/sdcard/bh3-server19-metadata/_exceloutputasset/textmap').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_npc_levels.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 18,
+          "reference": "out=ROOT/'server19-run/endless-20261026/error-224010'"
+        },
+        {
+          "line": 19,
+          "reference": "candidate=ROOT/'server19-run/endless-20261026/candidate-v2-33'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "p=ROOT/'server19-run/endless-20261026/candidate-v1'"
+        },
+        {
+          "line": 19,
+          "reference": "report=resources.prepare(base=ROOT/'server19-run/sakura-cycle4-20261026/candidate-v1',output=p,"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_retry_native.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "old=json.loads((ROOT/'server19-run/endless-20261026/cap-balance-fix/native-patch.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_endless_temperature_mapping.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        },
+        {
+          "line": 17,
+          "reference": "OUT=ROOT/'server19-run/endless-temperature-mapping-20261027/candidate-v1'"
+        },
+        {
+          "line": 21,
+          "reference": "src=ROOT/'server19-run/endless-20261026/candidate-v3-boss-rotation/lua/base/levelinfinitecommon.lua'"
+        },
+        {
+          "line": 22,
+          "reference": "metadata=ROOT/'server19-run/endless-20261026/candidate-v2-33/metadata/_exceloutputasset/npclevellogic'"
+        },
+        {
+          "line": 23,
+          "reference": "cat=ROOT/'server19-run/endless-20261026/candidate-v2-33/catalog.json'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_sakura_deferred_branches.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 20,
+          "reference": "out=ROOT/'server19-run/sakura-deferred-branches-20261027'"
+        },
+        {
+          "line": 22,
+          "reference": "rows=json.loads((ROOT/'server19-run/common-baseline-20261027-v1/runtime-artifacts.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_sakura_hunt_chain.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 22,
+          "reference": "output = ROOT/'server19-run/sakura-hunt-chain-20261027/fix'"
+        },
+        {
+          "line": 26,
+          "reference": "rows = json.loads((ROOT/'server19-run/common-baseline-20261027-v1/runtime-artifacts.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_sakura_hunt_tutorial.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "rows = json.loads((ROOT / 'server19-run/common-baseline-20261027-v1/runtime-artifacts.json').read_bytes())"
+        },
+        {
+          "line": 63,
+          "reference": "prepare(ROOT/'server19-run/integrated-sakura-error-20261027/fix')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_server19_announcement_layout.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 22,
+          "reference": "sys.path.insert(0, str(ROOT / '.local-baseline/server19-dev/fuka601-tools/python'))"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_server19_damage_switch.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 18,
+          "reference": "OUT=ROOT/'server19-run/damage-switch-20261102'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/prepare_server19_signin.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 21,
+          "reference": "O=ROOT/'server19-run/nx-backport-20261102'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/restore_island_gate_and_level39.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 19,
+          "reference": "ROOT / \".local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 20,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 21,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 22,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/constvaluesclient\","
+        },
+        {
+          "line": 26,
+          "reference": "ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/cabinleveldata\","
+        },
+        {
+          "line": 27,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/cabinleveldata\","
+        },
+        {
+          "line": 28,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/cabinleveldata\","
+        },
+        {
+          "line": 41,
+          "reference": "tsv_path = ROOT / \".local-baseline/server19-dev/resource-fallback/data/_exceloutput/cabinleveldata\""
+        },
+        {
+          "line": 88,
+          "reference": "device_id = \"REFERENCE_DEVICE\""
+        },
+        {
+          "line": 97,
+          "reference": "device_cvc = ROOT / \"server19-run/metadata-device/_exceloutputasset/constvaluesclient\""
+        },
+        {
+          "line": 108,
+          "reference": "device_cld = ROOT / \"server19-run/metadata-device/_exceloutputasset/cabinleveldata\""
+        },
+        {
+          "line": 114,
+          "reference": "ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json\","
+        },
+        {
+          "line": 115,
+          "reference": "ROOT / \"server19-run/account.json\","
+        }
+      ]
+    },
+    {
+      "path": "scripts/server19_portable.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 50,
+          "reference": "base = ROOT / '.local-baseline/server19-dev'"
+        },
+        {
+          "line": 51,
+          "reference": "stage.STORY_RUNTIME_READY_FILE = base / 'chapter1-remaining-ready/runtime-ready.json'"
+        },
+        {
+          "line": 55,
+          "reference": "equipment.FULL_CULTIVATION_READY_FILE = base / 'cultivation-full-equipment-ready/runtime-ready.json'"
+        }
+      ]
+    },
+    {
+      "path": "scripts/simulate_endless_cooling.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 19,
+          "reference": "OUT=Path('server19-run/endless-simulation-20261027/v2')"
+        },
+        {
+          "line": 108,
+          "reference": "out=Path('server19-run/endless-simulation-20261027/fast-cooling-v1');out.mkdir(parents=True,exist_ok=True)"
+        }
+      ]
+    },
+    {
+      "path": "scripts/simulate_endless_temperature.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 19,
+          "reference": "OUT=Path('server19-run/endless-simulation-20261027/v2')"
+        }
+      ]
+    },
+    {
+      "path": "scripts/update_shop_goods_unit.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "ROOT / \"server19-run/metadata-device/_exceloutputasset/shopgoodsdata\","
+        },
+        {
+          "line": 25,
+          "reference": "ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/shopgoodsdata\","
+        },
+        {
+          "line": 40,
+          "reference": "device_file = ROOT / \"server19-run/metadata-device/_exceloutputasset/shopgoodsdata\""
+        },
+        {
+          "line": 42,
+          "reference": "cmd = [\"adb\", \"-s\", \"REFERENCE_DEVICE\", \"push\", str(device_file), \"/sdcard/bh3-server19-metadata/_exceloutputasset/shopgoodsdata\"]"
+        }
+      ]
+    },
+    {
+      "path": "server19_achievement.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 11,
+          "reference": "META_DIR = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_build.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 44,
+          "reference": "serial='REFERENCE_DEVICE', device_operation='none',"
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_daily_quick.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "SOURCE = ROOT / \".local-baseline/server19-dev/sony-arm-gacha-recharge-v1/typed-isolation-v1/libil2cpp.so\""
+        },
+        {
+          "line": 24,
+          "reference": "DEST_DIR = ROOT / \".local-baseline/server19-dev/sony-arm-daily-quick-v1\""
+        },
+        {
+          "line": 28,
+          "reference": "RUN_DEST_DIR = ROOT / \"server19-run/sony-arm/daily-quick-v1\""
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_extra_story.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 18,
+          "reference": "BASE=ROOT/'.local-baseline/server19-dev/story-all-20261015/goal-six-chapters-20261016'"
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_feedback_disable.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "SOURCE = ROOT / \"server19-run/sony-arm/daily-quick-v1/libil2cpp.so\""
+        },
+        {
+          "line": 25,
+          "reference": "DEST_DIR = ROOT / \".local-baseline/server19-dev/sony-arm-feedback-v1\""
+        },
+        {
+          "line": 29,
+          "reference": "RUN_DEST_DIR = ROOT / \"server19-run/sony-arm/feedback-v1\""
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_network.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 27,
+          "reference": "ORIGINAL = ROOT / \".local-baseline/server19-dev/sony-arm-reference/armeabi-v7a/libil2cpp.so\""
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 30,
+          "reference": "DEFAULT_OUTPUT = ROOT / '.local-baseline/server19-dev/sony-arm-resources/v1'"
+        },
+        {
+          "line": 31,
+          "reference": "TOOLS = ROOT / '.local-baseline/server19-dev/sony-arm-tools/zig-0.15.2'"
+        },
+        {
+          "line": 174,
+          "reference": "baked=ROOT/'.local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-baked/_baked/stringmap.txt'"
+        },
+        {
+          "line": 175,
+          "reference": "manifest=ROOT/'.local-baseline/server19-dev/baked-fallback/manifest.json'"
+        }
+      ]
+    },
+    {
+      "path": "server19_arm_toolchain.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "TOOLS = ROOT / '.local-baseline/server19-dev/sony-arm-tools'"
+        }
+      ]
+    },
+    {
+      "path": "server19_avatar_battle_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "BASE = ROOT / \".local-baseline/server19-dev/stage7-ready\""
+        },
+        {
+          "line": 33,
+          "reference": "TABLES = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        },
+        {
+          "line": 34,
+          "reference": "DEFAULT_OUTPUT = ROOT / \".local-baseline/server19-dev/avatar-battle-ready\""
+        },
+        {
+          "line": 36,
+          "reference": "STRINGS = ROOT / \".local-baseline/server19-dev/act101-native-prop-resources/_baked/stringmap.txt\""
+        },
+        {
+          "line": 37,
+          "reference": "AVATARS = ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/bakedavatardata\""
+        },
+        {
+          "line": 38,
+          "reference": "WEAPONS = ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/bakedweapondata\""
+        },
+        {
+          "line": 39,
+          "reference": "WEAPON_ATTACH_PROOF = ROOT / \"server19-run/avatar-roster-audit/weapon-attach/weapon-attach-mapping.json\""
+        },
+        {
+          "line": 40,
+          "reference": "STATISTICS_PROOF = ROOT / \"server19-run/avatar-roster-audit/later-statistics/later-statistics-proof.json\""
+        },
+        {
+          "line": 41,
+          "reference": "GATE_PROOF = ROOT / \"server19-run/avatar-roster-audit/avatar-ability-gates.json\""
+        },
+        {
+          "line": 42,
+          "reference": "SKILL_END_PROOF = ROOT / \"server19-run/avatar-roster-audit/later-statistics/avatar-skill-end-coverage.json\""
+        },
+        {
+          "line": 272,
+          "reference": "payload = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / files[name]).read_bytes()"
+        },
+        {
+          "line": 273,
+          "reference": "base = json.loads((ROOT / \".local-baseline/server19-dev/baked-fallback/manifest.json\").read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_avatar_teams.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 7,
+          "reference": "Original consumers and enum evidence: server19-run/avatar-team-audit/."
+        }
+      ]
+    },
+    {
+      "path": "server19_baked.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 29,
+          "reference": "DEFAULT_OUTPUT = ROOT / '.local-baseline/server19-dev/baked-fallback'"
+        }
+      ]
+    },
+    {
+      "path": "server19_build.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 96,
+          "reference": "path = ROOT / \".local-baseline/server19-dev\" / directory / \"manifest.json\""
+        }
+      ]
+    },
+    {
+      "path": "server19_cabin.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 78,
+          "reference": "path = Path(__file__).resolve().parent / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset/cabinleveldata\""
+        }
+      ]
+    },
+    {
+      "path": "server19_cg_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 37,
+          "reference": "DEFAULT_APK = \".local-baseline/releases/baseline-20261007-audio-idle/20171123-android_versions_v1_9_resurrection_of_the_sacramental_guofu.apk\""
+        },
+        {
+          "line": 38,
+          "reference": "DEFAULT_TABLE = \".local-baseline/server19-dev/metadata-fallback/_exceloutputasset/cgdata\""
+        },
+        {
+          "line": 39,
+          "reference": "DEFAULT_OFFICIAL = \"server19-run/cg-research-official/official-media-manifest.json\""
+        },
+        {
+          "line": 40,
+          "reference": "DEFAULT_DECODER = \"server19-run/cg-research-official/decoder-validation.json\""
+        },
+        {
+          "line": 41,
+          "reference": "DEFAULT_PREPARED = \".local-baseline/server19-dev/cg-media/prepared\""
+        },
+        {
+          "line": 264,
+          "reference": "media_root = local_path(\".local-baseline/server19-dev/cg-media\")"
+        },
+        {
+          "line": 840,
+          "reference": "item.add_argument(\"--serial\", default=\"TARGET_ADDRESS_REQUIRED:5555\")"
+        },
+        {
+          "line": 842,
+          "reference": "item.add_argument(\"--account\", default=\"server19-run/account.json\")"
+        },
+        {
+          "line": 844,
+          "reference": "item.add_argument(\"--evidence-root\", default=\"server19-run/cg-deployments\")"
+        }
+      ]
+    },
+    {
+      "path": "server19_challenge_texts.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "stage.STORY_RUNTIME_READY_FILE = ROOT / '.local-baseline/server19-dev/chapter1-remaining-ready/runtime-ready.json'"
+        },
+        {
+          "line": 29,
+          "reference": "base = ROOT / '.local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset'"
+        },
+        {
+          "line": 59,
+          "reference": "out = ROOT / '.local-baseline/server19-dev/sony-human-fixes-v1'"
+        }
+      ]
+    },
+    {
+      "path": "server19_chapter1_delivery.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "OUT = ROOT / '.local-baseline/server19-dev/chapter1-unified-ready/v1'"
+        },
+        {
+          "line": 29,
+          "reference": "RESOURCE = ROOT / '.local-baseline/server19-dev/chapter1-remaining-ready/v7'"
+        },
+        {
+          "line": 32,
+          "reference": "WEAPON = ROOT / '.local-baseline/server19-dev/cultivation-unified-ready/_baked/bakedweapondata'"
+        },
+        {
+          "line": 33,
+          "reference": "AVATAR = ROOT / '.local-baseline/server19-dev/baked-fallback/_baked/bakedavatardata'"
+        },
+        {
+          "line": 36,
+          "reference": "MATRIX = ROOT / '.local-baseline/server19-dev/cultivation-full-equipment-ready/matrix.json'"
+        },
+        {
+          "line": 37,
+          "reference": "READY = ROOT / '.local-baseline/server19-dev/chapter1-remaining-ready/runtime-ready.json'"
+        },
+        {
+          "line": 38,
+          "reference": "RUN = ROOT / 'server19-run/chapter1-batch'"
+        },
+        {
+          "line": 49,
+          "reference": "result = {'schema': 2, 'serial': 'REFERENCE_DEVICE',"
+        },
+        {
+          "line": 78,
+          "reference": "earlier = ROOT / '.local-baseline/server19-dev/story-chain-batch-ready/v4'"
+        }
+      ]
+    },
+    {
+      "path": "server19_chapter1_metadata.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "BASE = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        },
+        {
+          "line": 29,
+          "reference": "OUT = ROOT / '.local-baseline/server19-dev/chapter1-metadata-ready/v1'"
+        }
+      ]
+    },
+    {
+      "path": "server19_chapter1_readonly_audit.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 25,
+          "reference": "TABLES = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        }
+      ]
+    },
+    {
+      "path": "server19_chapter1_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 37,
+          "reference": "OUTPUT = ROOT / '.local-baseline/server19-dev/chapter1-remaining-ready/final'"
+        },
+        {
+          "line": 38,
+          "reference": "BASE = ROOT / '.local-baseline/server19-dev/cultivation-unified-ready'"
+        },
+        {
+          "line": 39,
+          "reference": "STORY_BASE = ROOT / '.local-baseline/server19-dev/story-chain-batch-ready/v4'"
+        },
+        {
+          "line": 263,
+          "reference": "self.source = story.checked(ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/reference/source-ability', batch.ability.SOURCE_SHA)"
+        },
+        {
+          "line": 503,
+          "reference": "equipment_matrix = json.loads((ROOT / '.local-baseline/server19-dev/cultivation-full-equipment-ready/matrix.json').read_bytes())"
+        },
+        {
+          "line": 504,
+          "reference": "roster = json.loads((ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/manifest.json').read_bytes())"
+        },
+        {
+          "line": 608,
+          "reference": "'source_equipment_matrix_sha256': lua.file_sha(ROOT / '.local-baseline/server19-dev/cultivation-full-equipment-ready/matrix.json')}]"
+        }
+      ]
+    },
+    {
+      "path": "server19_chiyou_buffs.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 82,
+          "reference": "out=ROOT/'server19-run/chiyou-20261025'"
+        }
+      ]
+    },
+    {
+      "path": "server19_chiyou_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 17,
+          "reference": "OUT = ROOT / 'server19-run/chiyou-20261025'"
+        },
+        {
+          "line": 18,
+          "reference": "BASE = ROOT / 'server19-run/xuanyuan-20261025/followup/delivery'"
+        },
+        {
+          "line": 28,
+          "reference": "if (folder / 'runtime-ready.json').exists() and read(folder / 'runtime-ready.json').get('deployed'):"
+        },
+        {
+          "line": 31,
+          "reference": "old = read(BASE / 'runtime-ready.json')"
+        },
+        {
+          "line": 78,
+          "reference": "(folder / 'runtime-ready.json').write_text(json.dumps(ready, ensure_ascii=False, indent=2), encoding='utf8')"
+        }
+      ]
+    },
+    {
+      "path": "server19_commission_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 25,
+          "reference": "OUT = ROOT/'server19-run/sakura-commissions-20261025'"
+        },
+        {
+          "line": 26,
+          "reference": "BASE = ROOT/'server19-run/sakura-cycle2-20261025/candidate-v1'"
+        }
+      ]
+    },
+    {
+      "path": "server19_cooking_native.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "OUT=ROOT/'server19-run/sakura-cooking-20261026'"
+        },
+        {
+          "line": 17,
+          "reference": "SOURCE=ROOT/'server19-run/xuanyuan-20261025/followup/libil2cpp.widgets-fixed.so'"
+        }
+      ]
+    },
+    {
+      "path": "server19_cooking_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 17,
+          "reference": "OUT=ROOT/'server19-run/sakura-cooking-20261026'"
+        },
+        {
+          "line": 18,
+          "reference": "BASE=ROOT/'server19-run/sakura-commissions-20261025/candidate-v3'"
+        }
+      ]
+    },
+    {
+      "path": "server19_cultivation_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 75,
+          "reference": "out = stage.ROOT / 'server19-run/cultivation-batch/catalog.json'"
+        }
+      ]
+    },
+    {
+      "path": "server19_device.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 26,
+          "reference": "SERIAL = \"TARGET_ADDRESS_REQUIRED:5555\""
+        },
+        {
+          "line": 147,
+          "reference": "p.add_argument(\"--host\", default=\"TARGET_ADDRESS_REQUIRED\")"
+        }
+      ]
+    },
+    {
+      "path": "server19_endless_native.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "OUT=ROOT/'server19-run/endless-20261026/cap-balance-fix'"
+        },
+        {
+          "line": 17,
+          "reference": "SOURCE=ROOT/'server19-run/sakura-cooking-20261026/libil2cpp.cooking-coins.so'"
+        }
+      ]
+    },
+    {
+      "path": "server19_endless_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 18,
+          "reference": "OUT=ROOT/'server19-run/endless-20261026/candidate-v1'"
+        },
+        {
+          "line": 19,
+          "reference": "TABLES=ROOT/'.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        },
+        {
+          "line": 20,
+          "reference": "RAW=ROOT/'.local-baseline/server19-dev/resource-fallback/data/_exceloutput'"
+        },
+        {
+          "line": 24,
+          "reference": "ledger=json.loads((ROOT/'server19-run/sakura-baseline-20261026-cycle4/runtime-artifacts.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_equip_sweep.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 33,
+          "reference": "ACC = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json\""
+        },
+        {
+          "line": 34,
+          "reference": "EVENTS = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/server-events.jsonl\""
+        },
+        {
+          "line": 35,
+          "reference": "META = ROOT / \".local-baseline/server19-dev/sony-arm-supply/v1/bh3-server19-metadata/_exceloutputasset\""
+        },
+        {
+          "line": 36,
+          "reference": "ELIG = ROOT / \"server19-run/equipment-eligibility-20261013/eligibility.json\""
+        },
+        {
+          "line": 37,
+          "reference": "OUT = ROOT / \"server19-run/equipment-sweep-20261013\""
+        },
+        {
+          "line": 38,
+          "reference": "SERIAL = \"REFERENCE_DEVICE\""
+        }
+      ]
+    },
+    {
+      "path": "server19_equipment.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 387,
+          "reference": "path = stage.ROOT / '.local-baseline/server19-dev/equipment-chain-batch-ready-v3/matrix.json'"
+        },
+        {
+          "line": 391,
+          "reference": "if receipt.get('schema') != 1 or receipt.get('serial') != 'REFERENCE_DEVICE' or receipt.get('readback_verified') is not True:"
+        },
+        {
+          "line": 393,
+          "reference": "path = stage.ROOT / '.local-baseline/server19-dev/cultivation-full-equipment-ready/matrix.json'"
+        }
+      ]
+    },
+    {
+      "path": "server19_equipment_battle_closure.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "BASE = ROOT / '.local-baseline/server19-dev/mixed-team-equipment-ready/bakedabilitydata'"
+        },
+        {
+          "line": 30,
+          "reference": "ROSTER = ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2'"
+        },
+        {
+          "line": 31,
+          "reference": "DEFAULT_ACCOUNT = ROOT / 'server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json'"
+        },
+        {
+          "line": 32,
+          "reference": "DEFAULT_OUTPUT = ROOT / '.local-baseline/server19-dev/equipment-chain-batch-ready'"
+        },
+        {
+          "line": 33,
+          "reference": "PROP_BASE = ROOT / '.local-baseline/server19-dev/act101-native-prop-resources/_baked/bakedpropdata'"
+        },
+        {
+          "line": 210,
+          "reference": "equip_raw = (ROOT / '.local-baseline/server19-dev/baked-fallback/_baked/bakedequipskilldata').read_bytes()"
+        }
+      ]
+    },
+    {
+      "path": "server19_extra_achievements.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "ready = json.loads((Path(directory) / 'runtime-ready.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_extra_story.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 11,
+          "reference": "directory=Path(directory);ready=json.loads((directory/'runtime-ready.json').read_bytes())"
+        },
+        {
+          "line": 12,
+          "reference": "if not ready.get('deployed') or ready.get('device')!='REFERENCE_DEVICE':raise ValueError('Xuanyuan resources require verified Phone2 deployment')"
+        }
+      ]
+    },
+    {
+      "path": "server19_extra_story_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 15,
+          "reference": "OUT=ROOT/'server19-run/xuanyuan-20261025'"
+        },
+        {
+          "line": 16,
+          "reference": "TABLES=ROOT/'.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        },
+        {
+          "line": 64,
+          "reference": "ready=dict(deployed=False,device='REFERENCE_DEVICE',stage_ids=sorted(ids),table_sha256={n:hashlib.sha256((folder/n).read_bytes()).hexdigest() for n in names},test_unlock='Only prerequisites for selected21 stages removed, no save or completion grants',human_acceptance='pending',bl"
+        },
+        {
+          "line": 65,
+          "reference": "save('runtime-ready.json',ready)"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_asset_bundle.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "OUT = ROOT / '.local-baseline/server19-dev/fuka601-recovery-20261015/asset-bundle-v1'"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_asset_extract.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 20,
+          "reference": "sys.path.insert(0, str(ROOT / '.local-baseline/server19-dev/fuka601-tools/python'))"
+        },
+        {
+          "line": 27,
+          "reference": "OUT = ROOT / '.local-baseline/server19-dev/fuka601-recovery-20261015/asset-extraction'"
+        },
+        {
+          "line": 28,
+          "reference": "APK = ROOT / '.local-baseline/original-apks/bh3-2.0-original-reference.apk'"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_candidate.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 27,
+          "reference": "OUT = ROOT / '.local-baseline/server19-dev/fuka601-candidate'"
+        },
+        {
+          "line": 28,
+          "reference": "BASE = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        },
+        {
+          "line": 127,
+          "reference": "current_path=ROOT/'.local-baseline/server19-dev/sony-human-fixes-v1/textmap'"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_deploy.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 31,
+          "reference": "_TARGET_FILE = ROOT / 'server19-run/sony-adb-target.txt'"
+        },
+        {
+          "line": 32,
+          "reference": "SERIAL = _TARGET_FILE.read_text(encoding='utf8').strip() if _TARGET_FILE.exists() else 'REFERENCE_DEVICE'"
+        },
+        {
+          "line": 35,
+          "reference": "WRAPPER = ROOT / 'server19-run/black3d-repair/local-comparison-1791780361/run-comparison-server.py'"
+        },
+        {
+          "line": 78,
+          "reference": "base = ROOT / '.local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset'"
+        },
+        {
+          "line": 80,
+          "reference": "stage.TABLE_OVERRIDES['textmap'] = ROOT / '.local-baseline/server19-dev/sony-human-fixes-v1/textmap'"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_native_audit.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 50,
+          "reference": "'2.0':ROOT/'.local-baseline/original-apks/bh3-2.0-original-reference.apk',"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 25,
+          "reference": "WORK = ROOT / '.local-baseline/server19-dev/fuka601-recovery-20261015'"
+        },
+        {
+          "line": 27,
+          "reference": "BASE = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        },
+        {
+          "line": 70,
+          "reference": "source = ROOT / '.local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset' / name"
+        },
+        {
+          "line": 118,
+          "reference": "text_source = ROOT / '.local-baseline/server19-dev/sony-human-fixes-v1/textmap'"
+        }
+      ]
+    },
+    {
+      "path": "server19_fuka601_server.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 22,
+          "reference": "DEFAULT_READY = ROOT / '.local-baseline/server19-dev/fuka601-recovery-20261015/ready-v5'"
+        },
+        {
+          "line": 44,
+          "reference": "if deployed.get('serial') != 'REFERENCE_DEVICE' or deployed.get('files_updated') is not True:"
+        }
+      ]
+    },
+    {
+      "path": "server19_gacha.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 187,
+          "reference": "\"server19-run/equipment-eligibility-20261013/eligibility.json\")"
+        }
+      ]
+    },
+    {
+      "path": "server19_kallen_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 16,
+          "reference": "OUT=ROOT/'server19-run/kallen-20261025'"
+        },
+        {
+          "line": 17,
+          "reference": "BASE=ROOT/'server19-run/theresa-20261025/progress-fixed-delivery'"
+        },
+        {
+          "line": 21,
+          "reference": "if (folder/'runtime-ready.json').exists() and read(folder/'runtime-ready.json').get('deployed'):raise ValueError('Do not overwrite deployed catalog')"
+        },
+        {
+          "line": 24,
+          "reference": "old=read(BASE/'runtime-ready.json');data={n:read(BASE/n) for n in old['table_sha256']}"
+        },
+        {
+          "line": 46,
+          "reference": "(folder/'runtime-ready.json').write_text(json.dumps(ready,ensure_ascii=False,indent=2),encoding='utf-8');return ready"
+        }
+      ]
+    },
+    {
+      "path": "server19_medal_ability_fix.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 19,
+          "reference": "WORK=Path(__file__).resolve().parent/'.local-baseline/server19-dev/story-all-20261015'"
+        }
+      ]
+    },
+    {
+      "path": "server19_metadata_export.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "DEFAULT_OUTPUT = ROOT / '.local-baseline/server19-dev/metadata-fallback'"
+        }
+      ]
+    },
+    {
+      "path": "server19_mixed_team_ability.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 19,
+          "reference": "BASE = ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2'"
+        },
+        {
+          "line": 20,
+          "reference": "OUTPUT = ROOT / '.local-baseline/server19-dev/mixed-team-equipment-ready'"
+        },
+        {
+          "line": 39,
+          "reference": "equip_raw = (ROOT / '.local-baseline/server19-dev/baked-fallback/_baked/bakedequipskilldata').read_bytes()"
+        }
+      ]
+    },
+    {
+      "path": "server19_newbie.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 12,
+          "reference": "META_DIR = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        }
+      ]
+    },
+    {
+      "path": "server19_offline_channel_settings.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 29,
+          "reference": "SOURCE = ROOT / \".local-baseline/server19-dev/resource-fallback/data/channelsettings\""
+        },
+        {
+          "line": 30,
+          "reference": "OUTPUT = ROOT / \"server19-run/battle-batch-20261012/realname-ready\""
+        },
+        {
+          "line": 46,
+          "reference": "if not output.is_relative_to(ROOT / \"server19-run/battle-batch-20261012\"):"
+        },
+        {
+          "line": 118,
+          "reference": "\"device\": {\"serial\": \"REFERENCE_DEVICE\", \"path\": DEVICE_PATH,"
+        }
+      ]
+    },
+    {
+      "path": "server19_profile.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 4,
+          "reference": "Evidence: server19-run/lobby-audit/profile-native/FINDINGS.md."
+        }
+      ]
+    },
+    {
+      "path": "server19_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 3,
+          "reference": "Uses the source APKs under .local-baseline. Native initialization objects are"
+        }
+      ]
+    },
+    {
+      "path": "server19_sakura_cycle3_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / 'server19-run/sakura-cycle3-20261026'"
+        },
+        {
+          "line": 29,
+          "reference": "previous = ROOT / 'server19-run/sakura-cycle2-20261025/candidate-v1'"
+        },
+        {
+          "line": 43,
+          "reference": "prepare_resources(base=ROOT / 'server19-run/sakura-cooking-20261026/candidate-v1',"
+        }
+      ]
+    },
+    {
+      "path": "server19_sakura_cycle4_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 29,
+          "reference": "candidate=ROOT/'server19-run/sakura-cycle4-20261026/candidate-v1'"
+        },
+        {
+          "line": 32,
+          "reference": "shutil.copytree(ROOT/'server19-run/sakura-cycle3-20261026/candidate-v1/lua',candidate/'lua')"
+        },
+        {
+          "line": 48,
+          "reference": "p=Path('server19-run/sakura-cycle4-20261026/candidate-v1');out=p.parent"
+        },
+        {
+          "line": 60,
+          "reference": "skills=json.loads(Path('.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/servantskilldata').read_bytes())"
+        },
+        {
+          "line": 63,
+          "reference": "prepare(base=Path('server19-run/sakura-cycle3-20261026/candidate-v1'),output=p,story_ids=list(range(401,412)),trial_ids=[],script_paths=paths,extra_props=sorted(props),extra_abilities=sorted(abilities),camera_union=True)"
+        },
+        {
+          "line": 69,
+          "reference": "p=Path('server19-run/sakura-cycle4-20261026/candidate-v1');out=p.parent"
+        },
+        {
+          "line": 70,
+          "reference": "c=json.loads(Path('server19-run/sakura-cycle3-20261026/candidate-v1/catalog.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_sakura_equipment.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 25,
+          "reference": "ledger = json.loads((ROOT / 'server19-run/extra-baseline-20261025-v3/runtime-artifacts.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_sakura_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 22,
+          "reference": "TABLES = ROOT / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'"
+        },
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / 'server19-run/sakura-20261025'"
+        },
+        {
+          "line": 64,
+          "reference": "baseline = json.loads((ROOT / 'server19-run/extra-baseline-20261025-v3/runtime-artifacts.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_sakura_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "base = Path(base) if base is not None else ROOT / 'server19-run/kallen-20261025/candidate-v4'"
+        },
+        {
+          "line": 104,
+          "reference": "roster = json.loads((ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/manifest.json').read_bytes())['roster']"
+        },
+        {
+          "line": 105,
+          "reference": "matrix = json.loads((ROOT / '.local-baseline/server19-dev/cultivation-full-equipment-ready/matrix.json').read_bytes())"
+        },
+        {
+          "line": 107,
+          "reference": "equip_raw = (ROOT / '.local-baseline/server19-dev/baked-fallback/_baked/bakedequipskilldata').read_bytes()"
+        }
+      ]
+    },
+    {
+      "path": "server19_shared_animation_fix.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "WORK=Path(__file__).resolve().parent/'.local-baseline/server19-dev/story-all-20261015'"
+        },
+        {
+          "line": 28,
+          "reference": "assert before==(resources.ROOT/'.local-baseline/server19-dev/baked-fallback/_baked/bakedsharedanimeventdata').read_bytes()"
+        }
+      ]
+    },
+    {
+      "path": "server19_shop.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 31,
+          "reference": "META_DIR = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        }
+      ]
+    },
+    {
+      "path": "server19_sony_backtrace.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 26,
+          "reference": "WORK=ROOT/'.local-baseline/server19-dev/story-all-20261015'"
+        }
+      ]
+    },
+    {
+      "path": "server19_sony_monitor.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 22,
+          "reference": "SERIAL = 'REFERENCE_DEVICE'"
+        },
+        {
+          "line": 45,
+          "reference": "monitor.BASE = ROOT / 'server19-run/sony-arm-preparation/acceptance'"
+        }
+      ]
+    },
+    {
+      "path": "server19_sony_update_bundle.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "RUN = ROOT / \"server19-run/sony-deploy-record\""
+        },
+        {
+          "line": 32,
+          "reference": "CANDIDATE_LIB = ROOT / \"server19-run/sony-arm/feedback-v1/libil2cpp.so\""
+        },
+        {
+          "line": 33,
+          "reference": "CANDIDATE_CONSTVALUES = ROOT / \".local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset/constvaluesclient\""
+        },
+        {
+          "line": 34,
+          "reference": "CANDIDATE_MATERIALDATA = ROOT / \".local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset/materialdata\""
+        }
+      ]
+    },
+    {
+      "path": "server19_stage.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 35,
+          "reference": "TABLE_DIRECTORY = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        }
+      ]
+    },
+    {
+      "path": "server19_stage10107_check.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "SOURCE = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json\""
+        },
+        {
+          "line": 42,
+          "reference": "directory = ROOT / \"server19-run/attack-research-data\" / ("
+        }
+      ]
+    },
+    {
+      "path": "server19_stage10116_fix.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "WORK=ROOT/'.local-baseline/server19-dev/story-all-20261015'"
+        }
+      ]
+    },
+    {
+      "path": "server19_stage_abilities.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 35,
+          "reference": "DEFAULT_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-ability-resources\""
+        },
+        {
+          "line": 47,
+          "reference": "AVATAR_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-ability-avatar101-resources\""
+        },
+        {
+          "line": 48,
+          "reference": "LEADER_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-ability-avatar101-leader-resources\""
+        },
+        {
+          "line": 49,
+          "reference": "NEWBIE_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-ability-avatar101-newbie-resources\""
+        },
+        {
+          "line": 50,
+          "reference": "ACT101_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-entry-ability-resources-v1\""
+        },
+        {
+          "line": 51,
+          "reference": "PROP_BOX_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-prop-box-ability-resources\""
+        },
+        {
+          "line": 55,
+          "reference": "CULTIVATION_OUTPUT = ROOT / \".local-baseline/server19-dev/avatar-cultivation-ability-resources\""
+        },
+        {
+          "line": 56,
+          "reference": "CULTIVATION_BOUNDED_OUTPUT = ROOT / \".local-baseline/server19-dev/avatar-cultivation-bounded-ability-resources-v2\""
+        },
+        {
+          "line": 58,
+          "reference": "STAGE7_OUTPUT = ROOT / \".local-baseline/server19-dev/stage7-ready/abilities\""
+        },
+        {
+          "line": 293,
+          "reference": "local = ROOT / \".local-baseline/server19-dev/baked-fallback\" / CAMERA_PATH"
+        },
+        {
+          "line": 359,
+          "reference": "existing = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / ARROW_PATH).read_bytes()"
+        },
+        {
+          "line": 859,
+          "reference": "metadata_path = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/avatarskilldata\""
+        },
+        {
+          "line": 901,
+          "reference": "trace_path = ROOT / \"server19-run/diagnostics/stage-20261011-1629/offset2-after-begin.log\""
+        },
+        {
+          "line": 917,
+          "reference": "restore_path = ROOT / \"server19-run/diagnostics/stage-20261011-1629/offset-library-restore-1791712091829746300/receipt.json\""
+        },
+        {
+          "line": 943,
+          "reference": "metadata_path = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/newbiebattlebuff\""
+        },
+        {
+          "line": 961,
+          "reference": "registry_bytes = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / registry_path).read_bytes()"
+        },
+        {
+          "line": 995,
+          "reference": "trace_path = ROOT / \"server19-run/diagnostics/stage-20261011-1629/offset3-after-begin.log\""
+        },
+        {
+          "line": 1010,
+          "reference": "restore_path = ROOT / \"server19-run/diagnostics/stage-20261011-1629/offset-library-restore-1791712703518929700/receipt.json\""
+        },
+        {
+          "line": 1037,
+          "reference": "lua_path = ROOT / \".local-baseline/server19-dev/act101-entry-lua-resources/manifest.json\""
+        },
+        {
+          "line": 1047,
+          "reference": "base_path = ROOT / \".local-baseline/server19-dev/stage10101-with-tutorial-resources/lua/base/leveldesignnormal.lua\""
+        },
+        {
+          "line": 1059,
+          "reference": "monster_path = ROOT / \".local-baseline/server19-dev/act101-entry-monster-resources/_baked/bakedmonsterdata\""
+        },
+        {
+          "line": 1085,
+          "reference": "set_path = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/equipmentsetdata\""
+        },
+        {
+          "line": 1096,
+          "reference": "equip_bytes = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / equip_path).read_bytes()"
+        },
+        {
+          "line": 1148,
+          "reference": "strings_path = ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/stringmap.txt\""
+        },
+        {
+          "line": 1155,
+          "reference": "prop_path = ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/bakedpropdata\""
+        },
+        {
+          "line": 1282,
+          "reference": "strings_bytes = (ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/stringmap.txt\").read_bytes()"
+        },
+        {
+          "line": 1284,
+          "reference": "avatar_bytes = (ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/bakedavatardata\").read_bytes()"
+        },
+        {
+          "line": 1459,
+          "reference": "camera_bytes = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / CAMERA_PATH).read_bytes()"
+        },
+        {
+          "line": 1487,
+          "reference": "source_path = ROOT / \".local-baseline/server19-dev/baked-fallback\" / PATH"
+        },
+        {
+          "line": 1495,
+          "reference": "strings_raw = (ROOT / \".local-baseline/server19-dev/act101-native-prop-resources/_baked/stringmap.txt\").read_bytes()"
+        },
+        {
+          "line": 1618,
+          "reference": "strings_path = ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/stringmap.txt\""
+        },
+        {
+          "line": 1627,
+          "reference": "avatar_path = ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/bakedavatardata\""
+        },
+        {
+          "line": 1655,
+          "reference": "weapon_payload = (ROOT / \".local-baseline/server19-dev/baked-fallback/_baked/bakedweapondata\").read_bytes()"
+        },
+        {
+          "line": 1788,
+          "reference": "targets[CAMERA_PATH] = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / CAMERA_PATH).read_bytes()"
+        }
+      ]
+    },
+    {
+      "path": "server19_stage_monsters.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 34,
+          "reference": "DEFAULT_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-monster-resources\""
+        },
+        {
+          "line": 35,
+          "reference": "ACT101_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-entry-monster-resources\""
+        },
+        {
+          "line": 36,
+          "reference": "STAGE2_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-entry-monster-resources-v2\""
+        },
+        {
+          "line": 750,
+          "reference": "camera_payload = (ROOT / \".local-baseline/server19-dev/baked-fallback\" / camera_path).read_bytes()"
+        },
+        {
+          "line": 794,
+          "reference": "\"log\": \"server19-run/diagnostics/chain-fix-20261011-202519/live-logcat-15313.log\","
+        }
+      ]
+    },
+    {
+      "path": "server19_stage_npc_levels.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "DEFAULT_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-npc-level-resources\""
+        },
+        {
+          "line": 33,
+          "reference": "ACT101_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-entry-npc-level-resources\""
+        },
+        {
+          "line": 34,
+          "reference": "CANONICAL = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected\""
+        },
+        {
+          "line": 35,
+          "reference": "REFERENCE20 = ROOT / \".local-baseline/original-apks/bh3-2.0-original-reference.apk\""
+        },
+        {
+          "line": 180,
+          "reference": "log_path = ROOT / \"server19-run/diagnostics/stage-20261011-1629/fixture7-movement2.log\""
+        }
+      ]
+    },
+    {
+      "path": "server19_stage_props.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 37,
+          "reference": "DEFAULT_OUTPUT = ROOT / \".local-baseline/server19-dev/prop-compat-resources\""
+        },
+        {
+          "line": 38,
+          "reference": "NATIVE_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-native-prop-resources\""
+        },
+        {
+          "line": 470,
+          "reference": "\"native_loader_proof\":\"server19-run/prop-fix-research/advancedbox/native/stringmap-append-safety.json; existing supplier Split and reader bounds use dynamic array length, no fixed22416 count\"}"
+        }
+      ]
+    },
+    {
+      "path": "server19_stage_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 31,
+          "reference": "DEFAULT_OUTPUT = ROOT / \".local-baseline/server19-dev/stage10101-with-tutorial-resources\""
+        },
+        {
+          "line": 47,
+          "reference": "INSPECT = ROOT / \".local-baseline/server19-dev/resource-fallback/lua/base/inspect.lua\""
+        },
+        {
+          "line": 48,
+          "reference": "ACT101_OUTPUT = ROOT / \".local-baseline/server19-dev/act101-entry-lua-resources\""
+        },
+        {
+          "line": 56,
+          "reference": "STAGE7_OUTPUT = ROOT / \".local-baseline/server19-dev/stage7-ready\""
+        },
+        {
+          "line": 655,
+          "reference": "canonical = ROOT / \".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset\""
+        },
+        {
+          "line": 791,
+          "reference": "raw = Path(row[\"local_absolute_path\"]).read_bytes()"
+        },
+        {
+          "line": 795,
+          "reference": "preservation.append({\"path\": relative, \"local_source\": row[\"local_absolute_path\"],"
+        }
+      ]
+    },
+    {
+      "path": "server19_stage_rewards_check.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "SOURCE = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json\""
+        },
+        {
+          "line": 42,
+          "reference": "folder = ROOT / \"server19-run/attack-research-data\" / ("
+        }
+      ]
+    },
+    {
+      "path": "server19_story_all_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 30,
+          "reference": "WORK = ROOT / '.local-baseline/server19-dev/story-all-20261015'"
+        },
+        {
+          "line": 63,
+          "reference": "ready = json.loads((WORK/'runtime-ready.json').read_bytes())"
+        },
+        {
+          "line": 73,
+          "reference": "roster = json.loads((ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/manifest.json').read_bytes())"
+        },
+        {
+          "line": 74,
+          "reference": "matrix = json.loads((ROOT / '.local-baseline/server19-dev/cultivation-full-equipment-ready/matrix.json').read_bytes())"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_all_server.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 14,
+          "reference": "WORK=ROOT/'.local-baseline/server19-dev/story-all-20261015'"
+        },
+        {
+          "line": 15,
+          "reference": "READY=WORK/'runtime-ready.json'"
+        },
+        {
+          "line": 39,
+          "reference": "if require_deployed and (ready.get('device')!='REFERENCE_DEVICE' or ready.get('deployed') is not True):"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_avatar_runtime.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 63,
+          "reference": "roster = json.loads((batch.ROOT/'.local-baseline/server19-dev/avatar-battle-ready-final-v2/manifest.json').read_bytes())['roster']"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_batch_check.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "SOURCE = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json\""
+        },
+        {
+          "line": 42,
+          "reference": "out = ROOT / \"server19-run/story-batch-check\" / datetime.now().strftime(\"%Y%m%d-%H%M%S-%f\")"
+        },
+        {
+          "line": 50,
+          "reference": "fixture_readiness = out / \"simulated-runtime-ready.json\""
+        }
+      ]
+    },
+    {
+      "path": "server19_story_batch_delivery.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 21,
+          "reference": "STORY = ROOT / '.local-baseline/server19-dev/story-chain-batch-ready/v4'"
+        },
+        {
+          "line": 22,
+          "reference": "EQUIPMENT = ROOT / '.local-baseline/server19-dev/equipment-chain-batch-ready-v3'"
+        },
+        {
+          "line": 23,
+          "reference": "OUT = ROOT / '.local-baseline/server19-dev/story-chain-unified-ready-v2'"
+        },
+        {
+          "line": 24,
+          "reference": "BASE_ABILITY = ROOT / '.local-baseline/server19-dev/mixed-team-equipment-ready/bakedabilitydata'"
+        },
+        {
+          "line": 25,
+          "reference": "BASE_WEAPON = ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/_baked/bakedweapondata'"
+        },
+        {
+          "line": 26,
+          "reference": "BASE_AVATAR = ROOT / '.local-baseline/server19-dev/baked-fallback/_baked/bakedavatardata'"
+        },
+        {
+          "line": 27,
+          "reference": "STRINGMAP = ROOT / '.local-baseline/server19-dev/act101-native-prop-resources/_baked/stringmap.txt'"
+        },
+        {
+          "line": 112,
+          "reference": "native = trace.build(ROOT / 'server19-run/black3d-repair/gyro-verification-builds/candidate/lib-server19-resources.so', lib)"
+        },
+        {
+          "line": 116,
+          "reference": "manifest = {'schema': 1, 'status': 'candidate_human_pending', 'serial': 'REFERENCE_DEVICE',"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_batch_deploy.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 27,
+          "reference": "RUN = ROOT / 'server19-run/story-chain-batch'"
+        },
+        {
+          "line": 28,
+          "reference": "READY = ROOT / '.local-baseline/server19-dev/story-chain-batch-ready/runtime-ready.json'"
+        },
+        {
+          "line": 42,
+          "reference": "device.SERIAL = 'REFERENCE_DEVICE'"
+        },
+        {
+          "line": 98,
+          "reference": "account = ROOT / 'server19-run/black3d-repair/local-comparison-1791780361/scratch-server/account.json'"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_batch_monitor.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 1,
+          "reference": "\"\"\"Owned chapter1 acceptance capture for REFERENCE_DEVICE; no game/UI mutations."
+        },
+        {
+          "line": 3,
+          "reference": "prepare creates a fresh directory beneath server19-run/story-chain-batch/"
+        },
+        {
+          "line": 37,
+          "reference": "BASE = ROOT / \"server19-run/story-chain-batch/acceptance\""
+        },
+        {
+          "line": 38,
+          "reference": "RUN = ROOT / \"server19-run/black3d-repair/local-comparison-1791780361/scratch-server\""
+        },
+        {
+          "line": 39,
+          "reference": "OLD_LOG = ROOT / \"server19-run/battle-batch-20261012/live-all-buffers.log\""
+        },
+        {
+          "line": 40,
+          "reference": "SERIAL = \"REFERENCE_DEVICE\""
+        }
+      ]
+    },
+    {
+      "path": "server19_story_batch_resources.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 36,
+          "reference": "OUTPUT = ROOT / '.local-baseline/server19-dev/story-chain-batch-ready'"
+        },
+        {
+          "line": 38,
+          "reference": "ABILITY_BASE = ROOT / '.local-baseline/server19-dev/mixed-team-equipment-ready/bakedabilitydata'"
+        },
+        {
+          "line": 58,
+          "reference": "return {'path': relative, 'local_absolute_path': str(target.resolve()),"
+        },
+        {
+          "line": 140,
+          "reference": "source = checked(ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/reference/source-ability', batch.ability.SOURCE_SHA)"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_chapter6_abilities.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 34,
+          "reference": "PROOF = ROOT / '.local-baseline/server19-dev/story-all-20261015/goal-six-chapters-20261016'"
+        },
+        {
+          "line": 88,
+          "reference": "roster = json.loads((ROOT / '.local-baseline/server19-dev/avatar-battle-ready-final-v2/manifest.json').read_bytes())['roster']"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_followup_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 55,
+          "reference": "ready = json.loads((work/'runtime-ready.json').read_bytes())"
+        },
+        {
+          "line": 59,
+          "reference": "(work/'followup-runtime-ready.json').write_text(json.dumps(ready, ensure_ascii=False, indent=2), encoding='utf-8')"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_goal_prepare.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 43,
+          "reference": "local = Path(rec['local_absolute_path'])"
+        },
+        {
+          "line": 49,
+          "reference": "scripts.extend(Path(s['file']['local_absolute_path']).read_text(encoding='utf-8-sig')"
+        },
+        {
+          "line": 53,
+          "reference": "stage.STORY_RUNTIME_READY_FILE = ROOT/'.local-baseline/server19-dev/chapter1-remaining-ready/runtime-ready.json'"
+        },
+        {
+          "line": 54,
+          "reference": "chapter = ROOT/'.local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset'"
+        },
+        {
+          "line": 64,
+          "reference": "ready = {'schema':2,'device':'REFERENCE_DEVICE','deployed':False,"
+        },
+        {
+          "line": 80,
+          "reference": "media = json.loads((ROOT/'.local-baseline/server19-dev/cg-media/prepared-cg-icons-corrected/manifest.json').read_bytes())"
+        },
+        {
+          "line": 105,
+          "reference": "for name,value in (('runtime-ready.json',ready),('delivery.json',result),('missions.json',plan)):"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_movement_bridge.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 56,
+          "reference": "record['overlay']={'path':path.relative_to(self.output).as_posix(),'local_absolute_path':str(path.resolve()),"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_npc_level_closure.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 67,
+          "reference": "work=root/'.local-baseline/server19-dev/story-all-20261015'"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_openworld_abilities.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 28,
+          "reference": "SCOPE = ROOT/'.local-baseline/server19-dev/story-all-20261015/goal-six-chapters-20261016/openworld-scope.json'"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_openworld_monsters.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 24,
+          "reference": "WORK=ROOT/'.local-baseline/server19-dev/story-all-20261015'"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_openworld_scope.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 32,
+          "reference": "sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        },
+        {
+          "line": 71,
+          "reference": "sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_poly_dispatch.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 20,
+          "reference": "sys.path.insert(0,str(ROOT/'.local-baseline/server19-dev/story-goal-tools/python'))"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_shield_bridge.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 81,
+          "reference": "'local_absolute_path':str(path.resolve()),'bytes':len(value),"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_voice_bank.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 27,
+          "reference": "TOOL = ROOT/'.local-baseline/server19-dev/story-voice-tools/vgmstream-cli.exe'"
+        }
+      ]
+    },
+    {
+      "path": "server19_story_wave_abilities.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 97,
+          "reference": "text = Path(rec['local_absolute_path']).read_text(encoding='utf-8-sig')"
+        }
+      ]
+    },
+    {
+      "path": "server19_theresa_catalog.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 17,
+          "reference": "OUT = ROOT / 'server19-run/theresa-20261025'"
+        },
+        {
+          "line": 18,
+          "reference": "BASE = ROOT / 'server19-run/chiyou-20261025/all-open-delivery'"
+        },
+        {
+          "line": 28,
+          "reference": "if (folder / 'runtime-ready.json').exists() and read(folder / 'runtime-ready.json').get('deployed'):"
+        },
+        {
+          "line": 31,
+          "reference": "old = read(BASE / 'runtime-ready.json')"
+        },
+        {
+          "line": 84,
+          "reference": "(folder / 'runtime-ready.json').write_text(json.dumps(ready, ensure_ascii=False, indent=2), encoding='utf8')"
+        }
+      ]
+    },
+    {
+      "path": "server19_triumph_weapon_fix.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 17,
+          "reference": "ROOT=Path(__file__).resolve().parent;OUT=ROOT/'server19-run/triumph-weapon-20261027'"
+        }
+      ]
+    },
+    {
+      "path": "server19_tutorial_ability_fix.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 19,
+          "reference": "WORK=Path(__file__).resolve().parent/'.local-baseline/server19-dev/story-all-20261015'"
+        }
+      ]
+    },
+    {
+      "path": "tools/check_source_boundary.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 10,
+          "reference": "FORBIDDEN_DIRS={'.git','__pycache__','inputs','work','dist','.local-baseline','server19-run'}"
+        }
+      ]
+    },
+    {
+      "path": "verify19_arm_external_unwind.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 23,
+          "reference": "def verify(source=n.ROOT / '.local-baseline/server19-dev/sony-arm-resources/v1/resources.elf'):"
+        },
+        {
+          "line": 87,
+          "reference": "output = n.ROOT / 'server19-run/sony-arm/native-external-unwind-check/verification.json'"
+        }
+      ]
+    },
+    {
+      "path": "verify19_arm_native.py",
+      "kind": "legacy path/receipt migration",
+      "references": [
+        {
+          "line": 21,
+          "reference": "OUT = n.ROOT / 'server19-run/sony-arm/native-toolkit-check'"
+        }
+      ]
+    }
+  ]
+}

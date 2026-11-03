@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "client19": "inputs/client-1.9.apk",
+  "client24": "inputs/client-2.4.apk",
+  "work_dir": "work/data-build",
+  "stage_ratios": "baseline"
+}

@@ -1,0 +1,23 @@
+# Android兼容与启动设置
+
+## Python ABI选择
+
+游戏和Python运行时仍为ARM32。在部分已配置TANGO的设备上，系统公开的SUPPORTED_ABIS与当前应用实际加载的ARM32库不同，可能使Chaquopy无法选择已打包的stdlib资源。
+
+PythonPlatform仅在系统ABI列表没有匹配资源、ARMv7 stdlib存在、已安装JNI库头确认为ELF32小端ARM时，为Chaquopy选择armeabi-v7a；普通匹配路径保持。它不修改系统ABI，也不提供TANGO或ARM翻译能力。
+
+该逻辑必须与ProbeService一起编译。服务启动失败时，ProbeService保留异常，IntegratedService通过IPC回传给启动页，避免只停留在等待状态。技术检查server_only模式只验证服务就绪；正常启动仍由使用者手动点击开始。
+
+## 伤害选择
+
+启动页提供正常1×和辅助20×，默认20×。选择保存在启动器配置，开始前原子写入应用私有damage-mode.bin，不写账号存档。
+
+原生选择器在进程首次处理己方最终伤害时读取一次；配置缺失、读取不全或非法值沿用20×，后续使用进程缓存。1×绕过增强逻辑，20×进入已有增强helper，敌方沿用原类别判断。代码RX和状态RW页分离。
+
+修改后需要彻底退出应用并重新打开，在下次开始游戏时生效。库已经加载且新选择与生效值不同，启动器会提示重开。
+
+## 构建配对
+
+最终classes4.dex必须同时包含PythonPlatform、DamageMode及更新的Activity/Service类。伤害选择还需要对应libil2cpp.so补丁；只替换界面无法实现倍率切换。
+
+补丁输入SHA256为698a38e080033fe057d840f9f72d3ac3827d51f15896cd1d7079c70101c7fcd9，目标为77dab30c3fd6ecbefe8fa42799937e8e122127298ec0f1decde83208086b0494。它依赖此前签到等原生修复，不能直接套到原始1.9库。

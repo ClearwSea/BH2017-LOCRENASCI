@@ -1,0 +1,11 @@
+{
+  "version": "20261013-v2",
+  "up_weight": 2,
+  "rare_pity": 100,
+  "up_pity": 200,
+  "standard_up_pity": false,
+  "role_weights": {"A": 150, "S": 150, "GEAR4": 150, "LOW_WEAPON": 2400, "LOW_STIGMATA": 2400, "MATERIAL": 4750},
+  "equipment_weights": {"GEAR4": 150, "GEAR5": 150, "LOW_WEAPON": 2400, "LOW_STIGMATA": 2400, "MATERIAL": 4900},
+  "role_caps": {"A": 3, "S": 2, "GEAR4": 2},
+  "equipment_caps": {"GEAR4": 3, "GEAR5": 2}
+}

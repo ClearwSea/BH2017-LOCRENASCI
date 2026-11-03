@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "generated_standard_tables": 251,
+  "supplementary_inputs": 35,
+  "client_resource_targets": 253,
+  "required_unbundled": [
+    "server19_protocol_schema.json",
+    "server19_story_act_rewards.json",
+    "runtime table outputs",
+    "derived catalogs",
+    "build capability manifests"
+  ],
+  "optional_unbundled": [
+    "server19_virtual_friend_profiles.json"
+  ],
+  "separate_reference": [],
+  "excluded_categories": [
+    {
+      "kind": "game_inputs",
+      "examples": [
+        "1.9 client",
+        "2.4 reference client",
+        "7.x resources"
+      ],
+      "treatment": "user supplies locally"
+    },
+    {
+      "kind": "extracted_tables_and_assets",
+      "examples": [
+        "protocol schema JSON",
+        "story Act reward snapshot",
+        "all ExcelOutputAsset outputs",
+        "images/audio/video"
+      ],
+      "treatment": "generate locally from explicit game inputs"
+    },
+    {
+      "kind": "cross_version_reference",
+      "examples": [
+        "OpenWorldQuestRarity.json"
+      ],
+      "treatment": "Only the maintainer-approved active compatibility subset is provided in rules/commission-rarity.json; no claim of original authorship or verified official extraction."
+    },
+    {
+      "kind": "account_material",
+      "examples": [
+        "account.json",
+        "virtual friend player snapshots",
+        "demo/recording account exporters"
+      ],
+      "treatment": "save supplied separately; no bundled player snapshot"
+    },
+    {
+      "kind": "machine_and_delivery",
+      "examples": [
+        "Git history",
+        "private keys",
+        "deployment receipts",
+        "host pycache",
+        "APKs",
+        "native binaries",
+        "toolchain binaries"
+      ],
+      "treatment": "not distributed in this source draft"
+    },
+    {
+      "kind": "copied_game_rows_in_helpers",
+      "examples": [
+        "add_theresa_503_to_avatardata.py"
+      ],
+      "treatment": "replace copied row with typed source projection; rule recorded in table recipe manifest"
+    },
+    {
+      "kind": "bot_name_reference",
+      "examples": [
+        "data/endless-bot-names.json"
+      ],
+      "treatment": "Baseline configured names are preserved as an explicitly sourced compatibility rule; no originality claim."
+    }
+  ],
+  "bundled_compatibility_rules": [
+    "rules/commission-rarity.json",
+    "rules/endless-bot-names.json"
+  ],
+  "baseline_extra_assets": "assets/README.md"
+}

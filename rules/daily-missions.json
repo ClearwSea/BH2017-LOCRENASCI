@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "origin": "Project-authored rules extracted from the fixed source tag; runtime target checked in table audit",
+  "rules": {
+    "REPLACEMENTS": {
+      "TimedMissionName_FirstVictory": "首次胜利",
+      "TimedMissionDisplay_FirstVictory": "通过任意关卡1次",
+      "TimedMissionName_FriendAssist": "好友助战",
+      "TimedMissionDisplay_FriendAssist": "选择好友助战通过任意关卡1次",
+      "MissionName_EnhanceEquipment": "强化装备",
+      "MissionDisplay_EnhanceEquipment": "强化任意装备1次",
+      "MissionName_AvatarSkillLevelUp": "技能升级",
+      "MissionDisplay_AvatarSkillLevelUp": "升级1次女武神技能",
+      "MissionName_RegularSupplyDaily": "常规补给",
+      "MissionDisplay_RegularSupplyDaily": "完成任意补给1次",
+      "MissionName_DailySupply": "常规补给",
+      "MissionDisplay_DailySupply": "完成任意补给1次"
+    },
+    "DUTY_DAILY_DATA": [
+      {
+        "dutyId": 1,
+        "needDuty": 30,
+        "unlockLv": 0,
+        "rewardId": 80001
+      },
+      {
+        "dutyId": 2,
+        "needDuty": 60,
+        "unlockLv": 0,
+        "rewardId": 80002
+      },
+      {
+        "dutyId": 3,
+        "needDuty": 90,
+        "unlockLv": 0,
+        "rewardId": 80003
+      },
+      {
+        "dutyId": 4,
+        "needDuty": 120,
+        "unlockLv": 0,
+        "rewardId": 80004
+      },
+      {
+        "dutyId": 5,
+        "needDuty": 150,
+        "unlockLv": 0,
+        "rewardId": 80005
+      }
+    ],
+    "NEW_MISSION": {
+      "id": 30099,
+      "type": 3,
+      "subType": 0,
+      "title": "MissionName_QuickDailyDuty",
+      "description": "MissionDisplay_QuickDailyDuty",
+      "thumb": "SpriteOutput/PicMission/PicMissionShinario3",
+      "finishWay": 1,
+      "finishParaInt": 0,
+      "finishParaStr": "",
+      "totalProgress": 1,
+      "rewardId": 30099,
+      "isAutoReward": false,
+      "LinkType": 0,
+      "LinkParam": 0,
+      "LinkParams": [
+        0
+      ],
+      "PreviewTime": -1,
+      "NoDisplay": 0,
+      "IsNeedDisplay": 1
+    },
+    "NEW_REWARD": {
+      "RewardID": 30099,
+      "RewardExp": 0,
+      "RewardSCoin": 1000,
+      "RewardHCoin": 0,
+      "RewardStamina": 0,
+      "RewardSkillPoint": 0,
+      "RewardFriendPoint": 0,
+      "RewardDutyPoint": 150,
+      "RewardItem1ID": 0,
+      "RewardItem1Level": 0,
+      "RewardItem1Num": 0,
+      "RewardItem2ID": 0,
+      "RewardItem2Level": 0,
+      "RewardItem2Num": 0,
+      "RewardItem3ID": 0,
+      "RewardItem3Level": 0,
+      "RewardItem3Num": 0,
+      "RewardItem4ID": 0,
+      "RewardItem4Level": 0,
+      "RewardItem4Num": 0,
+      "RewardItem5ID": 0,
+      "RewardItem5Level": 0,
+      "RewardItem5Num": 0
+    },
+    "TEXT_ENTRIES": [
+      {
+        "ID": "MissionName_QuickDailyDuty",
+        "Text": "快捷完成每日使命值"
+      },
+      {
+        "ID": "MissionDisplay_QuickDailyDuty",
+        "Text": "快捷将今日使命值补满至150"
+      }
+    ]
+  }
+}

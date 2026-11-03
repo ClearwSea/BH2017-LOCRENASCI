@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "rules": [
+    {
+      "path": "server19_shop_config.json",
+      "kind": "maintainer-authored shop design with source item ID references"
+    },
+    {
+      "path": "server19_gacha_policy.json",
+      "kind": "project gacha policy"
+    },
+    {
+      "path": "server19_repeat_drop_policy.json",
+      "kind": "explicit local-authored repeat-drop policy"
+    },
+    {
+      "path": "rules/material-navigation.json",
+      "kind": "compatibility navigation edits"
+    },
+    {
+      "path": "rules/daily-missions.json",
+      "kind": "project daily mission rules"
+    },
+    {
+      "path": "data/endless-climate-calibration.json",
+      "kind": "project formula-derived climate calibration"
+    },
+    {
+      "path": "rules/commission-rarity.json",
+      "kind": "maintainer-approved independently sourced baseline compatibility subset"
+    },
+    {
+      "path": "rules/endless-bot-names.json",
+      "kind": "baseline configuration; upstream origin unresolved; no originality claim"
+    }
+  ]
+}

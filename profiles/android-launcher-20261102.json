@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "target": "android-launcher2-20261102",
+  "source_date": "2026-11-02",
+  "architecture": "armeabi-v7a",
+  "client19": {
+    "filename": "client-1.9.apk",
+    "bytes": 1155479822,
+    "sha256": "672c3eadd1300accb265f09dfce52f05965b15e4b1a8d54114913f3f4f87d5be"
+  },
+  "client24": {
+    "filename": "client-2.4.apk",
+    "bytes": 494904416,
+    "sha256": "41b0dfa3ed7ffb07cee808acab3691c7ada5f28361023b0c88f3b2aa2a2af042"
+  },
+  "resources7x": {
+    "path": "inputs/resources-7x",
+    "version_policy": "Required voice/video coverage; missing old CGs come from explicit external supplements"
+  },
+  "save": {
+    "provided_separately": true,
+    "schema": 1,
+    "new_account_generator_required": false
+  },
+  "output": {
+    "apk_count": 1,
+    "external_pack": "video/resources",
+    "complete_builder_available": true
+  },
+  "base_export_note": {
+    "includes_later_six_stage_ratio_repair": true,
+    "stage_ids": [
+      10432,
+      10433,
+      10434,
+      20432,
+      20433,
+      20434
+    ],
+    "target_runtime_keeps_original_ratios": true,
+    "final_generation_requires_explicit_profile": true
+  },
+  "source_baseline": "server19-android-launcher.2",
+  "runtime_sha256": "7a85d42f74b9b9df3378938e3847dc321851e0e57c84bcefa5b3b54c240a68b8",
+  "native_sha256": "77dab30c3fd6ecbefe8fa42799937e8e122127298ec0f1decde83208086b0494",
+  "launcher_dex_sha256": "18ed726a74f1b0cf622ec51f092bd02baca0ab832c8929927275ada25fe6de29",
+  "damage_selector": {
+    "modes": [
+      1,
+      20
+    ],
+    "default": 20,
+    "setting_file": "damage-mode.bin",
+    "per_process": true,
+    "account_mutation": false
+  },
+  "python_abi_fallback": {
+    "requires_packaged_arm32_assets": true,
+    "requires_elf32_arm_jni": true,
+    "provides_translation_layer": false
+  },
+  "baseline_extra_assets": "External supplements only; see assets/README.md",
+  "retired_fuka_model_required": false,
+  "supplementary_video_names": [
+    "ExtraStory_BlackXuanyuan_01.mp4",
+    "ExtraStory_BlackXuanyuan_02.mp4",
+    "ExtraStory_BlackXuanyuan_03.mp4",
+    "Sakura_4_CG12_SP_mux.mp4",
+    "Season_CG01_Final_mux.mp4"
+  ]
+}

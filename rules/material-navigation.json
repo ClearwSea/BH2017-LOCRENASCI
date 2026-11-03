@@ -1,0 +1,1858 @@
+{
+  "schema": 1,
+  "origin": "Compatibility navigation edits reconstructed from the selected target; no material attribute rows included",
+  "phase": "apply to 741 base-export rows before cross-version row additions",
+  "expected_rows": 741,
+  "common_entry": "<type=\"17|1\" text=\"DropWay_CommonShop\"/>",
+  "patches": [
+    {
+      "material_id": 901,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 902,
+      "preimage_sha256": "e689b6a0840974502f722076862a0758a93fc641b76b1c76a650337f52844786",
+      "operations": [
+        {
+          "index": 5,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 2,
+          "delete_count": 2,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>",
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 903,
+      "preimage_sha256": "e8c0036e044ee83c36871ad2e4ac507f5c702803183ab8848b07a10247259657",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 904,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 905,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 907,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 911,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1001,
+      "preimage_sha256": "ae68426820454eafe1e6aef6d966639d4662b57bcc4cbb8d22894b13ea6ce0ff",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1002,
+      "preimage_sha256": "c467550dd338c4307990cb5e6d4849baecf858e409cfe00ef45aea608189af7a",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1003,
+      "preimage_sha256": "252f5e8db05e70c32bc5bcd5448ccce2bf20fce491426266d74774d5a49f63f4",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1004,
+      "preimage_sha256": "8f966e9deaaf30ccef5dfc76daba7b3694d45efe8d17f8c70bffd5486184f19b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1005,
+      "preimage_sha256": "251d1b097a660c1c7b58a1de16c328ede795943bbaf279014e738b0b8b504700",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1006,
+      "preimage_sha256": "44bccc18fd22893ef28bde81f227e95eef1c3eea6d99509686eb3780d5fda55e",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1007,
+      "preimage_sha256": "921163a0dfb2ae372938f4a281ec8a1e5d126ab00dba2ebf026e6a8f17e54f33",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1008,
+      "preimage_sha256": "137504a68a8d8f1f4c9becc158d7b633e1840f22a596867997046012f6b7dfda",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1101,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1102,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 1103,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|8\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 2005,
+      "preimage_sha256": "4c88444ae11ee27ce04e9c6f4c7a63418778a01a2a7d72c8deaf85bb53956b64",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 2008,
+      "preimage_sha256": "e49106f0b600f6ef53cfcfcf40247435ff3a9db7961b1aa519292264b87563d4",
+      "operations": [
+        {
+          "index": 2,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3001,
+      "preimage_sha256": "2e09d548390a152abf8ca8a2f03fc1293fd84333722368d901e3ae31b0f85238",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3002,
+      "preimage_sha256": "ff49e55c385612ab0ef70577b68ed56c9e6ebea44b22a97676fcf180c6e48b59",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3003,
+      "preimage_sha256": "83c8e798b32cf3c04df0415e4c1c295bcbf69d5950b9c02d7bb1ba2656555784",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3004,
+      "preimage_sha256": "668cda9d11015d882ca60152263204ccd3074646e984493358cb5189f3920967",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3005,
+      "preimage_sha256": "1c5803c8b709137274b490ce916e0676b265b58dbfc6c1817f18c9d3f0027ef2",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3006,
+      "preimage_sha256": "000e58091e5ee5028a7e47c5aa44ffa45475a16413ab9d019039d8f32e8c61f9",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3007,
+      "preimage_sha256": "20dd38f6b97d9cdb754da17624b3e68060a8692e24c68154262d0565437b7019",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3008,
+      "preimage_sha256": "27b247195754832fbfee8ed83c25da5428fb14cc7e4a805f8cfc5e33a8756654",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 3102,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4001,
+      "preimage_sha256": "da75ad8af6255e6c23a41cef7cdeb387b3d9e630f08f550a27e580c63359e081",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4002,
+      "preimage_sha256": "6b67fccf2f2c544957d3f76cd625f3a0c16931ec63aeae0f8c516e11590afe3e",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4003,
+      "preimage_sha256": "fb5190084a8820506110b33ea8c22a853f716d404ab5cd531a38e3c41b2ad8b4",
+      "operations": [
+        {
+          "index": 3,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4004,
+      "preimage_sha256": "743bb3c439e4f2173589b0ac52d1a4377a156e10c1c907a40531e984258d5475",
+      "operations": [
+        {
+          "index": 4,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4005,
+      "preimage_sha256": "74c6bbbadec3683804a68ab880274668cf6188c5285bd55841efc3b25d22834f",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4006,
+      "preimage_sha256": "291823170aecb7c1cc26c6b3a3e9f60b09919076d38a9537f89aba0122c23ae5",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4007,
+      "preimage_sha256": "a8cb11296ac6512182eb82ccd9310fb467d56060f3c9d7265c6752319851d21d",
+      "operations": [
+        {
+          "index": 3,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4008,
+      "preimage_sha256": "54d020e0736a0215f0ad36bfa6aa35e1c54ad0dbc8a2970013add8fee26d8112",
+      "operations": [
+        {
+          "index": 4,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4009,
+      "preimage_sha256": "266f682f9f1871a6009d20735f53e7be3fa15c8278781fa22edcf9252e666e28",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4010,
+      "preimage_sha256": "8464e838c35bbc72e700e5b6136674b7feebe3f7ec6af9a5a7ab1cdf7cae9ad8",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4011,
+      "preimage_sha256": "b16762a2bdafd5e2baa93fcd120110e788f32f54cdf0122b4469234902456b9c",
+      "operations": [
+        {
+          "index": 3,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 4012,
+      "preimage_sha256": "ed558697a87fd062327da426dadbec88dac197a15307088d42f019bc79116201",
+      "operations": [
+        {
+          "index": 4,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        },
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5005,
+      "preimage_sha256": "9a5f99af20284ca771d30b21fbafb324c518d6f59742ad2f142625b3b48bb028",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5006,
+      "preimage_sha256": "9fde619beb0e88e91bfe2a5cb764bb0847efd96b676e330ea104b1d0ca69ed4e",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5007,
+      "preimage_sha256": "e3aeeee2638230c9a3abcd4a4c92edcced1053ae3246811807d2b2402491c824",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5008,
+      "preimage_sha256": "95b28139981a57a03f0413991ca8fba9107170dab9e9717b380b608ca8588513",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5009,
+      "preimage_sha256": "afee6e5fc6d6334c40ef5aec4d7ec34ad3a36a9d77f125b666e485bb5166afb1",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5010,
+      "preimage_sha256": "ecd83ef6eb1c93ebc1cd0486f3790f5030b749e412a939ff075863a1ac6363ae",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5011,
+      "preimage_sha256": "7a9cb063aef5bc22930e8402a4427f9a6328fc78a6534e1b439b285e2fb7bd5c",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5012,
+      "preimage_sha256": "4211c3854c42ca491ab8504e625cb0db80a74989f9ebe47e10fece584074945b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5013,
+      "preimage_sha256": "f470fae29dbd7973532ebb3519a289fe97f73fb37617da4f651b1b490ef7a6df",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5014,
+      "preimage_sha256": "dc80cb9ea465f9356b976943f749174782fb4b40e56498e4197cb85bc2daf902",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5015,
+      "preimage_sha256": "d86ae7496c2641932bf898163225cb89c4abbb2a5ef1b07286d1d07b4fe03aaa",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5016,
+      "preimage_sha256": "aa9be2770c2ce5adeda8a27717be34d820edd2f5f28464ee3e0c45e391dcfde9",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5017,
+      "preimage_sha256": "edc60dad8c26a77b9b088fc20e758924cad07e4a39c49daeb3c918fa9081c142",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5018,
+      "preimage_sha256": "b9f90ab4820333f39f2710f2f2e289394f95be92fbcdf5e79dd24a6eed06aecb",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5019,
+      "preimage_sha256": "cd87f538b60c153de0cb6ec5984cef1451481a5666bfdcfb92dc8bef73b909f4",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5020,
+      "preimage_sha256": "f2da9532f0265bc0c7091594895a9c75b95e8d491d355d41e1dc3ee8ed002934",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5021,
+      "preimage_sha256": "d71139bbf8f7362ce237e622fdb7b6f14c636ec3bf5a7f8fa67a2b24764fb965",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5022,
+      "preimage_sha256": "3acc3c6a3ae5661099c9980312fa2a646838db7a383d5d4ca2b0649cca0dc975",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5023,
+      "preimage_sha256": "05db925034f6794b36de091b7b375e3368f6a5527635ca56e9f5e7055019a054",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5024,
+      "preimage_sha256": "b7de78861420232bd285fdc7679627a3b3fdebc354cae848a8a89b3d5b5f2774",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5530,
+      "preimage_sha256": "a998af28c2f047a5f5b281e862551015e1393ccddd89ab51fa24a8c7c3d36283",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5531,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5532,
+      "preimage_sha256": "8132220d5f8b5f4ada2d271fd6c31ef16cee41fd9e9965f9e4d9aec511bcbceb",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5533,
+      "preimage_sha256": "1fafe385ba9db6d93d4e6108295e81802dc517507be6373ff09bdec45ae5aa3b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5534,
+      "preimage_sha256": "29b8570e9c9b5ee917e20065cbcd2d5f689aa06b585a6213fb5b218dbf7c5e1b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5550,
+      "preimage_sha256": "784df81094c831d6fa2e1d0f9b1a073445e5645fed47987325f07b8c46973608",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5551,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5552,
+      "preimage_sha256": "ed2825bc89cc72501087aaaee000bdbdbef1060a3caaf0f2ee97a3ed6841f041",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5553,
+      "preimage_sha256": "cb06fce6b2514bb34889bc98f632e239924c52ab2f29bac2a9f290172ac32cb9",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5554,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5555,
+      "preimage_sha256": "bc70e73d7b5a17fab1360c66157c8a5b317791fff83f6292e2cb88cb4219f702",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5556,
+      "preimage_sha256": "7fcded06f7b6e3c1fd62a46f6238c2930c377136c138baca9bf5b9cb9d3967d7",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5557,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5558,
+      "preimage_sha256": "910435707d7a649b2766d0568cb74b70cd383f87ce9bd35f826986c5b87a7ae3",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5559,
+      "preimage_sha256": "2360a9c41e62c7ded3829aa4374823966759a86904c7d136569da122cd70c9f7",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5560,
+      "preimage_sha256": "56e5d22dd28d314b08ad112c37e58d9c7e5584a6f5628f60fcd2c13149e1ac1a",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5561,
+      "preimage_sha256": "14904088d0e2ed0bd560b2f40a4462f9a681a526b9ef27d2c23c73779f3eb6aa",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5562,
+      "preimage_sha256": "06f16c7d441543664e42fe1f77148876346480103c906316c0bf5067b00a64aa",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5563,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 5564,
+      "preimage_sha256": "62732210a8bf89b9df5d030eb34f08082aeba0c171caa42f1b6028bdef853c70",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 6001,
+      "preimage_sha256": "9ab5dfc83a48825df15eea6b464ecc6990d85681d111c925dbc91f2eafb3edaa",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 2,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>",
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 6011,
+      "preimage_sha256": "74e716719c6cd586222ca4c9248fdc4dacc8115cc7b98a3a4b6c4555961a24db",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 2,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>",
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 6012,
+      "preimage_sha256": "eee258d6d28d253eaff024f976b956abd4b93dced87a4aa5aa093cd0ddccf19b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 2,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>",
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 6013,
+      "preimage_sha256": "0509beb0bb3db65ed49910b66639da4e0496b4b7b59d4308a49f49150eba9dd4",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 2,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>",
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 6014,
+      "preimage_sha256": "2ed561bac5990b44b6bef1c3025716a4275590b61b4a0b1cc9036d85d62e682b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 2,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>",
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7010,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7011,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7025,
+      "preimage_sha256": "9e84817f11fae10a796a0b7df79b9e2d2fd2d4ddb11b1e1ce20344b989cee782",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7026,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7027,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7032,
+      "preimage_sha256": "357e58f04ad9a936d8ddbd49bfea215b25707fa0d14dfb7eaaf83b85771014ff",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7034,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7035,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7072,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7073,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7074,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7079,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7080,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7084,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7085,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7086,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7087,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7091,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7092,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7093,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7094,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7095,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7101,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7102,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7153,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7159,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7160,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7161,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7166,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7167,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7168,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7169,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7172,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7199,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7203,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7205,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7208,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7217,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|4\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7220,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 7224,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8002,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8006,
+      "preimage_sha256": "75d223d4891d9aaae00a363598e35e3a94cb204ff9d4314a56469d3136daf9de",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8102,
+      "preimage_sha256": "2a171e51e372fb867f6f796e6f6900fe2590763d2d69ed9e1c893cca95f2dca7",
+      "operations": [
+        {
+          "index": 2,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8202,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8301,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8302,
+      "preimage_sha256": "0eabe88ace3c0689b8d47b5a892cc186efc68d13f6b86005a11dcc28da48d453",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|5\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 8403,
+      "preimage_sha256": "f3d68fd9585841ee37c5ccbc727cb02e0c3902a3ef0e5cbf592e4acff84ca955",
+      "operations": [
+        {
+          "index": 2,
+          "delete_count": 1,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 9003,
+      "preimage_sha256": "0ccb041873e06be02b610d37f1f50a7c1641c7eb297feffe7327a51d455af422",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 9004,
+      "preimage_sha256": "799099a3bf340e1487342a78c1953f012c9f6f19d7736c7bac24af2a4c519fe2",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|1\" text=\"Obtain_Source_Equip_1\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 9007,
+      "preimage_sha256": "f6a122885204d59889607332f98c121330adce81d7596be0281559e5868ade5b",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 9008,
+      "preimage_sha256": "2239e231d07475b13d06408d9a1307ff0140de4d3534ee08a9405f3a39a33b87",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|3\" text=\"Obtain_Source_Equip_2\"/>"
+          ]
+        }
+      ]
+    },
+    {
+      "material_id": 9010,
+      "preimage_sha256": "4acea566137798ec320edb6962b8a72f9030d366f26d7ad6aa58e05abe1f71df",
+      "operations": [
+        {
+          "index": 1,
+          "delete_count": 0,
+          "insert": [
+            "<type=\"17|7\" text=\"Obtain_Source_Equip_7\"/>"
+          ]
+        }
+      ]
+    }
+  ]
+}
