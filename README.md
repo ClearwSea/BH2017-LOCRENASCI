@@ -1,5 +1,7 @@
 [中文](README.md) · [English](README_ENG.md)
 
+> 本 README 由 Agent 自动生成，内容请以实际情况为准。
+
 # BH2017-LOCRENASCI
 
 > 本项目主要采用 VIBECODING 方式开发。代码可能存在问题，敬请谅解；欢迎开发者阅读、验证和改进。

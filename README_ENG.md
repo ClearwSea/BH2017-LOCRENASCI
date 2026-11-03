@@ -1,5 +1,7 @@
 [中文](README.md) · [English](README_ENG.md)
 
+> This README was generated automatically by an Agent; please refer to the actual project state as authoritative.
+
 # BH2017-LOCRENASCI
 
 > This project was developed mainly by VIBECODING. The code may contain problems; please bear with them. Developers are welcome to read, verify, and improve it.
