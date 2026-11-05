@@ -7,10 +7,12 @@ grants exactly that deployed row's scBonus/staminaBonus. No invented crystals,
 extra rewards or unknown capped-EXP conversion. Caller owns save/idempotency.
 """
 from copy import deepcopy
-import hashlib
+import json
+from server19_build_capabilities import canonical_sha
 
 SOURCE_POLICY = "deployed24-playerlevel-arrival-compatibility"
 TABLE_SHA256 = "c908e465b869bd64c13e798e0c5a3951fd2534debba97bf8262ab862549eeeeb"
+TABLE_CONTENT_SHA256 = "49ac1b59a2659ae15eba358a797ee93fc6adcb8d3bf2d17ecc01b906d9317370"
 # Explicit local story-test policy; other instances retain the original refusal.
 CAP_EXP_TO_SCOIN = False
 
@@ -24,7 +26,9 @@ def grant_player_exp(main, amount):
     """
     import server19_stage as stage
     raw = (stage.TABLE_DIRECTORY / "playerleveldata").read_bytes()
-    if hashlib.sha256(raw).hexdigest() != TABLE_SHA256:
+    # Build output may change JSON whitespace or object key order.
+    # Keep the reviewed values fixed, rather than their serialization bytes.
+    if canonical_sha(json.loads(raw)) != TABLE_CONTENT_SHA256:
         raise ValueError("Reviewed captain progression source changed")
     rows = stage._table("playerleveldata")
     levels = {stage._u32(row["level"], "level"): row for row in rows}

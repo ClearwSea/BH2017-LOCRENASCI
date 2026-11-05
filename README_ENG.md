@@ -4,6 +4,8 @@
 
 # BH2017-LOCRENASCI
 
+See the [changelog](CHANGELOG.md) for the latest fixes and validation scope.
+
 > This project was developed mainly by VIBECODING. The code may contain problems; please bear with them. Developers are welcome to read, verify, and improve it.
 
 BH2017-LOCRENASCI is a local-runtime and compatibility source project for the Android 1.9 client. The repository provides a **local server written in Python** by this project, cross-version table recovery, client patches, resource-processing code, and Android startup components.
