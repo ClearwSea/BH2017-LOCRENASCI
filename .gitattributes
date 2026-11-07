@@ -1,2 +1,2 @@
-# Preserve exact source bytes used by SOURCE-MANIFEST.json across platforms.
+# Preserve exact source bytes used by src/SOURCE-MANIFEST.json across platforms.
 * -text

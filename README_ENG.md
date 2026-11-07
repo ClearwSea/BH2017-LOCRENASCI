@@ -22,7 +22,7 @@ Linked documents in this repository are still in Chinese.
 | --- | --- |
 | Read, modify, and extend it yourself | Read the [source and development entry](docs/roadmap.md), then change the server, rules, patches, or resource processing by module |
 | Develop with an Agent | Use the repository as the working directory and provide the goal and input versions. Entry points: [development conventions](AGENTS.md) and the [documentation index](docs/README.md) |
-| Use the command line and generation scripts | Recover tables, generate runtime data, or assemble an APK as needed. See [build and inputs](docs/build.md) and the [packager interface](packager/README.md) |
+| Use the command line and generation scripts | Recover tables, generate runtime data, or assemble an APK as needed. See [build and inputs](docs/build.md) and the [packager interface](src/packager/README.md) |
 | Use the Windows graphical builder | Choose the client, resources, and tools, then generate an APK and a video pack. See the [desktop builder](docs/desktop-builder.md) |
 
 ## Materials and disk space
@@ -77,11 +77,11 @@ The following devices were actually tested by the maintainer and are listed for 
 | Location | Contents |
 | --- | --- |
 | Root `server19.py` and business modules | Python local server, protocol handling, business logic, and cache |
-| `rules/`, `profiles/`, and project configuration | Business rules, field mapping, input references, and version adaptation |
-| Root generation modules, `scripts/`, `tools/` | Table recovery, client patches, resource conversion, and assembly tools |
-| `android-server-probe/` | Android startup screen, Python hosting layer, and save management |
-| [`packager/`](packager/README.md) | Command line, GUI, and build-stage scheduling |
-| [`docs/`](docs/README.md), `tests/` | Usage and development documents, and isolated check code |
+| `src/rules/`, `src/profiles/`, and project configuration | Business rules, field mapping, input references, and version adaptation |
+| Root generation modules, `src/scripts/`, `src/tools/` | Table recovery, client patches, resource conversion, and assembly tools |
+| `src/android-server-probe/` | Android startup screen, Python hosting layer, and save management |
+| [`src/packager/`](src/packager/README.md) | Command line, GUI, and build-stage scheduling |
+| [`docs/`](docs/README.md), `src/tests/` | Usage and development documents, and isolated check code |
 
 [Feature scope](docs/status.md) describes component responsibilities. [Source and development entry](docs/roadmap.md) describes where to make changes. [Data and rule sources](docs/data-sources.md) separates original-table derivatives, compatibility configuration, and project rules.
 
@@ -94,3 +94,10 @@ This project's own source is under the [MIT License](LICENSE), copyright ClearwS
 ## Acknowledgements
 
 Thanks to the developers who took part in development, research, testing, and feedback, and to ChatGPT, DeepSeek, Claude, and Gemini for help with coding, analysis, and documentation.
+
+## Repository layout
+
+- `src/`: server, builder, native compatibility code, rules and tests.
+- `configs/`: example build configurations.
+- `docs/`: usage and development documentation.
+- `launch_gui.py`: GUI entry; `python -m packager` remains the CLI entry.

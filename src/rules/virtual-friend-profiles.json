@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "kind": "local_virtual_test_profiles",
+  "source": "accepted player equipment snapshot copied into independent fixtures",
+  "profiles": [
+    {
+      "brief": {
+        "uid": 21001,
+        "nickname": "宁静致远",
+        "level": 16,
+        "avatar_id": 101,
+        "avatar_star": 1,
+        "avatar_level": 16,
+        "dress_id": 101,
+        "last_login_time": 0,
+        "bond": 0,
+        "main_sub_skill_list": []
+      },
+      "detail": {
+        "uid": 21001,
+        "nickname": "宁静致远",
+        "level": 16,
+        "leader_avatar": {
+          "avatar_id": 101,
+          "avatar_star": 1,
+          "avatar_level": 16,
+          "dress_id": 101,
+          "skill_list": [
+            {
+              "skill_id": 14,
+              "sub_skill_list": [
+                {
+                  "sub_skill_id": 107,
+                  "level": 2,
+                  "is_mask": false
+                }
+              ]
+            }
+          ],
+          "weapon": {
+            "unique_id": 3,
+            "id": 20003,
+            "level": 15
+          },
+          "stigmata_1": {
+            "unique_id": 20009,
+            "id": 30006,
+            "level": 15
+          },
+          "stigmata_2": {
+            "unique_id": 20002,
+            "id": 30057,
+            "level": 5
+          },
+          "stigmata_3": {
+            "unique_id": 20014,
+            "id": 30111,
+            "level": 10
+          }
+        },
+        "self_desc": "本地虚拟好友 / Local virtual friend"
+      }
+    },
+    {
+      "brief": {
+        "uid": 21002,
+        "nickname": "舰长当绳匠好玩吗",
+        "level": 16,
+        "avatar_id": 201,
+        "avatar_star": 1,
+        "avatar_level": 15,
+        "dress_id": 201,
+        "last_login_time": 0,
+        "bond": 0,
+        "main_sub_skill_list": []
+      },
+      "detail": {
+        "uid": 21002,
+        "nickname": "舰长当绳匠好玩吗",
+        "level": 16,
+        "leader_avatar": {
+          "avatar_id": 201,
+          "avatar_star": 1,
+          "avatar_level": 15,
+          "dress_id": 201,
+          "skill_list": [
+            {
+              "skill_id": 53,
+              "sub_skill_list": [
+                {
+                  "sub_skill_id": 507,
+                  "level": 1,
+                  "is_mask": false
+                }
+              ]
+            }
+          ],
+          "weapon": {
+            "unique_id": 4,
+            "id": 20043,
+            "level": 15
+          },
+          "stigmata_1": {
+            "unique_id": 20011,
+            "id": 30003,
+            "level": 15
+          },
+          "stigmata_2": {
+            "unique_id": 20019,
+            "id": 30056,
+            "level": 15
+          },
+          "stigmata_3": {
+            "unique_id": 20013,
+            "id": 30109,
+            "level": 15
+          }
+        },
+        "self_desc": "本地虚拟好友 / Local virtual friend"
+      }
+    }
+  ]
+}

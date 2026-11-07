@@ -21,9 +21,9 @@ inputs/
   supplements.zip
 ```
 
-1.9/2.4参考配置见[`profiles/android-launcher-20261102.json`](../profiles/android-launcher-20261102.json)，参考哈希见[`profiles/input-references.json`](../profiles/input-references.json)。整体APK哈希或大小不同仍可尝试构建；原生补丁需要匹配所适配的内部库。7.x相近版本可按所需音视频的实际覆盖使用。
+1.9/2.4参考配置见[`src/profiles/android-launcher-20261102.json`](../src/profiles/android-launcher-20261102.json)，参考哈希见[`src/profiles/input-references.json`](../src/profiles/input-references.json)。整体APK哈希或大小不同仍可尝试构建；原生补丁需要匹配所适配的内部库。7.x相近版本可按所需音视频的实际覆盖使用。
 
-补充ZIP提供6张配套图片与当前7.0集合缺少的5段旧CG，目录格式见[补充资源说明](../assets/README.md)。图片和CG由外部资源包加载，不随源码或构建器内置。兼容存档在APK安装后导入。
+补充ZIP提供7张配套图片与当前7.0集合缺少的5段旧CG，目录格式见[补充资源说明](../assets/README.md)。图片和CG由外部资源包加载，不随源码或构建器内置。兼容存档在APK安装后导入。
 
 ## 本地空间
 
@@ -33,19 +33,20 @@ inputs/
 
 ## 从源码使用
 
-可直接修改根目录服务端模块、`rules/`配置及生成工具；与Agent协作时，先提供仓库、开发目标和输入版本，阅读入口见[源码与开发入口](roadmap.md)。服务端运行和客户端适配仍需要相应的生成数据与资源。
+可直接修改src/ 中的服务端模块、`src/rules/`配置及生成工具；与Agent协作时，先提供仓库、开发目标和输入版本，阅读入口见[源码与开发入口](roadmap.md)。服务端运行和客户端适配仍需要相应的生成数据与资源。
 
 下面的命令行支持完整APK和独立表单阶段。希望使用图形界面时，也可以从源码启动GUI。
 
 ## 从源码启动GUI
 
-程序目录布局如下；`app/`中放置仓库源码，`tools/`中放置配套离线工具包：
+程序目录布局如下；`app/`中放置仓库源码，`src/tools/`中放置配套离线工具包：
 
 ```text
 builder/
   app/
     launch_gui.py
-    packager/
+    packager/  # 命令行兼容入口
+    src/       # 实现代码与构建资源
     ...
   tools/
     python/python.exe
@@ -59,16 +60,16 @@ builder/
 ./tools/python/python.exe -B -s app/launch_gui.py .
 ```
 
-GUI操作、四项签名填写及输出位置见[桌面构建器](desktop-builder.md)。窗口程序入口源码位于仓库的`tools/DesktopLauncher.cs`。
+GUI操作、四项签名填写及输出位置见[桌面构建器](desktop-builder.md)。窗口程序入口源码位于仓库的`src/tools/DesktopLauncher.cs`。
 
 ## 命令行生成APK
 
-在仓库根目录准备`requirements-build.txt`所列依赖及Android工具链、Zig、FFmpeg和vgmstream。具体目录与版本见[打包器说明](../packager/README.md#构建环境)。
+在仓库根目录准备`src/requirements-build.txt`所列依赖及Android工具链、Zig、FFmpeg和vgmstream。具体目录与版本见[打包器说明](../src/packager/README.md#构建环境)。
 
-复制`packager-original.example.json`，填写输入、工具、独立工作目录及签名配置，通过环境变量`BH3_KEYSTORE_PASSWORD`和`BH3_KEY_PASSWORD`提供签名密码，然后运行：
+复制`configs/packager-original.example.json`，填写输入、工具、独立工作目录及签名配置，通过环境变量`BH3_KEYSTORE_PASSWORD`和`BH3_KEY_PASSWORD`提供签名密码，然后运行：
 
 ```console
-python -B -m packager build --target apk --config packager-original.example.json
+python -B -m packager build --target apk --config configs/packager-original.example.json
 ```
 
 命令行输出在所配`work_dir`中：
@@ -90,13 +91,13 @@ logs/
 
 ## 单独生成表单
 
-复制`packager.example.json`并填写客户端输入。以下两条命令分别使用新的工作目录：
+复制`configs/packager.example.json`并填写客户端输入。以下两条命令分别使用新的工作目录：
 
 ```console
-python -B -m packager build --target data --config packager.example.json
-python -B -m packager build --target tables --config packager.example.json
+python -B -m packager build --target data --config configs/packager.example.json
+python -B -m packager build --target tables --config configs/packager.example.json
 ```
 
 `data`输出协议、251张基础表和材料导航；`tables`继续应用角色/材料补行、商店、每日使命、外传入口等规则，生成251张有效服务端表。完整APK阶段继续生成派生目录、客户端数据和资源。
 
-六关经验/金币比例由`stage_ratios`选择：默认`baseline`沿用该版本比例，`repaired`采用导出器中的比例修复。参数与继续构建方法见[打包器接口](../packager/README.md)。
+六关经验/金币比例由`stage_ratios`选择：默认`baseline`沿用该版本比例，`repaired`采用导出器中的比例修复。参数与继续构建方法见[打包器接口](../src/packager/README.md)。

@@ -14,7 +14,7 @@
 | 文档 | 内容 |
 | --- | --- |
 | [构建与输入](build.md) | 输入格式、空间预留、从源码使用和命令行构建 |
-| [打包器接口](../packager/README.md) | 完整构建、独立数据阶段、配置与继续构建 |
+| [打包器接口](../src/packager/README.md) | 完整构建、独立数据阶段、配置与继续构建 |
 | [Windows图形构建器](desktop-builder.md) | 可选的图形操作方式、参考核对、签名与输出 |
 | [Android兼容与启动设置](android-compatibility.md) | ARM32设备要求、TANGO适配、启动和伤害设置 |
 | [补充资源格式](../assets/README.md) | 图片、CG与外部ZIP的目录结构 |

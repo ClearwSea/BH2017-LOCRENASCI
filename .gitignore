@@ -32,3 +32,12 @@ android-server-probe/.gradle/
 android-server-probe/**/build/
 android-server-probe/app/src/main/assets/
 android-server-probe/app/src/main/jniLibs/
+
+/src/.local-baseline/
+/src/server19-run/
+/src/work/
+/src/dist/
+/src/android-server-probe/.gradle/
+/src/android-server-probe/**/build/
+/src/android-server-probe/app/src/main/assets/
+/src/android-server-probe/app/src/main/jniLibs/

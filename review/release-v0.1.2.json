@@ -1,0 +1,33 @@
+{
+  "version": "v0.1.2",
+  "date": "2026-11-08",
+  "summary_zh": "本轮修复与目录整理纳入同版发布。用户已验收圣痕26条、引导、装备、角色兼容、登录、补给、商店与轩辕三队关卡；实机验收按各项记录范围，不代表全功能逐项覆盖。",
+  "summary_en": "This release combines community fixes and repository reorganization. User acceptance covers 26 stigmata entries, tutorials, equipment, avatar compatibility, login, supply, shops and Xuanyuan multi-team stages within the recorded scope, not exhaustive gameplay coverage.",
+  "accepted": [
+    "26 affected stigmata detail entries",
+    "Sakura level-gated tutorial",
+    "stage 1-2 entry and weapon upgrade tutorial",
+    "starter supply grant/count",
+    "equipment unlock/sale/fodder/disassembly",
+    "Sakuno Rondo entry",
+    "Blood Rose ultimate compatibility",
+    "Wolfs Dawn entry/switch/ultimate",
+    "login entry",
+    "shop fragment delivery and other shop paths",
+    "Xuanyuan 3-1/5-2/8-1 entry and settlement"
+  ],
+  "deferred": [
+    "Manual same-speaker dialogue page advance can silence subsequent lines; user explicitly deferred."
+  ],
+  "not_reproduced": [
+    "Custom LV16 save bridge exception; original failing save unavailable."
+  ],
+  "layout": {
+    "root_files_before": 213,
+    "root_files_after": 9,
+    "implementation": "src",
+    "examples": "configs",
+    "cli": "python -m packager"
+  },
+  "publication": "authorized by user after acceptance; release verification is recorded separately"
+}

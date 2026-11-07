@@ -10,7 +10,7 @@
 
 与Agent协作时，把仓库作为工作目录，说明目标行为、输入版本和期望输出。README、AGENTS及模块文档提供项目上下文，Agent可据此阅读源码、定位实现并继续开发。
 
-Python服务端业务位于根目录的`server19*.py`，兼容规则位于`rules/`及项目配置，Android运行组件位于`android-server-probe/`。桌面GUI和命令行调用`packager/original.py`组织完整生成流程。
+Python服务端业务位于`src/server19*.py`，兼容规则位于`src/rules/`及项目配置，Android运行组件位于`src/android-server-probe/`。桌面GUI和命令行调用`src/packager/original.py`组织完整生成流程。
 
 ## 输入如何变成APK
 
@@ -28,15 +28,15 @@ Python服务端业务位于根目录的`server19*.py`，兼容规则位于`rules
 
 | 位置 | 适合修改的内容 |
 | --- | --- |
-| `packager/desktop.py`、`packager/reference_window.py` | 桌面交互、输入参考与签名帮助 |
-| `packager/desktop_worker.py`、`packager/original.py` | GUI子进程、签名配置与完整构建顺序 |
-| `packager/core.py`及根目录生成模块 | 独立数据阶段、输入提取与表单生成 |
-| `packager/runtime_data.py`及资源处理模块 | 服务端运行数据与资源组织 |
-| `rules/`、`profiles/` | 表单差分、派生配方、原生补丁及版本配置 |
-| `android-server-probe/` | APK内启动界面、Python承载、导入和存档管理 |
+| `src/packager/desktop.py`、`src/packager/reference_window.py` | 桌面交互、输入参考与签名帮助 |
+| `src/packager/desktop_worker.py`、`src/packager/original.py` | GUI子进程、签名配置与完整构建顺序 |
+| `src/packager/core.py`及根目录生成模块 | 独立数据阶段、输入提取与表单生成 |
+| `src/packager/runtime_data.py`及资源处理模块 | 服务端运行数据与资源组织 |
+| `src/rules/`、`src/profiles/` | 表单差分、派生配方、原生补丁及版本配置 |
+| `src/android-server-probe/` | APK内启动界面、Python承载、导入和存档管理 |
 | 根目录`server19*.py`及项目配置 | 本地协议和业务规则 |
 
-具体命令与阶段参数见[打包器接口](../packager/README.md)。数据来源和自拟规则见[数据与规则来源](data-sources.md)。
+具体命令与阶段参数见[打包器接口](../src/packager/README.md)。数据来源和自拟规则见[数据与规则来源](data-sources.md)。
 
 ## 新增输入版本
 

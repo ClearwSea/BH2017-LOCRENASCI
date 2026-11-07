@@ -14,13 +14,20 @@ BH2017-LOCRENASCI 是面向 Android 1.9 客户端的本地运行与兼容适配�
 
 功能以 **2026年11月2日版本**为基础，不代表最新开发进度；需要后续功能的开发者可在此基础上自行扩展。
 
+## 仓库目录
+
+- `src/`：服务端、构建器、原生适配、规则和测试。
+- `configs/`：构建配置示例。
+- `docs/`：开发与使用文档。
+- `launch_gui.py`：图形构建器入口；命令行仍使用 `python -m packager`。
+
 ## 选择使用方式
 
 | 方式 | 从哪里开始 |
 | --- | --- |
 | 自行阅读、修改与扩展 | 阅读[源码与开发入口](docs/roadmap.md)，按模块修改服务端、规则、补丁或资源处理 |
 | 与 Agent 协作开发 | 将仓库作为工作目录，提供目标和输入版本；入口见[开发约定](AGENTS.md)与[文档导航](docs/README.md) |
-| 使用命令行和生成脚本 | 按需恢复表单、生成运行数据或组装APK，见[构建与输入](docs/build.md)与[打包器接口](packager/README.md) |
+| 使用命令行和生成脚本 | 按需恢复表单、生成运行数据或组装APK，见[构建与输入](docs/build.md)与[打包器接口](src/packager/README.md) |
 | 使用 Windows 图形构建器 | 选择客户端、资源与工具，生成APK和视频包，见[桌面构建器](docs/desktop-builder.md) |
 
 ## 准备材料与空间
@@ -32,7 +39,7 @@ BH2017-LOCRENASCI 是面向 Android 1.9 客户端的本地运行与兼容适配�
 | 1.9 客户端 APK | 游戏包底、协议与原生库 |
 | 2.4 参考客户端 APK | 提取表单及所需客户端资源，转换到1.9结构 |
 | 7.x PC Windows 资源目录 | 提供语音与视频；选择直接包含`Audio/`和`Video/`的`StreamingAssets`目录 |
-| 独立补充资源 ZIP | 提供6张配套图片与当前7.0资源缺少的5段旧CG |
+| 独立补充资源 ZIP | 提供7张配套图片与当前7.0资源缺少的5段旧CG |
 | 兼容存档 | 另行提供，在应用安装后导入 |
 
 客户端与7.x资源由使用者自行准备。[构建与输入](docs/build.md)介绍版本、目录和工具要求，[补充资源格式](assets/README.md)介绍ZIP结构。
@@ -75,11 +82,11 @@ BH2017-LOCRENASCI 是面向 Android 1.9 客户端的本地运行与兼容适配�
 | 位置 | 内容 |
 | --- | --- |
 | 根目录`server19.py`及业务模块 | Python本地服务端、协议处理、业务逻辑与缓存 |
-| `rules/`、`profiles/`与项目配置 | 业务规则、字段映射、输入参考与版本适配 |
-| 根目录生成模块、`scripts/`、`tools/` | 表单恢复、客户端补丁、资源转换和组装工具 |
-| `android-server-probe/` | Android启动界面、Python承载层与存档管理 |
-| [`packager/`](packager/README.md) | 命令行、GUI与构建阶段调度 |
-| [`docs/`](docs/README.md)、`tests/` | 使用与开发文档、隔离检查代码 |
+| `src/rules/`、`src/profiles/`与项目配置 | 业务规则、字段映射、输入参考与版本适配 |
+| 根目录生成模块、`src/scripts/`、`src/tools/` | 表单恢复、客户端补丁、资源转换和组装工具 |
+| `src/android-server-probe/` | Android启动界面、Python承载层与存档管理 |
+| [`src/packager/`](src/packager/README.md) | 命令行、GUI与构建阶段调度 |
+| [`docs/`](docs/README.md)、`src/tests/` | 使用与开发文档、隔离检查代码 |
 
 [功能范围](docs/status.md)介绍组件职责，[源码与开发入口](docs/roadmap.md)介绍修改位置，[数据与规则来源](docs/data-sources.md)区分原表派生、兼容配置和项目规则。
 
