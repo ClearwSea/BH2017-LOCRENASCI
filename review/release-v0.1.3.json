@@ -1,0 +1,26 @@
+{
+  "version": "v0.1.3",
+  "summary_zh": "碎片解锁、9级战车、教学关、脸部材质、新手引导、首登状态、商店碎片20片与启动页链接已按会话范围验收。",
+  "summary_en": "Accepted fragment unlock, level9 Chariot, tutorials, face textures, first-login lifecycle, 20-fragment shop purchases and launcher link within the recorded scope.",
+  "accepted": [
+    "Fragment unlock including Battle Storm and Chariot",
+    "Level9 Chariot auto-unlock",
+    "Himeko and Bronya tutorial dependencies",
+    "Face transitions checked with Bronya variants",
+    "Stage1-6 guide continuation",
+    "First-login completion and supply level gating",
+    "20 fragments per purchase",
+    "Versioned bulletin and editor release link"
+  ],
+  "editor": "v0.8.1: new-account first-login switch, captain level1 only",
+  "deferred": [
+    "Same-speaker dialogue voice after manual page advance"
+  ],
+  "not_reproduced": [
+    "Original custom LV16 save unavailable; approximation tests passed"
+  ],
+  "publication": "User authorized both releases after review; two announcement-related release-note bullets removed.",
+  "supplement_reference": "Updated advisory metadata to V0.1.2 supplements; payload unchanged.",
+  "build": "Original-input effective tables regenerated; final build reuses only this current-version verified extraction/effective-table stage. Native/runtime/client resources rebuilt; gameplay acceptance remains separate.",
+  "build_note": "Release audit caught old effective-table cache and client recipe selections retaining 87 old fragment quantities plus bulletin interval. Client recipes now read the corresponding fields from current server tables; final client data must match accepted candidate semantically."
+}

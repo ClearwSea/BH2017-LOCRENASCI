@@ -6,7 +6,7 @@ award: the caller must commit it with a successful GetMissionRewardReq.
 The native equipment consumer requires an actual inventory UID. This bounded
 compatibility policy binds an existing, unoccupied initial weapon (already a
 real 1-1 first-clear drop); it creates no extra weapon. Historical card default
-weapon issuance, duplicate-card conversion and fragment-star-up are unaudited.
+weapon issuance is unchanged here; owned-card duplicates use the shared gacha policy.
 """
 from copy import deepcopy
 
@@ -54,10 +54,10 @@ def story_card_plan(account, item_id=STORY_CARD_ID):
     existing = next((row for row in avatars if row["avatar_id"] == STORY_AVATAR_ID), None)
     if existing is not None:
         # An explicit locked packet may carry legitimately collected fragments.
-        # Preserve those values, but do not guess how an owned card duplicates
-        # or how a noncanonical locked avatar should be repaired.
+        # A player may unlock with purchased fragments before claiming 10005.
+        # Reuse the existing card-duplicate policy instead of blocking the mission.
         if stage._u32(existing.get("star", 0), "stored avatar star") != 0:
-            raise ValueError("Duplicate avatar-card conversion is not audited")
+            return {"avatar_id": STORY_AVATAR_ID, "duplicate": True}
         if existing.get("level", 1) != 1 or existing.get("exp", 0) != 0 or any(
                 existing.get(key, 0) for key in ("weapon_unique_id",
                     "stigmata_unique_id_1", "stigmata_unique_id_2", "stigmata_unique_id_3")):
@@ -98,6 +98,10 @@ def grant_story_avatar_card(account, item_id=STORY_CARD_ID):
     AvatarModule uses star>0 to mark ownership and emit its unlock notification.
     """
     plan = story_card_plan(account, item_id)
+    if plan.get("duplicate"):
+        import server19_gacha
+        server19_gacha._grant_card(account, item_id)
+        return plan["avatar_id"]
     avatars = account.setdefault("avatar_list", [])
     existing = next((row for row in avatars if row["avatar_id"] == plan["avatar_id"]), None)
     avatar = deepcopy(existing) if existing is not None else {}

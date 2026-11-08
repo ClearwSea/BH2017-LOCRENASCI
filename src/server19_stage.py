@@ -398,11 +398,25 @@ def _sync(account, current):
 ACCOUNT_MAINTENANCE = None
 
 
+def reconcile_first_login(account):
+    """Repair the opening flag only after a recorded successful first battle."""
+    if account.get("is_first_login") is not True:
+        return
+    completed = any(row.get("id") == STAGE_ID and row.get("is_done") is True
+                    for row in account.get("stage_list", []))
+    receipts = account.get("stage_runtime", {}).get("settlements", [])
+    if completed and any(row.get("stage_id") == STAGE_ID and
+            row.get("end_status") == STAGE_WIN and
+            row.get("response", {}).get("retcode") == 0 for row in receipts):
+        account["is_first_login"] = False
+
+
 def refresh_account(account, account_path=None):
     path = Path(account_path or DEFAULT_ACCOUNT).resolve()
     with _transaction_lock(path):
         before = _read(path, account)
         current = copy_account(before)
+        reconcile_first_login(current)
         if ACCOUNT_MAINTENANCE is not None:
             ACCOUNT_MAINTENANCE(current)
         _save(path, before, current)
@@ -868,6 +882,8 @@ def _end(account, request):
                                                  reward["hcoin"], "stored hcoin")
         level["challenge_index_list"] = sorted(previous | set(challenges))
         level.update(progress=config["maxProgress"], is_done=True)
+        if stage_id == STAGE_ID and account.get("is_first_login") is True:
+            account["is_first_login"] = False
         pass_time = body.get("stage_pass_time", 0)
         if pass_time:
             level["min_stage_time"] = min(level.get("min_stage_time") or pass_time, pass_time)

@@ -330,6 +330,12 @@ class GameHandler(socketserver.BaseRequestHandler):
                         if rsp_name is None or values is None:
                             event("game_unsupported", command=name)
                             continue
+                        level_avatar_granted = False
+                        if values.get("retcode") == 0 and name not in (
+                                "KeepAliveNotify", "GetPlayerTokenReq", "PlayerLoginReq"):
+                            import server19_player_progression
+                            level_avatar_granted = server19_player_progression.reconcile_level_avatar(
+                                account, RUN / "account.json")
                         packets = [(rsp_name, values)]
                         if name == "FinishGuideReportReq" and values.get("retcode") == 0:
                             packets = server19_stage.guide_notification_snapshot(account, request_values) + packets
@@ -423,7 +429,8 @@ class GameHandler(socketserver.BaseRequestHandler):
                             if name in cultivation.HANDLED_REQUESTS and values.get("retcode") == 0:
                                 # Native Rsp36/Rsp51 immediately inspect existing
                                 # avatar/skill objects; snapshots precede the result.
-                                snapshots = (cultivation.notification_snapshot(account, request_values.get('avatar_id'))
+                                snapshots = (cultivation.notification_snapshot(account, request_values.get('avatar_id'),
+                                        equipment_first=name == 'AvatarStarUpReq')
                                     if cultivation is server19_avatar_cultivation
                                     else cultivation.notification_snapshot(account))
                                 packets = snapshots + packets
@@ -553,6 +560,15 @@ class GameHandler(socketserver.BaseRequestHandler):
                             if name == 'EquipmentEvoReq':
                                 event('game_equipment_evolution_replaced',
                                       transition=server19_equipment.evolution_detail())
+                        if level_avatar_granted:
+                            # Replace pre-grant snapshots; inventory must exist before
+                            # native avatar-unlock listeners resolve the initial weapon.
+                            packets = [p for p in packets if p[0] not in (
+                                "GetEquipmentDataRsp", "GetAvatarDataRsp")]
+                            packets.extend(server19_avatar_cultivation.notification_snapshot(
+                                account, equipment_first=True))
+                            event("game_level_avatar_granted", avatar_id=301,
+                                  level=account["main"]["level"], request=name)
                         for packet_name, packet_values in packets:
                             body = proto.encode_message(packet_name, packet_values)
                             packet_id += 1

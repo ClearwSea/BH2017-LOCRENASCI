@@ -139,7 +139,7 @@ def _grow(account, values):
     material["num"] = count - amount  # Explicit zero tells Storage to delete it.
 
 
-def notification_snapshot(account, avatar_id=None):
+def notification_snapshot(account, avatar_id=None, *, equipment_first=False):
     """Send these BEFORE Rsp36: native level-up dialog reads the updated avatar.
 
     Avatar25 precedes Equipment27, which can close an exhausted material
@@ -155,9 +155,9 @@ def notification_snapshot(account, avatar_id=None):
     packets = [("GetAvatarDataRsp", {"retcode": 0, "avatar_list": avatars}),
                ("GetEquipmentDataRsp", {"retcode": 0, **{key: deepcopy(account[key])
                 for key in ("weapon_list", "stigmata_list", "material_list")}})]
-    if FUKA_FRAGMENT_UNLOCK_ENABLED and avatar_id == 601:
+    if equipment_first or (FUKA_FRAGMENT_UNLOCK_ENABLED and avatar_id == 601):
         # The native avatar update resolves a newly created weapon UID through
-        # Storage. Publish that equipment first for the601 unlock flow.
+        # Storage. Publish equipment first for every fragment unlock.
         packets.reverse()
     return packets
 
@@ -165,18 +165,27 @@ def notification_snapshot(account, avatar_id=None):
 def _promote(account, values):
     identity = stage._u32(values['avatar_id'], 'avatar ID')
     owned = [row for row in account['avatar_list'] if row['avatar_id'] == identity]
-    if FUKA_FRAGMENT_UNLOCK_ENABLED and identity == 601 and len(owned) == 1 and owned[0].get('star') == 0:
+    if len(owned) == 1 and owned[0].get('star') == 0:
         tables = _tables()
         meta = _one(tables['avatardata'], 'avatarID', identity)
-        if meta['baseAvatarID'] or meta['unlockStar'] != 2 or meta['initialWeapon'] != 20611:
-            raise ValueError('Changed601 unlock metadata')
+        if meta['baseAvatarID']:
+            raise ValueError('Awakening/shared-fragment unlock requires separate audit')
+        if identity == 601:
+            if not FUKA_FRAGMENT_UNLOCK_ENABLED or meta['unlockStar'] != 2 or meta['initialWeapon'] != 20611:
+                raise ValueError('601 resource capability or metadata mismatch')
+        else:
+            import server19_avatar_fragments as fragments_module
+            if fragments_module.AUDITED_IDS.get(meta['avatarFragmentID']) != identity:
+                raise ValueError('Unsupported avatar fragment mapping')
         # Original CalculateUnlockNeedFragment51683 sums rank0..unlockStar-1.
+        rank = stage._u32(meta['unlockStar'], 'unlock rank')
         rows = [row for row in tables['avatarstardata'] if row['avatarID'] == identity]
-        need = sum(_i32(_one(rows, 'star', rank)['upgradeFragment'], 'unlock fragments')
-                   for rank in range(meta['unlockStar']))
+        _one(rows, 'star', rank)
+        need = sum(_i32(_one(rows, 'star', star)['upgradeFragment'], 'unlock fragments')
+                   for star in range(rank))
         fragments = _i32(owned[0].get('fragment', 0), 'stored fragments')
-        if need != 30 or fragments < need:
-            raise ValueError('Insufficient601 unlock fragments')
+        if need <= 0 or fragments < need:
+            raise ValueError('Insufficient unlock fragments')
         import server19_gacha
         server19_gacha._grant_card(account, meta['avatarCardID'])
         owned[0]['fragment'] = fragments - need

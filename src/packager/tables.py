@@ -110,6 +110,13 @@ def restore(apk24, data_work, output):
                                ('avatarfragmentdata', 'ID', [10601, 10603])):
             tables[name].extend(source.typed(name, key, ids))
         tables['avatardata'].sort(key=lambda r: r['avatarID'])
+        # 10661 survives the 1.9 filter but its target 10662 is tagged 2.2+.
+        # Its TeamPanel/Team/2 widget and row fields exist in original 1.9.
+        # Restore the source completion step instead of leaving a dangling edge.
+        if not any(row['id'] == 10662 for row in tables['tutorialstepdata']):
+            tables['tutorialstepdata'].extend(
+                source.projected_tsv('tutorialstepdata', 'id', [10662]))
+
         tables['stigmatadata'].extend(source.projected_tsv('stigmatadata', 'ID', [30034, 30087]))
         tables['stigmatadata'] = complete_stigmata_evolution(
             tables['stigmatadata'], source.projected_tsv('stigmatadata'))

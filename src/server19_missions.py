@@ -250,6 +250,14 @@ def _guidance_rows(account):
     done = set(_guidance_runtime(account)["done"])
     rows = []
     for mission_id in GUIDANCE_MISSION_IDS:
+        requirement = _one(stage._table("linearmissiondata", field="MissionID",
+                           identities=(mission_id,)), "MissionID", mission_id)
+        # Publish the original task at its configured level, not on first login.
+        # Keep a previously completed supply task visible on imported accounts.
+        if mission_id not in done and (account["main"]["level"] < requirement["MinLevel"] or
+                (requirement["PreMissionId"] and requirement["PreMissionId"] not in
+                 account.get("mission_runtime", {}).get("claimed_ids", []))):
+            continue
         finished = mission_id in done
         rows.append({"mission_id": mission_id,
                      "status": MISSION_FINISH if finished else MISSION_DOING,

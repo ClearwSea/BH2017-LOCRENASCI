@@ -18,7 +18,9 @@ ANNOUNCEMENT_CONTENT = (
 )
 
 
-UPDATE_CONTENT = '<color=#FF4040FF>当前版本为V0.1.2</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>游玩提示</color>\n如果<color=#FF4040FF>深渊/剧情关卡/外传</color>出现<color=#FF4040FF>无法进入、持续加载或反复提示 fail</color>，尤其是在上一次对局异常退出后，请<color=#FF4040FF>彻底退出游戏、从后台划掉应用，再重新启动</color>。\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复部分圣痕打开详情时出现报错的问题。\n2. 修复新号引导要求进入尚未解锁的樱色轮回，导致无法继续操作的问题。\n3. 修复新手第二关无法正常进入，以及武器升级引导报错、卡住的问题。\n4. 修复新手补给引导漏发补给卡，以及抽卡后补给卡数量未及时刷新的问题。\n5. 修复武器解锁、装备出售、分解及作为强化材料使用时的相关问题；修复分解后装备仍留在列表、再次点击报错的问题。\n6. 修复樱火轮舞进入主线或深渊时卡在加载界面的问题。\n7. <color=#FF4040FF>兼容化</color>修复血色玫瑰释放大招时卡死的问题。\n8. 修复银狼的黎明进场、切换及释放大招时卡死的问题，并补齐相关召唤依赖。\n<color=#FF4040FF>9. 修复登录时需要反复点击才能进入游戏的问题。</color>\n10. 修复无助战好友问题。\n11. 修复商店购买角色碎片后数量未正确到账的问题；再次购买同种碎片时，补回旧版误存的碎片数量。\n12. 完善商店商品有效性与货架校验，避免无效商品上架或购买后错误发放。\n13. 修复轩辕篇 3-1、5-2、8-1 配置三支队伍后无法进入关卡的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+UPDATE_CONTENT = '<color=#FF4040FF>该公告面向V0.1.2</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>游玩提示</color>\n如果<color=#FF4040FF>深渊/剧情关卡/外传</color>出现<color=#FF4040FF>无法进入、持续加载或反复提示 fail</color>，尤其是在上一次对局异常退出后，请<color=#FF4040FF>彻底退出游戏、从后台划掉应用，再重新启动</color>。\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复部分圣痕打开详情时出现报错的问题。\n2. 修复新号引导要求进入尚未解锁的樱色轮回，导致无法继续操作的问题。\n3. 修复新手第二关无法正常进入，以及武器升级引导报错、卡住的问题。\n4. 修复新手补给引导漏发补给卡，以及抽卡后补给卡数量未及时刷新的问题。\n5. 修复武器解锁、装备出售、分解及作为强化材料使用时的相关问题；修复分解后装备仍留在列表、再次点击报错的问题。\n6. 修复樱火轮舞进入主线或深渊时卡在加载界面的问题。\n7. <color=#FF4040FF>兼容化</color>修复血色玫瑰释放大招时卡死的问题。\n8. 修复银狼的黎明进场、切换及释放大招时卡死的问题，并补齐相关召唤依赖。\n<color=#FF4040FF>9. 修复登录时需要反复点击才能进入游戏的问题。</color>\n10. 修复无助战好友问题。\n11. 修复商店购买角色碎片后数量未正确到账的问题；再次购买同种碎片时，补回旧版误存的碎片数量。\n12. 完善商店商品有效性与货架校验，避免无效商品上架或购买后错误发放。\n13. 修复轩辕篇 3-1、5-2、8-1 配置三支队伍后无法进入关卡的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+
+UPDATE_CONTENT_V013 = '<color=#FF4040FF>当前版本为V0.1.3</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>游玩提示</color>\n如果<color=#FF4040FF>深渊/剧情关卡/外传</color>出现<color=#FF4040FF>无法进入、持续加载或反复提示 fail</color>，尤其是在上一次对局异常退出后，请<color=#FF4040FF>彻底退出游戏、从后台划掉应用，再重新启动</color>。\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复使用角色碎片解锁女武神时出现报错、无法解锁的问题。\n2. 修复指挥官达到9级后，女武神·战车未自动解锁的问题\n3. 修复战场疾风教学关黑屏、报错的问题。\n4. 补齐布洛妮娅相关教学关脚本，修复教学关依赖问题\n5. 修复角色在进出关卡、结算切换场景时面部模型变黑的问题。\n6. 修复新手1-6编队引导过程中出现报错的问题。\n7. 为方便购买，角色碎片商品调整为<b>每次购买20片</b>\n8. 活动公告、游戏公告新增按版本区分的更新公告，保留历史版本内容。\n9. 修改部分启动前页面的公告信息\n10. 修复新账号引导流程的错乱以及首次登录状态失效的问题\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
 def response(name, account, values=None, *, account_path=None):
     if name not in HANDLED_REQUESTS:
@@ -64,8 +66,14 @@ def response(name, account, values=None, *, account_path=None):
         begin_time=1767225600, end_time=2145916800, update_time=1793098800,
     ) for show_type in (0, 1)]
     announcements += [dict(
-        id=201711 + show_type, type=show_type, weight=90,
-        title_button="更新公告", title="", event_date_str="", content=UPDATE_CONTENT,
+        id=201711 + show_type, type=show_type, weight=80,
+        title_button="更新公告V0.1.2", title="", event_date_str="", content=UPDATE_CONTENT,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1794096000,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201721 + show_type, type=show_type, weight=90,
+        title_button="更新公告V0.1.3", title="", event_date_str="", content=UPDATE_CONTENT_V013,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794096000,
     ) for show_type in (0, 1)]

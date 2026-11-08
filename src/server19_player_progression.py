@@ -70,3 +70,31 @@ def grant_player_exp(main, amount):
             "level_rewards": bonuses,
             "cap_exp_conversion": {"policy": "local_1_exp_to_1_scoin" if CAP_EXP_TO_SCOIN else "reject",
                                    "exp": converted, "scoin": converted}}
+
+
+def reconcile_level_avatar(account, account_path):
+    """Restore the original Chariot level-9 entitlement, without duplicate cards.
+
+    Text key Menu_Desc_NewbieAvatarUnlockCondition_301 specifies level 9.
+    Existing ownership is authoritative; stored fragments are preserved.
+    """
+    import server19_stage as stage
+    import server19_gacha as gacha
+    from pathlib import Path
+    def eligible(value):
+        return value.get('main', {}).get('level', 0) >= 9 and not any(
+            row.get('avatar_id') == 301 and row.get('star', 0) > 0
+            for row in value.get('avatar_list', []))
+    if not eligible(account):
+        return False
+    path = Path(account_path).resolve()
+    with stage._transaction_lock(path):
+        before = stage._read(path, account)
+        current = deepcopy(before)
+        if not eligible(current):
+            stage._sync(account, current)
+            return False
+        gacha._grant_card(current, 60301)
+        stage._save(path, before, current)
+        stage._sync(account, current)
+    return True
