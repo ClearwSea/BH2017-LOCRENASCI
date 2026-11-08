@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-09",
+  "status": "human-accepted-all-avatars",
+  "issue": "https://github.com/ClearwSea/BH-LOCRENASCI-ACT-EDIT/issues/1",
+  "root_cause": "2.4 recommendation table points to equipment removed by the retained-version filter; null dereference in MonoValkyrjaGearPanelController.SetStigmataPanel at 0x011259b4.",
+  "source_evidence": "Missing IDs have GameVersionBegin 2.0 to 2.3. Shadow Dash 2021 points to unavailable set77 IDs31191/31201/31211.",
+  "solution": "Explicit intact-source recommendation substitutions: prefer other tier of same avatar; otherwise existing beginner set of same weapon class. Copy description key together with set. Sync JSON, runtime and fallback TSV. Do not introduce later-version gear.",
+  "rows_fixed": 20,
+  "avatars_affected": [
+    102,
+    103,
+    112,
+    202,
+    203,
+    204,
+    211,
+    212,
+    213,
+    302,
+    303,
+    304,
+    311,
+    401,
+    404,
+    502,
+    503
+  ],
+  "validation": {
+    "guide_rows": 26,
+    "equipment_rows": 52,
+    "group_rows": 52,
+    "equipment_ids_and_slots": "PASS",
+    "weapon_class": "PASS",
+    "group_avatar_and_text": "PASS",
+    "guide_equipment_group_effects": "PASS",
+    "unit_tests": 4,
+    "pipeline_generation_matches_candidate": true,
+    "device_effective_table_matches": true,
+    "save_preserved_byte_identical": true
+  },
+  "additional_observations": [
+    "Seven optional AvatarBriefText keys absent in original retained textmap; not counted as null equipment references.",
+    "Earlier log also contains AtmosphereSeriesData.GetTheLastStoryChapter null at 0x011b2ad0; separate issue, not fixed by this patch.",
+    "Shared practiceStageID121501 is absent from current stagedata_main; reachability of that legacy practice entry not established, separately retained rather than fabricating a level."
+  ],
+  "cloud": "V0.1.3 converted to draft by explicit user request; V0.8.1 unchanged; no new patch pushed or published",
+  "native_changes": false,
+  "human_acceptance": {
+    "date": "2026-11-09",
+    "source": "用户：全角色测试通过",
+    "scope": "all-avatar retest as reported; unrelated atmosphere exception not covered"
+  }
+}

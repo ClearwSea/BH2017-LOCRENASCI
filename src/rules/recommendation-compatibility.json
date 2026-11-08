@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "description": "Replace unavailable 2.x recommendations using intact original combinations; prefer the same avatar, otherwise an existing beginner combination for the same weapon class. Copy the corresponding explanation with the equipment.",
+  "equipment": [
+    {
+      "id": 1021,
+      "stigmata_from": 1022
+    },
+    {
+      "id": 1031,
+      "stigmata_from": 1032
+    },
+    {
+      "id": 1121,
+      "stigmata_from": 1011
+    },
+    {
+      "id": 2021,
+      "stigmata_from": 2022
+    },
+    {
+      "id": 2031,
+      "stigmata_from": 2011
+    },
+    {
+      "id": 2041,
+      "stigmata_from": 2042
+    },
+    {
+      "id": 2111,
+      "stigmata_from": 2112
+    },
+    {
+      "id": 2121,
+      "stigmata_from": 2122
+    },
+    {
+      "id": 2131,
+      "stigmata_from": 2132
+    },
+    {
+      "id": 3021,
+      "stigmata_from": 3022
+    },
+    {
+      "id": 3031,
+      "stigmata_from": 3032
+    },
+    {
+      "id": 3041,
+      "stigmata_from": 3042
+    },
+    {
+      "id": 3111,
+      "stigmata_from": 3011
+    },
+    {
+      "id": 4041,
+      "stigmata_from": 4042
+    },
+    {
+      "id": 5021,
+      "stigmata_from": 5022
+    },
+    {
+      "id": 1122,
+      "stigmata_from": 1011
+    },
+    {
+      "id": 2032,
+      "stigmata_from": 2011
+    },
+    {
+      "id": 3112,
+      "stigmata_from": 3011
+    },
+    {
+      "id": 4012,
+      "weapon_from": 4011
+    },
+    {
+      "id": 5032,
+      "weapon_from": 5031
+    }
+  ]
+}

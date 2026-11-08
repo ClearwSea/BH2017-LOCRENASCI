@@ -1,6 +1,7 @@
 """Generate server data, client tables and capability records from raw inputs."""
 import ast
 import hashlib
+import json
 from pathlib import Path
 import shutil
 import zipfile
@@ -64,8 +65,16 @@ def prepare(client24, data_work, output, client_tables):
     stigmata = output / 'server19-run/sakura-20261025/candidate-v1/_exceloutputasset/stigmatadata'
     stigmata.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(effective / 'stigmatadata', stigmata)
-    for name, recipe in recipes['client_tables'].items():
-        encoded, _ = native_json(render(recipe, data))
+    from .recommendations import adapt
+    encoded_tables = {name: native_json(render(recipe, data))[0]
+                      for name, recipe in recipes['client_tables'].items()}
+    # native_json removes source array-length markers. Validate the actual
+    # client representation rather than treating those counts as references.
+    rendered = {name: json.loads(encoded) for name, encoded in encoded_tables.items()}
+    adapt(rendered, read_json(ROOT / 'rules/recommendation-compatibility.json'))
+    encoded_tables['newbieequipadv'] = json.dumps(rendered['newbieequipadv'], ensure_ascii=False,
+                                                 separators=(',', ':'))
+    for name, encoded in encoded_tables.items():
         (client_tables / name).write_text(encoded + '\n', encoding='utf-8')
     shutil.copyfile(effective / 'avatarskilldata.chars', client_tables / 'avatarskilldata.chars')
     shutil.copyfile(data_work / 'generated/protocol/server19_protocol_schema.json', output / 'server19_protocol_schema.json')

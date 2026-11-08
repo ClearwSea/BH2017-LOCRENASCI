@@ -29,6 +29,10 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
             target.write_bytes(apply(source, spec['operations']))
     metadata = output / 'private/data/bh3-server19-metadata/_exceloutputasset'
     shutil.copytree(client_tables, metadata)
+    from .recommendations import sync_tsv
+    recommendation_text = output / 'private/data/bh3-server19-resources/data/_exceloutput/newbieequipadv'
+    recommendation_text.write_bytes(sync_tsv(recommendation_text.read_bytes(),
+                                             read_json(client_tables / 'newbieequipadv')))
     for name in ('bridge/celebration.png', 'bridge/github.png', 'gacha/dracula.png',
                  'gacha/ziyuan.png', 'announcement/teaparty.png', 'announcement/update.png'):
         target = output / 'private/data/bh3-server19-resources' / name
