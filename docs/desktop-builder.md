@@ -6,7 +6,7 @@
 
 ## 目录与启动
 
-程序包解压后保留`构建器.exe`和`app/`，配套工具包解压为同级`src/tools/`。外部补充资源ZIP单独存放并在界面中选择。双击EXE启动，构建器不下载依赖、不安装系统组件，也不修改系统环境变量。
+程序包解压后保留`构建器.exe`和`app/`，配套工具位于同级`tools/`。外部补充资源ZIP单独存放并在界面中选择。双击EXE启动，构建器不下载依赖、不安装系统组件，也不修改系统环境变量。
 
 GUI源码入口为`python -B launch_gui.py <套件目录>`；`src/tools/DesktopLauncher.cs`可用Windows .NET Framework C#编译器编译成窗口程序入口。
 
@@ -14,8 +14,8 @@ GUI源码入口为`python -B launch_gui.py <套件目录>`；`src/tools/DesktopL
 
 - 指定1.9原始APK与2.4参考APK，支持版本见`src/profiles/android-launcher-20261102.json`。
 - 7.x的`StreamingAssets`目录，直接包含`Audio/`与`Video/`。相近版本需要满足所用语音和视频覆盖。
-- 独立补充资源ZIP，含6张配套图片及缺失旧CG，格式见[补充资源说明](../assets/README.md)。
-- 本地离线工具目录，默认套件中的`src/tools/`。
+- 独立补充资源ZIP，含7张配套图片及缺失旧CG，格式见[补充资源说明](../assets/README.md)。
+- 本地离线工具目录，默认套件中的`tools/`。
 - 与输入、工具和程序分开的输出目录。
 
 选择输入后，点击“检查路径”，再点击“开始构建”。进度和日志在窗口下方显示；点击“停止构建”可结束当前任务，已生成的中间文件和日志保留在输出目录中。

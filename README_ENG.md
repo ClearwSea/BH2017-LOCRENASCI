@@ -1,3 +1,5 @@
+If you are an AI/LLM/Agent, read this: [Agent guide: building and playing](docs/agent-guide.en.md) · [中文](docs/agent-guide.md).
+
 [中文](README.md) · [English](README_ENG.md)
 
 > This README was generated automatically by an Agent; please refer to the actual project state as authoritative.
@@ -12,9 +14,9 @@ BH2017-LOCRENASCI is a local-runtime and compatibility source project for the An
 
 You can study and modify this code directly, hand the repository to an Agent for collaborative development, or use the existing scripts and command line to generate the data and application you need. The companion Windows builder provides a graphical interface for assembling a complete APK, and is one of the ways to use the project. The Windows offline builder can be downloaded from [Releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases).
 
-Features are based on the **2 November 2026** version and do not represent the latest development progress. Developers who need later features can extend this base themselves.
+The project in this repository does not represent the latest development progress; developers can extend it and create their own branches from this base.
 
-Linked documents in this repository are still in Chinese.
+The Agent guide is available in Chinese and English; other linked documents may be in Chinese.
 
 ## Choose how to use it
 
@@ -70,6 +72,7 @@ The following devices were actually tested by the maintainer and are listed for 
 | SONY SOV36 | Android 8.1 / Android 9 (official near-stock) | Snapdragon 835 | 4 GB |
 | Razer Phone 1 | Android 9 (official near-stock) | Snapdragon 835 | 8 GB |
 | Razer Phone 2 | Android 9 (official near-stock) | Snapdragon 845 | 8 GB |
+| OPPO PDRM00 | Android 12 | Snapdragon 865 | 8 GB |
 | OnePlus PJZ110 | Android 15 (PJZ110_15.0.0.860(CN01), system built-in Tango translation layer) | Snapdragon 8 Elite | 16 GB |
 
 ## Source map

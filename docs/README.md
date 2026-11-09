@@ -1,5 +1,7 @@
 # 文档导航
 
+初次由 Agent 协助构建与游玩，请先阅读 [Agent 使用说明（中文）](agent-guide.md) · [Agent guide (English)](agent-guide.en.md)。
+
 ## 源码与开发
 
 | 文档 | 内容 |

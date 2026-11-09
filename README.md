@@ -1,3 +1,5 @@
+如果你是 AI/LLM/Agent，请阅读这个：[Agent 使用说明：构建与游玩](docs/agent-guide.md) · [English](docs/agent-guide.en.md)。
+
 [中文](README.md) · [English](README_ENG.md)
 
 > 本 README 由 Agent 自动生成，内容请以实际情况为准。
@@ -12,7 +14,7 @@ BH2017-LOCRENASCI 是面向 Android 1.9 客户端的本地运行与兼容适配�
 
 你可以直接研究和修改这些代码，将仓库交给 Agent 协作开发，或调用现有脚本与命令行生成所需数据和应用。配套 Windows 构建器为完整 APK 组装提供图形界面，也是其中一种使用方式。 Windows离线构建器可从[Releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases)下载。
 
-功能以 **2026年11月2日版本**为基础，不代表最新开发进度；需要后续功能的开发者可在此基础上自行扩展。
+仓库内项目不代表最新开发进度；开发者可在此基础上自行扩展与分支。
 
 ## 仓库目录
 
@@ -75,6 +77,7 @@ BH2017-LOCRENASCI 是面向 Android 1.9 客户端的本地运行与兼容适配�
 | SONY SOV36 | Android 8.1 / Android 9（官方类原生） | Snapdragon 835 | 4 GB |
 | Razer Phone 1 | Android 9（官方类原生） | Snapdragon 835 | 8 GB |
 | Razer Phone 2 | Android 9（官方类原生） | Snapdragon 845 | 8 GB |
+| OPPO PDRM00 | Android 12 | Snapdragon 865 | 8 GB |
 | OnePlus PJZ110 | Android 15（PJZ110_15.0.0.860(CN01)，系统自带Tango转译层） | Snapdragon 8 Elite | 16 GB |
 
 ## 源码导航
