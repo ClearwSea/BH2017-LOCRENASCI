@@ -18,9 +18,10 @@ import server19_stage as stage
 HANDLED_REQUESTS = frozenset(("AvatarSubSkillLevelUpReq",))
 SUPPORTED_AVATARS = {101: tuple(range(11, 17)), 201: tuple(range(51, 57))}
 # Current deployed closure audit restores old shield/invisibility/leader gates.
-# Three live subskills still require unsupported nonempty callbacks/UI metadata.
+# Backstab613 retains native back-hit damage; only later score802021 is omitted.
+# Two live subskills still require unsupported nonempty callbacks/UI metadata.
 # 1301/2015 are absent from the current table and remain reserved, not unlocked.
-UNSUPPORTED_SUBSKILLS = frozenset((613, 713, 2502, 1301, 2015))
+UNSUPPORTED_SUBSKILLS = frozenset((713, 2502, 1301, 2015))
 RECOVERY_INTERVAL = 7200  # Already accepted demo GetMainDataRsp reference.
 _TABLE_HASHES = {
     "avatardata": "472fce4f109bad435f7fd90ac995e048ff9706f3bde512321d5e4e14cabcf2ce",

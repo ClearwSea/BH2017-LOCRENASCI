@@ -60,7 +60,7 @@ class ShopGoodsTests(unittest.TestCase):
         self.account["avatar_list"] = [dict(avatar_id=501, star=5, level=80, fragment=7)]
         self.account["material_list"].append(dict(id=10501, num=2))
         gid = next(g for g in self.shop.SHOPS_CONFIG[1]["goods_pool"] if self.shop.GOODS_METADATA[g]["ItemID"] == 10501)
-        for expected in (10, 11):
+        for expected in (29, 49):
             result = self.request("BuyGoodsReq", dict(shop_id=2, goods_id=gid))
             self.assertEqual(result["retcode"], 0)
             self.assertEqual(self.account["avatar_list"][0]["fragment"], expected)
@@ -112,6 +112,26 @@ class ShopGoodsTests(unittest.TestCase):
         for shop in payload["shop_list"]:
             for goods in shop["goods_list"]:
                 self.assertTrue(self.shop._is_supported_item(self.shop.GOODS_METADATA[goods["goods_id"]]["ItemID"]))
+
+
+    def test_shop_equipment_uid_boundary_rejects_without_deduction(self):
+        for kind, table, uid in [('weapon_list', self.shop.WEAPONS_TABLE, 19999), ('stigmata_list', self.shop.STIGMATAS_TABLE, 39999), ('stigmata_list', self.shop.STIGMATAS_TABLE, 40029)]:
+            shop = next(s for s in self.shop.SHOPS_CONFIG if s['shop_id'] != 6 and any(self.shop.GOODS_METADATA[g]['ItemID'] in table for g in s['goods_pool']))
+            gid = next(g for g in shop['goods_pool'] if self.shop.GOODS_METADATA[g]['ItemID'] in table)
+            item_id = self.shop.GOODS_METADATA[gid]['ItemID']
+            self.account[kind] = [dict(unique_id=uid, id=item_id, level=1, exp=0, is_protected=False)]
+            before = deepcopy(self.account)
+            result = self.request('BuyGoodsReq', dict(shop_id=shop['shop_id'], goods_id=gid))
+            self.assertEqual(result['retcode'], 1)
+            self.assertEqual(self.account, before)
+            self.assertEqual(json.loads(self.path.read_text()), before)
+            self.account[kind] = []
+
+    def test_repaired_stigmata_inventory_allocates_in_range(self):
+        item_id = next(iter(self.shop.STIGMATAS_TABLE))
+        self.account['stigmata_list'] = [dict(unique_id=20029, id=item_id, level=1, exp=0)]
+        self.shop._grant_item(self.account, item_id, 1)
+        self.assertEqual(self.account['stigmata_list'][-1]['unique_id'], 20030)
 
 
 if __name__ == "__main__":

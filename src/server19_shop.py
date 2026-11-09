@@ -169,6 +169,9 @@ def _grant_item(account, item_id, num, level=1):
         all_uids = [row["unique_id"] for name in ("weapon_list", "stigmata_list")
                     for row in account.get(name, [])]
         uid = max([v for v in all_uids if v < 20000], default=0) + 1
+        if (len(all_uids) != len(set(all_uids)) or uid >= 20000 or uid in all_uids
+                or any(not 0 < row["unique_id"] < 20000 for row in weapons)):
+            raise ValueError("Invalid or exhausted native equipment UID range")
         weapons.append({
             "unique_id": uid,
             "id": item_id,
@@ -184,6 +187,9 @@ def _grant_item(account, item_id, num, level=1):
         all_uids = [row["unique_id"] for name in ("weapon_list", "stigmata_list")
                     for row in account.get(name, [])]
         uid = max([v for v in all_uids if v >= 20000], default=20000) + 1
+        if (len(all_uids) != len(set(all_uids)) or uid >= 40000 or uid in all_uids
+                or any(not 20000 < row["unique_id"] < 40000 for row in stigmatas)):
+            raise ValueError("Invalid or exhausted native equipment UID range")
         stigmatas.append({
             "unique_id": uid,
             "id": item_id,

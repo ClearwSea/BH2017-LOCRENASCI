@@ -50,7 +50,7 @@ def sources(data_work, effective, apk24):
                 result[label + '/' + path.name] = read_json(path)
     source = SourceTables(apk24, read_json(data_work / 'generated/base-tables/manifest.json'))
     try:
-        for name in ('monsterconfigdata', 'uniquemonsterdata', 'endlessitem'):
+        for name in ('monsterconfigdata', 'uniquemonsterdata', 'endlessitem', 'equipmentskilldata'):
             result['unfiltered/' + name] = source.projected_tsv(name)
         _, raw = source.objects.object(source.mapping['_baked/stringmap'])
         reader = source.resources.Reader(raw, 28)

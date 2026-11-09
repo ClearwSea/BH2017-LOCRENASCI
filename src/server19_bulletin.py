@@ -22,6 +22,8 @@ UPDATE_CONTENT = '<color=#FF4040FF>该公告面向V0.1.2</color>，此版本由�
 
 UPDATE_CONTENT_V013 = '<color=#FF4040FF>当前版本为V0.1.3</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>游玩提示</color>\n如果<color=#FF4040FF>深渊/剧情关卡/外传</color>出现<color=#FF4040FF>无法进入、持续加载或反复提示 fail</color>，尤其是在上一次对局异常退出后，请<color=#FF4040FF>彻底退出游戏、从后台划掉应用，再重新启动</color>。\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复使用角色碎片解锁女武神时出现报错、无法解锁的问题。\n2. 修复指挥官达到9级后，女武神·战车未自动解锁的问题\n3. 修复战场疾风教学关黑屏、报错的问题。\n4. 补齐布洛妮娅相关教学关脚本，修复教学关依赖问题\n5. 修复角色在进出关卡、结算切换场景时面部模型变黑的问题。\n6. 修复新手1-6编队引导过程中出现报错的问题。\n7. 为方便购买，角色碎片商品调整为<b>每次购买20片</b>\n8. 活动公告、游戏公告新增按版本区分的更新公告，保留历史版本内容。\n9. 修改部分启动前页面的公告信息\n10. 修复新账号引导流程的错乱以及首次登录状态失效的问题\n11. 兼容修复部分女武神推荐装备数据异常，导致角色详情报错、技能及换装页面无法正常使用的问题。\n12. 修复登录时剧情章节数据尚未初始化，导致进入舰桥出现报错的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
+UPDATE_CONTENT_V014 = '<color=#FF4040FF>当前版本为V0.1.4</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 开放主线第1—6章困难与噩梦关卡，<b>未做完全测试</b>。\n2. 修复困难难度介绍引导无法正常继续的问题。\n<color=#FF4040FF>3. 修复深渊主动退出后，更换角色或调整队伍顺序再次挑战时提示 fail 的问题。</color>\n4. 修复装备穿戴成功后页面未及时刷新，再次点击出现异常提示的问题。\n5. <color=#FF4040FF>兼容恢复</color>女武神战斗力显示。\n6. 修复影舞冲击背刺技能无法正常升级的问题。\n7. 修复部分大剑主动技能动作及触发异常，补齐相关能力依赖。\n8. <color=#FF4040FF>兼容修复</color>仿灵刀·冰昙天、11th圣遗物等部分武器导致的进场或战斗异常。\n9. 修复独眼巨人初型三层蓄力攻击后卡死的问题。\n10. <color=#FF4040FF>兼容修复</color>轩辕剑连招异常的问题。\n11. 补齐部分装备技能信息，修复相关详情页面报错的问题。\n12. 修复精准与扩充补给中，200抽 UP 保底可能无法正常触发的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+
 def response(name, account, values=None, *, account_path=None):
     if name not in HANDLED_REQUESTS:
         return None
@@ -76,6 +78,12 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.1.3", title="", event_date_str="", content=UPDATE_CONTENT_V013,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794096000,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201731 + show_type, type=show_type, weight=95,
+        title_button="更新公告V0.1.4", title="", event_date_str="", content=UPDATE_CONTENT_V014,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1794240000,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)

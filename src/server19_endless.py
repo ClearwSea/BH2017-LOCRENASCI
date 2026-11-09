@@ -189,7 +189,9 @@ def _handle(name,a,v,now):
   if not s['active']:
    return deepcopy(s['last_end']['response']) if s['last_end'] and s['last_end']['digest']==digest else {'retcode':1}
   active=s['active'];status=v.get('end_status');hps=v.get('avatar_hp_list',[])
-  if status not in (1,2,3) or len({h['avatar_id'] for h in hps})!=len(hps):return {'retcode':1}
+  # Native 1.9 voluntary exit sends 4, as in ordinary StageEndReqBody.
+  # Accept it without victory rewards; persist HP/SP and close the battle.
+  if status not in (1,2,3,4) or len({h['avatar_id'] for h in hps})!=len(hps):return {'retcode':1}
   seconds=v.get('stage_pass_time',0)
   if status==1 and active['floor']==33 and (type(seconds) is not int or not 0<seconds<2**32-s['begin']):return {'retcode':1}
   if any(h['avatar_id'] not in active['team'] or not 0<=h.get('hp_percent',0)<=100 or not 0<=h.get('sp_percent',0)<=100 for h in hps):return {'retcode':1}

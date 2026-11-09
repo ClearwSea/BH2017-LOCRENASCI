@@ -44,6 +44,27 @@ RUN = ROOT / "server19-run"
 LOCK = threading.Lock()
 LOCAL_RECHARGE_ENABLED = False
 
+# Display scoring consumed by native AvatarDataItem.get_CombatNum (51655).
+# Rates use basis points (/10000); these never modify battle attributes.
+# Compatibility coefficients approved 2026-11-09; evidence in review.
+AVATAR_COMBAT_CONFIG = {
+    "avatar_combat_base_weight": 100,
+    "avatar_combat_base_star_rate": 2000,
+    "avatar_combat_base_level_rate": 300,
+    "avatar_combat_base_unlock_star_rate": 1000,
+    "avatar_combat_skill_weight": 300,
+    "avatar_combat_island_weight": 1,
+    "avatar_combat_weapon_weight": 100,
+    "avatar_combat_weapon_rarity_rate": 5000,
+    "avatar_combat_weapon_sub_rarity_rate": 1000,
+    "avatar_combat_weapon_level_rate": 200,
+    "avatar_combat_stigmata_weight": 60,
+    "avatar_combat_stigmata_rarity_rate": 5000,
+    "avatar_combat_stigmata_sub_rarity_rate": 1000,
+    "avatar_combat_stigmata_level_rate": 200,
+    "avatar_combat_stigmata_suit_num_rate": 500,
+}
+
 
 def event(kind, **values):
     row = {"time": time.time(), "event": kind, **values}
@@ -225,6 +246,7 @@ def response(name, account, request_values=None, *, account_path=None):
                 "scoin_limit": 100000000, "friends_point_limit": 100000,
                 "stamina_recover_config_time": 7200, "skill_point_recover_config_time": 7200,
                 "avatar_revive_hcoin_cost": 0, **server19_equipment.POWER_UP_CONFIG,
+                **AVATAR_COMBAT_CONFIG,
                 "day_time_offset": 14400, "max_friend_num": 100,
                 "endless_min_player_level": 25,
                 "endless_max_progress": 0,
@@ -443,7 +465,13 @@ class GameHandler(socketserver.BaseRequestHandler):
                                   nickname=account["main"].get("nickname"),
                                   self_desc=account["main"].get("self_desc"))
                         if name in server19_cabin.MUTATION_REQUESTS and values.get("retcode") == 0:
-                            packets.extend(server19_cabin.notification_snapshot(account, command=name))
+                            snapshots = server19_cabin.notification_snapshot(account, command=name)
+                            # GachaMainPage OnPacket186 immediately calls UpdateView;
+                            # its guide reward must already be visible in storage.
+                            if name == "GetGuideRewardReq":
+                                packets = snapshots + packets
+                            else:
+                                packets.extend(snapshots)
                             event("game_cabin_committed", command=name,
                                   cabin_list=account.get("cabin_list"),
                                   scoin=account["main"].get("scoin"),
@@ -543,11 +571,14 @@ class GameHandler(socketserver.BaseRequestHandler):
                             snapshots = server19_equipment.notification_snapshot(account, name)
                             if name in ("EquipmentPowerUpReq", "EquipmentEvoReq", "EquipSynthesisReq",
                                         "EquipmentSellReq", "IslandDisjoinEquipmentReq",
-                                        "UpdateEquipmentProtectedStatusReq"):
+                                        "UpdateEquipmentProtectedStatusReq",
+                                        "DressEquipmentReq", "ExchangeAvatarWeaponReq"):
                                 # Native Rsp32 immediately constructs its result
                                 # dialog from StorageModule's existing objects.
                                 # Detail OnPacket81575 refreshes the lock on Rsp75,
                                 # so protection also needs the inventory first.
+                                # AvatarChangeEquipPage handles only Rsp40/136;
+                                # apply avatar/storage updates before its refresh.
                                 packets = snapshots + packets
                             else:
                                 packets.extend(snapshots)

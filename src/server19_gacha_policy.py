@@ -163,8 +163,10 @@ def select(account, channel):
     if forced == 'UP':
         # Standard, if approved, only receives UP via its200 guarantee.
         options = [x for x in choices(5 if channel in ROLE_CHANNELS else 3)[rare] if is_up(x[0], x[1])]
-        if rare not in valid:
-            raise ValueError('UP guarantee conflicts with rolling cap')
+        # A due UP guarantee takes precedence over the rolling quantity cap.
+        # Filtering it by `valid` strands existing saves at pull199 forever:
+        # failed transactions cannot advance the window. Ordinary selections
+        # still use `valid`; commit records this guaranteed item in the window.
         if channel not in ROLE_CHANNELS:
             family = catalog()[1]
             owned = {family.get((kind, row['id']), row['id'])
@@ -238,7 +240,7 @@ def rule(channel):
         value = '每累计十回必出A级女武神，每连续十回最多3名A级、2名S级及2件满星4星装备。100回内必出S级。'
     else:
         value = '每累计十回必出满星4星装备，每连续十回最多3件满星4星、2件满星5星装备。100回内必出满星5星装备。'
-    if has_up_pity(channel): value += '200回内必出当期UP。'
+    if has_up_pity(channel): value += '200回内必出当期UP；触发该保底时优先于每十回数量限制。'
     if channel == 3: value += 'UP保底优先获得尚未拥有的UP装备。'
     return value + '获得对应物品后重新计算该保底；单回与十回共用累计次数。装备按最高可进化星级分类。'
 

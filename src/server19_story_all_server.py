@@ -53,7 +53,7 @@ def configure(*, require_deployed=True):
     if len(selected)!=len(set(ids)) or hashlib.sha256(raw).hexdigest()!=ready['source_rows_sha256']:
         raise ValueError('Selected story source rows changed')
     for row in selected:
-        if (row['type'],row['difficulty'],row['maxProgress'])!=(1,1,1) or row['battleType'] not in (1,2,3,101) or row['chapterId'] not in range(2,7):
+        if (row['type'], row['maxProgress']) != (1, 1) or row['difficulty'] not in (1, 2, 3) or row['battleType'] not in (1, 2, 3, 101, 102, 103) or row['chapterId'] not in range(1, 7) or (row['chapterId'] == 1 and row['difficulty'] == 1):
             raise ValueError('Unexpected source story category')
         for challenge in row['challengeList']:stage._reward(challenge['rewardId'])
         stage.first_clear_drop_plan(row)

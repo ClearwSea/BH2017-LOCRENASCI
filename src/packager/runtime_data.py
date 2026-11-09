@@ -50,10 +50,18 @@ def prepare(client24, data_work, output, client_tables):
     effective = data_work / 'generated/effective-tables'
     data = sources(data_work, effective, client24)
     recipes = read_json(ROOT / 'rules/generated-data-recipes.json')
+    from .story_difficulties import adapt as adapt_difficulties
     for name, recipe in recipes['runtime'].items():
-        write_json(output / name, render(recipe, data))
+        value = render(recipe, data)
+        if name.endswith('/stagedata_main'):
+            adapt_difficulties(value)
+        write_json(output / name, value)
     default = output / '.local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset'
     shutil.copytree(effective, default)
+    from .story_difficulties import adapt as adapt_difficulties
+    story_rows = read_json(default / 'stagedata_main')
+    adapt_difficulties(story_rows)
+    write_json(default / 'stagedata_main', story_rows)
     # Paths retained by the business modules are generated destinations, never inputs.
     overrides = output / '.local-baseline/server19-dev/chapter1-unified-ready/v1/_exceloutputasset'
     overrides.mkdir(parents=True, exist_ok=True)
@@ -71,7 +79,16 @@ def prepare(client24, data_work, output, client_tables):
     # native_json removes source array-length markers. Validate the actual
     # client representation rather than treating those counts as references.
     rendered = {name: json.loads(encoded) for name, encoded in encoded_tables.items()}
+    adapt_difficulties(rendered['stagedata_main'])
+    encoded_tables['stagedata_main'] = json.dumps(rendered['stagedata_main'], ensure_ascii=False,
+                                                separators=(',', ':'))
     adapt(rendered, read_json(ROOT / 'rules/recommendation-compatibility.json'))
+    from .equipment_metadata import complete
+    complete(rendered, json.loads(native_json(data['unfiltered/equipmentskilldata'])[0]),
+             data['source/textmap_rows'])
+    encoded_tables['equipmentskilldata'] = json.dumps(rendered['equipmentskilldata'], ensure_ascii=False,
+                                                     separators=(',', ':'))
+    encoded_tables['textmap'] = json.dumps(rendered['textmap'], ensure_ascii=False, separators=(',', ':'))
     encoded_tables['newbieequipadv'] = json.dumps(rendered['newbieequipadv'], ensure_ascii=False,
                                                  separators=(',', ':'))
     for name, encoded in encoded_tables.items():
