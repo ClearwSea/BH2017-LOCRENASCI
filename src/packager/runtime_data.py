@@ -35,7 +35,7 @@ def copy_sources(output):
                     pending.append(relative)
     for name in names:
         shutil.copyfile(ROOT / name, output / name)
-    for name in ('server19_gacha_policy.json', 'server19_repeat_drop_policy.json', 'server19_shop_config.json',
+    for name in ('server19_gacha_policy.json', 'server19_repeat_drop_policy.json', 'server19_befall_drop_policy.json', 'server19_shop_config.json',
                  'data/endless-climate-calibration.json'):
         path = output / name
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -79,6 +79,29 @@ def prepare(client24, data_work, output, client_tables):
     # native_json removes source array-length markers. Validate the actual
     # client representation rather than treating those counts as references.
     rendered = {name: json.loads(encoded) for name, encoded in encoded_tables.items()}
+    # Source recipes retain historical row selections. Overlay the restored
+    # Befall dependencies into the client projection as well as server tables.
+    befall = set(range(1601, 1672, 10))
+    restored_activities = json.loads(native_json(read_json(effective / 'weekdayactivity'))[0])
+    level_ids = {sid for row in restored_activities if row['weekDayActivityID'] in befall
+                 for sid in row['levelIDList']}
+    scopes = {'weekdayactivity': ('weekDayActivityID', befall),
+              'stagedata_main': ('levelId', level_ids),
+              'tutorialstepdata': ('id', {10731}),
+              'rewarddata': ('RewardID', set(range(200048, 200054))),
+              'stageresetcostdata': ('times', None)}
+    for table, (key, identities) in scopes.items():
+        restored = json.loads(native_json(read_json(effective / table))[0])
+        if identities is None:
+            rendered[table] = restored
+        else:
+            additions = [row for row in restored if row[key] in identities]
+            if {row[key] for row in additions} != identities:
+                raise ValueError('Missing restored client dependencies: ' + table)
+            by_id = {row[key]: row for row in rendered[table]}
+            by_id.update({row[key]: row for row in additions})
+            rendered[table] = list(by_id.values())
+        encoded_tables[table] = json.dumps(rendered[table], ensure_ascii=False, separators=(',', ':'))
     adapt_difficulties(rendered['stagedata_main'])
     encoded_tables['stagedata_main'] = json.dumps(rendered['stagedata_main'], ensure_ascii=False,
                                                 separators=(',', ':'))

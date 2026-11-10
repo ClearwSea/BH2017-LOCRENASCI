@@ -17,6 +17,7 @@ def normalize_gold(account):
 
 
 def normalize(account, now=None):
+    import server19_stage as stage
     import server19_duty as duty
     import server19_signin as signin
     import server19_shop as shop
@@ -24,3 +25,4 @@ def normalize(account, now=None):
     duty._runtime(account, now)
     signin._ensure_runtime(account, now)
     shop._get_shop_runtime(account, now)
+    stage.rollover_stage_attempts(account, now)

@@ -105,17 +105,46 @@ def restore(apk24, data_work, output):
     daily = read_json(ROOT / 'rules/daily-missions.json')['rules']
     source = SourceTables(apk24, manifest)
     try:
+        # Befall rows survive in the binary table but are absent from its TSV.
+        # Restore exactly the levels referenced by the eight retained activities.
+        befall_ids = {identity for row in tables['weekdayactivity']
+                      if row['weekDayActivityID'] in range(1601, 1672, 10)
+                      for identity in row['levelIDList']}
+        # No multiplayer backend: the native page hides its mode switch when
+        # GetRefIDSwitch returns zero for the required [0] sentinel.
+        for activity in tables['weekdayactivity']:
+            if activity['weekDayActivityID'] in range(1601, 1672, 10):
+                activity['maxEnterTimes'] = 3
+                activity['refIDSwitch'] = [0]
+                activity['enableCornerName'] = 0
+        present = {row['levelId'] for row in tables['stagedata_main']}
+        tables['stagedata_main'].extend(source.typed(
+            'stagedata_main', 'levelId', sorted(befall_ids - present)))
+        # Native resetCostType indexes the expanded source array (index 0 is
+        # its serialized sentinel), not a one-element projection of Type1.
+        tables['stageresetcostdata'] = source.projected_tsv('stageresetcostdata')
+        # These retained coin gifts reference reward rows version-filtered out
+        # of the 1.9 projection. Restore their actual source dependencies.
+        missing_rewards = set(range(200048, 200054)) - {
+            row['RewardID'] for row in tables['rewarddata']}
+        tables['rewarddata'].extend(source.projected_tsv(
+            'rewarddata', 'RewardID', missing_rewards))
         for name, key, ids in (('avatardata', 'avatarID', [503]),
                                ('materialdata', 'ID', [3108]),
                                ('avatarfragmentdata', 'ID', [10601, 10603])):
             tables[name].extend(source.typed(name, key, ids))
         tables['avatardata'].sort(key=lambda r: r['avatarID'])
-        # 10661 survives the 1.9 filter but its target 10662 is tagged 2.2+.
-        # Its TeamPanel/Team/2 widget and row fields exist in original 1.9.
-        # Restore the source completion step instead of leaving a dangling edge.
-        if not any(row['id'] == 10662 for row in tables['tutorialstepdata']):
-            tables['tutorialstepdata'].extend(
-                source.projected_tsv('tutorialstepdata', 'id', [10662]))
+        # Retained guides reference steps tagged for later versions in 2.4:
+        # team selection 10662 and the level-20 Befall introduction 10731.
+        # Restore their source rows, including links and completion markers.
+        present_steps = {row['id'] for row in tables['tutorialstepdata']}
+        missing_steps = {10662, 10731} - present_steps
+        if missing_steps:
+            restored_steps = source.projected_tsv(
+                'tutorialstepdata', 'id', missing_steps)
+            if {row['id'] for row in restored_steps} != missing_steps:
+                raise BuildError('Missing source tutorial dependency steps')
+            tables['tutorialstepdata'].extend(restored_steps)
 
         tables['stigmatadata'].extend(source.projected_tsv('stigmatadata', 'ID', [30034, 30087]))
         tables['stigmatadata'] = complete_stigmata_evolution(

@@ -347,6 +347,7 @@ class GameHandler(socketserver.BaseRequestHandler):
                         # Business requests still refresh/roll over before handling.
                         if name != "KeepAliveNotify":
                             server19_stage.refresh_account(account, RUN / "account.json")
+                        level_before = account.get("main", {}).get("level", 1)
                         rsp_name, values = response(name, account, request_values,
                                                    account_path=RUN / "account.json")
                         if rsp_name is None or values is None:
@@ -359,6 +360,11 @@ class GameHandler(socketserver.BaseRequestHandler):
                             level_avatar_granted = server19_player_progression.reconcile_level_avatar(
                                 account, RUN / "account.json")
                         packets = [(rsp_name, values)]
+                        if name == "ResetStageEnterTimesReq" and values.get("retcode") == 0:
+                            packets = [
+                                server19_initialization.response("GetMainDataReq", account),
+                                server19_initialization.response("GetStageDataReq", account),
+                            ] + packets
                         if name == "FinishGuideReportReq" and values.get("retcode") == 0:
                             packets = server19_stage.guide_notification_snapshot(account, request_values) + packets
                         if name == "GetSignInRewardReq" and values.get("retcode") == 0:
@@ -570,7 +576,7 @@ class GameHandler(socketserver.BaseRequestHandler):
                         if name in server19_equipment.HANDLED_REQUESTS and values.get("retcode") == 0:
                             snapshots = server19_equipment.notification_snapshot(account, name)
                             if name in ("EquipmentPowerUpReq", "EquipmentEvoReq", "EquipSynthesisReq",
-                                        "EquipmentSellReq", "IslandDisjoinEquipmentReq",
+                                        "EquipmentSellReq", "IslandDisjoinEquipmentReq", "UseMaterialReq",
                                         "UpdateEquipmentProtectedStatusReq",
                                         "DressEquipmentReq", "ExchangeAvatarWeaponReq"):
                                 # Native Rsp32 immediately constructs its result
@@ -591,6 +597,8 @@ class GameHandler(socketserver.BaseRequestHandler):
                             if name == 'EquipmentEvoReq':
                                 event('game_equipment_evolution_replaced',
                                       transition=server19_equipment.evolution_detail())
+                        if name == "StageEndReq" and values.get("retcode") == 0 and server19_stage.is_befall_stage(values.get("stage_id")):
+                            packets.append(server19_initialization.response("GetWeekDayActivityDataReq", account))
                         if level_avatar_granted:
                             # Replace pre-grant snapshots; inventory must exist before
                             # native avatar-unlock listeners resolve the initial weapon.
@@ -600,6 +608,15 @@ class GameHandler(socketserver.BaseRequestHandler):
                                 account, equipment_first=True))
                             event("game_level_avatar_granted", avatar_id=301,
                                   level=account["main"]["level"], request=name)
+                        # Login below 20 cached an empty Befall list. Deliver its
+                        # newly unlocked entry before level/achievement packets
+                        # can start the native introduction in this same session.
+                        if level_before < 20 <= account.get("main", {}).get("level", 1):
+                            packets[0:0] = [
+                                server19_initialization.response("GetStageDataReq", account),
+                                server19_initialization.response("GetWeekDayActivityDataReq", account),
+                                server19_stage_display.response("GetStageDropDisplayReq", account),
+                            ]
                         for packet_name, packet_values in packets:
                             body = proto.encode_message(packet_name, packet_values)
                             packet_id += 1

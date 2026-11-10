@@ -20,6 +20,7 @@ from copy import deepcopy
 import hashlib
 import json
 import math
+import secrets
 from pathlib import Path
 import struct
 import threading
@@ -27,11 +28,12 @@ import time
 
 import server19_stage as stage
 import server19_protocol as proto
+from server19_material_drop_policy import SAKURA_JAR
 
 HANDLED_REQUESTS = frozenset(("DressEquipmentReq", "ExchangeAvatarWeaponReq",
                               "EquipmentPowerUpReq", "EquipmentEvoReq", "EquipSynthesisReq",
                               "UpdateEquipmentProtectedStatusReq", "SetDressReq",
-                              "EquipmentSellReq", "IslandDisjoinEquipmentReq"))
+                              "EquipmentSellReq", "IslandDisjoinEquipmentReq", "UseMaterialReq"))
 SLOT_FIELDS = {1: "weapon_unique_id", 2: "stigmata_unique_id_1",
                3: "stigmata_unique_id_2", 4: "stigmata_unique_id_3"}
 
@@ -294,13 +296,25 @@ def _sell(account, values):
     if not isinstance(rows, list) or not rows:
         raise ValueError('Empty equipment sell selection')
     inventory, selected, total = _inventory(account), set(), _f32(0)
+    consumed_materials = {}
     _power_up_tables()  # Bind price fields to the same client tables.
     for descriptor in rows:
-        kind, uid, _ = _descriptor(descriptor)
-        if kind == MATERIAL:
-            raise ValueError('Material selling is outside this equipment command scope')
+        kind, uid, count = _descriptor(descriptor)
         if (kind, uid) in selected:
             raise _Rejected(4)
+        if kind == MATERIAL:
+            owned = [m for m in account.get('material_list', []) if m['id'] == uid]
+            if len(owned) != 1 or not count or count > owned[0]['num']:
+                raise _Rejected(2)
+            meta = _metadata('materialdata', uid)
+            if meta['sellPriceBase'] <= 0:
+                raise _Rejected(9)
+            # Native MaterialDataItem.GetPriceForSell52235 uses base+level*add;
+            # material stacks have level0. The selection multiplies by num.
+            total = _f32(total + _f32(_f32(meta['sellPriceBase']) * _f32(count)))
+            consumed_materials[uid] = (owned[0], count)
+            selected.add((kind, uid))
+            continue
         item, meta = _consumable(account, inventory, kind, uid, (2, 3, 5))
         if meta['sellPriceBase'] <= 0:
             raise _Rejected(9)
@@ -309,9 +323,83 @@ def _sell(account, values):
     # MonoStorageSelectForSellPanel.CalculateTotalSCoinSell86984 floors once.
     gain = _i32_nonnegative(math.floor(total), 'sell coins')
     coins = _i32_nonnegative(account['main']['scoin'] + gain, 'resulting coins')
-    _delete_equipment(account, sorted(selected))
+    _delete_equipment(account, sorted(x for x in selected if x[0] != MATERIAL))
+    for material, count in consumed_materials.values():
+        material['num'] -= count
+    _MUTATION.power_up_consumed = set(consumed_materials)
     account['main']['scoin'] = coins
     return {'scoin_add': gain}
+
+
+def _use_sakura_jar(account, identity):
+    """Local weighted policy; mutate only the shared transaction's copy."""
+    import server19_avatar_fragments as fragments
+    owned = [m for m in account.get('material_list', []) if m['id'] == identity]
+    if len(owned) != 1 or stage._u32(owned[0]['num'], 'material amount') < 1:
+        raise _Rejected(2)
+    meta = _metadata('materialdata', identity)
+    use = _metadata('materialusedata', meta['useID'], 'useID')
+    if use['useType'] != 2 or int(use['paraStr']) != SAKURA_JAR['drop_group']:
+        raise ValueError('Sakura jar source mapping changed')
+    rewards = SAKURA_JAR['rewards']
+    # Check every possible outcome before drawing so full storage cannot bias
+    # the distribution through failed draws and retries.
+    for reward in rewards:
+        if type(reward['weight']) is not int or reward['weight'] <= 0:
+            raise ValueError('Invalid jar weight')
+        data = fragments.metadata(reward['item_id'])
+        avatars = [a for a in account['avatar_list']
+                   if a['avatar_id'] == fragments.AUDITED_IDS[reward['item_id']]]
+        if len(avatars) > 1:
+            raise ValueError('Duplicate avatar fragment storage')
+        count = stage._u32(avatars[0].get('fragment', 0), 'fragment count') if avatars else 0
+        if type(reward['num']) is not int or reward['num'] <= 0:
+            raise ValueError('Invalid jar reward count')
+        if count + reward['num'] > data['quantityLimit']:
+            raise _Rejected(5)  # original EQUIPMENT_FRAGMENT_LIMIT
+    draw = secrets.randbelow(sum(r['weight'] for r in rewards))
+    for reward in rewards:
+        if draw < reward['weight']:
+            break
+        draw -= reward['weight']
+    fragments.grant(account, reward['item_id'], 0, reward['num'])
+    owned[0]['num'] -= 1
+    _MUTATION.power_up_consumed = {identity}
+    return {'material_id': identity, 'drop_item_list': [{
+        'item_id': reward['item_id'], 'level': 0, 'num': reward['num'], 'rarity': 4}]}
+
+
+def _use_material(account, values):
+    """Audited fixed coin gifts and stamina potion, one item per native Req251."""
+    identity = stage._u32(values.get('material_id', 0), 'material id')
+    if identity == SAKURA_JAR["material_id"]:
+        return _use_sakura_jar(account, identity)
+    if identity not in (*range(7022, 7028), 7033):
+        raise ValueError('Material use requires an available reward definition')
+    owned = [m for m in account.get('material_list', []) if m['id'] == identity]
+    if len(owned) != 1 or stage._u32(owned[0]['num'], 'material amount') < 1:
+        raise _Rejected(2)
+    meta = _metadata('materialdata', identity)
+    use = _metadata('materialusedata', meta['useID'], 'useID')
+    if use['useType'] != 1:
+        raise ValueError('Expected original MATERIAL_USE_GIFT')
+    reward = _metadata('rewarddata', int(use['paraStr']), 'RewardID')
+    mapping = {'exp': 'RewardExp', 'scoin': 'RewardSCoin', 'hcoin': 'RewardHCoin',
+               'stamina': 'RewardStamina', 'skill_point': 'RewardSkillPoint',
+               'friends_point': 'RewardFriendPoint', 'duty_point': 'RewardDutyPoint'}
+    output = {k: stage._u32(reward[v], v) for k, v in mapping.items()}
+    output['item_list'] = []
+    if any(output[k] for k in mapping if k not in ('scoin', 'stamina')) or any(
+            reward[f'RewardItem{i}ID'] for i in range(1, 6)):
+        raise ValueError('Fixed material gift contains unaudited reward types')
+    from server19_exchange import STAMINA_SYSTEM_LIMIT
+    if account['main']['stamina'] + output['stamina'] > STAMINA_SYSTEM_LIMIT:
+        raise _Rejected(6)
+    for key in ('scoin', 'stamina'):
+        account['main'][key] = _i32_nonnegative(account['main'][key] + output[key], key)
+    owned[0]['num'] -= 1
+    _MUTATION.power_up_consumed = {identity}
+    return {'material_id': identity, 'gift_reward_list': [output]}
 
 
 def _disjoin(account, values):
@@ -534,7 +622,8 @@ def _audited_growth_ids():
     if hashlib.sha256(raw).hexdigest() != expected:
         raise ValueError('Equipment battle closure changed; audit before growth')
     matrix = json.loads(raw)
-    return {row['item_id'] for row in matrix['items'] if not row['blockers']} | set(EXTRA_AUDITED_GROWTH_IDS)
+    audited = {row['item_id'] for row in matrix['items'] if not row['blockers']}
+    return audited | set(EXTRA_AUDITED_GROWTH_IDS)
 
 
 def _evolve(account, values):
@@ -713,7 +802,7 @@ def response(request_name, account, request_values=None, *, account_path=None):
                "EquipSynthesisReq": _synthesis,
                "UpdateEquipmentProtectedStatusReq": _protect,
                "SetDressReq": _set_dress, "EquipmentSellReq": _sell,
-               "IslandDisjoinEquipmentReq": _disjoin}[request_name]
+               "IslandDisjoinEquipmentReq": _disjoin, "UseMaterialReq": _use_material}[request_name]
     response_name = request_name[:-3] + "Rsp"
     path = Path(account_path or stage.DEFAULT_ACCOUNT).resolve()
     with stage._transaction_lock(path):
@@ -781,7 +870,7 @@ def notification_snapshot(account, request_name=None):
     deleted = getattr(_MUTATION, 'deleted', None)
     if deleted and any(deleted.values()):
         snapshots.insert(0, ('DelEquipmentNotify', deepcopy(deleted)))
-    if request_name in ("EquipmentPowerUpReq", "EquipmentEvoReq", "EquipmentSellReq", "IslandDisjoinEquipmentReq"):
+    if request_name in ("EquipmentPowerUpReq", "EquipmentEvoReq", "EquipmentSellReq", "IslandDisjoinEquipmentReq", "UseMaterialReq"):
         # Caller sends these BEFORE Rsp32. The original result dialog reads the
         # current storage object immediately upon receipt; Rsp32 does not apply
         # canonical equipment/wallet changes itself.

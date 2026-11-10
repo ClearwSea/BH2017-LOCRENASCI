@@ -6,6 +6,7 @@ This is display data, not reconstructed historical drop probabilities or a
 repeat-clear reward plan. No inventory, progression or Begin scope is changed.
 """
 import server19_stage as stage
+import server19_befall
 
 HANDLED_REQUESTS = frozenset({"GetStageDropDisplayReq"})
 INITIAL_CHAPTER_ID = 1
@@ -78,6 +79,8 @@ def response(request_name, account=None, request_values=None, *, account_path=No
                       and hidden[0]['value'] == 'false')}
     configs = [row for row in stage._table("stagedata_main")
                if row.get("type") == 1 and row.get("actId") in ordinary_acts]
+    befall = server19_befall.stage_ids() if (account or {}).get('main', {}).get('level', 1) >= 20 else set()
+    configs.extend(row for row in stage._table('stagedata_main') if row['levelId'] in befall)
     by_id = {row["levelId"]: row for row in configs}
     if len(by_id) != len(configs):
         raise ValueError("Duplicate ordinary story display stage")
@@ -88,7 +91,7 @@ def response(request_name, account=None, request_values=None, *, account_path=No
             return "GetStageDropDisplayRsp", {"retcode": 1}
     else:
         selected = sorted(row["levelId"] for row in configs
-                          if row.get("chapterId") == INITIAL_CHAPTER_ID)
+                          if row.get("chapterId") == INITIAL_CHAPTER_ID or row["levelId"] in befall)
         if not selected:
             raise ValueError("Initial chapter has no authored stage display")
     return "GetStageDropDisplayRsp", {

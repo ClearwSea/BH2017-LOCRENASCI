@@ -17,6 +17,26 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
     mapping = {r['path']: r for r in resources.resource_map(client24)}
     output.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(client24) as package:
+        # Restore the original scripts for independently audited Befall activities.
+        for befall_path in ('lua/levels/event/bosslevel01_l.lua',
+                            'lua/levels/event/bosslevel03_l.lua',
+                            'lua/levels/event/bosslevel02_h.lua',
+                            'lua/levels/event/bosslevel04_h.lua',
+                            'lua/levels/event/bosslevel05_h.lua',
+                            'lua/levels/event/bosslevel06_h.lua',
+                            'lua/levels/event/bosslevel07_h.lua',
+                            'lua/levels/event/bosslevel08_h.lua'):
+            _, raw = resources.object_bytes(package, mapping[befall_path])
+            _, script = resources.text_asset(raw)
+            if befall_path.endswith('bosslevel05_h.lua'):
+                marker = b'level.forceweak3 = function()'
+                if script.count(marker) != 2 or script.count(b'level.forceweak4 = function()') != 0:
+                    raise ValueError('Changed Befall wind loop; audit source before repair')
+                at = script.rfind(marker)
+                script = script[:at] + script[at:].replace(marker, b'level.forceweak4 = function()', 1)
+            target = output / 'private/data/bh3-server19-resources' / befall_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(script)
         for destination, spec in recipes['resources'].items():
             safe_relative(destination)
             if spec['source'] == 'baked':
@@ -38,7 +58,7 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
         target = output / 'private/data/bh3-server19-resources' / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(supplemental_images / name, target)
-    return len(recipes['resources']) + len(list(client_tables.iterdir())) + 6
+    return len(recipes['resources']) + len(list(client_tables.iterdir())) + 14
 
 
 def pack(resource_root, output):

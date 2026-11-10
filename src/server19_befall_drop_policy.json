@@ -1,0 +1,2690 @@
+{
+  "55001": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55001,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55002": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55002,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55003": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55003,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55011": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55011,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55012": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55012,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55013": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55013,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25041,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55021": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55021,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55022": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55022,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55023": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55023,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55031": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55031,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55032": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55032,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55033": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55033,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25051,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55101": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55101,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55102": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55102,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55103": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55103,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55111": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55111,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55112": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55112,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55113": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55113,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25081,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55121": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55121,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55122": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55122,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55123": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55123,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55131": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55131,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55132": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55132,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55133": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55133,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25091,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55201": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55201,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55202": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55202,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55203": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55203,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55211": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55211,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55212": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55212,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55213": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55213,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25061,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55221": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55221,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55222": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55222,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55223": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55223,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55231": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55231,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55232": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55232,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55233": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55233,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25071,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55301": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55301,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55302": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55302,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55303": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55303,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55311": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55311,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55312": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55312,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55313": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55313,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25021,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55321": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55321,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55322": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55322,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55323": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55323,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55331": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55331,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55332": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55332,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55333": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55333,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25031,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55401": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55401,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55402": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55402,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55403": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55403,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55411": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55411,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55412": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55412,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55413": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55413,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25101,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55421": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55421,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55422": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55422,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55423": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55423,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55431": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55431,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55432": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55432,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55433": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55433,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25111,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55501": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55501,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55502": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55502,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55503": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55503,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55511": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55511,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55512": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55512,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55513": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55513,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25141,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55521": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55521,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55522": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55522,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55523": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55523,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55531": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55531,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55532": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55532,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55533": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55533,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25151,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55601": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55601,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55602": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55602,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55603": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55603,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55611": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55611,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55612": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55612,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55613": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55613,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25001,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55621": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55621,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55622": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55622,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55623": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55623,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55631": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55631,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55632": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55632,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55633": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55633,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25011,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55701": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55701,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55702": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55702,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55703": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55703,
+    "first": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 1,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55711": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55711,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55712": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55712,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55713": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55713,
+    "first": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 2,
+        "percent": 100
+      },
+      {
+        "id": 25121,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55721": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55721,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55722": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55722,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55723": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55723,
+    "first": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 3,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 10
+      }
+    ]
+  },
+  "55731": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55731,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55732": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55732,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  },
+  "55733": {
+    "policy": "befall_55001_compat_v1",
+    "stage_id": 55733,
+    "first": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 100
+      }
+    ],
+    "repeat": [
+      {
+        "id": 7032,
+        "num": 4,
+        "percent": 100
+      },
+      {
+        "id": 25131,
+        "num": 1,
+        "percent": 15
+      }
+    ]
+  }
+}

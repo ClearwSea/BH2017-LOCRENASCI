@@ -63,6 +63,87 @@ class ConsumptionTests(unittest.TestCase):
     def sell(self, items):
         return dict(sell_item_list=dict(item_list=items))
 
+    def test_material_sale_and_zero_stack_notification(self):
+        self.account['material_list'] = [dict(id=7022, num=3), dict(id=8403, num=1)]
+        result = self.run_request('EquipmentSellReq', self.sell([
+            dict(type=1, id_or_unique_id=7022, num=3),
+            dict(type=1, id_or_unique_id=8403, num=1)]))
+        self.assertEqual(result, dict(retcode=0, scoin_add=4000))
+        self.assertEqual(self.account['main']['scoin'], 14000)
+        packets = dict(self.e.notification_snapshot(self.account, 'EquipmentSellReq'))
+        self.assertEqual(packets['GetEquipmentDataRsp']['material_list'],
+                         [dict(id=7022, num=0), dict(id=8403, num=0)])
+
+    def test_material_sale_invalid_mixed_request_is_atomic(self):
+        for rows, code in (([(7022, 1), (7022, 1)], 4),
+                           ([(7022, 3)], 2), ([(7022, 0)], 2),
+                           ([(7022, 1), (7178, 1)], 9)):
+            self.account['material_list'] = [dict(id=7022, num=2), dict(id=7178, num=1)]
+            before = deepcopy(self.account)
+            result = self.run_request('EquipmentSellReq', self.sell([
+                dict(type=1, id_or_unique_id=i, num=n) for i, n in rows]))
+            self.assertEqual(result['retcode'], code)
+            self.assertEqual(self.account, before)
+
+    def test_fixed_gift_rewards_and_empty_inventory(self):
+        self.account['main']['stamina'] = 100
+        for identity, gain in zip(range(7022, 7028), (1000, 2000, 5000, 10000, 20000, 50000)):
+            self.account['material_list'] = [dict(id=identity, num=1)]
+            before = self.account['main']['scoin']
+            result = self.run_request('UseMaterialReq', dict(material_id=identity))
+            self.assertEqual(result['retcode'], 0)
+            self.assertEqual(self.account['main']['scoin'], before + gain)
+            self.assertEqual(result['gift_reward_list'][0]['scoin'], gain)
+            result = self.run_request('UseMaterialReq', dict(material_id=identity))
+            self.assertEqual(result['retcode'], 2)
+            self.assertEqual(self.account['main']['scoin'], before + gain)
+
+    def test_stamina_cap_and_missing_treasure_do_not_consume(self):
+        self.account['main']['stamina'] = 100
+        self.account['material_list'] = [dict(id=7033, num=2), dict(id=8403, num=1)]
+        self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=7033))['retcode'], 0)
+        self.assertEqual(self.account['main']['stamina'], 130)
+        self.account['main']['stamina'] = 980
+        before = deepcopy(self.account)
+        self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=7033))['retcode'], 6)
+        self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=999999))['retcode'], 1)
+        self.assertEqual(self.account, before)
+
+    def test_sakura_jar_weight_boundaries_and_native_storage(self):
+        original = deepcopy(self.account)
+        for draw in range(100):
+            self.account = deepcopy(original)
+            self.account['material_list'] = [dict(id=8403, num=1)]
+            with patch.object(self.e.secrets, 'randbelow', return_value=draw) as rng:
+                result = self.run_request('UseMaterialReq', dict(material_id=8403))
+            self.assertEqual(result['retcode'], 0)
+            rng.assert_called_once_with(100)
+            expected, avatar = (10212, 212) if draw < 50 else (10304, 304)
+            self.assertEqual(result['drop_item_list'], [dict(item_id=expected, level=0, num=1, rarity=4)])
+            self.assertEqual(self.account['material_list'], [dict(id=8403, num=0)])
+            owned = next(a for a in self.account['avatar_list'] if a['avatar_id'] == avatar)
+            self.assertEqual(owned['fragment'], 1)
+            self.assertEqual(owned['star'], 0)
+            self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=8403))['retcode'], 2)
+
+    def test_sakura_jar_full_storage_and_save_failure_are_atomic(self):
+        self.account['material_list'] = [dict(id=8403, num=2)]
+        self.account['avatar_list'].append(dict(avatar_id=212, star=1, fragment=2999))
+        before = deepcopy(self.account)
+        with patch.object(self.e.secrets, 'randbelow') as rng:
+            self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=8403))['retcode'], 5)
+            rng.assert_not_called()
+        self.assertEqual(self.account, before)
+        self.account['avatar_list'][-1]['fragment'] = 10
+        before = deepcopy(self.account)
+        with patch.object(self.e.secrets, 'randbelow', return_value=0), patch.object(self.stage, '_save', side_effect=OSError('test')):
+            self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=8403))['retcode'], 1)
+        self.assertEqual(self.account, before)
+        with patch.object(self.e.secrets, 'randbelow', return_value=0):
+            self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=8403))['retcode'], 0)
+        self.assertEqual(self.account['avatar_list'][-1]['fragment'], 11)
+        self.assertEqual(self.account['material_list'][0]['num'], 1)
+
     def test_mixed_fodder_matches_native_preview_and_deletes_uids(self):
         # Source LV2 weapon=90, LV1 stigmata=75, crystal=200: 365EXP, 182coins.
         self.account['weapon_list'][1]['level'] = 2

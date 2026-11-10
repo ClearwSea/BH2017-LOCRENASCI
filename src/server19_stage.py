@@ -292,7 +292,15 @@ def first_clear_drop_plan(config=None):
     return plan
 
 
+def is_befall_stage(stage_id):
+    import server19_befall
+    return stage_id in server19_befall.BATTLE_STAGE_IDS
+
+
 def _has_audited_active_plan(active, config):
+    if active.get("drop_policy") == "befall_55001_compat_v1":
+        import server19_befall
+        return server19_befall.validate_active(active, config)
     if active.get("drop_policy") == "local_authored_conservative_v1":
         import server19_repeat_drops
         return server19_repeat_drops.validate_active(active, config)
@@ -475,6 +483,58 @@ def _empty_stage(stage_id):
             "is_done": False}
 
 
+def rollover_stage_attempts(account, now=None):
+    """Roll over the supported story challenge quotas at the game-day boundary."""
+    from server19_business_clock import day_key
+    today = day_key(now)
+    state = account.setdefault("stage_daily_runtime", {"day": today})
+    if state["day"] == today:
+        return
+    supported = set(supported_stage_ids())
+    for row in account.get("stage_list", []):
+        if row["id"] not in supported:
+            continue
+        config = stage_config(row["id"])
+        if config["type"] == 1 and config["difficulty"] in (2, 3):
+            row.update(enter_times=0, reset_times=0, assist_enter_times=0)
+    state["day"] = today
+
+
+def _reset_enter_times(account, request):
+    name = "ResetStageEnterTimesRsp"
+    identity = _u32(request.get("stage_id", 0), "stage_id")
+    if identity not in supported_stage_ids():
+        return name, {"retcode": 5}
+    config = stage_config(identity)
+    if (config["type"] != 1 or config["difficulty"] not in (2, 3)
+            or config["resetType"] != 0 or config["resetCoinID"] != 0
+            or config["resetTimes"] <= 0):
+        return name, {"retcode": 5}
+    rollover_stage_attempts(account)
+    level = _stage(account, identity)
+    if level is None or not level.get("enter_times", 0):
+        return name, {"retcode": 4}
+    if _runtime(account).get("active"):
+        return name, {"retcode": 1}
+    used = _u32(level.get("reset_times", 0), "reset_times")
+    if used >= config["resetTimes"]:
+        return name, {"retcode": 3}
+    rows = _table("stageresetcostdata", field="times", identities=(used + 1,))
+    if len(rows) != 1:
+        raise ValueError("Missing stage reset cost")
+    costs = rows[0]["Type1"]
+    kind = config["resetCostType"]
+    if not 0 < kind < len(costs):
+        raise ValueError("Stage reset cost array is not expanded")
+    cost = _u32(costs[kind], "stage reset cost")
+    balance = _u32(account["main"]["hcoin"], "stored hcoin")
+    if balance < cost:
+        return name, {"retcode": 2}
+    account["main"]["hcoin"] = balance - cost
+    level.update(enter_times=0, reset_times=used + 1)
+    return name, {"retcode": 0}
+
+
 def _stage(account, stage_id=STAGE_ID, *, create=False):
     rows = [row for row in account.get("stage_list", []) if row.get("id") == stage_id]
     if len(rows) > 1:
@@ -636,6 +696,12 @@ def _begin(account, request):
             # successful first clear with silently missing rewards.
             return name, {"retcode": 1}
         return name, deepcopy(active["begin_response"])
+    if is_befall_stage(stage_id):
+        import server19_befall
+        if not server19_befall.is_open(server19_befall.STAGE_ACTIVITY[stage_id]):
+            return name, {"retcode": 7}
+        if server19_befall.completed_today(account, activity_id=server19_befall.STAGE_ACTIVITY[stage_id]) >= server19_befall.DAILY_SUCCESS_LIMIT:
+            return name, {"retcode": 7}
     level = _stage(account, stage_id, create=True)
     cost = config["staminaCost"]
     if _u32(account["main"]["stamina"], "stamina") < cost:
@@ -647,7 +713,11 @@ def _begin(account, request):
     progress = level.get("progress", 0)
     drop_audit = None
     drop_policy = FIRST_CLEAR_DROP_POLICY
-    if progress == 0:
+    if is_befall_stage(stage_id):
+        import server19_befall
+        plan, drop_audit = server19_befall.draw(progress, stage_id)
+        drop_policy = server19_befall.DROP_POLICY
+    elif progress == 0:
         plan = first_clear_drop_plan(config)
     elif progress == config["maxProgress"] and level.get("is_done") is True:
         import server19_repeat_drops
@@ -901,6 +971,9 @@ def _end(account, request):
                 _add_exp(avatar, config["avatarExpReward"], "avatarleveldata",
                          player_config["avatarLevelLimit"])
         _grant_drops(account, drops)
+        if is_befall_stage(stage_id):
+            import server19_befall
+            server19_befall.record_win(account, stage_id)
         # Daily tasks "首次胜利" (any cleared stage) and "好友助战" (a cleared stage
         # entered with an assistant) advance here.
         import server19_duty
@@ -1032,7 +1105,8 @@ def notification_snapshot(account):
 
 def response(request_name, account, request_values=None, *, account_path=None):
     handlers = {"StageBeginReq": _begin, "StageEndReq": _end,
-                "FinishGuideReportReq": _guide, "AvatarReviveReq": _revive}
+                "FinishGuideReportReq": _guide, "AvatarReviveReq": _revive,
+                "ResetStageEnterTimesReq": _reset_enter_times}
     if request_name not in handlers:
         return None
     path = Path(account_path or DEFAULT_ACCOUNT).resolve()
@@ -1043,7 +1117,7 @@ def response(request_name, account, request_values=None, *, account_path=None):
             result = handlers[request_name](current, request_values or {})
             proto.encode_message(*result)
             if result[1].get("retcode") == 0:
-                if request_name in ("StageBeginReq", "StageEndReq"):
+                if request_name in ("StageBeginReq", "StageEndReq", "ResetStageEnterTimesReq"):
                     for packet in notification_snapshot(current):
                         proto.encode_message(*packet)
                 if request_name == "FinishGuideReportReq":

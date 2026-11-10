@@ -6,6 +6,8 @@ The native client creates the actual module/page/scene objects.
 """
 from copy import deepcopy
 import server19_stage
+import server19_befall
+from server19_business_clock import day_bounds
 
 
 # Original IslandModule.InitCabinDict (69029, 0xb5220c) creates all nine cabins
@@ -152,13 +154,15 @@ def response(request_name, account, request_values=None):
         # Supply the next legitimately available stage with zero progress so
         # its native LevelDataItem is initialized; this records no completion.
         return "GetStageDataRsp", {
-            "retcode": 0, "stage_list": server19_stage.available_stage_list(account),
+            "retcode": 0, "stage_list": list({r["id"]: r for r in (server19_stage.available_stage_list(account)
+                + server19_befall.stage_snapshots(account))}.values()),
         }
     if request_name == "GetWeekDayActivityDataReq":
         activity = {
             "activity_list": [], "is_camp_war_open": False,
             **deepcopy(account.get("weekday_activity_data", {})),
         }
+        server19_befall.update_activity_list(activity, account)
         # Handler 69130 (0xc13962) clears the complete activity list when
         # is_whole_data=true. At 0xc144eb it checks endless_data for null and
         # skips the schedule when absent; no active season is manufactured.

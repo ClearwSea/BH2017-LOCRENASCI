@@ -352,6 +352,7 @@ def array_source(row_type, field, row):
     """Expanded columns whose serialized list sentinel was inspected earlier."""
     specs = {
         ('MoleMole.ReviveCostTypeMetaData', 'Type1'): ('Type', 1, 10, 0),
+        ('MoleMole.LevelResetCostMetaData', 'Type1'): ('Type', 1, 10, 0),
         ('MoleMole.EquipmentLevelMetaData', 'Type1'): ('Type', 1, 7, 0),
         ('MoleMole.AvatarSubSkillLevelMetaData', 'SCoin_1'): ('SCoin_', 1, 25, 0),
         ('MoleMole.AvatarSubSkillLevelMetaData', 'Item_1'): ('Item_', 1, 9, ''),

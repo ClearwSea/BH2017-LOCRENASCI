@@ -61,6 +61,8 @@ def configure(data_directory):
         s.server19_endless.configure(runtime / 'endless-temperature-mapping-20261027/hp-only-delivery/catalog.json')
         import server19_config_cache
         import server19_gacha_cache
+        import server19_befall
+        server19_befall.configure_battle()
         server19_config_cache.install(stage)
         server19_gacha_cache.install(stage)
         import server19_request_cost
