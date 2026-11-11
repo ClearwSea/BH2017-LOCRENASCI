@@ -6,7 +6,8 @@ import zipfile
 from .core import BuildError, read_json, safe_relative
 
 IMAGES = ('bridge/celebration.png', 'bridge/github.png', 'gacha/dracula.png',
-          'gacha/ziyuan.png', 'announcement/teaparty.png', 'announcement/update.png', 'launcher/app-icon.png')
+          'gacha/ziyuan.png', 'announcement/teaparty.png', 'announcement/update.png', 'launcher/app-icon.png',
+          'gallery/m134.png', 'gallery/unavailable.png')
 VIDEOS = ('ExtraStory_BlackXuanyuan_01.mp4', 'ExtraStory_BlackXuanyuan_02.mp4',
           'ExtraStory_BlackXuanyuan_03.mp4', 'Sakura_4_CG12_SP_mux.mp4',
           'Season_CG01_Final_mux.mp4')

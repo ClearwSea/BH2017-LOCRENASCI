@@ -24,7 +24,9 @@ UPDATE_CONTENT_V013 = '<color=#FF4040FF>该公告面向V0.1.3</color>，此版�
 
 UPDATE_CONTENT_V014 = '<color=#FF4040FF>该公告面向V0.1.4</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 开放主线第1—6章困难与噩梦关卡，<b>未做完全测试</b>。\n2. 修复困难难度介绍引导无法正常继续的问题。\n<color=#FF4040FF>3. 修复深渊主动退出后，更换角色或调整队伍顺序再次挑战时提示 fail 的问题。</color>\n4. 修复装备穿戴成功后页面未及时刷新，再次点击出现异常提示的问题。\n5. <color=#FF4040FF>兼容恢复</color>女武神战斗力显示。\n6. 修复影舞冲击背刺技能无法正常升级的问题。\n7. 修复部分大剑主动技能动作及触发异常，补齐相关能力依赖。\n8. <color=#FF4040FF>兼容修复</color>仿灵刀·冰昙天、11th圣遗物等部分武器导致的进场或战斗异常。\n9. 修复独眼巨人初型三层蓄力攻击后卡死的问题。\n10. <color=#FF4040FF>兼容修复</color>轩辕剑连招异常的问题。\n11. 补齐部分装备技能信息，修复相关详情页面报错的问题。\n12. 修复精准与扩充补给中，200抽 UP 保底可能无法正常触发的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
-UPDATE_CONTENT_V015 = '<color=#FF4040FF>当前版本为V0.1.5</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. <color=#FF4040FF>兼容修复</color>八重樱封印罐子无法正常开启/出售的问题。\n2. 修复宝藏、体力药水无法使用/出售的问题。\n<color=#FF4040FF>3.修复舰长升至20级时，降临活动解锁引导卡住、\n活动入口消失及关卡列表为空的问题。</color>\n4. <color=#FF4040FF>兼容开放</color>崩坏降临活动关，<color=#FF4040FF>未做完全测试</color>。\n5. <color=#FF4040FF>兼容修复</color>崩坏降临活动关卡掉落异常的问题。\n6. 降临活动兼容规则：\n\u3000\u30001. 兼容调整为<b>每周开放两个、四周循环</b>，每周一循环更换。\n\u3000\u30002. <b>每个活动每日可成功通关3次</b>。\n\u3000\u30003.失败或退出不扣成功次数，开战仍正常消耗体力；\n\u3000\u3000活动换期前已开始的战斗可正常结算。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+UPDATE_CONTENT_V015 = '<color=#FF4040FF>该公告面向V0.1.5</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. <color=#FF4040FF>兼容修复</color>八重樱封印罐子无法正常开启/出售的问题。\n2. 修复宝藏、体力药水无法使用/出售的问题。\n<color=#FF4040FF>3.修复舰长升至20级时，降临活动解锁引导卡住、\n活动入口消失及关卡列表为空的问题。</color>\n4. <color=#FF4040FF>兼容开放</color>崩坏降临活动关，<color=#FF4040FF>未做完全测试</color>。\n5. <color=#FF4040FF>兼容修复</color>崩坏降临活动关卡掉落异常的问题。\n6. 降临活动兼容规则：\n\u3000\u30001. 兼容调整为<b>每周开放两个、四周循环</b>，每周一循环更换。\n\u3000\u30002. <b>每个活动每日可成功通关3次</b>。\n\u3000\u30003.失败或退出不扣成功次数，开战仍正常消耗体力；\n\u3000\u3000活动换期前已开始的战斗可正常结算。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+
+UPDATE_CONTENT_V016 = '<color=#FF4040FF>当前版本为V0.1.6</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复雷天使等装备强化、进化报错，以及部分降临武器进化配方和同名装备素材消耗异常的问题。\n2. 修复金币道具错误提示仓库上限，以及装备强化、进化、技能升级和补给后任务进度未及时刷新的问题。\n3. <color=#FF4040FF>兼容修复</color>薛定谔（上）等部分圣痕技能配置导致的关卡加载异常；修复女武神·强袭「连段保持」、真炎幸魂「梦稽古」无法解锁的问题。\n<color=#FF4040FF>4. 修复轩辕篇、蚩尤篇、永世回忆领奖后红点残留、一键领取故障问题；</color>\n5. 修复部分成就领奖报错和空白奖励弹窗。\n6. 修复商店部分材料、活动礼盒详情打开异常及图片缺失的问题。\n7. 修复武器、圣痕及材料图鉴中的图片错误、串图和碎片图标显示异常；<color=#FF4040FF>暂无资源的条目使用文字占位显示</color>。\n8. 修复「糖果恶魔」服装图片；紫苑无名换色服装兼容命名为「处刑装·红苑」，使用默认服装图片。\n9. 开放所有46套服装的列表显示，可配合存档编辑器V0.8.2调整解锁。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
 def response(name, account, values=None, *, account_path=None):
     if name not in HANDLED_REQUESTS:
@@ -92,6 +94,12 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.1.5", title="", event_date_str="", content=UPDATE_CONTENT_V015,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794326400,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201751 + show_type, type=show_type, weight=99,
+        title_button="更新公告V0.1.6", title="", event_date_str="", content=UPDATE_CONTENT_V016,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1794412800,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)

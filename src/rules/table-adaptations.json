@@ -8333,6 +8333,367 @@
           }
         }
       ]
+    },
+    "dressdata": {
+      "key": "dressID",
+      "rows": [
+        {
+          "id": 50022,
+          "set": {
+            "iconPath": "SpriteOutput/DressIcons/302_04_01",
+            "show": 1
+          }
+        },
+        {
+          "id": 50026,
+          "set": {
+            "iconPath": "SpriteOutput/DressIcons/502",
+            "imagePath": "SpriteOutput/DressFigures/502",
+            "show": 1
+          }
+        },
+        {
+          "id": 50002,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50013,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50015,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50017,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50018,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50019,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50020,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50024,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50027,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50029,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50030,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50031,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50032,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50033,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50035,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50036,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50039,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50040,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50041,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50043,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50044,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50045,
+          "set": {
+            "show": 1
+          }
+        },
+        {
+          "id": 50046,
+          "set": {
+            "show": 1
+          }
+        }
+      ]
+    },
+    "materialdeletedata": {
+      "key": "id",
+      "rows": [],
+      "remove_ids": [
+        907,
+        5530,
+        5531,
+        5551,
+        5554,
+        5557,
+        5563,
+        7180,
+        7203,
+        7205,
+        7224,
+        8409
+      ],
+      "reason": "Retained permanent offline shop goods must remain inspectable after their original online event retirement dates."
+    },
+    "materialdata": {
+      "key": "ID",
+      "rows": [
+        {
+          "id": 7112,
+          "set": {
+            "iconPath": "SpriteOutput/MedalIcons/101001",
+            "imagePath": "SpriteOutput/MedalFigures/101001"
+          }
+        },
+        {
+          "id": 7220,
+          "set": {
+            "iconPath": "SpriteOutput/DressIcons/102_04_01",
+            "imagePath": "SpriteOutput/DressFigures/102_04_01"
+          }
+        },
+        {
+          "id": 5603,
+          "set": {
+            "iconPath": "SpriteOutput/MaterialIcons/5603",
+            "imagePath": "SpriteOutput/MaterialFigures/5603"
+          }
+        },
+        {
+          "id": 7182,
+          "set": {
+            "iconPath": "SpriteOutput/MaterialIcons/7181",
+            "imagePath": "SpriteOutput/MaterialFigures/7181"
+          }
+        },
+        {
+          "id": 5511,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 5512,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 5513,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 5514,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 6501,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 6502,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 6503,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 6504,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 6505,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7061,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7062,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7063,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7064,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7071,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7179,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7218,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7223,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 7901,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 8209,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        },
+        {
+          "id": 9011,
+          "set": {
+            "iconPath": "SpriteOutput/Compat/Unavailable",
+            "imagePath": "SpriteOutput/Compat/Unavailable"
+          }
+        }
+      ]
+    },
+    "stigmatapositiondata": {
+      "key": "name",
+      "rows": [
+        {
+          "id": "S3AI_3_Upgrade",
+          "set": {
+            "backEnable": false
+          }
+        }
+      ]
     }
   },
   "shop_additions": [
@@ -8843,6 +9204,9 @@
     },
     "CabinTechDisplayCanDisjointWeapon": {
       "authored": "开启装备分解功能"
+    },
+    "DressName50026": {
+      "authored": "处刑装·红苑"
     }
   }
 }

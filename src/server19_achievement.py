@@ -129,10 +129,17 @@ def claim_achievement(account, mission_id):
     runtime = account.setdefault("achievement_runtime", {"claimed_ids": [], "receipts": []})
     claimed = set(runtime.setdefault("claimed_ids", []))
     receipts = {r["mission_id"]: r["response"] for r in runtime.setdefault("receipts", [])}
+    # AchieveRewardGotContext reads reward_list[0], even for a zero-value retry.
+    # Keep the wire object nonempty without granting or rewriting old receipts.
+    empty_reward = dict(exp=0, scoin=0, hcoin=0, stamina=0, skill_point=0,
+                        friends_point=0, duty_point=0, item_list=[])
     if mission_id in receipts:
-        return deepcopy(receipts[mission_id])
+        response = deepcopy(receipts[mission_id])
+        if response.get("retcode") == 0 and not response.get("reward_list"):
+            response["reward_list"] = [empty_reward]
+        return response
     if mission_id in claimed:
-        return {"retcode": 0, "reward_list": []}
+        return {"retcode": 0, "reward_list": [empty_reward]}
 
     # Check that mission is actually finished
     active = {r["mission_id"]: r for r in achievement_rows(account)}

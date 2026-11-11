@@ -565,6 +565,15 @@ class GameHandler(socketserver.BaseRequestHandler):
                         elif name == "GetMissionRewardReq" and values.get("retcode") == 3:
                             # Also repair a stale button after a duplicate claim.
                             packets.insert(0, server19_missions.mission_snapshot(account))
+                        if name == "GetExtraStoryAchieveRewardReq" and values.get("retcode") == 0:
+                            snapshots = server19_missions.notification_snapshot(account)
+                            packets = [p for p in snapshots if p[0] == "GetMissionDataRsp"] + packets
+                            packets.extend(p for p in snapshots if p[0] != "GetMissionDataRsp")
+                        if name in ("GetMissionDataReq", "GetMissionRewardReq", "GetExtraStoryAchieveRewardReq") and values.get("retcode") in (0, 3):
+                            extra_state = server19_extra_story.achievement_snapshot(account)
+                            if extra_state is not None:
+                                # MissionData triggers the native page refresh; group state must arrive first.
+                                packets.insert(0, extra_state)
                         if name == "TakeDutyRewardReq" and values.get("retcode") == 0:
                             packets.extend(server19_missions.notification_snapshot(account))
                             event("game_duty_committed",
@@ -617,6 +626,11 @@ class GameHandler(socketserver.BaseRequestHandler):
                                 server19_initialization.response("GetWeekDayActivityDataReq", account),
                                 server19_stage_display.response("GetStageDropDisplayReq", account),
                             ]
+                        if name in ("EquipmentPowerUpReq", "EquipmentEvoReq",
+                                    "AvatarSubSkillLevelUpReq", "GachaReq") and values.get("retcode") == 0:
+                            # These transactions persist duty counters, but the native
+                            # mission page uses its cached rows until explicitly notified.
+                            packets.append(server19_missions.mission_snapshot(account))
                         for packet_name, packet_values in packets:
                             body = proto.encode_message(packet_name, packet_values)
                             packet_id += 1

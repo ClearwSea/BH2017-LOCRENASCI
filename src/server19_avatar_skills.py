@@ -19,9 +19,20 @@ HANDLED_REQUESTS = frozenset(("AvatarSubSkillLevelUpReq",))
 SUPPORTED_AVATARS = {101: tuple(range(11, 17)), 201: tuple(range(51, 57))}
 # Current deployed closure audit restores old shield/invisibility/leader gates.
 # Backstab613 retains native back-hit damage; only later score802021 is omitted.
-# Two live subskills still require unsupported nonempty callbacks/UI metadata.
+# The combo-resist pair requires the packaged ARM resource projection.
 # 1301/2015 are absent from the current table and remain reserved, not unlocked.
 UNSUPPORTED_SUBSKILLS = frozenset((713, 2502, 1301, 2015))
+
+
+def _combo_resist_ready():
+    from server19_build_capabilities import manifest, verify_native
+    try:
+        if 'avatar_combo_resist_v1' not in manifest().get('resource_capabilities', []):
+            return False
+        verify_native()
+        return True
+    except (OSError, ValueError):
+        return False
 RECOVERY_INTERVAL = 7200  # Already accepted demo GetMainDataRsp reference.
 _TABLE_HASHES = {
     "avatardata": "472fce4f109bad435f7fd90ac995e048ff9706f3bde512321d5e4e14cabcf2ce",
@@ -184,7 +195,7 @@ def _upgrade(account, values, *, now=None):
         raise _Rejected(3)
     if sub_id not in subs or subs[sub_id]["skillId"] != skill_id:
         raise _Rejected(4)
-    if sub_id in UNSUPPORTED_SUBSKILLS:
+    if sub_id in UNSUPPORTED_SUBSKILLS and not (sub_id in (713, 2502) and _combo_resist_ready()):
         raise _Rejected(1)
     avatar, meta = owned[0], subs[sub_id]
     stored = _stored_subskills(avatar, subs)

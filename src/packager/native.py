@@ -48,6 +48,32 @@ def apply(client19, output):
     digest = hashlib.sha256(result).hexdigest()
     if len(result) != spec['output_bytes'] or digest != spec['output_sha256']:
         raise BuildError('Native patch output differs from its supported profile')
+    # The zero-reward dialog fix is ARM-only and binds to the cumulative image.
+    dialog = read_json(ROOT / 'rules/native-armv7-reward-dialog.json')
+    if len(result) != dialog['input_bytes'] or digest != dialog['input_sha256']:
+        raise BuildError('Reward dialog patch requires its audited ARM preimage')
+    for row in dialog['changes']:
+        offset = row['offset']
+        before, after = bytes.fromhex(row['before']), bytes.fromhex(row['after'])
+        if len(before) != len(after) or result[offset:offset + len(before)] != before:
+            raise BuildError('Reward dialog instruction preimage differs')
+        result[offset:offset + len(before)] = after
+    result.extend(base64.b64decode(dialog['append'], validate=True))
+    digest = hashlib.sha256(result).hexdigest()
+    if len(result) != dialog['output_bytes'] or digest != dialog['output_sha256']:
+        raise BuildError('Reward dialog patch output differs')
+    gallery = read_json(ROOT / 'rules/native-armv7-gallery.json')
+    if len(result) != gallery['input_bytes'] or digest != gallery['input_sha256']:
+        raise BuildError('Gallery patch requires its audited ARM preimage')
+    for row in gallery['changes']:
+        offset = row['offset']
+        before, after = bytes.fromhex(row['before']), bytes.fromhex(row['after'])
+        if len(before) != len(after) or result[offset:offset + len(before)] != before:
+            raise BuildError('Gallery instruction preimage differs')
+        result[offset:offset + len(before)] = after
+    digest = hashlib.sha256(result).hexdigest()
+    if len(result) != gallery['output_bytes'] or digest != gallery['output_sha256']:
+        raise BuildError('Gallery patch output differs')
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open('xb') as stream:
         stream.write(result)

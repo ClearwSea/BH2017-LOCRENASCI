@@ -167,17 +167,127 @@ class ConsumptionTests(unittest.TestCase):
         self.assertEqual(self.account['main']['scoin'],9963)
         self.assertEqual((self.account['stigmata_list'][0]['level'],self.account['stigmata_list'][0]['exp']),(4,33))
 
+    def test_lightning_angel_all_ranks_strengthen_and_persist(self):
+        for identity in (20457, 20458, 20459):
+            with self.subTest(identity=identity):
+                self.account['weapon_list'][0].update(id=identity, level=1, exp=0)
+                coins = self.account['main']['scoin']
+                material = self.account['material_list'][0]['num']
+                result = self.run_request('EquipmentPowerUpReq', self.power([
+                    dict(type=1, id_or_unique_id=3000, num=1)]))
+                self.assertEqual(result['retcode'], 0)
+                self.assertEqual(self.account['weapon_list'][0]['id'], identity)
+                self.assertEqual(self.account['weapon_list'][0]['unique_id'], 1)
+                self.assertGreater(self.account['weapon_list'][0]['level'], 1)
+                self.assertEqual(self.account['main']['scoin'], coins - 100)
+                self.assertEqual(self.account['material_list'][0]['num'], material - 1)
+                self.assertEqual(json.loads(self.path.read_bytes()), self.account)
+
+    def test_lightning_angel_failure_does_not_charge(self):
+        self.account['weapon_list'][0].update(id=20457, level=1, exp=0)
+        request = self.power([dict(type=1, id_or_unique_id=3000, num=1)])
+        for level, coins, code in ((25, 10000, 3), (1, 0, 8)):
+            self.account['weapon_list'][0]['level'] = level
+            self.account['main']['scoin'] = coins
+            before = deepcopy(self.account)
+            self.assertEqual(self.run_request('EquipmentPowerUpReq', request)['retcode'], code)
+            self.assertEqual(self.account, before)
+            self.assertEqual(json.loads(self.path.read_bytes()), before)
+
+    def test_table_growth_keeps_default_battle_scope(self):
+        self.assertNotIn(20457, self.e._audited_growth_ids())
+        self.assertIn(20457, self.e._audited_growth_ids(table_growth=True))
+
+    def test_lightning_angel_evolution_chain_rebinds_and_charges_exact_recipe(self):
+        for identity, next_id in ((20457, 20458), (20458, 20459)):
+            meta = self.e._metadata('weapondata', identity)
+            item = self.account['weapon_list'][0]
+            item.update(id=identity, level=meta['maxLv'], exp=0)
+            old_uid = item['unique_id']
+            self.account['avatar_list'] = [dict(avatar_id=501, level=80, weapon_unique_id=old_uid)]
+            required = dict(tuple(map(int, x.split(':'))) for x in meta['evoMaterial'])
+            self.account['material_list'] = [dict(id=i, num=n+10) for i,n in required.items()]
+            self.account['main']['scoin'] = 1000000
+            request = dict(main_item=self.item(3, old_uid), consume_item_list=dict(item_list=[
+                dict(type=1, id_or_unique_id=i, num=n) for i,n in required.items()]))
+            before = deepcopy(self.account)
+            with patch.object(self.stage, '_save', side_effect=OSError('test')):
+                self.assertEqual(self.run_request('EquipmentEvoReq', request)['retcode'], 1)
+            self.assertEqual(self.account, before)
+            result = self.run_request('EquipmentEvoReq', request)
+            self.assertEqual(result['retcode'], 0)
+            new_uid = result['new_item']['id_or_unique_id']
+            self.assertNotEqual(new_uid, old_uid)
+            item = self.account['weapon_list'][0]
+            self.assertEqual((item['id'],item['level'],item['exp']), (next_id,1,0))
+            self.assertEqual(self.account['avatar_list'][0]['weapon_unique_id'],new_uid)
+            self.assertTrue(all(m['num']==10 for m in self.account['material_list']))
+            cost = self.e._row(self.e._power_up_tables(),'equipmentleveldata',meta['maxLv'],'level')['weaponEvoCost']
+            self.assertEqual(self.account['main']['scoin'],1000000-cost)
+            self.assertEqual(json.loads(self.path.read_bytes()),self.account)
+
     def test_sell_multiple_equipment_once(self):
         self.account['weapon_list'][1]['level']=5
         result=self.run_request('EquipmentSellReq',self.sell([self.item(3,2),self.item(4,20002)]))
         self.assertEqual(result,dict(retcode=0,scoin_add=140))
         self.assertEqual(self.account['main']['scoin'],10140)
+
         self.assertEqual(len(self.account['weapon_list']),2)
         self.assertEqual(len(self.account['stigmata_list']),1)
         again=self.e.response('EquipmentSellReq',self.account,self.sell([self.item(3,2)]),account_path=self.path)[1]
         self.assertEqual(again['retcode'],2)
         self.assertEqual(self.account['main']['scoin'],10140)
 
+    def test_befall_duplicate_weapon_recipe_and_equal_level_cap(self):
+        self.account['avatar_list'] = []
+        self.account['weapon_list'] = [dict(unique_id=1,id=25013,level=35,exp=0),
+            dict(unique_id=2,id=25011,level=1,exp=0),
+            dict(unique_id=3,id=25011,level=1,exp=0)]
+        self.account['main']['scoin'] = 1000000
+        request=dict(main_item=self.item(3,1),consume_item_list=dict(item_list=[self.item(3,2),self.item(3,3)]))
+        before=deepcopy(self.account)
+        with patch.object(self.stage,'_save',side_effect=OSError('test')):
+            self.assertEqual(self.run_request('EquipmentEvoReq',request)['retcode'],1)
+        self.assertEqual(self.account,before)
+        result=self.run_request('EquipmentEvoReq',request)
+        self.assertEqual(result['retcode'],0)
+        self.assertEqual(len(self.account['weapon_list']),1)
+        self.assertEqual(self.account['weapon_list'][0]['id'],25014)
+        deleted=[v for n,v in self.e.notification_snapshot(self.account,'EquipmentEvoReq') if n=='DelEquipmentNotify']
+        self.assertEqual({uid for row in deleted for uid in row['weapon_unique_id_list']},{1,2,3})
+        self.assertEqual(json.loads(self.path.read_bytes()),self.account)
+
+    def test_coin_gift_is_not_blocked_by_existing_stamina_over_cap(self):
+        self.account['main']['stamina']=1000
+        self.account['material_list']=[dict(id=7022,num=2),dict(id=7033,num=2)]
+        coins=self.account['main']['scoin']
+        self.assertEqual(self.run_request('UseMaterialReq',dict(material_id=7022))['retcode'],0)
+        self.assertGreater(self.account['main']['scoin'],coins)
+        self.assertEqual(self.account['main']['stamina'],1000)
+        self.assertEqual(self.account['material_list'][0]['num'],1)
+        before=deepcopy(self.account)
+        self.assertEqual(self.run_request('UseMaterialReq',dict(material_id=7033))['retcode'],6)
+        self.assertEqual(self.account,before)
+
+    def test_befall_evolution_rejects_invalid_fodder_without_consumption(self):
+        self.account['avatar_list']=[]
+        self.account['weapon_list']=[dict(unique_id=1,id=25001,level=15,exp=0),
+            dict(unique_id=2,id=25001,level=1,exp=0)]
+        self.account['main']['scoin']=1000000
+        base=deepcopy(self.account)
+        for case in ('self','locked','equipped','wrong_model','duplicate'):
+            self.account=deepcopy(base)
+            entries=[self.item(3,2)]
+            if case=='self':entries=[self.item(3,1)]
+            elif case=='locked':self.account['weapon_list'][1]['is_protected']=True
+            elif case=='equipped':self.account['avatar_list']=[dict(avatar_id=101,weapon_unique_id=2)]
+            elif case=='wrong_model':self.account['weapon_list'][1]['id']=20001
+            elif case=='duplicate':entries.append(self.item(3,2))
+            before=deepcopy(self.account)
+            request=dict(main_item=self.item(3,1),consume_item_list=dict(item_list=entries))
+            self.assertNotEqual(self.run_request('EquipmentEvoReq',request)['retcode'],0,case)
+            self.assertEqual(self.account,before,case)
+            self.assertEqual(json.loads(self.path.read_bytes()),before,case)
     def test_disjoin_requires_activated_technology_not_only_cabin_level(self):
         for level, techs in ((8, []), (8, [dict(pos_x=0,pos_y=0)]),
                              (6, [dict(pos_x=0,pos_y=-4)])):

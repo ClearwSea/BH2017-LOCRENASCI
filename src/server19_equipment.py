@@ -393,7 +393,7 @@ def _use_material(account, values):
             reward[f'RewardItem{i}ID'] for i in range(1, 6)):
         raise ValueError('Fixed material gift contains unaudited reward types')
     from server19_exchange import STAMINA_SYSTEM_LIMIT
-    if account['main']['stamina'] + output['stamina'] > STAMINA_SYSTEM_LIMIT:
+    if output['stamina'] and account['main']['stamina'] + output['stamina'] > STAMINA_SYSTEM_LIMIT:
         raise _Rejected(6)
     for key in ('scoin', 'stamina'):
         account['main'][key] = _i32_nonnegative(account['main'][key] + output[key], key)
@@ -475,7 +475,7 @@ def _power_up(account, values):
         raise _Rejected(2)  # MAIN_ITEM_NOT_EXIST
     _, item, _ = _item(inventory, uid)
     item_id = stage._u32(item["id"], "equipment id")
-    if item_id not in _audited_growth_ids():
+    if item_id not in _audited_growth_ids(table_growth=True):
         raise ValueError("Power-up model is outside the current audited scope")
     tables = _power_up_tables()
     metadata = _row(tables, "weapondata" if kind == WEAPON else "stigmatadata", item_id)
@@ -605,7 +605,7 @@ def _power_up(account, values):
             "boost_rate": POWER_UP_BOOST_RATE}
 
 
-def _audited_growth_ids():
+def _audited_growth_ids(*, table_growth=False):
     """Use the complete checked evolution closures, not six initial models."""
     path = stage.ROOT / '.local-baseline/server19-dev/equipment-chain-batch-ready-v3/matrix.json'
     expected = '31225e6b70c7703d738a8b69b9368cc4989c881de43578e7bf50588ca242c9aa'
@@ -623,6 +623,13 @@ def _audited_growth_ids():
         raise ValueError('Equipment battle closure changed; audit before growth')
     matrix = json.loads(raw)
     audited = {row['item_id'] for row in matrix['items'] if not row['blockers']}
+    if table_growth and FULL_CULTIVATION_READY_FILE is not None and Path(FULL_CULTIVATION_READY_FILE).is_file():
+        # The historical battle-resource matrix is not a growth-table audit.
+        # ARM strengthening/evolution use the bound client tables; their
+        # handlers still validate levels, recipes, currency and ownership.
+        # Evolution additionally checks the next model/category and rebinding.
+        audited.update(row['item_id'] for row in matrix['items']
+                       if row['blockers'] == ['unsupported-native-closure'])
     return audited | set(EXTRA_AUDITED_GROWTH_IDS)
 
 
@@ -632,28 +639,45 @@ def _evolve(account, values):
     if uid not in inventory or inventory[uid][0] != {WEAPON: 'weapon', STIGMATA: 'stigmata'}.get(kind):
         raise ValueError('Evolution target not owned')
     _, item, meta = _item(inventory, uid)
-    ready = _audited_growth_ids()
+    ready = _audited_growth_ids(table_growth=True)
     next_id = stage._u32(meta['evoID'], 'evolution target ID')
     if item['id'] not in ready or next_id not in ready or not next_id or item['level'] != meta['maxLv']:
         raise ValueError('Evolution unavailable, unaudited or not at level cap')
     table = 'weapondata' if kind == WEAPON else 'stigmatadata'
     target = _metadata(table, next_id)
-    if target['baseType'] != meta['baseType'] or target.get('setID') != meta.get('setID') or target['maxLv'] <= meta['maxLv']:
+    if target['baseType'] != meta['baseType'] or target.get('setID') != meta.get('setID') or target['maxLv'] < meta['maxLv']:
         raise ValueError('Unsupported evolution branch/category conversion')
     if kind == STIGMATA and item.get('is_affix_identify', True) is not True:
         raise ValueError('Unidentified stigmata cannot evolve')
     required = {}
     for entry in meta['evoMaterial']:
-        material, count = map(int, entry.split(':'))
-        if material in required or count <= 0:
+        identity, count = map(int, entry.split(':'))
+        if identity <= 0 or count <= 0:
             raise ValueError('Invalid evolution recipe')
-        required[material] = count
-    supplied = {}
+        source_kind, _ = stage._item_metadata(identity)
+        if source_kind not in ('material', 'weapon', 'stigmata'):
+            raise ValueError('Unsupported evolution ingredient')
+        required[identity] = required.get(identity, 0) + count
+    supplied, selected, consumed_equipment = {}, set(), []
+    material_costs = {}
     for entry in values['consume_item_list']['item_list']:
-        entry_kind, material, count = _descriptor(entry)
-        if entry_kind != MATERIAL or material in supplied or not count:
-            raise ValueError('Only exact nonduplicate recipe materials are supported')
-        supplied[material] = count
+        entry_kind, source_id, count = _descriptor(entry)
+        if (entry_kind, source_id) in selected:
+            raise ValueError('Duplicate evolution ingredient selection')
+        selected.add((entry_kind, source_id))
+        if entry_kind == MATERIAL:
+            if not count:
+                raise ValueError('Empty evolution material amount')
+            _metadata('materialdata', source_id)
+            identity = source_id
+            material_costs[identity] = count
+        else:
+            if source_id == uid:
+                raise ValueError('Evolution target cannot consume itself')
+            source, _ = _consumable(account, inventory, entry_kind, source_id, (1, 1, 1))
+            identity, count = source['id'], 1
+            consumed_equipment.append((entry_kind, source_id))
+        supplied[identity] = supplied.get(identity, 0) + count
     if not required or supplied != required:
         raise ValueError('Evolution recipe does not match original preview')
     materials = {}
@@ -661,8 +685,7 @@ def _evolve(account, values):
         if row['id'] in materials:
             raise ValueError('Duplicate material stack')
         materials[row['id']] = row
-    for material, count in required.items():
-        _metadata('materialdata', material)
+    for material, count in material_costs.items():
         if material not in materials or _i32_nonnegative(materials[material]['num'], 'material count') < count:
             raise ValueError('Insufficient evolution materials')
     # Original52642 and52113 key the current level, not rarity/new level.
@@ -692,12 +715,13 @@ def _evolve(account, values):
     # All validation precedes changes to the transactional account copy.
     account['main']['scoin'] -= cost
     consumed_ids = set()
-    for material, count in required.items():
+    for material, count in material_costs.items():
         materials[material]['num'] -= count
         consumed_ids.add(material)
     _MUTATION.power_up_consumed = consumed_ids
     index = account[inventory_name].index(item)
     account[inventory_name][index] = replacement
+    _delete_equipment(account, consumed_equipment)
     for avatar_id, slot in owners:
         avatars[avatar_id][SLOT_FIELDS[slot]] = new_uid
     _MUTATION.evolution = {'kind': kind, 'old_uid': uid, 'new_uid': new_uid,

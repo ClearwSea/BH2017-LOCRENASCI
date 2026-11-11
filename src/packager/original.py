@@ -101,8 +101,11 @@ def build(config, reuse_data=None, resume=False):
         host = hosts[-1]
         prefab = work / 'announcement.prefab'
         stage('announcement-layout', lambda: str(announcement_prefab(config, work)))
+        from . import shop_art
+        stage('shop-artwork', lambda: shop_art.prepare(config['client19'], config['client24'], work / 'unity-overrides', supplemental_root / 'images'))
         stage('apk-compose', lambda: compose(config['client19'], host, work / 'native/libil2cpp.so',
-            work / 'unsigned.apk', work / 'embedded', prefab, supplemental_root / 'images/launcher/app-icon.png'))
+            work / 'unsigned.apk', work / 'embedded', prefab, supplemental_root / 'images/launcher/app-icon.png',
+            unity_overrides=work / 'unity-overrides'))
         tools = config['tools_root'] / 'sdk/build-tools/35.0.0'
         java = next((config['tools_root'] / 'jdk').glob('*/bin/java.exe'))
         env = os.environ.copy()

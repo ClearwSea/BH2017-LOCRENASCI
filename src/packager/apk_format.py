@@ -127,7 +127,7 @@ class Manifest:
         body=b''.join(pool if st.unpack_from('<H',c)[0]==1 else resources if st.unpack_from('<H',c)[0]==0x180 else c for c in self.chunks)
         return st.pack('<HHI',3,8,len(body)+8)+body
 
-def build(game, host, native, output, embedded=None, announcement_prefab=None, icon=None):
+def build(game, host, native, output, embedded=None, announcement_prefab=None, icon=None, unity_overrides=None):
     # APK readers reject ZIP64; Python's conservative default switches at 2 GiB.
     zipfile.ZIP64_LIMIT = 0xFFFFFFFF
     assert not output.exists(), 'Do not overwrite a candidate'
@@ -140,10 +140,13 @@ def build(game, host, native, output, embedded=None, announcement_prefab=None, i
         dex=[n for n in src.namelist() if re.fullmatch(r'classes\d*\.dex',n)]
         next_dex=max(int(re.search(r'\d+',n)[0]) if re.search(r'\d+',n) else 1 for n in dex)+1
         written=set();added=[]
+        unity_files = {p.name: p for p in Path(unity_overrides).iterdir()} if unity_overrides else {}
         for entry in src.infolist():
             n=entry.filename
             if n.startswith('META-INF/') or entry.is_dir():continue
             payload=raw if n=='AndroidManifest.xml' else native.read_bytes() if n=='lib/armeabi-v7a/libil2cpp.so' else src.read(entry)
+            if n.startswith('assets/bin/Data/') and n.removeprefix('assets/bin/Data/') in unity_files:
+                payload = unity_files[n.removeprefix('assets/bin/Data/')].read_bytes()
             if announcement_prefab and n=='assets/bin/Data/b753f392eb85c9b4e9a3255042f9064a':
                 assert hashlib.sha256(payload).hexdigest()=='65dc6c7fff940b4bd9b7c9659dae1837b15d8692c7ce39bca8ae887f054d1ebb'
                 payload=announcement_prefab.read_bytes()
@@ -152,6 +155,10 @@ def build(game, host, native, output, embedded=None, announcement_prefab=None, i
                     'drawable-xhdpi-v4','drawable-xxhdpi-v4','drawable-xxxhdpi-v4')}:
                 payload=icon.read_bytes()
             dst.writestr(entry,payload);written.add(n)
+        for name, path in unity_files.items():
+            n = 'assets/bin/Data/' + name
+            if n not in written:
+                dst.writestr(n, path.read_bytes()); written.add(n)
         for entry in wrapper.infolist():
             n=entry.filename
             if re.fullmatch(r'classes\d*\.dex',n): n=f'classes{next_dex}.dex';next_dex+=1

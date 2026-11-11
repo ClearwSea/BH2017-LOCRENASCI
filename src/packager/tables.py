@@ -196,6 +196,11 @@ def restore(apk24, data_work, output):
                         from_id, from_field = value['$source_field']
                         value = original_rows[from_id][from_field]
                     by_id[identity][field] = deepcopy(value)
+            removed = set(edit.get('remove_ids', []))
+            if not removed <= by_id.keys():
+                raise BuildError('Removal refers to missing row: ' + name)
+            if removed:
+                tables[name] = [r for r in tables[name] if r[key] not in removed]
         for spec in rules['shop_additions']:
             template = deepcopy(tables['shopgoodsdata'][0])
             template.update(spec)

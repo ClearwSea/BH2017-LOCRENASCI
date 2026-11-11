@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "input_sha256": "1c5714c4b597f4df0b821f7adc4ed5e08512ce4e9bd8989b4c0612d616163cd6",
+  "input_bytes": 88920544,
+  "output_sha256": "6c833a3b8cba1785183e2df7aa4559fbe904cd649ba20517764cb4d92c6de856",
+  "output_bytes": 88920544,
+  "changes": [
+    {
+      "va": 12640532,
+      "offset": 12640532,
+      "size": 76,
+      "before": "f0482de910b08de20040a0e188019fe588519fe500008fe0000085e0d200d0e5000050e30800001a74019fe574119fe500608fe0060091e7000090e5b27fe0eb060085e00110a0e3d210c0e5",
+      "after": "f0482de910b08de20010a0e3d60200eb000050e3f088bd080040a0e1002090e5482092e5385092e53c6092e5000055e30100001a0600a0e1c27fe0eb0400a0e10610a0e135ff2fe1f088bde8",
+      "purpose": "Itempedia icon uses cached native item icon including equipment fragments"
+    }
+  ]
+}

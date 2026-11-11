@@ -79,6 +79,42 @@ def prepare(client24, data_work, output, client_tables):
     # native_json removes source array-length markers. Validate the actual
     # client representation rather than treating those counts as references.
     rendered = {name: json.loads(encoded) for name, encoded in encoded_tables.items()}
+    # Historical projection recipes also contain text overrides. Apply the
+    # explicit costume presentation edits to every generated consumer.
+    presentation = read_json(ROOT / 'rules/table-adaptations.json')
+    # Retained shop items share the same presentation and retirement rules in
+    # native client tables and every historical runtime consumer.
+    for table in ('materialdata', 'materialdeletedata', 'stigmatapositiondata'):
+        spec = presentation['edits'].get(table, {})
+        key = spec.get('key', 'ID')
+        removed = set(spec.get('remove_ids', []))
+        def update_shop_rows(rows):
+            by_id = {row[key]: row for row in rows}
+            for edit in spec.get('rows', []):
+                by_id[edit['id']].update(edit['set'])
+            return [row for row in rows if row[key] not in removed]
+        rendered[table] = update_shop_rows(rendered[table])
+        encoded_tables[table] = json.dumps(rendered[table], ensure_ascii=False, separators=(',', ':'))
+        for path in output.rglob(table):
+            write_json(path, update_shop_rows(read_json(path)))
+    dresses = {row['dressID']: row for row in read_json(effective / 'dressdata')}
+    for edit in presentation['edits'].get('dressdata', {}).get('rows', []):
+        target = next(row for row in rendered['dressdata'] if row['dressID'] == edit['id'])
+        for field in edit['set']:
+            target[field] = dresses[edit['id']][field]
+    encoded_tables['dressdata'] = json.dumps(rendered['dressdata'], ensure_ascii=False, separators=(',', ':'))
+    names = {key: spec['authored'] for key, spec in presentation['text_edits'].items()
+             if key.startswith('DressName') and 'authored' in spec}
+    for row in rendered['textmap']:
+        if row['ID'] in names:
+            row['Text'] = names[row['ID']]
+    for path in output.rglob('textmap'):
+        rows = read_json(path)
+        for row in rows:
+            if row['ID'] in names:
+                row['Text'] = names[row['ID']]
+        if names:
+            write_json(path, rows)
     # Source recipes retain historical row selections. Overlay the restored
     # Befall dependencies into the client projection as well as server tables.
     befall = set(range(1601, 1672, 10))
@@ -141,10 +177,19 @@ def finish(output, native, resource_manifest, archive):
         native_caps.update(ready.get('required_native_capabilities', []))
         write_json(path, ready)
         records[scope] = capabilities.canonical_sha(ready)
+    resource_caps = []
+    # Only the reviewed ARM resources enable the two combo-protection skills.
+    with Path(native).open('rb') as stream:
+        elf = stream.read(20)
+    if elf[:4] == b'\x7fELF' and elf[18:20] == b'\x28\x00' and any(
+            row['path'] == 'private/data/bh3-server19-baked/_baked/bakedabilitydata'
+            and row['sha256'] == '2a4fb06ce8d7f62e8d98291e2769774c81258b1747878130f9a6b75f3a9aa982'
+            for row in read_json(resource_manifest)['entries']):
+        resource_caps.append('avatar_combo_resist_v1')
     write_json(output / 'build-capabilities.json', {'schema': 1, 'evidence_kind': 'packaged-artifacts',
         'source_mode': 'original-inputs', 'human_gameplay_verified': False,
         'native_sha256': digest(native), 'resource_manifest_sha256': digest(resource_manifest),
-        'native_capabilities': sorted(native_caps), 'records': records})
+        'native_capabilities': sorted(native_caps), 'resource_capabilities': resource_caps, 'records': records})
     files = [{'path': p.relative_to(output).as_posix(), 'size': p.stat().st_size, 'sha256': digest(p)}
              for p in sorted(output.rglob('*')) if p.is_file()]
     write_json(output / 'portable-manifest.json', {'schema': 1, 'files': files,

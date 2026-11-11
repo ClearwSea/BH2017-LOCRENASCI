@@ -17,7 +17,7 @@ STAGES = {
     'client-resources-from-originals': '转换客户端资源', 'voices-from-7x': '转换语音',
     'videos-from-7x-and-explicit-extras': '转换与补充视频', 'resource-packs': '生成资源包',
     'runtime-capabilities': '整理服务端运行包', 'android-compile': '编译 Android 启动组件',
-    'announcement-layout': '适配公告布局', 'apk-compose': '组装 APK',
+    'announcement-layout': '适配公告布局', 'shop-artwork': '生成商店与图鉴图片', 'apk-compose': '组装 APK',
     'align': '对齐 APK', 'sign': '签名 APK', 'verify-signature': '验证签名'}
 
 

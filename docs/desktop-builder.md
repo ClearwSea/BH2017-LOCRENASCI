@@ -14,7 +14,7 @@ GUI源码入口为`python -B launch_gui.py <套件目录>`；`src/tools/DesktopL
 
 - 指定1.9原始APK与2.4参考APK，支持版本见`src/profiles/android-launcher-20261102.json`。
 - 7.x的`StreamingAssets`目录，直接包含`Audio/`与`Video/`。相近版本需要满足所用语音和视频覆盖。
-- 独立补充资源ZIP，含7张配套图片及缺失旧CG，格式见[补充资源说明](../assets/README.md)。
+- 独立补充资源ZIP，含9张配套图片及缺失旧CG，格式见[补充资源说明](../assets/README.md)。
 - 本地离线工具目录，默认套件中的`tools/`。
 - 与输入、工具和程序分开的输出目录。
 

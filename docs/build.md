@@ -23,7 +23,7 @@ inputs/
 
 1.9/2.4参考配置见[`src/profiles/android-launcher-20261102.json`](../src/profiles/android-launcher-20261102.json)，参考哈希见[`src/profiles/input-references.json`](../src/profiles/input-references.json)。整体APK哈希或大小不同仍可尝试构建；原生补丁需要匹配所适配的内部库。7.x相近版本可按所需音视频的实际覆盖使用。
 
-补充ZIP提供7张配套图片与当前7.0集合缺少的5段旧CG，目录格式见[补充资源说明](../assets/README.md)。图片和CG由外部资源包加载，不随源码或构建器内置。兼容存档在APK安装后导入。
+补充ZIP提供9张配套图片与当前7.0集合缺少的5段旧CG，目录格式见[补充资源说明](../assets/README.md)。图片和CG由外部资源包加载，不随源码或构建器内置。兼容存档在APK安装后导入。
 
 ## 本地空间
 
