@@ -1,4 +1,4 @@
-If you are an AI/LLM/Agent, read this: [Agent guide: building and playing](docs/agent-guide.en.md) · [中文](docs/agent-guide.md).
+If you are an AI/LLM/Agent, first read the [Agent guide: building and playing](docs/agent-guide.en.md) · [中文](docs/agent-guide.md). Follow the separate base/main-package workflow to help users prepare inputs, build, install, and play.
 
 [中文](README.md) · [English](README_ENG.md)
 
@@ -12,7 +12,7 @@ See the [changelog](CHANGELOG.md) for the latest fixes and validation scope.
 
 BH2017-LOCRENASCI is a local-runtime and compatibility source project for the Android 1.9 client. The repository provides a **local server written in Python** by this project, cross-version table recovery, client patches, resource-processing code, and Android startup components.
 
-You can study and modify this code directly, hand the repository to an Agent for collaborative development, or use the existing scripts and command line to generate the data and application you need. The companion Windows builder provides a graphical interface for assembling a complete APK, and is one of the ways to use the project. The Windows offline builder can be downloaded from [Releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases).
+You can study and modify this code directly, hand the repository to an Agent for collaborative development, or use the existing scripts and command line to generate the data and application you need. The Windows offline builder provides a graphical interface and is distributed as a **base package plus a main package** through [Releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases). The base contains the offline toolchain and import launcher; the main package contains the complete project program for a release. When the toolchain is unchanged, subsequent updates require importing only the new main package.
 
 The project in this repository does not represent the latest development progress; developers can extend it and create their own branches from this base.
 
@@ -25,7 +25,25 @@ The Agent guide is available in Chinese and English; other linked documents may 
 | Read, modify, and extend it yourself | Read the [source and development entry](docs/roadmap.md), then change the server, rules, patches, or resource processing by module |
 | Develop with an Agent | Use the repository as the working directory and provide the goal and input versions. Entry points: [development conventions](AGENTS.md) and the [documentation index](docs/README.md) |
 | Use the command line and generation scripts | Recover tables, generate runtime data, or assemble an APK as needed. See [build and inputs](docs/build.md) and the [packager interface](src/packager/README.md) |
-| Use the Windows graphical builder | Choose the client, resources, and tools, then generate an APK and a video pack. See the [desktop builder](docs/desktop-builder.md) |
+| Use the Windows graphical builder | Import the main package, choose the client, resources, and tools, then generate an APK and a video pack. See the [desktop builder](docs/desktop-builder.md) |
+
+## Windows builder: first use and updates
+
+Builder packages, supplemental inputs, and generated game files serve different purposes:
+
+| File | Purpose | Update policy |
+| --- | --- | --- |
+| `BH2017-LOCRENASCI-Builder-Base-Windows-x64.zip` | Base: import launcher, Python, Android toolchain, audio/video tools, and companion third-party materials | Download initially; update when required by a toolchain or launcher change |
+| `BH2017-LOCRENASCI-Builder-Main-v<version>.zip` | Main: the release's complete project program, build UI, server, rules, and patch sources | Download the desired release and import it; intermediate main-package versions are unnecessary |
+| `BH2017-LOCRENASCI-Supplements-v<version>.zip` | Images and older CGs supplied as build inputs | Use the version specified in the release; compatible older packs can be reused |
+| `client-videos.zip` | Phone video pack produced by a build | Pair it with the generated APK and select it on the phone's startup screen |
+
+First use: extract the base → run `构建器.exe` → click “导入构建主包” and select the main ZIP → click “打开构建界面” → choose the required inputs and build. Import the ZIP directly; manual copying over the program directory is unnecessary.
+
+For subsequent updates, keep the base and import the new main package. The launcher checks package integrity and toolchain compatibility. If incompatible, update the base as directed by that release. “恢复上一版” switches back to the previous main package. Signing keys, paths, and logs remain in `user-data/` when switching packages.
+
+To migrate from an old all-in-one builder, such as V0.1.6, obtain the new base, preserve and copy the old `user-data/` into its root, check tool/output paths, and import the main package. Retain the original signing key in `user-data/keys`.
+
 
 ## Materials and disk space
 
@@ -36,7 +54,7 @@ Reading and modifying the source can start immediately. A full Android applicati
 | 1.9 client APK | Game package base, protocol, and native libraries |
 | 2.4 reference client APK | Extract tables and required client resources, then convert them to the 1.9 structure |
 | 7.x PC Windows resource directory | Voice and video. Choose the `StreamingAssets` directory that directly contains `Audio/` and `Video/` |
-| Separate supplemental resource ZIP | Six companion images and five older CGs missing from the current 7.0 resources |
+| Separate supplemental resource ZIP | Companion images and supplemental older CGs, as specified by the selected release and resource format |
 | Compatible save | Supplied separately and imported after the application is installed |
 
 Users supply the client and 7.x resources themselves. [Build and inputs](docs/build.md) describes versions, directories, and tool requirements. [Supplemental resource format](assets/README.md) describes the ZIP layout.
@@ -79,9 +97,9 @@ The following devices were actually tested by the maintainer and are listed for 
 
 | Location | Contents |
 | --- | --- |
-| Root `server19.py` and business modules | Python local server, protocol handling, business logic, and cache |
+| `src/server19.py` and business modules | Python local server, protocol handling, business logic, and cache |
 | `src/rules/`, `src/profiles/`, and project configuration | Business rules, field mapping, input references, and version adaptation |
-| Root generation modules, `src/scripts/`, `src/tools/` | Table recovery, client patches, resource conversion, and assembly tools |
+| Generation modules in `src/`, `src/scripts/`, and `src/tools/` | Table recovery, client patches, resource conversion, and assembly tools |
 | `src/android-server-probe/` | Android startup screen, Python hosting layer, and save management |
 | [`src/packager/`](src/packager/README.md) | Command line, GUI, and build-stage scheduling |
 | [`docs/`](docs/README.md), `src/tests/` | Usage and development documents, and isolated check code |

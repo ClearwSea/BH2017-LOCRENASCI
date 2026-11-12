@@ -222,6 +222,9 @@ def restore(apk24, data_work, output):
                     raise BuildError('Missing source text: ' + identity) from error
             text[identity] = {'ID': identity, 'Text': value}
         tables['textmap'] = list(text.values())
+        from .item_navigation import adapt as adapt_navigation, restore_text as restore_navigation_text
+        navigation = adapt_navigation(tables)
+        navigation['restored_text_ids'] = restore_navigation_text(tables, rows)
         output.mkdir(parents=True, exist_ok=False)
         for name, rows in tables.items():
             # Keep the original native float encoding, including exponent literals.
@@ -232,5 +235,6 @@ def restore(apk24, data_work, output):
     finally:
         source.close()
     return {'tables': len(tables), 'material_rows': len(tables['materialdata']),
+            'item_navigation': navigation,
             'stigmata_layout_dependencies': layout_dependencies,
             'source': 'original-client-inputs-and-project-rules'}

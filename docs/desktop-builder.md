@@ -6,7 +6,9 @@
 
 ## 目录与启动
 
-程序包解压后保留`构建器.exe`和`app/`，配套工具位于同级`tools/`。外部补充资源ZIP单独存放并在界面中选择。双击EXE启动，构建器不下载依赖、不安装系统组件，也不修改系统环境变量。
+基础包解压后保留完整目录，运行`构建器.exe`，点击“导入构建主包”选择对应的主包ZIP，再点击“打开构建界面”。配套工具位于同级`tools/`。后续工具链不变时只需导入新版主包；工具链不匹配时按提示更新基础包。可通过“恢复上一版”切回前一主包。主包更新保留`user-data/`中的路径设置、日志与签名密钥。外部补充资源ZIP单独存放并在界面中选择。双击EXE启动，构建器不下载依赖、不安装系统组件，也不修改系统环境变量。
+
+基础包、主包与补充资源ZIP分别提供。主包包含当前版本完整项目程序，可直接跨版本导入，无需逐版安装。
 
 GUI源码入口为`python -B launch_gui.py <套件目录>`；`src/tools/DesktopLauncher.cs`可用Windows .NET Framework C#编译器编译成窗口程序入口。
 
@@ -57,3 +59,13 @@ GUI源码入口为`python -B launch_gui.py <套件目录>`；`src/tools/DesktopL
 - `work/`中的中间文件、阶段日志及构建记录。
 
 安装生成的APK，在启动界面导入同次构建的`client-videos.zip`与兼容存档，再启动游戏。更新已有安装时沿用原签名，并选择对应构建的资源包。
+
+## 仅打包后续主包
+
+将`$releaseVersion`设为本次拟发布的主包版本。工具链不变时，复用基础包的`base-manifest.json`，可只生成完整主包，不需要重新打包基础包或依赖旧版完整构建器ZIP：
+
+```powershell
+python -B -m packager.distribution --app path/to/source-export --main-only --base-manifest path/to/base/base-manifest.json --version $releaseVersion --output path/to/dist
+```
+
+`source-export`应为不含游戏输入、构建输出、私有设置和签名密钥的项目源码导出目录。主包版本和清单必须对应本次实际源码。

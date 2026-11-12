@@ -10,9 +10,9 @@ internal static class DesktopLauncher {
     private static void Main() {
         string baseDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
         string python = Path.Combine(baseDir, "tools", "python", "pythonw.exe");
-        string script = Path.Combine(baseDir, "app", "launch_gui.py");
+        string script = Path.Combine(baseDir, "builder_host.py");
         if (!File.Exists(python) || !File.Exists(script)) {
-            MessageBox.Show("请将构建器程序和离线工具包解压到同一目录。\n需要 app 和 tools 两个文件夹。",
+            MessageBox.Show("请将构建器程序和离线工具包解压到同一目录。\n需要 builder_host.py、base-manifest.json 和 tools 文件夹。",
                 "构建器文件不完整", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }

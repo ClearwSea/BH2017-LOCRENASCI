@@ -2,13 +2,13 @@
 
 [中文](agent-guide.md) · [English](agent-guide.en.md)
 
-**Document version date: 2026/11/10. This guide may lag behind the actual project.** Before acting, carefully compare it with the current repository, selected commit, release notes, configuration examples, and actual file layout—especially supported platforms, required inputs, tool paths, command arguments, and save compatibility. When they differ, follow the verified project state and promptly tell the user which instructions are outdated and how you will adjust. Explicitly identify anything you cannot confirm. Do not treat this guide as a permanently valid command list. If you cannot check online, explain that your conclusions are limited to the local version.
+**Document version date: 2026/11/12.** Before acting, check the selected repository version, release, configuration examples, and actual file layout. Verify compatibility among the builder base, main package, toolchain, and supplements, together with input, command, device, and save requirements. Use verified paths and versions. If offline, identify the local materials used for verification.
 
-Assume you already have this repository's address and have started reading this guide, regardless of your vendor or Agent environment. Do not ask the user to provide an address you already know. Your task is to help them build, prepare a save, install, and start playing using their device and available materials. Explain the next step in language they understand. Perform work you can complete within the authorized environment; when materials are missing, say exactly what is needed, why, and how work will continue once provided.
+Assume the repository address is already known. Use the user's device and available materials to complete building, save preparation, installation, and first play. Reuse existing files, paths, and authorization; request missing materials as needed for the next step.
 
-This guide covers the public ARM build workflow. First read the selected version's [README](../README_ENG.md), [development conventions](../AGENTS.md), [changelog](../CHANGELOG.md), and [release](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases). Behavior is determined by that version's source and release notes. Do not present unpublished branches, test records, or progress on other architectures as shipped features.
+This guide covers the public ARM workflow. Read the selected version's [README](../README_ENG.md), [development conventions](../AGENTS.md), [changelog](../CHANGELOG.md), and [release](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases), then follow its actual source and instructions.
 
-This guide does not pin a builder or save-editor release. Select according to the official releases and compatibility requirements available at the time, and record the actual version. The supplement pack may have a different version from the builder; follow the selected release's instructions. The numbers 1.9, 2.4, and 7.x below identify game-resource input versions, not project releases to download. Check them against the current configuration too.
+**The base supplies the toolchain and import launcher; the main package supplies the complete project program for a release.** Import the main package before opening the build UI. Reuse a compatible base for subsequent main-package updates. Select supplements separately in the build UI; the generated `client-videos.zip` is used on the phone. Select the base, main package, supplements, and save editor according to release compatibility requirements; their version numbers need not match. The numbers 1.9, 2.4, and 7.x identify game-input versions.
 
 ## How the three projects work together
 
@@ -79,17 +79,17 @@ Reserve **20 GiB** beyond the inputs and tools for a full build; retaining multi
 
 ## 3. Obtain the release and materials
 
-Visit the [main project's releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases), read the selected release notes, and record its version and asset names. Prefer a stable release for playing. If a developer explicitly chooses a branch, record its commit and explain how it differs from the released builder.
+Read the selected [main-project release](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases) and its assets. Record the main-package version, required base, supplements, and checksums. Use published releases for ordinary play; record the commit and validation scope when the user chooses a development branch.
 
 | Material | Preparation and checks |
 | --- | --- |
-| Windows builder | Download `BH2017-LOCRENASCI-Builder-Windows-x64-<version>.zip`, check download integrity against `SHA256SUMS.txt` if supplied, and extract it completely |
-| 1.9 client APK | Supplied by the user; provides the base game package, protocol, and native library |
-| 2.4 reference client APK | Supplied by the user; provides tables and resources for extraction and adaptation |
-| 7.x PC Windows resources | Select the `StreamingAssets` directory directly containing `Audio/` and `Video/`; voice data is under `Audio/GeneratedSoundBanks/Windows/` |
-| External supplement ZIP | Download the asset specified by the selected release and its compatibility requirements. At this guide's date it supplies seven images and missing older CGs; use the current resource specification for the actual layout |
+| Builder base | Download and extract for first use of the split workflow; check and reuse an existing compatible base |
+| Main package | Download the complete main ZIP for the chosen release and import it through the base; handle integrity or compatibility errors according to the actual message |
+| 1.9 / 2.4 APKs | Check the original inputs and actual paths already provided by the user |
+| 7.x PC Windows resources | Locate `StreamingAssets` directly containing `Audio/` and `Video/` |
+| Supplements | Use the pack specified in the selected release and reuse a compatible existing copy; see its instructions and the [supplement format](../assets/README.md) for contents and structure |
 
-Get the supplement download URL from the selected release's body or asset list. If the notes refer to an older supplement version, use that version. Do not guess or construct download URLs from the builder version number.
+Verify public assets against `SHA256SUMS.txt`. Reuse existing compatible bases and supplements. Obtain supplement links from the release body or asset list; component version numbers can differ.
 
 Original clients and complete 7.x resources are not included in the repository or builder. **The Agent must explicitly request the 1.9 client APK, 2.4 reference client APK, and 7.x PC Windows client resources from the user.** Inspect files already supplied and do not request usable materials again. Name each missing item; do not merely say “prepare the materials” and wait.
 
@@ -113,38 +113,41 @@ Reference hashes and sizes for original APKs/supplement ZIPs are advisory; a mis
 
 ## 4. Windows builder: the preferred path for playing
 
-The fully extracted package should have this main layout:
+Main layout after extracting the base and importing a main package:
 
 ```text
 BH2017-LOCRENASCI-Builder/
   构建器.exe
-  app/                   Project source and configuration
-  tools/                 Offline toolchain
-    python/python.exe
-    android/
-    zig/
-    ffmpeg/
-    vgmstream/
-    wheelhouse/
-  user-data/             Settings, logs, and signing keys created during use
-  output/                Default output location; another may be selected
+  builder_host.py
+  base-manifest.json
+  tools/                         Offline toolchain
+  packages/<main-package-id>/
+    main-manifest.json
+    app/                         Complete program for that main package
+  user-data/
+    main-package.json            Current/previous package selection
+    settings.local.json          Inputs and path settings
+    keys/local-build.jks         Local signing key
+    logs/
+  output/                        Default output; another directory can be chosen
 ```
 
-1. Double-click `构建器.exe`, or run the PowerShell command below from the package root.
-2. Select the 1.9 APK, 2.4 APK, 7.x `StreamingAssets`, and supplement ZIP.
-3. For the offline tool directory, select `tools/` at the package root—not `tools/android/` or the source tree's `src/tools/`.
-4. Keep output separate from `app/`, input resources, and tools. Do not place output inside them or make it their parent directory.
-5. Configure signing, click “检查路径” (Check paths), then “开始构建” (Start build) once checks pass, and monitor the log.
+1. Run `构建器.exe`; click “导入构建主包” and select the complete main ZIP. Let the base validate and extract it rather than manually copying files over the old program.
+2. Confirm the selected version and click “打开构建界面”. Package identifiers and manifests are managed by the launcher; do not edit them or bypass validation.
+3. Choose the 1.9 APK, 2.4 APK, 7.x `StreamingAssets`, and compatible supplement ZIP.
+4. Set the GUI tool directory to the base's `tools/`. The CLI's `tools_root` instead points to `tools/android/`.
+5. Keep output separate from `packages/`, inputs, and tools. The default `output/` under the base root is suitable.
+6. Check signing settings, click “检查路径”, then start the build and observe its log.
+
+From PowerShell in the base root, the same manager can be launched with:
 
 ```powershell
-.\tools\python\python.exe -B -s .\app\launch_gui.py .
+.\tools\python\python.exe -B -s .\builder_host.py .
 ```
 
-For a new installation without a personal key, all four signing fields may be left blank. The builder creates and reuses `user-data/keys/local-build.jks`, with default alias `builder` and password `android`. Updating an existing installation requires its original key, alias, and passwords. Generating another key with the same name does not reproduce the original signature.
+For a new installation without a custom key, all four signing fields may be left blank. The builder creates and reuses `user-data/keys/local-build.jks`, with alias `builder` and password `android` by default. Updates of an existing installation use its original key, alias, and passwords. Back up `user-data/keys` and personal settings separately.
 
-Back up `user-data/keys` and personal settings separately for future updates. Do not place personal keys, passwords, or saves in public repositories or redistributed builder ZIPs.
-
-After success, the timestamped subdirectory under the output directory contains:
+Successful GUI builds place these files in a timestamped output subdirectory:
 
 ```text
 崩坏3·2017 独立版.apk
@@ -155,13 +158,23 @@ work/original-build.json
 work/logs/
 ```
 
-The GUI and command line use the same full build workflow. The builder does not automatically download missing dependencies. If offline tools are incomplete, first check extraction layout and package integrity. See [desktop builder](desktop-builder.md) for signing details.
+GUI and CLI use the same full build workflow. Base and main packages run on the computer; supplements are build inputs; the phone imports the generated `client-videos.zip`. See the [desktop builder guide](desktop-builder.md) for signing details.
 
 ## 5. Building through the Agent's command line or modifying source
 
-If you can operate local files and commands, use the source entry point directly rather than needing to click through the GUI. Prefer reusing the released package's toolchain. Cloning source alone does not supply tools or game inputs.
+When local commands are available, use the imported main package's CLI directly. The base no longer has a fixed root-level `app/`; resolve the active package from its selection record. Run this PowerShell from the verified base root:
 
-Read the [configuration example](../configs/packager-original.example.json) and [packager interface](../src/packager/README.md). Copy the example to a personal configuration, such as `configs/packager-original.local.json`, and fill the fields below using actual locations. Prefer `/` in JSON paths. Relative paths resolve against the **configuration file's directory**; absolute paths are also supported.
+```powershell
+$builderRoot = (Get-Location).Path
+$builderPython = Join-Path $builderRoot 'tools/python/python.exe'
+$selectionPath = Join-Path $builderRoot 'user-data/main-package.json'
+$selection = Get-Content -LiteralPath $selectionPath -Raw | ConvertFrom-Json
+$mainApp = Join-Path $builderRoot ('packages/' + $selection.current + '/app')
+$configPath = Join-Path $builderRoot 'user-data/packager-original.local.json'
+Set-Location -LiteralPath $mainApp
+```
+
+Confirm that the base has imported the package successfully. Read that package's `configs/packager-original.example.json` and save personal configuration at `$configPath`; inspect and reuse existing configuration first. Fill paths and fields from the actual environment, using tools under the base's `tools/`.
 
 | Field | Value |
 | --- | --- |
@@ -176,11 +189,13 @@ Read the [configuration example](../configs/packager-original.example.json) and 
 | `keystore` / `key_alias` | Existing signing file / corresponding alias |
 | `work_dir` | A dedicated, not-yet-existing directory for this build, separate from source and inputs |
 
-Run the following from the source root. Assign `$builderPython` to the actual absolute path of the package's `tools/python/python.exe`. If tools and source are in different locations, do not blindly copy relative tool paths.
+After setting `BH3_KEYSTORE_PASSWORD` and `BH3_KEY_PASSWORD`, build with:
 
 ```powershell
-& $builderPython -B -m packager build --target apk --config .\configs\packager-original.local.json
+& $builderPython -B -s -m packager build --target apk --config $configPath
 ```
+
+For source development, switch to the verified repository root and run the same command with the base's Python and separate personal configuration. Keep build output separate from source and inputs.
 
 Before execution, supply `BH3_KEYSTORE_PASSWORD` and `BH3_KEY_PASSWORD` as environment variables to the build process. Do not place passwords in public configuration, command-line arguments, or logs. The command-line entry does not create a signing key automatically. On a first build, either create it through the GUI or use the package JDK's `keytool.exe`; the path and alias must match the configuration.
 
@@ -195,7 +210,7 @@ A full build performs table recovery, native patching, runtime-data generation, 
 On failure, first inspect the failed stage in `original-build.json` and its log. If configuration, inputs, and source are unchanged and the recorded status is `failed` or `incomplete`, resume that task:
 
 ```powershell
-& $builderPython -B -m packager.original --config .\configs\packager-original.local.json --resume
+& $builderPython -B -m packager.original --config $configPath --resume
 ```
 
 Do not use `--resume` on successful builds or blindly reuse stages after changing inputs or source. When rebuilding, preserve necessary outputs and failure evidence, then use an explicitly chosen new work directory. Do not indefinitely retain complete large build sets for every small fix. `--target data` and `--target tables` generate data only, not an installable APK.
@@ -229,6 +244,10 @@ Before delivery, verify a successful build receipt and the presence of the APK a
 
 ## 8. Updates, backups, and rollback
 
+To update the desktop program, retain the base and import the new complete main ZIP, then open the build UI. Update the base if required by the selected release's toolchain compatibility. If validation fails, retain the working package and obtain the correct file; do not bypass manifest checks. Use “恢复上一版” when rollback is needed and confirm the displayed version.
+
+When first migrating from an old all-in-one bundle, back up and copy `user-data/` into the new base root and check signing-key, tool, and output paths. Package switching preserves desktop user data. Follow the phone save-backup, signing, and video-pack steps below.
+
 Before updating, use “导出当前存档” (Export current save) on the startup screen and confirm the backup is outside the application's directory. Internal old-save backups are deleted on uninstall and cannot be the sole backup before uninstalling.
 
 Build the new APK with the original signing key and install it over the existing application. Provide the video pack from that build. Updating the desktop builder alone does not update the phone's installed game. If signatures differ, look for the original key first rather than immediately uninstalling. If a new signature is unavoidable, verify a recoverable external save backup and let the user decide whether to uninstall.
@@ -248,6 +267,10 @@ Keep the current working APK, corresponding video pack, signing key, and necessa
 | APK installation fails or signatures conflict | Check phone ABI, installation error code, storage, and original signing key; protect saves first |
 | Startup fails or waits indefinitely | Read the actual startup error and local-service logs; check resources and device compatibility. Distinguish import failure from service failure |
 | Story, character, or equipment actions fail or freeze | Record version, device, characters/equipment, stage/difficulty, action sequence, and whether reproducible or intermittent |
+| No main-package import option | Whether the old all-in-one launcher is still in use; migrate to a base that supports main-package import |
+| Main-package validation fails | Select the main ZIP rather than the base, supplements, or phone video pack; verify the download hash and retain the working package |
+| Toolchain incompatibility | Match the base to the selected release; update the base rather than editing manifests to disguise its version |
+| CLI cannot find `app/launch_gui.py` | Resolve `packages/<main-package-id>/app` from `user-data/main-package.json`, or use the actual source checkout |
 
 For build problems, collect stage logs and receipts. For game problems, collect screenshots and reproduction steps, plus logcat when available. Request a save only when needed for diagnosis and with the user's consent, removing personal information. Check [existing issues](https://github.com/ClearwSea/BH2017-LOCRENASCI/issues) first. Do not post or close issues for the user without instruction.
 

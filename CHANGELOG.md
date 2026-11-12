@@ -1,6 +1,27 @@
 > 更新日志由Agent自动生成
 > 打包器并未同整包进行完善验收，如有BUG请提交反馈
 
+## V0.1.7 · 构建器分包与物品获取修复 / Split builder packages and item acquisition fixes
+
+1. 修复女武神达到当前等级上限、经验条已满后，提升舰长等级仍无法继续使用经验芯片升级的问题。
+2. 修复崩坏碎片等部分物品点击“获取”时报错，并导致后续界面显示异常的问题。
+3. 按本地实际商店、关卡掉落和任务奖励修正物品获取列表，修正商店名称并合并重复途径；移除当前不存在或不产出该物品的入口，没有有效途径的物品不再显示“获取”按钮。
+4. Windows 构建器改为“基础包＋构建主包”分开提供。基础包保存工具链，主包保存当前版本完整项目程序；工具链未变更时，后续只需下载并导入新版主包。
+5. 新增主包完整性与兼容性检查、整目录切换和“恢复上一版”，主包更新保留 `user-data/` 中的签名密钥、路径设置和日志。
+
+### English
+
+1. Fix avatar EXP chips remaining unusable after raising the Captain level when the avatar had already reached its previous level cap with a full EXP bar.
+2. Fix errors when opening acquisition sources for Honkai Pieces and other affected items, including subsequent UI corruption.
+3. Align acquisition lists with actual local shop stock, stage drops, and quest rewards. Correct shop labels, merge duplicate destinations, and remove absent or non-rewarding sources. Hide the acquisition button when an item has no valid listed source.
+4. Distribute the Windows builder as a base package and a main package. The base contains the toolchain; the main contains the complete project program for the release. When the toolchain is unchanged, download and import only the new main package for later updates.
+5. Add integrity and compatibility checks, whole-directory switching, and rollback to the previous main package. Updates retain signing keys, paths, and logs in `user-data/`.
+
+---
+
+> 更新日志由Agent自动生成
+> 打包器并未同整包进行完善验收，如有BUG请提交反馈
+
 ## V0.1.6 · 装备养成、领奖与图鉴修复
 
 1. 修复雷天使等装备强化、进化报错，以及部分降临武器进化配方和同名装备素材消耗异常的问题。

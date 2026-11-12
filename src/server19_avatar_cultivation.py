@@ -95,8 +95,10 @@ def _grow(account, values):
                      "avatar level cap"), len(rows))
     level = _i32(avatar["level"], "avatar level")
     exp = _i32(avatar.get("exp", 0), "avatar EXP")
-    if not 1 <= level <= limit or exp > thresholds[level - 1] or \
-            (level < limit and exp == thresholds[level - 1]):
+    # A full bar is persisted at the captain's previous avatar-level cap.
+    # Once that cap rises, accept the saved threshold and let the growth loop
+    # below carry it forward with the requested chip EXP in this transaction.
+    if not 1 <= level <= limit or exp > thresholds[level - 1]:
         raise ValueError("Unnormalized avatar level/EXP")
     if level == limit and exp == thresholds[level - 1]:
         raise _Rejected(3)  # AVATAR_LEVEL_FULL: original UI fills the capped bar.

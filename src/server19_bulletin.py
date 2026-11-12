@@ -26,7 +26,10 @@ UPDATE_CONTENT_V014 = '<color=#FF4040FF>该公告面向V0.1.4</color>，此版�
 
 UPDATE_CONTENT_V015 = '<color=#FF4040FF>该公告面向V0.1.5</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. <color=#FF4040FF>兼容修复</color>八重樱封印罐子无法正常开启/出售的问题。\n2. 修复宝藏、体力药水无法使用/出售的问题。\n<color=#FF4040FF>3.修复舰长升至20级时，降临活动解锁引导卡住、\n活动入口消失及关卡列表为空的问题。</color>\n4. <color=#FF4040FF>兼容开放</color>崩坏降临活动关，<color=#FF4040FF>未做完全测试</color>。\n5. <color=#FF4040FF>兼容修复</color>崩坏降临活动关卡掉落异常的问题。\n6. 降临活动兼容规则：\n\u3000\u30001. 兼容调整为<b>每周开放两个、四周循环</b>，每周一循环更换。\n\u3000\u30002. <b>每个活动每日可成功通关3次</b>。\n\u3000\u30003.失败或退出不扣成功次数，开战仍正常消耗体力；\n\u3000\u3000活动换期前已开始的战斗可正常结算。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
-UPDATE_CONTENT_V016 = '<color=#FF4040FF>当前版本为V0.1.6</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复雷天使等装备强化、进化报错，以及部分降临武器进化配方和同名装备素材消耗异常的问题。\n2. 修复金币道具错误提示仓库上限，以及装备强化、进化、技能升级和补给后任务进度未及时刷新的问题。\n3. <color=#FF4040FF>兼容修复</color>薛定谔（上）等部分圣痕技能配置导致的关卡加载异常；修复女武神·强袭「连段保持」、真炎幸魂「梦稽古」无法解锁的问题。\n<color=#FF4040FF>4. 修复轩辕篇、蚩尤篇、永世回忆领奖后红点残留、一键领取故障问题；</color>\n5. 修复部分成就领奖报错和空白奖励弹窗。\n6. 修复商店部分材料、活动礼盒详情打开异常及图片缺失的问题。\n7. 修复武器、圣痕及材料图鉴中的图片错误、串图和碎片图标显示异常；<color=#FF4040FF>暂无资源的条目使用文字占位显示</color>。\n8. 修复「糖果恶魔」服装图片；紫苑无名换色服装兼容命名为「处刑装·红苑」，使用默认服装图片。\n9. 开放所有46套服装的列表显示，可配合存档编辑器V0.8.2调整解锁。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+UPDATE_CONTENT_V016 = '<color=#FF4040FF>该公告面向V0.1.6</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复雷天使等装备强化、进化报错，以及部分降临武器进化配方和同名装备素材消耗异常的问题。\n2. 修复金币道具错误提示仓库上限，以及装备强化、进化、技能升级和补给后任务进度未及时刷新的问题。\n3. <color=#FF4040FF>兼容修复</color>薛定谔（上）等部分圣痕技能配置导致的关卡加载异常；修复女武神·强袭「连段保持」、真炎幸魂「梦稽古」无法解锁的问题。\n<color=#FF4040FF>4. 修复轩辕篇、蚩尤篇、永世回忆领奖后红点残留、一键领取故障问题；</color>\n5. 修复部分成就领奖报错和空白奖励弹窗。\n6. 修复商店部分材料、活动礼盒详情打开异常及图片缺失的问题。\n7. 修复武器、圣痕及材料图鉴中的图片错误、串图和碎片图标显示异常；<color=#FF4040FF>暂无资源的条目使用文字占位显示</color>。\n8. 修复「糖果恶魔」服装图片；紫苑无名换色服装兼容命名为「处刑装·红苑」，使用默认服装图片。\n9. 开放所有46套服装的列表显示，可配合存档编辑器V0.8.2调整解锁。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+
+UPDATE_CONTENT_V017 = '<color=#FF4040FF>当前版本为V0.1.7</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1. 修复女武神达到当前等级上限、经验条已满后，提升舰长等级仍无法继续使用经验芯片升级的问题。\n2. 修复崩坏碎片等部分物品点击「获取」时出现报错，并导致后续界面显示异常的问题。\n3. 按本地实际商店、关卡掉落及任务奖励修正物品获取列表，修正商店名称并合并重复途径；移除当前不存在或不产出该物品的入口，没有有效途径的物品不再显示「获取」按钮。\n4. 构建器改为<b>基础包＋构建主包</b>分开提供。首次使用需准备基础包和主包；后续工具链未变更时，只需下载新版主包并导入构建器，补充资源包继续独立提供。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+
 
 def response(name, account, values=None, *, account_path=None):
     if name not in HANDLED_REQUESTS:
@@ -100,6 +103,12 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.1.6", title="", event_date_str="", content=UPDATE_CONTENT_V016,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794412800,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201761 + show_type, type=show_type, weight=101,
+        title_button="更新公告V0.1.7", title="", event_date_str="", content=UPDATE_CONTENT_V017,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1794412801,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)

@@ -150,12 +150,40 @@ def prepare(client24, data_work, output, client_tables):
     encoded_tables['textmap'] = json.dumps(rendered['textmap'], ensure_ascii=False, separators=(',', ':'))
     encoded_tables['newbieequipadv'] = json.dumps(rendered['newbieequipadv'], ensure_ascii=False,
                                                  separators=(',', ':'))
+    # Historical recipes can reintroduce later-version acquisition links.
+    # Use the actual client stage set for both native and runtime consumers.
+    from .item_navigation import adapt as adapt_navigation, restore_text as restore_navigation_text, TABLES as navigation_tables
+    from .item_navigation import destination_catalog, reconcile
+    destinations = destination_catalog(rendered, output, ROOT)
+    navigation = adapt_navigation(rendered)
+    navigation['destinations'] = reconcile(rendered, destinations)
+    navigation_labels = {r['ID']: r for r in navigation['destinations']['labels']}
+    runtime_navigation = {table: [] for table in navigation_tables}
+    for table in navigation_tables:
+        if table not in rendered:
+            continue
+        encoded_tables[table] = json.dumps(rendered[table], ensure_ascii=False, separators=(',', ':'))
+        for path in output.rglob(table):
+            rows = read_json(path)
+            adapt_navigation({'stagedata_main': rendered['stagedata_main'], table: rows})
+            result = reconcile({table: rows}, destinations)
+            navigation_labels.update({r['ID']: r for r in result['labels']})
+            runtime_navigation[table].extend(rows)
+            write_json(path, rows)
+    source_text = data['source/textmap_rows'] + list(navigation_labels.values())
+    navigation['restored_text_ids'] = restore_navigation_text(rendered, source_text)
+    encoded_tables['textmap'] = json.dumps(rendered['textmap'], ensure_ascii=False, separators=(',', ':'))
+    for path in output.rglob('textmap'):
+        rows = read_json(path)
+        restore_navigation_text({**runtime_navigation, 'textmap': rows}, source_text)
+        write_json(path, rows)
     for name, encoded in encoded_tables.items():
         (client_tables / name).write_text(encoded + '\n', encoding='utf-8')
     shutil.copyfile(effective / 'avatarskilldata.chars', client_tables / 'avatarskilldata.chars')
     shutil.copyfile(data_work / 'generated/protocol/server19_protocol_schema.json', output / 'server19_protocol_schema.json')
     names = copy_sources(output)
-    return {'runtime_modules': len(names), 'client_tables': len(recipes['client_tables']) + 1}
+    return {'runtime_modules': len(names), 'client_tables': len(recipes['client_tables']) + 1,
+            'item_navigation': navigation}
 
 
 def finish(output, native, resource_manifest, archive):

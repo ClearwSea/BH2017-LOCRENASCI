@@ -2,13 +2,13 @@
 
 [中文](agent-guide.md) · [English](agent-guide.en.md)
 
-**本文版本日期：2026/11/10。本文可能落后于项目实际情况。** 执行前必须严格比对当前仓库、所选提交、Release 说明、配置示例和实际文件结构，尤其是支持平台、输入要求、工具路径、命令参数与存档兼容条件。发现差异时，以核实后的项目实际情况为依据，及时提醒用户哪些说明已经过时、接下来如何调整；无法确认时明确说明未确认项，不把本文当作永久有效的命令清单。无法联网核对时，也要说明目前只能依据本地版本判断。
+**本文版本日期：2026/11/12。** 执行前核对所选版本的仓库、Release、配置示例与实际文件结构，重点确认构建器基础包、主包、工具链和补充资源的兼容关系，以及输入、命令、设备和存档要求。使用核实后的实际路径与版本；无法联网时，说明当前核验依据为本地资料。
 
-默认你已经获得本仓库地址并开始阅读本文，无论你来自哪家厂商或运行于哪种 Agent 环境。不要再要求用户提供已知的仓库地址。你的任务是根据用户的设备和现有材料，帮助其完成构建、存档准备、安装和首次游玩。用用户理解的语言说明下一步；能在已授权环境内完成的操作直接执行，缺少材料时明确列出缺什么、用于什么、交给你后如何继续。
+默认你已经获得本仓库地址。先结合用户提供的设备和材料，帮助其完成构建、存档准备、安装与首次游玩。已有文件、路径和授权继续复用；缺失材料按下一步所需逐项补齐。
 
-本文对应公开 ARM 构建流程。开始前阅读所选版本的 [README](../README.md)、[开发约定](../AGENTS.md)、[更新日志](../CHANGELOG.md)和 [Release](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases)。版本行为以该版本源码和发布说明为准。不要将未发布分支、测试记录或其他架构的开发进度当作成品功能。
+本文对应公开 ARM 构建流程。先阅读所选版本的 [README](../README.md)、[开发约定](../AGENTS.md)、[更新日志](../CHANGELOG.md)和 [Release](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases)，按该版本实际源码与说明执行。
 
-本文不固定构建器或存档编辑器的 Release 版本。每次根据当时的正式发布和兼容要求选择，并记录实际版本；补充资源包不一定与构建器同版本，应跟随所选 Release 的说明。下文的 1.9、2.4、7.x 是游戏资源输入版本，不是要求下载的项目 Release 版本，也需对照当前配置核验。
+**分包流程：基础包提供工具链与导入入口，主包提供当前版本完整项目程序。** 先导入主包，再打开构建界面；已有兼容基础包时只更新主包。补充资源单独在构建界面选择，生成的 `client-videos.zip` 则交给手机使用。基础包、主包、补充包和存档编辑器分别按 Release 的兼容要求选择，不要求版本号相同。1.9、2.4、7.x 指游戏输入版本。
 
 ## 三个项目如何配合
 
@@ -79,17 +79,17 @@
 
 ## 3. 获取版本与材料
 
-访问 [主项目 Releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases)，读取所选版本说明，记录版本号和附件名称。游玩优先选正式 Release；开发者明确选择分支时记录提交号，并说明与已发布构建器的区别。
+从 [主项目 Releases](https://github.com/ClearwSea/BH2017-LOCRENASCI/releases)读取所选版本的正文和附件，记录主包版本、所需基础包、补充包及校验值。正式游玩采用已发布版本；用户指定开发分支时记录提交号和实际验证范围。
 
-| 材料 | 如何准备和检查 |
+| 材料 | 准备与检查 |
 | --- | --- |
-| Windows 构建器 | 下载 `BH2017-LOCRENASCI-Builder-Windows-x64-<版本>.zip`，如有 `SHA256SUMS.txt` 则核对下载完整性，再完整解压 |
-| 1.9 客户端 APK | 用户自行提供；作为游戏包底、协议和原生库输入 |
-| 2.4 参考客户端 APK | 用户自行提供；用于提取并适配表单及资源 |
-| 7.x PC Windows 资源 | 选择直接包含 `Audio/` 与 `Video/` 的 `StreamingAssets`，语音位于 `Audio/GeneratedSoundBanks/Windows/` |
-| 外部补充资源 ZIP | 按所选 Release 指定的附件与兼容要求下载；本文编写时提供 7 张配套图片和缺失旧 CG，实际结构以当前资源说明为准 |
+| 构建器基础包 | 首次使用分包流程时下载并解压；已有基础包先检查是否兼容，复用可用工具链 |
+| 构建主包 | 下载所选版本完整主包 ZIP，通过基础包导入；校验失败或工具链不匹配时按实际提示处理 |
+| 1.9 / 2.4 APK | 检查用户已提供的原始输入及实际路径 |
+| 7.x PC Windows 资源 | 定位直接包含 `Audio/` 与 `Video/` 的 `StreamingAssets` |
+| 补充资源 ZIP | 采用所选 Release 指定的包，已有兼容包可复用；内容和结构见该包说明及[补充资源格式](../assets/README.md) |
 
-补充资源包的下载地址应从所选 Release 正文或附件列表取得。若正文指向较早版本的补充包，按该指示使用，不根据构建器版本号猜测或拼接下载地址。
+核对公开附件的 `SHA256SUMS.txt`。已有兼容基础包或补充包时直接复用。补充包地址从 Release 正文或附件列表取得；不同包的版本号可以不同。
 
 原始客户端及完整 7.x 资源不在源码仓库和构建器里。**Agent 必须明确向用户索要 1.9 客户端 APK、2.4 参考客户端 APK，以及 7.x PC Windows 客户端资源。** 用户已经提供的文件先检查，确认可用后不重复索要；尚缺的逐项说明，不能只说“请准备材料”就等待。
 
@@ -113,38 +113,41 @@
 
 ## 4. Windows 构建器：优先的游玩路径
 
-完整解压后的主要布局应为：
+基础包解压并导入主包后的主要布局：
 
 ```text
 BH2017-LOCRENASCI-Builder/
   构建器.exe
-  app/                   项目源码及配置
-  tools/                 离线工具链
-    python/python.exe
-    android/
-    zig/
-    ffmpeg/
-    vgmstream/
-    wheelhouse/
-  user-data/             使用时生成的设置、日志、签名密钥
-  output/                默认输出位置，也可另选
+  builder_host.py
+  base-manifest.json
+  tools/                         离线工具链
+  packages/<主包标识>/
+    main-manifest.json
+    app/                         该主包的完整项目程序
+  user-data/
+    main-package.json            当前与上一主包的选择记录
+    settings.local.json          构建输入与路径设置
+    keys/local-build.jks         本机签名密钥
+    logs/
+  output/                        默认输出位置，也可另选
 ```
 
-1. 双击 `构建器.exe`，或者在套件根目录运行下面的 PowerShell 命令。
-2. 填写 1.9 APK、2.4 APK、7.x `StreamingAssets`、补充 ZIP。
-3. 离线工具目录选择套件根目录下的 `tools/`，不是 `tools/android/` 或源码中的 `src/tools/`。
-4. 输出目录与 `app/`、输入资源、工具目录分开，不让输出目录包含这些输入，也不把输出放进它们内部。
-5. 处理签名设置，点击“检查路径”，通过后点击“开始构建”，观察日志。
+1. 运行 `构建器.exe`，点击“导入构建主包”选择完整主包 ZIP。主包由基础包校验和展开，不手动解压覆盖旧程序。
+2. 确认显示所选主包版本，点击“打开构建界面”。主包清单由构建器管理，不手动修改标识或绕过校验。
+3. 填写 1.9 APK、2.4 APK、7.x `StreamingAssets`、兼容补充 ZIP。
+4. 离线工具目录选基础包根目录下的 `tools/`；CLI 的 `tools_root` 才指向 `tools/android/`。
+5. 输出目录与 `packages/`、输入及工具目录分开。默认根目录下的 `output/` 可使用。
+6. 核对签名设置，点击“检查路径”，通过后开始构建并观察日志。
+
+可在基础包根目录用 PowerShell 启动同一管理入口：
 
 ```powershell
-.\tools\python\python.exe -B -s .\app\launch_gui.py .
+.\tools\python\python.exe -B -s .\builder_host.py .
 ```
 
-首次安装且没有自有密钥时，可以将四项签名设置全部留空。构建器会在 `user-data/keys/local-build.jks` 生成并复用本机密钥，默认别名 `builder`、默认密码 `android`。已有安装必须使用原来的密钥、别名和密码；新生成一把同名密钥不等于原签名。
+首次安装且没有自有密钥时，可将四项签名设置留空；构建器会生成并复用 `user-data/keys/local-build.jks`，默认别名 `builder`、密码 `android`。覆盖已有安装使用原密钥、别名和密码。将 `user-data/keys` 与个人配置独立备份。
 
-将 `user-data/keys` 与个人配置单独保存，后续升级继续使用。不要将个人密钥、密码或存档放入公共仓库或给他人分发的构建器 ZIP。
-
-成功后，在输出目录的日期时间子目录中找到：
+构建成功后，在输出目录的日期时间子目录中交付：
 
 ```text
 崩坏3·2017 独立版.apk
@@ -155,13 +158,23 @@ work/original-build.json
 work/logs/
 ```
 
-GUI 和命令行调用同一套完整构建流程。构建器不会自动下载缺失依赖；离线工具不完整时，先检查解压结构和附件是否完整。详细签名说明见 [桌面构建器](desktop-builder.md)。
+GUI 与命令行调用同一完整构建流程。基础包和主包是电脑端程序，补充包是构建输入，手机端导入本次生成的 `client-videos.zip`。详细签名说明见[桌面构建器](desktop-builder.md)。
 
 ## 5. Agent 用命令行构建，或用户希望修改源码
 
-能够操作本地文件和命令时，可以直接使用源码入口，不必代替用户逐个点击 GUI。建议复用发布套件的工具链；仅克隆源码不包含这些工具和游戏输入。
+能操作本地文件和命令时，可直接使用已导入主包的命令行入口。基础包根目录已不是固定的 `app/` 结构，先读取当前选择记录定位程序。下面的 PowerShell 在已确认的基础包根目录执行：
 
-先读取 [构建配置示例](../configs/packager-original.example.json)和 [打包器接口](../src/packager/README.md)。将示例复制为个人配置，例如 `configs/packager-original.local.json`，按实际目录填写下列字段。JSON 路径建议使用 `/`；相对路径以**配置文件所在目录**为基准，绝对路径也可以。
+```powershell
+$builderRoot = (Get-Location).Path
+$builderPython = Join-Path $builderRoot 'tools/python/python.exe'
+$selectionPath = Join-Path $builderRoot 'user-data/main-package.json'
+$selection = Get-Content -LiteralPath $selectionPath -Raw | ConvertFrom-Json
+$mainApp = Join-Path $builderRoot ('packages/' + $selection.current + '/app')
+$configPath = Join-Path $builderRoot 'user-data/packager-original.local.json'
+Set-Location -LiteralPath $mainApp
+```
+
+先确认主包已通过基础包导入。读取该主包的 `configs/packager-original.example.json`，将个人配置保存到 `$configPath`；原有配置先读取并复用。配置路径及字段按现场填写，工具路径指向基础包的 `tools/`。
 
 | 字段 | 填写内容 |
 | --- | --- |
@@ -176,11 +189,13 @@ GUI 和命令行调用同一套完整构建流程。构建器不会自动下载�
 | `keystore` / `key_alias` | 已有签名文件 / 对应别名 |
 | `work_dir` | 本轮专用的、尚不存在的构建目录，与源码及输入分开 |
 
-以下命令在源码根目录执行；`$builderPython` 是实际套件的 `tools/python/python.exe` 绝对路径，由 Agent 根据现场位置赋值。工具套件和源码不在同一目录时，不要照抄相对工具路径。
+设置 `BH3_KEYSTORE_PASSWORD`、`BH3_KEY_PASSWORD` 后构建：
 
 ```powershell
-& $builderPython -B -m packager build --target apk --config .\configs\packager-original.local.json
+& $builderPython -B -s -m packager build --target apk --config $configPath
 ```
+
+用户选择修改源码时，切换到已确认的源码仓库根目录，继续使用上述基础包 Python 与独立个人配置执行同一命令。构建工作目录与源码、输入分开。
 
 执行前，向构建进程提供 `BH3_KEYSTORE_PASSWORD` 与 `BH3_KEY_PASSWORD` 环境变量。不要把密码写入公共配置、命令行参数或日志。命令行入口不会自动生成签名密钥：首次构建可先用 GUI 建立密钥；也可用套件 JDK 的 `keytool.exe` 创建个人密钥，别名和路径必须与配置一致。
 
@@ -195,7 +210,7 @@ GUI 和命令行调用同一套完整构建流程。构建器不会自动下载�
 失败后先查 `original-build.json` 的错误阶段和对应日志。同一配置、输入、源码未变化且记录状态为 `failed` 或 `incomplete` 时，可继续原任务：
 
 ```powershell
-& $builderPython -B -m packager.original --config .\configs\packager-original.local.json --resume
+& $builderPython -B -m packager.original --config $configPath --resume
 ```
 
 不要对成功构建使用 `--resume`，也不要在更换输入或修改源码后盲目复用旧阶段。需要重建时先保留必要产物和失败证据，再使用明确的新工作目录；不要为了每次小修复长期积累整套大包。`--target data` 和 `--target tables` 只生成数据，不会产生可安装 APK。
@@ -229,6 +244,10 @@ GUI 和命令行调用同一套完整构建流程。构建器不会自动下载�
 
 ## 8. 更新、备份和回退
 
+在电脑上更新主包：保留基础包，通过“导入构建主包”选择新版完整 ZIP；导入成功后打开构建界面。工具链不匹配时按所选 Release 更新基础包。主包校验失败时保留当前可用版本，重新取得正确文件；不手动绕过清单校验。需要回退时使用“恢复上一版”，再确认界面显示的版本。
+
+从旧整包首次迁移时备份并复制 `user-data/` 到新基础包根目录，检查签名密钥、工具及输出路径。主包切换保留电脑端用户数据。手机更新按下方流程备份存档并沿用原签名。
+
 更新前在启动页使用“导出当前存档”，确认备份保存在应用目录之外。应用内的旧档备份会随卸载被删除，不能作为卸载前唯一备份。
 
 使用原签名密钥构建新 APK，再覆盖安装；配套视频按该轮构建提供。仅更新电脑上的构建器不会改变手机已安装版本。签名不匹配时先找原密钥，不要直接卸载解决；必须更换签名时，先确认可恢复的外部存档备份，再由用户决定是否卸载。
@@ -248,6 +267,10 @@ GUI 和命令行调用同一套完整构建流程。构建器不会自动下载�
 | APK 无法安装或签名冲突 | 手机 ABI、安装错误码、空间和原签名；先保护存档 |
 | 启动失败、长时间等待 | 启动页原始错误、本地服务日志、资源包和设备兼容性；区分导入失败与服务失败 |
 | 剧情、角色或装备出现 fail/卡死 | 记录版本、设备、角色与装备、关卡/难度、操作顺序，说明必现还是偶发 |
+| 旧版入口找不到导入主包功能 | 是否仍在运行旧版整包入口；迁移到支持主包导入的基础包后操作 |
+| 主包校验失败 | 是否选中主包而非基础包、补充包或手机视频包；核对下载哈希，保留当前可用主包 |
+| 主包提示工具链不匹配 | 当前基础包与所选 Release 的要求是否一致；更新匹配基础包，不修改清单伪装版本 |
+| CLI 找不到 `app/launch_gui.py` | 从 `user-data/main-package.json` 定位 `packages/<主包标识>/app`，或切换到实际源码仓库 |
 
 构建问题收集阶段日志与回执；游戏问题收集截图、复现步骤，具备条件时补充 logcat。存档仅在定位需要且用户同意时提供，并移除个人信息。先核对 [已有 Issues](https://github.com/ClearwSea/BH2017-LOCRENASCI/issues)，不要未经用户要求代其发帖或关闭 Issue。
 
