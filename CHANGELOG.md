@@ -1,6 +1,25 @@
 > 更新日志由Agent自动生成
 > 打包器并未同整包进行完善验收，如有BUG请提交反馈
 
+## V0.1.7-r1 · 家园解锁引导卡死热修 / Hotfix for Home Unlock Tutorial Freeze
+
+1. 修复舰长升至10级解锁家园时，因引导步骤缺失导致进入舰桥报错、黑屏卡死无法操作的问题（#10）。
+2. 补齐其余多条功能解锁与新手引导链中缺失的步骤数据，避免同类引导断链引发界面报错或卡死。
+3. 改进构建器对游戏内引导数据表的修补方式，由原先仅修补个别已知步骤调整为自动遍历整张引导链并补齐缺失节点。
+4. 同步更新启动页版本号与游戏内更新公告至 `V0.1.7-r1`。
+
+### English
+
+1. Fix a freeze/black-screen error when returning to the bridge after reaching Captain Lv. 10 and unlocking the Home/Dormitory feature due to missing tutorial step entries (#10).
+2. Restore other missing step entries referenced across tutorial and feature-unlock chains to prevent similar broken-chain errors.
+3. Update the packager's tutorial table patching logic from hardcoded step IDs to transitive traversal across `tutorialdata` chains.
+4. Update the launcher splash version string and in-game bulletin to `V0.1.7-r1`.
+
+---
+
+> 更新日志由Agent自动生成
+> 打包器并未同整包进行完善验收，如有BUG请提交反馈
+
 ## V0.1.7 · 构建器分包与物品获取修复 / Split builder packages and item acquisition fixes
 
 1. 修复女武神达到当前等级上限、经验条已满后，提升舰长等级仍无法继续使用经验芯片升级的问题。

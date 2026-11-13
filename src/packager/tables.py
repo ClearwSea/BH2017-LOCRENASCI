@@ -134,17 +134,10 @@ def restore(apk24, data_work, output):
                                ('avatarfragmentdata', 'ID', [10601, 10603])):
             tables[name].extend(source.typed(name, key, ids))
         tables['avatardata'].sort(key=lambda r: r['avatarID'])
-        # Retained guides reference steps tagged for later versions in 2.4:
-        # team selection 10662 and the level-20 Befall introduction 10731.
-        # Restore their source rows, including links and completion markers.
-        present_steps = {row['id'] for row in tables['tutorialstepdata']}
-        missing_steps = {10662, 10731} - present_steps
-        if missing_steps:
-            restored_steps = source.projected_tsv(
-                'tutorialstepdata', 'id', missing_steps)
-            if {row['id'] for row in restored_steps} != missing_steps:
-                raise BuildError('Missing source tutorial dependency steps')
-            tables['tutorialstepdata'].extend(restored_steps)
+        # Retained guides reference steps tagged for later versions in 2.4
+        # (e.g. 10662, 10731, 90811/90812). Restore all missing source rows
+        # reachable from tutorialdata.startStepID -> nextStepID.
+        _restore_missing_tutorial_steps(tables, source)
 
         tables['stigmatadata'].extend(source.projected_tsv('stigmatadata', 'ID', [30034, 30087]))
         tables['stigmatadata'] = complete_stigmata_evolution(
@@ -238,3 +231,29 @@ def restore(apk24, data_work, output):
             'item_navigation': navigation,
             'stigmata_layout_dependencies': layout_dependencies,
             'source': 'original-client-inputs-and-project-rules'}
+
+
+def _restore_missing_tutorial_steps(tables, source):
+    """Restore tutorialstepdata rows referenced by retained tutorialdata chains."""
+    steps_by_id = {row['id']: row for row in tables['tutorialstepdata']}
+    source_rows = None
+    pending = {row['startStepID'] for row in tables['tutorialdata'] if row.get('startStepID')}
+    pending.update({10662, 10731})
+    seen = set()
+    while pending:
+        step_id = pending.pop()
+        if not step_id or step_id in seen:
+            continue
+        seen.add(step_id)
+        row = steps_by_id.get(step_id)
+        if row is None:
+            if source_rows is None:
+                source_rows = {r['id']: r for r in source.projected_tsv('tutorialstepdata')}
+            row = source_rows.get(step_id)
+            if row is None:
+                raise BuildError('Missing source tutorial dependency steps')
+            steps_by_id[step_id] = row
+            tables['tutorialstepdata'].append(row)
+        next_id = row.get('nextStepID')
+        if next_id and next_id not in seen:
+            pending.add(next_id)
