@@ -16,20 +16,27 @@ def complete(tables, source_rows, source_text_rows=None):
         raise BuildError('Missing source equipment skill metadata: ' + str(sorted(unavailable)))
     text_additions = []
     if source_text_rows is not None:
-        existing_text = {row['ID'] for row in tables['textmap']}
-        source_text = {row['ID']: row for row in source_text_rows}
-        for key in missing:
+        existing_text = {row['ID']: row for row in tables['textmap']}
+        source_text = {row['ID']: row for row in source_text_rows
+                       if (row.get('Text') or '').strip()}
+        retained = {row['ID']: row for row in rows}
+        for key in sorted(required):
+            skill = retained[key] if key in retained else source[key]
             for field in ('skillName', 'skillDisplay'):
-                text_key = source[key][field]
-                if text_key not in existing_text:
+                text_key = skill[field]
+                if not (existing_text.get(text_key, {}).get('Text') or '').strip():
                     if text_key not in source_text:
                         if field != 'skillName':
                             raise BuildError('Missing source equipment skill text: ' + text_key)
-                        text_additions.append({'ID': text_key, 'Text': '技能 ' + str(key)})
+                        row = {'ID': text_key, 'Text': '技能 ' + str(key)}
                     else:
-                        text_additions.append(deepcopy(source_text[text_key]))
-                    existing_text.add(text_key)
+                        row = deepcopy(source_text[text_key])
+                    text_additions.append(row)
+                    existing_text[text_key] = row
     rows.extend(deepcopy(source[key]) for key in missing)
     if source_text_rows is not None:
+        replacement_ids = {row['ID'] for row in text_additions}
+        tables['textmap'][:] = [row for row in tables['textmap']
+                                if row['ID'] not in replacement_ids]
         tables['textmap'].extend(text_additions)
     return missing

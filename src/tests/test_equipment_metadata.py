@@ -27,3 +27,17 @@ class EquipmentMetadataTests(unittest.TestCase):
                  [{'ID': 'description', 'Text': 'source description'}])
         self.assertEqual(tables['textmap'], [{'ID': 'name', 'Text': '技能 2084'},
                                            {'ID': 'description', 'Text': 'source description'}])
+
+    def test_repairs_blank_text_for_retained_skill_without_replacing_existing_text(self):
+        skill = {'ID': 2032, 'skillName': 'name', 'skillDisplay': 'description'}
+        tables = {'equipmentskilldata': [skill], 'weapondata': [{'prop1ID': 2032}],
+                  'stigmatadata': [], 'equipmentsetdata': [],
+                  'textmap': [{'ID': 'name', 'Text': 'retained name'},
+                              {'ID': 'description', 'Text': '  '}]}
+        source = [{'ID': 'name', 'Text': 'source name'},
+                  {'ID': 'description', 'Text': 'source description'}]
+        for _ in range(2):
+            self.assertEqual(complete(tables, [], source), [])
+            self.assertEqual(tables['equipmentskilldata'], [skill])
+            self.assertEqual(tables['textmap'], [dict(ID='name', Text='retained name'),
+                                                 source[1]])
