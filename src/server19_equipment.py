@@ -49,6 +49,7 @@ POWER_UP_CONFIG = {"same_type_power_up_rate": 100,
 # local policy gives the ordinary 100% outcome, never an invented random bonus.
 POWER_UP_BOOST_RATE = 100
 FULL_CULTIVATION_READY_FILE = None  # Explicitly selected only by the updated local instance.
+X86_STARTER_GROWTH = False  # Enabled only by the verified x86 story runtime.
 EXTRA_AUDITED_GROWTH_IDS = frozenset()  # Explicit reviewed per-instance dependency additions.
 _REJECTION = threading.local()
 _MUTATION = threading.local()
@@ -370,11 +371,13 @@ def _use_sakura_jar(account, identity):
 
 
 def _use_material(account, values):
-    """Audited fixed coin gifts and stamina potion, one item per native Req251."""
+    """Open a supported material gift, one item per native Req251."""
     identity = stage._u32(values.get('material_id', 0), 'material id')
     if identity == SAKURA_JAR["material_id"]:
         return _use_sakura_jar(account, identity)
-    if identity not in (*range(7022, 7028), 7033):
+    boxes = {7217: (50024, 50043), 7220: (50040, 7221, 7222)}
+    crystal_boxes = {7221: 1000, 7222: 888}
+    if identity not in (*range(7022, 7028), 7033, *boxes, *crystal_boxes):
         raise ValueError('Material use requires an available reward definition')
     owned = [m for m in account.get('material_list', []) if m['id'] == identity]
     if len(owned) != 1 or stage._u32(owned[0]['num'], 'material amount') < 1:
@@ -389,14 +392,38 @@ def _use_material(account, values):
                'friends_point': 'RewardFriendPoint', 'duty_point': 'RewardDutyPoint'}
     output = {k: stage._u32(reward[v], v) for k, v in mapping.items()}
     output['item_list'] = []
-    if any(output[k] for k in mapping if k not in ('scoin', 'stamina')) or any(
+    if identity in boxes:
+        items = [(reward[f'RewardItem{i}ID'], reward[f'RewardItem{i}Level'],
+                  reward[f'RewardItem{i}Num']) for i in range(1, 6)
+                 if reward[f'RewardItem{i}ID']]
+        if any(output.values()) or items != [(item_id, 0, 1) for item_id in boxes[identity]]:
+            raise ValueError('Unexpected costume box reward definition')
+        import server19_shop
+        for item_id, level, count in items:
+            if item_id in server19_shop.DRESSES_TABLE:
+                server19_shop._grant_item(account, item_id, count, level)
+            elif item_id in (7221, 7222):
+                material = _metadata('materialdata', item_id)
+                if sum(m['num'] for m in account['material_list'] if m['id'] == item_id) + count > material['quantityLimit']:
+                    raise _Rejected(5)
+                stage._grant_drops(account, {(item_id, level): count})
+            else:
+                raise ValueError('Missing costume reward metadata')
+            output['item_list'].append({'id': item_id, 'level': level, 'num': count})
+    elif identity in crystal_boxes:
+        if output['hcoin'] != crystal_boxes[identity] or any(
+                output[k] for k in mapping if k != 'hcoin') or any(
+                reward[f'RewardItem{i}ID'] for i in range(1, 6)):
+            raise ValueError('Unexpected crystal box reward definition')
+    elif any(output[k] for k in mapping if k not in ('scoin', 'stamina')) or any(
             reward[f'RewardItem{i}ID'] for i in range(1, 6)):
         raise ValueError('Fixed material gift contains unaudited reward types')
     from server19_exchange import STAMINA_SYSTEM_LIMIT
     if output['stamina'] and account['main']['stamina'] + output['stamina'] > STAMINA_SYSTEM_LIMIT:
         raise _Rejected(6)
-    for key in ('scoin', 'stamina'):
-        account['main'][key] = _i32_nonnegative(account['main'][key] + output[key], key)
+    for key in ('scoin', 'stamina', 'hcoin'):
+        if output[key]:
+            account['main'][key] = _i32_nonnegative(account['main'][key] + output[key], key)
     owned[0]['num'] -= 1
     _MUTATION.power_up_consumed = {identity}
     return {'material_id': identity, 'gift_reward_list': [output]}
@@ -609,6 +636,9 @@ def _audited_growth_ids(*, table_growth=False):
     """Use the complete checked evolution closures, not six initial models."""
     path = stage.ROOT / '.local-baseline/server19-dev/equipment-chain-batch-ready-v3/matrix.json'
     expected = '31225e6b70c7703d738a8b69b9368cc4989c881de43578e7bf50588ca242c9aa'
+    if X86_STARTER_GROWTH:
+        # Generated compact legacy matrix in the x86 preview package.
+        expected = '05b3536d9f1682a283753ca2bceeb9e27593633b0dfb7abe3f6858faa21a79d2'
     if FULL_CULTIVATION_READY_FILE is not None and Path(FULL_CULTIVATION_READY_FILE).is_file():
         receipt = json.loads(Path(FULL_CULTIVATION_READY_FILE).read_bytes())
         if receipt.get('build_proof'):
@@ -623,6 +653,8 @@ def _audited_growth_ids(*, table_growth=False):
         raise ValueError('Equipment battle closure changed; audit before growth')
     matrix = json.loads(raw)
     audited = {row['item_id'] for row in matrix['items'] if not row['blockers']}
+    if X86_STARTER_GROWTH:
+        return audited & {20001}  # The original USP45 used by the upgrade tutorial.
     if table_growth and FULL_CULTIVATION_READY_FILE is not None and Path(FULL_CULTIVATION_READY_FILE).is_file():
         # The historical battle-resource matrix is not a growth-table audit.
         # ARM strengthening/evolution use the bound client tables; their

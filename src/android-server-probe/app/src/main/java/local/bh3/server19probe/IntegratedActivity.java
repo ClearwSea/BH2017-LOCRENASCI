@@ -42,7 +42,7 @@ public class IntegratedActivity extends Activity {
         LinearLayout panel = new LinearLayout(this); panel.setOrientation(LinearLayout.VERTICAL);
         int pad = dp(24); panel.setPadding(pad, pad, pad, pad);
         TextView notice = new TextView(this);
-        LauncherNotice.setText(notice, "禁止非法倒卖\n如果你是从拼多多/淘宝/闲鱼等电商平台获取，说明你被骗了，请立即退款并举报。\n\n遇到问题之前请确保当前是最新构建版【当前版本：V0.1.7-r1】【最新版本：检查】\n\n已验证适配机型：\nSONY Xperia XZ1（Android 9）\nRAZER Phone 1/2（Android 9）\nOPPO PDRM00（Android 12）\nOnePlus PJZ110 （Android 16）\n\n其他平台不做可玩性技术承诺。\n\n项目仓库：GitHub/ClearwSea，如有疑问或反馈，请提交issue。");
+        LauncherNotice.setText(notice, "禁止非法倒卖\n如果你是从拼多多/淘宝/闲鱼等电商平台获取，说明你被骗了，请立即退款并举报。\n\n遇到问题之前请确保当前是最新构建版【当前版本：V0.1.7-r2】【最新版本：检查】\n\n已验证适配机型：\nSONY Xperia XZ1（Android 9）\nRAZER Phone 1/2（Android 9）\nOPPO PDRM00（Android 12）\nOnePlus PJZ110 （Android 16）\n\n其他平台不做可玩性技术承诺。\n\n项目仓库：GitHub/ClearwSea，如有疑问或反馈，请提交issue。");
         notice.setTextSize(17); notice.setTextColor(0xff702400); notice.setBackgroundColor(0xffffefcf);
         notice.setPadding(pad, pad, pad, pad); notice.setLineSpacing(dp(4), 1); panel.addView(notice);
         status = new TextView(this); status.setTextSize(17); status.setPadding(0, dp(18), 0, dp(18)); panel.addView(status);

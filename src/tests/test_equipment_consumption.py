@@ -85,6 +85,45 @@ class ConsumptionTests(unittest.TestCase):
             self.assertEqual(result['retcode'], code)
             self.assertEqual(self.account, before)
 
+    def test_costume_boxes_grant_configured_rewards(self):
+        for box, dresses, materials in (
+                (7217, (50024, 50043), ()),
+                (7220, (50040,), (7221, 7222))):
+            with self.subTest(box=box):
+                self.account['material_list'] = [dict(id=box, num=1)]
+                result = self.run_request('UseMaterialReq', dict(material_id=box))
+                self.assertEqual(result['retcode'], 0, self.e.rejection_detail('UseMaterialReq'))
+                self.assertEqual(result['gift_reward_list'][0]['item_list'],
+                                 [dict(id=item, level=0, num=1) for item in dresses + materials])
+                self.assertTrue(set(dresses) <= set(self.account['has_got_item_id_list']))
+                self.assertEqual({row['id']: row['num'] for row in self.account['material_list']},
+                                 {box: 0, **dict.fromkeys(materials, 1)})
+                self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=box))['retcode'], 2)
+
+    def test_crystal_boxes_credit_wallet_and_exhaust_inventory(self):
+        self.account['main']['hcoin'] = 100
+        self.account['material_list'] = [dict(id=7221, num=2), dict(id=7222, num=2)]
+        expected = 100
+        for item, reward in ((7221, 1000), (7222, 888)):
+            for remaining in (1, 0):
+                response = self.run_request('UseMaterialReq', dict(material_id=item))
+                self.assertEqual(response['retcode'], 0)
+                self.assertEqual(response['gift_reward_list'][0]['hcoin'], reward)
+                expected += reward
+                saved = json.loads(self.path.read_bytes())
+                self.assertEqual(saved['main']['hcoin'], expected)
+                self.assertEqual(next(m['num'] for m in saved['material_list'] if m['id'] == item),
+                                 remaining)
+            before = deepcopy(self.account)
+            self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=item))['retcode'], 2)
+            self.assertEqual(self.account, before)
+
+    def test_costume_box_with_full_reward_stack_is_atomic(self):
+        self.account['material_list'] = [dict(id=7220, num=1), dict(id=7222, num=9999)]
+        before = deepcopy(self.account)
+        self.assertEqual(self.run_request('UseMaterialReq', dict(material_id=7220))['retcode'], 5)
+        self.assertEqual(self.account, before)
+
     def test_fixed_gift_rewards_and_empty_inventory(self):
         self.account['main']['stamina'] = 100
         for identity, gain in zip(range(7022, 7028), (1000, 2000, 5000, 10000, 20000, 50000)):
@@ -194,9 +233,11 @@ class ConsumptionTests(unittest.TestCase):
             self.assertEqual(self.account, before)
             self.assertEqual(json.loads(self.path.read_bytes()), before)
 
-    def test_table_growth_keeps_default_battle_scope(self):
+    def test_table_growth_keeps_default_and_x86_scope(self):
         self.assertNotIn(20457, self.e._audited_growth_ids())
         self.assertIn(20457, self.e._audited_growth_ids(table_growth=True))
+        with patch.object(self.e, 'X86_STARTER_GROWTH', True):
+            self.assertEqual(self.e._audited_growth_ids(table_growth=True), {20001})
 
     def test_lightning_angel_evolution_chain_rebinds_and_charges_exact_recipe(self):
         for identity, next_id in ((20457, 20458), (20458, 20459)):

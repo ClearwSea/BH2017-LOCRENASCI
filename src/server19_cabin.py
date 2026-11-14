@@ -1,5 +1,6 @@
 """Cabin and Island base operations, building level-up, extension, and persistence."""
 from copy import deepcopy
+import secrets
 import json
 from pathlib import Path
 import time
@@ -9,6 +10,9 @@ import server19_stage as stage
 
 HANDLED_REQUESTS = frozenset((
     "GetIslandReq",
+    "GetIslandVentureReq",
+    "RefreshIslandVentureReq",
+    "SpeedUpIslandVentureReq",
     "LevelUpCabinReq",
     "FinishCabinLevelUpReq",
     "SpeedUpIslandCabinReq",
@@ -118,6 +122,8 @@ MUTATION_REQUESTS = frozenset((
     "ResetCabinTechReq",
     "IslandCollectReq",
     "DispatchIslandVentureReq",
+    "RefreshIslandVentureReq",
+    "SpeedUpIslandVentureReq",
     "CancelDispatchIslandVentureReq",
     "GetIslandVentureRewardReq",
     "GetGuideRewardReq",
@@ -168,6 +174,56 @@ def _get_collect_data(account):
     return data
 
 
+def _venture_level(account):
+    cabin = next((c for c in account.get("cabin_list", []) if c["type"] == 5), None)
+    unlock = next(r for r in stage._table("cabinleveldata")
+                  if r["cabinType"] == 5 and r["level"] == 1)
+    if not cabin or not cabin.get("level") or account["main"]["level"] < unlock["playerLevelNeed"]:
+        return None
+    return next((r for r in stage._table("venturecabinbasedata")
+                 if r["level"] == cabin["level"]), None)
+
+
+def _venture_refresh_count(account):
+    if account.get("venture_refresh_day") != clock.game_date().isoformat():
+        return 0
+    return account.get("venture_refresh_times", 0)
+
+
+def _venture_refresh_price(level, count):
+    prices = stage._table("cabinventurerefreshdata", field="level", identities=(count + 1,))
+    return prices[0][f'Type{level["refreshType"]}'][0] if prices else None
+
+
+def _venture_offers(account):
+    """Send table identities. The native client owns display and status."""
+    level = _venture_level(account)
+    if level is None:
+        return []
+    unlocked = {(r["level"], r["difficulty"]) for r in level["UnlockVentureList"]}
+    offers = sorted(r["ID"] for r in stage._table("cabindispatchventuredata")
+                    if (r["level"], r["difficulty"]) in unlocked)
+    existing = {r["id"]: r for r in account.get("venture_list", [])}
+    rows = [dict(row) for row in existing.values() if row.get("end_time")]
+    if offers:
+        day = clock.game_date().toordinal()
+        offset = (day + _venture_refresh_count(account)) % len(offers)
+        offers = offers[offset:] + offers[:offset]
+    for identity in offers:
+        if len(rows) >= level["maxVentureNumBase"]:
+            break
+        if identity not in existing or not existing[identity].get("end_time"):
+            rows.append({"id": identity, "end_time": 0})
+    return rows
+
+
+def _venture_snapshot(account):
+    return "GetIslandVentureRsp", {
+        "retcode": 0, "venture_list": _venture_offers(account),
+        "is_all": True, "refresh_times": _venture_refresh_count(account),
+    }
+
+
 def notification_snapshot(account, command=None):
     cabins = _ensure_cabin_list(account)
     materials = [deepcopy(m) for m in account.get("material_list", [])]
@@ -185,6 +241,9 @@ def notification_snapshot(account, command=None):
             "material_list": materials,
         }),
     ]
+    if command in ("DispatchIslandVentureReq", "CancelDispatchIslandVentureReq",
+                   "RefreshIslandVentureReq", "SpeedUpIslandVentureReq", "GetIslandVentureRewardReq"):
+        snapshots.append(_venture_snapshot(account))
     if command == "IslandCollectReq" or "collect_cabin" in account:
         collect_cabin = next((c for c in cabins if c.get("type") == 3), None)
         collect_level = collect_cabin.get("level", 1) if collect_cabin else 1
@@ -204,6 +263,12 @@ def response(request_name, account, request_values=None, *, account_path=None):
         return None
     request_values = request_values or {}
     path = Path(account_path or stage.DEFAULT_ACCOUNT).resolve()
+
+    if request_name == "GetIslandVentureReq":
+        with stage._transaction_lock(path):
+            current = stage._read(path, account)
+            stage._sync(account, current)
+            return _venture_snapshot(current)
 
     if request_name == "GetCollectCabinReq":
         with stage._transaction_lock(path):
@@ -274,11 +339,12 @@ def response(request_name, account, request_values=None, *, account_path=None):
         return "FinishIslandEventRsp", {"retcode": 0}
 
     if request_name == "GetRefreshIslandVentureInfoReq":
-        return "GetRefreshIslandVentureInfoRsp", {
-            "retcode": 0,
-            "refresh_times": 0,
-            "next_refresh_time": clock.day_bounds()[1],
-        }
+        with stage._transaction_lock(path):
+            current = stage._read(path, account)
+            level = _venture_level(current)
+            price = _venture_refresh_price(level, _venture_refresh_count(current)) if level else None
+            return "GetRefreshIslandVentureInfoRsp", ({"retcode": 1} if price is None else
+                                                      {"retcode": 0, "refresh_price": price})
 
     with stage._transaction_lock(path):
         before = stage._read(path, account)
@@ -500,43 +566,147 @@ def response(request_name, account, request_values=None, *, account_path=None):
                 "drop_item_list": [],
             }
 
-        if request_name == "DispatchIslandVentureReq":
-            venture_id = request_values.get("venture_id", 0)
-            avatar_id_list = request_values.get("avatar_id_list", [])
+        if request_name in ("DispatchIslandVentureReq", "CancelDispatchIslandVentureReq"):
+            response_name = request_name[:-3] + "Rsp"
+            rejected = response_name, {"retcode": 1}
+            level = _venture_level(current)
+            if level is None:
+                return rejected
+            venture_id = request_values.get("venture_id")
+            if type(venture_id) is not int:
+                return rejected
+            meta = next((r for r in stage._table("cabindispatchventuredata")
+                         if r["ID"] == venture_id), None)
+            if meta is None:
+                return rejected
             ventures = current.setdefault("venture_list", [])
-            existing = next((v for v in ventures if v.get("id") == venture_id), None)
-            if existing:
-                existing["end_time"] = int(time.time()) + 300
-                existing["avatar_id"] = avatar_id_list[0] if avatar_id_list else 101
+            existing = next((v for v in ventures if v["id"] == venture_id and v.get("end_time")), None)
+            stamina = current["main"]["stamina"]
+            now = int(time.time())
+            result = {"retcode": 0}
+            if request_name == "DispatchIslandVentureReq":
+                if existing or venture_id not in {v["id"] for v in _venture_offers(current)}:
+                    return rejected
+                if sum(v.get("end_time", 0) > now for v in ventures) >= level["maxVentureInProgressNumBase"]:
+                    return rejected
+                avatars = request_values.get("avatar_id_list", [])
+                owned = {a["avatar_id"] for a in current["avatar_list"] if a.get("star", 0) > 0}
+                if (not isinstance(avatars, list) or not 1 <= len(avatars) <= meta["avatarMaxNum"]
+                        or any(type(i) is not int or i not in owned for i in avatars)
+                        or len(avatars) != len(set(avatars)) or stamina < meta["staminaCost"]):
+                    return rejected
+                busy = set()
+                for row in ventures:
+                    if row.get("end_time", 0) > now:
+                        assigned = row.get("avatar_id", [])
+                        busy.update(assigned if isinstance(assigned, list) else [assigned])
+                if busy.intersection(avatars):
+                    return rejected
+                ventures[:] = [row for row in ventures if row["id"] != venture_id]
+                ventures.append({"id": venture_id, "avatar_id": avatars,
+                                 "end_time": now + meta["timeCost"]})
+                current["main"]["stamina"] -= meta["staminaCost"]
+                current.get("venture_claim_receipts", {}).pop(str(venture_id), None)
             else:
-                ventures.append({
-                    "id": venture_id,
-                    "end_time": int(time.time()) + 300,
-                    "avatar_id": avatar_id_list[0] if avatar_id_list else 101,
-                })
+                if not existing or existing["end_time"] <= now:
+                    return rejected
+                from server19_exchange import STAMINA_SYSTEM_LIMIT
+                # Native GetStaminaReturnOnCancel uses floor(cost * remaining / duration).
+                remaining = min(existing["end_time"] - now, meta["timeCost"])
+                refund = meta["staminaCost"] * remaining // meta["timeCost"]
+                refund = min(refund, max(0, STAMINA_SYSTEM_LIMIT - stamina))
+                ventures.remove(existing)
+                current["main"]["stamina"] += refund
+                result["add_stamina"] = refund
+            import server19_protocol as proto
+            proto.encode_message(response_name, result)
+            proto.encode_message(*_venture_snapshot(current))
             stage._save(path, before, current)
             stage._sync(account, current)
-            return "DispatchIslandVentureRsp", {"retcode": 0}
+            return response_name, result
 
-        if request_name == "CancelDispatchIslandVentureReq":
-            venture_id = request_values.get("venture_id", 0)
-            ventures = current.setdefault("venture_list", [])
-            current["venture_list"] = [v for v in ventures if v.get("id") != venture_id]
-            stage._save(path, before, current)
+        if request_name in ("RefreshIslandVentureReq", "SpeedUpIslandVentureReq",
+                            "GetIslandVentureRewardReq"):
+            response_name = request_name[:-3] + "Rsp"
+            try:
+                result = _venture_finish_action(current, request_name, request_values)
+                if result is None:
+                    return response_name, {"retcode": 1}
+                import server19_protocol as proto
+                proto.encode_message(response_name, result)
+                for packet in notification_snapshot(current, command=request_name):
+                    proto.encode_message(*packet)
+                stage._save(path, before, current)
+            except (ValueError, TypeError, KeyError, IndexError, OSError):
+                return response_name, {"retcode": 1}
             stage._sync(account, current)
-            return "CancelDispatchIslandVentureRsp", {"retcode": 0}
-
-        if request_name == "GetIslandVentureRewardReq":
-            venture_id = request_values.get("venture_id", 0)
-            ventures = current.setdefault("venture_list", [])
-            current["venture_list"] = [v for v in ventures if v.get("id") != venture_id]
-            stage._save(path, before, current)
-            stage._sync(account, current)
-            return "GetIslandVentureRewardRsp", {
-                "retcode": 0,
-                "reward_list": [],
-                "drop_item_list": [],
-                "succ_type": 1,
-            }
+            return response_name, result
 
     return None
+
+
+def _venture_finish_action(account, command, values):
+    level = _venture_level(account)
+    if level is None:
+        return None
+    main = account["main"]
+    if command == "RefreshIslandVentureReq":
+        count = _venture_refresh_count(account)
+        price = _venture_refresh_price(level, count)
+        if price is None or main["hcoin"] < price:
+            return None
+        main["hcoin"] -= price
+        account["venture_refresh_day"] = clock.game_date().isoformat()
+        account["venture_refresh_times"] = count + 1
+        return {"retcode": 0}
+
+    identity = stage._u32(values.get("venture_id"), "venture id")
+    ventures = account.get("venture_list", [])
+    active = next((row for row in ventures if row["id"] == identity and row.get("end_time")), None)
+    if active is None:
+        if command == "GetIslandVentureRewardReq":
+            return deepcopy(account.get("venture_claim_receipts", {}).get(str(identity)))
+        return None
+    now = int(time.time())
+    if command == "SpeedUpIslandVentureReq":
+        item = stage._u32(values.get("material_id"), "speed-up material")
+        count = stage._u32(values.get("num"), "speed-up quantity")
+        rows = stage._table("materialventurespeedupdata", field="MaterialID", identities=(item,))
+        stacks = [row for row in account.get("material_list", []) if row["id"] == item]
+        if active["end_time"] <= now or len(rows) != 1 or len(stacks) != 1 or not 0 < count <= stacks[0]["num"]:
+            return None
+        stacks[0]["num"] -= count
+        active["end_time"] = max(now - 1, active["end_time"] - count * rows[0]["SpeedUpTime"])
+        return {"retcode": 0}
+
+    if active["end_time"] > now:
+        return None
+    meta, = stage._table("cabindispatchventuredata", field="ID", identities=(identity,))
+    reward, = stage._table("rewarddata", field="RewardID", identities=(meta["rewardId"],))
+    exp = stage._u32(reward["RewardExp"], "venture experience")
+    coins = stage._u32(reward["RewardSCoin"], "venture coins")
+    if any(value for key, value in reward.items() if key not in ("RewardID", "RewardExp", "RewardSCoin")):
+        return None
+    main["scoin"] = stage._u32(main["scoin"] + coins, "venture coin balance")
+    import server19_player_progression
+    progression = server19_player_progression.grant_player_exp(main, exp)
+    coins += progression.get("cap_exp_conversion", {}).get("scoin", 0)
+    # Local compatibility policy: one uniformly chosen material from the
+    # task preview. Learning chips are items, distinct from captain EXP.
+    candidates = []
+    for item in dict.fromkeys(meta["rewardItemShowList"]):
+        rows = stage._table("materialdata", field="ID", identities=(item,))
+        if not rows:
+            continue
+        row, = rows
+        candidates.append((item, row["rarity"]))
+    drops = []
+    if candidates:
+        item, rarity = secrets.choice(candidates)
+        stage._grant_drops(account, {(item, 0): 1})
+        drops.append({"item_id": item, "level": 0, "num": 1, "rarity": rarity})
+    ventures.remove(active)
+    result = {"retcode": 0, "reward_list": [{"exp": exp, "scoin": coins}],
+              "drop_item_list": drops, "succ_type": 0}
+    account.setdefault("venture_claim_receipts", {})[str(identity)] = deepcopy(result)
+    return result

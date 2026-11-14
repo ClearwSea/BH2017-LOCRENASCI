@@ -15,7 +15,7 @@ import time
 import server19_protocol as proto
 import server19_stage as stage
 
-HANDLED_REQUESTS = frozenset(("AvatarSubSkillLevelUpReq",))
+HANDLED_REQUESTS = frozenset(("AvatarSubSkillLevelUpReq", "SwitchAvatarSubSkillReq"))
 SUPPORTED_AVATARS = {101: tuple(range(11, 17)), 201: tuple(range(51, 57))}
 # Current deployed closure audit restores old shield/invisibility/leader gates.
 # Backstab613 retains native back-hit damage; only later score802021 is omitted.
@@ -178,8 +178,7 @@ def material_cost(meta, levels, level):
     return result
 
 
-def _upgrade(account, values, *, now=None):
-    skills, subs, levels = skill_catalog()
+def _owned_subskill(account, values, subs):
     avatar_id = stage._u32(values["avatar_id"], "avatar_id")
     skill_id = stage._u32(values["skill_id"], "skill_id")
     sub_id = stage._u32(values["sub_skill_id"], "sub_skill_id")
@@ -195,9 +194,30 @@ def _upgrade(account, values, *, now=None):
         raise _Rejected(3)
     if sub_id not in subs or subs[sub_id]["skillId"] != skill_id:
         raise _Rejected(4)
+    return owned[0], sub_id
+
+
+def _switch(account, values):
+    # Toggle eligibility comes from the active table. No level-up economy is used.
+    rows = stage._table("avatarsubskilldata")
+    subs = {row["avatarSubSkillId"]: row for row in rows}
+    if len(subs) != len(rows):
+        raise ValueError("Duplicate subskill table identity")
+    avatar, sub_id = _owned_subskill(account, values, subs)
+    stored = _stored_subskills(avatar, subs).get(sub_id)
+    if subs[sub_id]["skillToggle"] != 1 or not stored or not stored.get("level", 0):
+        raise _Rejected(1)
+    stored["is_mask"] = not stored.get("is_mask", False)
+    return {"retcode": 0}
+
+
+def _upgrade(account, values, *, now=None):
+    _, subs, levels = skill_catalog()
+    avatar, sub_id = _owned_subskill(account, values, subs)
+    skill_id = subs[sub_id]["skillId"]
     if sub_id in UNSUPPORTED_SUBSKILLS and not (sub_id in (713, 2502) and _combo_resist_ready()):
         raise _Rejected(1)
-    avatar, meta = owned[0], subs[sub_id]
+    meta = subs[sub_id]
     stored = _stored_subskills(avatar, subs)
     level = stored.get(sub_id, {}).get("level", 0)
     if level >= meta["maxLv"]:
@@ -259,7 +279,7 @@ def _upgrade(account, values, *, now=None):
 
 
 def notification_snapshot(account):
-    """Send BEFORE Rsp51; both native consumers immediately read skill objects."""
+    """Refresh native skill objects before acknowledging a mutation."""
     import server19_initialization
     return [server19_initialization.response("GetMainDataReq", account),
             ("GetEquipmentDataRsp", {"retcode": 0,
@@ -273,28 +293,31 @@ def notification_snapshot(account):
 def response(request_name, account, request_values=None, *, account_path=None, now=None):
     if request_name not in HANDLED_REQUESTS:
         return None
+    switching = request_name == "SwitchAvatarSubSkillReq"
+    response_name = "SwitchAvatarSubSkillRsp" if switching else "AvatarSubSkillLevelUpRsp"
     path = Path(account_path or stage.DEFAULT_ACCOUNT).resolve()
     with stage._transaction_lock(path):
         try:
             before = stage._read(path, account)
         except (OSError, ValueError, TypeError, KeyError):
-            return "AvatarSubSkillLevelUpRsp", {"retcode": 1}
+            return response_name, {"retcode": 1}
         current = deepcopy(before)
         try:
-            result = ("AvatarSubSkillLevelUpRsp", _upgrade(current, request_values or {}, now=now))
+            values = request_values or {}
+            result = response_name, (_switch(current, values) if switching else _upgrade(current, values, now=now))
             proto.encode_message(*result)
             for packet in notification_snapshot(current):
                 proto.encode_message(*packet)
         except _Rejected as rejected:
-            result = "AvatarSubSkillLevelUpRsp", {"retcode": rejected.retcode}
+            result = response_name, {"retcode": rejected.retcode}
         except (ValueError, TypeError, KeyError, IndexError):
-            result = "AvatarSubSkillLevelUpRsp", {"retcode": 1}
+            result = response_name, {"retcode": 1}
         if result[1]["retcode"] == 0:
             try:
                 stage._save(path, before, current)
             except OSError:
                 stage._sync(account, before)
-                return "AvatarSubSkillLevelUpRsp", {"retcode": 1}
+                return response_name, {"retcode": 1}
             stage._sync(account, current)
         else:
             stage._sync(account, before)
