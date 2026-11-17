@@ -147,6 +147,8 @@ def prepare(client24, data_work, output, client_tables):
              data['source/textmap_rows'])
     encoded_tables['equipmentskilldata'] = json.dumps(rendered['equipmentskilldata'], ensure_ascii=False,
                                                      separators=(',', ':'))
+    from .core import normalize_textmap_rows
+    rendered['textmap'] = normalize_textmap_rows(rendered['textmap'])
     encoded_tables['textmap'] = json.dumps(rendered['textmap'], ensure_ascii=False, separators=(',', ':'))
     encoded_tables['newbieequipadv'] = json.dumps(rendered['newbieequipadv'], ensure_ascii=False,
                                                  separators=(',', ':'))
@@ -172,6 +174,8 @@ def prepare(client24, data_work, output, client_tables):
             write_json(path, rows)
     source_text = data['source/textmap_rows'] + list(navigation_labels.values())
     navigation['restored_text_ids'] = restore_navigation_text(rendered, source_text)
+    from .core import normalize_textmap_rows
+    rendered['textmap'] = normalize_textmap_rows(rendered['textmap'])
     encoded_tables['textmap'] = json.dumps(rendered['textmap'], ensure_ascii=False, separators=(',', ':'))
     for path in output.rglob('textmap'):
         rows = read_json(path)
@@ -211,7 +215,10 @@ def finish(output, native, resource_manifest, archive):
         elf = stream.read(20)
     if elf[:4] == b'\x7fELF' and elf[18:20] == b'\x28\x00' and any(
             row['path'] == 'private/data/bh3-server19-baked/_baked/bakedabilitydata'
-            and row['sha256'] == '2a4fb06ce8d7f62e8d98291e2769774c81258b1747878130f9a6b75f3a9aa982'
+            and row['sha256'] in (
+                '2a4fb06ce8d7f62e8d98291e2769774c81258b1747878130f9a6b75f3a9aa982',
+                '9a43c2f6b2ce18701c68c6656b7772065aead08b54277374bf2d0b0081070e01',
+            )
             for row in read_json(resource_manifest)['entries']):
         resource_caps.append('avatar_combo_resist_v1')
     write_json(output / 'build-capabilities.json', {'schema': 1, 'evidence_kind': 'packaged-artifacts',

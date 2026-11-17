@@ -214,7 +214,8 @@ def restore(apk24, data_work, output):
                 except KeyError as error:
                     raise BuildError('Missing source text: ' + identity) from error
             text[identity] = {'ID': identity, 'Text': value}
-        tables['textmap'] = list(text.values())
+        from .core import normalize_textmap_rows
+        tables['textmap'] = normalize_textmap_rows(list(text.values()))
         from .item_navigation import adapt as adapt_navigation, restore_text as restore_navigation_text
         navigation = adapt_navigation(tables)
         navigation['restored_text_ids'] = restore_navigation_text(tables, rows)

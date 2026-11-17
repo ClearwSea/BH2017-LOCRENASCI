@@ -87,7 +87,11 @@ def response(request_name, account, request_values=None):
         import server19_avatar_teams
         return server19_avatar_teams.response(request_name, account, request_values)
     if request_name == "GetMainDataReq":
+        import server19_player_progression as progression
         main = {**REFERENCE_MAIN_TIMERS, **account["main"]}
+        floor = progression.expected_equipment_size_limit(main.get("level", 1))
+        if not isinstance(main.get("equipment_size_limit"), int) or main["equipment_size_limit"] < floor:
+            main["equipment_size_limit"] = floor
         return "GetMainDataRsp", {"retcode": 0, **main}
     if request_name == "GetPlayerCardReq":
         owned = [int(a["avatar_id"]) for a in account.get("avatar_list", [])]

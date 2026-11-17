@@ -21,7 +21,11 @@ def normalize(account, now=None):
     import server19_duty as duty
     import server19_signin as signin
     import server19_shop as shop
+    import server19_player_progression as progression
     normalize_gold(account)
+    progression.reconcile_equipment_size_limit(account)
+    if isinstance(account.get("material_list"), list):
+        account["material_list"] = [m for m in account["material_list"] if m.get("num", 0) > 0]
     duty._runtime(account, now)
     signin._ensure_runtime(account, now)
     shop._get_shop_runtime(account, now)

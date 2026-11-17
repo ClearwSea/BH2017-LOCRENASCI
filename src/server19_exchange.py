@@ -43,7 +43,7 @@ def skill_point_exchange(name, account, *, account_path=None, now=None):
         try:
             skills.synchronize_skill_point(current, now=now)
             main = current['main']
-            if main['skill_point'] >= main.get('skill_point_limit', 20):
+            if main['skill_point'] >= main.get('skill_point_limit', 50):
                 stage._sync(account, before)
                 return rsp, {'retcode': 4}  # Native SKILL_POINT_FULL -> Err_SkillPointFull.
             if main['hcoin'] < SKILL_POINT_COST_HCOIN:

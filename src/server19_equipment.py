@@ -874,6 +874,8 @@ def response(request_name, account, request_values=None, *, account_path=None):
             proto.encode_message(response_name, {'retcode': 0, **result})
             for packet in notification_snapshot(current, request_name):
                 proto.encode_message(*packet)
+            if isinstance(current.get("material_list"), list):
+                current["material_list"] = [m for m in current["material_list"] if m.get("num", 0) > 0]
             stage._save(path, before, current)
             retcode = 0
         except _Rejected as rejected:
@@ -907,8 +909,11 @@ def notification_snapshot(account, request_name=None):
                 "stigmata_unique_id_3": 0, **deepcopy(avatar)}
                for avatar in account["avatar_list"]]
     consumed_ids = getattr(_MUTATION, "power_up_consumed", None) or set()
-    materials = [deepcopy(m) for m in account.get("material_list", [])
-                 if m.get("num", 0) > 0 or m.get("id") in consumed_ids]
+    materials = [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]
+    present_ids = {m["id"] for m in materials}
+    for cid in sorted(consumed_ids):
+        if cid not in present_ids:
+            materials.append({"id": cid, "num": 0})
     snapshots = [("GetAvatarDataRsp", {"retcode": 0,
                                   "avatar_list": avatars}),
             ("GetEquipmentDataRsp", {"retcode": 0,

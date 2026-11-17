@@ -33,6 +33,27 @@ def read_json(path):
     return json.loads(path.read_text(encoding='utf-8-sig'))
 
 
+def normalize_textmap_rows(rows):
+    """Strip trailing NBSP on IslandVentureAvatar* IDs and alias missing MissionDisplay_Daily*_130 keys."""
+    by_id = {}
+    order = []
+    for row in rows:
+        eid = row.get('ID', '')
+        if eid.startswith('IslandVentureAvatar') and eid.endswith('\xa0'):
+            eid = eid.rstrip('\xa0')
+            row = {**row, 'ID': eid}
+        if eid not in by_id:
+            order.append(eid)
+        by_id[eid] = row
+    for eid in list(order):
+        if eid.startswith('MissionDisplay_Daily') and not eid.endswith('_130'):
+            alias = f'{eid}_130'
+            if alias not in by_id:
+                by_id[alias] = {'ID': alias, 'Text': by_id[eid].get('Text', '')}
+                order.append(alias)
+    return [by_id[eid] for eid in order]
+
+
 def write_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + '.tmp')

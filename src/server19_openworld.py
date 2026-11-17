@@ -366,4 +366,4 @@ def reward_snapshot(account):
             ('GetEquipmentDataRsp', dict(retcode=0,
                 weapon_list=deepcopy(account.get('weapon_list', [])),
                 stigmata_list=deepcopy(account.get('stigmata_list', [])),
-                material_list=deepcopy(account.get('material_list', []))))]
+                material_list=[deepcopy(m) for m in account.get('material_list', []) if m.get('num', 0) > 0]))]

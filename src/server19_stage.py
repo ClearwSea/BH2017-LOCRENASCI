@@ -1083,8 +1083,10 @@ def guide_notification_snapshot(account, request):
     # The next native tutorial step reads the ticket count immediately on Rsp.
     if 9103 not in request.get("guide_id_list", []):
         return []
-    return [("GetEquipmentDataRsp", {"retcode": 0, **{key: deepcopy(account.get(key, []))
-            for key in ("weapon_list", "stigmata_list", "material_list")}})]
+    return [("GetEquipmentDataRsp", {"retcode": 0,
+            "weapon_list": deepcopy(account.get("weapon_list", [])),
+            "stigmata_list": deepcopy(account.get("stigmata_list", [])),
+            "material_list": [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]})]
 
 
 def notification_snapshot(account):
@@ -1097,8 +1099,10 @@ def notification_snapshot(account):
     return [server19_initialization.response("GetMainDataReq", account),
             ("GetAvatarDataRsp", {"retcode": 0,
                                   "avatar_list": deepcopy(account.get("avatar_list", []))}),
-            ("GetEquipmentDataRsp", {"retcode": 0, **{key: deepcopy(account.get(key, []))
-                for key in ("weapon_list", "stigmata_list", "material_list")}}),
+            ("GetEquipmentDataRsp", {"retcode": 0,
+                "weapon_list": deepcopy(account.get("weapon_list", [])),
+                "stigmata_list": deepcopy(account.get("stigmata_list", [])),
+                "material_list": [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]}),
             ("GetStageDataRsp", {"retcode": 0,
                                  "stage_list": available_stage_list(account)})]
 

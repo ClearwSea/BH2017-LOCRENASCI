@@ -131,7 +131,7 @@ def load_account():
         "account_mode": "existing-development-account", "is_first_login": False,
         "main": {"nickname": "本地测试舰长", "level": 15, "exp": 0,
                  "hcoin": 0, "scoin": 0, "stamina": 60, "skill_point": 0,
-                 "skill_point_limit": 20, "equipment_size_limit": 100,
+                 "skill_point_limit": 50, "equipment_size_limit": 500,
                  "assistant_avatar_id": 101, "self_desc": ""},
         "avatar_list": [{"avatar_id": 101, "star": 1, "level": 1, "exp": 0,
                          "fragment": 0, "weapon_unique_id": 1,
@@ -259,6 +259,7 @@ def response(name, account, request_values=None, *, account_path=None):
                                        "stigmata_list": account.get("stigmata_list", []),
                                        "material_list": materials}
     if name == "GetAvatarDataReq":
+        server19_avatar_skills.synchronize_common_skills(account, account_path=account_path)
         avatars = [{"stigmata_unique_id_1": 0, "stigmata_unique_id_2": 0,
                     "stigmata_unique_id_3": 0, **avatar} for avatar in account["avatar_list"]]
         return "GetAvatarDataRsp", {"retcode": 0, "avatar_list": avatars}
@@ -357,6 +358,8 @@ class GameHandler(socketserver.BaseRequestHandler):
                         if values.get("retcode") == 0 and name not in (
                                 "KeepAliveNotify", "GetPlayerTokenReq", "PlayerLoginReq"):
                             import server19_player_progression
+                            server19_player_progression.reconcile_equipment_size_limit(
+                                account, RUN / "account.json")
                             level_avatar_granted = server19_player_progression.reconcile_level_avatar(
                                 account, RUN / "account.json")
                         packets = [(rsp_name, values)]

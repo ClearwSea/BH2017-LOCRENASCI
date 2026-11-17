@@ -62,6 +62,9 @@ def grant_player_exp(main, amount):
         value['scoin'] = stage._u32(value.get('scoin', 0) + converted, 'overflow EXP coin')
         exp = 0
     value.update(level=level, exp=exp)
+    floor = expected_equipment_size_limit(level)
+    if not isinstance(value.get("equipment_size_limit"), int) or value["equipment_size_limit"] < floor:
+        value["equipment_size_limit"] = floor
     main.clear()
     main.update(value)
     return {"source_policy": SOURCE_POLICY, "table_sha256": TABLE_SHA256,
@@ -70,6 +73,42 @@ def grant_player_exp(main, amount):
             "level_rewards": bonuses,
             "cap_exp_conversion": {"policy": "local_1_exp_to_1_scoin" if CAP_EXP_TO_SCOIN else "reject",
                                    "exp": converted, "scoin": converted}}
+
+
+def expected_equipment_size_limit(level):
+    """Generous level-scaled equipment capacity floor (500 at Lv.1, +20/level)."""
+    lvl = max(1, int(level or 1))
+    return 500 + (lvl - 1) * 20
+
+
+def reconcile_equipment_size_limit(account, account_path=None):
+    """Ensure equipment_size_limit meets the level-scaled floor without lowering higher limits."""
+    main = account.get("main")
+    if not isinstance(main, dict):
+        return False
+    floor = expected_equipment_size_limit(main.get("level", 1))
+    current = main.get("equipment_size_limit", 0)
+    if isinstance(current, int) and current >= floor:
+        return False
+    if account_path is None:
+        main["equipment_size_limit"] = floor
+        return True
+    import server19_stage as stage
+    from pathlib import Path
+    path = Path(account_path).resolve()
+    with stage._transaction_lock(path):
+        before = stage._read(path, account)
+        updated = deepcopy(before)
+        umain = updated.get("main", {})
+        ufloor = expected_equipment_size_limit(umain.get("level", 1))
+        ucurr = umain.get("equipment_size_limit", 0)
+        if isinstance(ucurr, int) and ucurr >= ufloor:
+            stage._sync(account, updated)
+            return False
+        umain["equipment_size_limit"] = ufloor
+        stage._save(path, before, updated)
+        stage._sync(account, updated)
+    return True
 
 
 def reconcile_level_avatar(account, account_path):

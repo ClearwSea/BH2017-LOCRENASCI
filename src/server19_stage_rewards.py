@@ -451,7 +451,9 @@ def notification_snapshot(account):
     supported Acts and tiers, including idempotent receipt replay.
     """
     return [initialization.response("GetMainDataReq", account),
-            ("GetEquipmentDataRsp", {"retcode": 0, **{key: deepcopy(account.get(key, []))
-                for key in ("weapon_list", "stigmata_list", "material_list")}}),
+            ("GetEquipmentDataRsp", {"retcode": 0,
+                "weapon_list": deepcopy(account.get("weapon_list", [])),
+                "stigmata_list": deepcopy(account.get("stigmata_list", [])),
+                "material_list": [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]}),
             ("GetAvatarDataRsp", {"retcode": 0, "avatar_list": deepcopy(account.get("avatar_list", []))}),
             difficulty_snapshot(account)]

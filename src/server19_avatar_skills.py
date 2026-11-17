@@ -100,6 +100,29 @@ def _stored_subskills(avatar, subs):
     return result
 
 
+BASE_SKILL_POINT_LIMIT = 50
+
+
+def cabin4_skill_point_bonus(account):
+    """Return total skill point capacity bonus from Cabin 4 (Hub) tech_list (AbilityType == 11)."""
+    cabin = next((c for c in account.get("cabin_list", []) if c.get("type") == 4), None)
+    if not cabin:
+        return 0
+    cabin_level = cabin.get("level", 0)
+    by_pos = {
+        (row.get("X"), row.get("Y")): row
+        for row in stage._table("cabintechtreedata")
+        if row.get("Cabin") == 4 and row.get("AbilityType") == 11
+    }
+    bonus = 0
+    for tech in cabin.get("tech_list", []):
+        node = by_pos.get((tech.get("pos_x"), tech.get("pos_y")))
+        if not node or cabin_level < node.get("UnlockLevel", 0):
+            continue
+        bonus += node.get("Argument1", 0)
+    return bonus
+
+
 def synchronize_skill_point(account, *, now=None):
     """Pure in-memory recovery; caller must hold shared transaction and persist.
 
@@ -112,9 +135,11 @@ def synchronize_skill_point(account, *, now=None):
         raise ValueError("Invalid recovery observation time")
     main = account["main"]
     points = stage._u32(main.get("skill_point", 0), "skill points")
-    limit = stage._u32(main.get("skill_point_limit", 20), "skill point limit")
-    if limit != 20:
-        raise ValueError("Unreviewed skill point capacity")
+    target_limit = BASE_SKILL_POINT_LIMIT + cabin4_skill_point_bonus(account)
+    limit = stage._u32(main.get("skill_point_limit", target_limit), "skill point limit")
+    if limit < target_limit:
+        limit = target_limit
+    main["skill_point_limit"] = limit
     runtime = account.setdefault("skill_point_runtime", {
         "version": 1, "interval": RECOVERY_INTERVAL,
         "next_recover_at": now + RECOVERY_INTERVAL if points < limit else None})
@@ -212,6 +237,8 @@ def _switch(account, values):
 
 
 def _upgrade(account, values, *, now=None):
+    import server19_avatar_cultivation as cultivation
+    cultivation.synchronize_common_skills(account)
     _, subs, levels = skill_catalog()
     avatar, sub_id = _owned_subskill(account, values, subs)
     skill_id = subs[sub_id]["skillId"]
@@ -272,10 +299,23 @@ def _upgrade(account, values, *, now=None):
             rows.append(target)
         target.setdefault("sub_skill_list", []).append({"sub_skill_id": sub_id,
                                                        "level": 1, "is_mask": False})
+    cultivation.synchronize_common_skills(account)
     # Daily task "技能升级" counts any sub-skill level-up.
     import server19_duty
     server19_duty.note_event(account, "skill_up")
     return {"retcode": 0}
+
+
+def synchronize_common_skills(account, *, account_path=None):
+    """Persist shared levels before the native client receives avatar data."""
+    import server19_avatar_cultivation as cultivation
+    path = Path(account_path or stage.DEFAULT_ACCOUNT).resolve()
+    with stage._transaction_lock(path):
+        before = stage._read(path, account)
+        current = deepcopy(before)
+        cultivation.synchronize_common_skills(current)
+        stage._save(path, before, current)
+        stage._sync(account, current)
 
 
 def notification_snapshot(account):
@@ -285,7 +325,7 @@ def notification_snapshot(account):
             ("GetEquipmentDataRsp", {"retcode": 0,
                                      "weapon_list": deepcopy(account.get("weapon_list", [])),
                                      "stigmata_list": deepcopy(account.get("stigmata_list", [])),
-                                     "material_list": deepcopy(account.get("material_list", []))}),
+                                     "material_list": [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]}),
             ("GetAvatarDataRsp", {"retcode": 0,
                                   "avatar_list": deepcopy(account["avatar_list"])})]
 
@@ -313,6 +353,8 @@ def response(request_name, account, request_values=None, *, account_path=None, n
         except (ValueError, TypeError, KeyError, IndexError):
             result = response_name, {"retcode": 1}
         if result[1]["retcode"] == 0:
+            if isinstance(current.get("material_list"), list):
+                current["material_list"] = [m for m in current["material_list"] if m.get("num", 0) > 0]
             try:
                 stage._save(path, before, current)
             except OSError:

@@ -46,10 +46,13 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import random
+import threading
 import time
 
 import server19_protocol as proto
 import server19_stage as stage
+
+_CONSUMED_TICKETS = threading.local()
 
 HANDLED_REQUESTS = frozenset(("GetGachaDisplayReq", "GachaReq",
                               "GetGachaLogReq", "GetGachaProbReq",
@@ -539,6 +542,11 @@ def _charge(account, channel, num, use_hcoin):
     held = next((row for row in materials if row.get("id") == ticket), None)
     if held is not None and held.get("num", 0) >= num:
         held["num"] -= num
+        if held["num"] <= 0:
+            materials[:] = [row for row in materials if row.get("num", 0) > 0]
+            consumed = getattr(_CONSUMED_TICKETS, "ids", None)
+            if isinstance(consumed, set):
+                consumed.add(ticket)
         return RSP_SUCC
     if not use_hcoin:
         return RSP_TICKET_LACK
@@ -731,12 +739,18 @@ _HANDLERS = {"GetGachaDisplayReq": lambda account, values: display_payload(accou
 def notification_snapshot(account):
     """Authoritative snapshots after a successful pull; sent after the Rsp."""
     import server19_initialization
+    materials = [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]
+    present_ids = {m["id"] for m in materials}
+    for tid in sorted(getattr(_CONSUMED_TICKETS, "ids", None) or set()):
+        if tid not in present_ids:
+            materials.append({"id": tid, "num": 0})
     return [server19_initialization.response("GetMainDataReq", account),
             ("GetAvatarDataRsp", {"retcode": 0,
                                   "avatar_list": deepcopy(account.get("avatar_list", []))}),
-            ("GetEquipmentDataRsp", {"retcode": 0, **{
-                key: deepcopy(account.get(key, []))
-                for key in ("weapon_list", "stigmata_list", "material_list")}})]
+            ("GetEquipmentDataRsp", {"retcode": 0,
+                "weapon_list": deepcopy(account.get("weapon_list", [])),
+                "stigmata_list": deepcopy(account.get("stigmata_list", [])),
+                "material_list": materials})]
 
 
 def response(request_name, account, request_values=None, *, account_path=None):
@@ -746,6 +760,7 @@ def response(request_name, account, request_values=None, *, account_path=None):
     with stage._transaction_lock(path):
         before = stage._read(path, account)
         current = deepcopy(before)
+        _CONSUMED_TICKETS.ids = set()
         try:
             payload = _HANDLERS[request_name](current, request_values or {})
             result = request_name[:-3] + "Rsp", payload
@@ -770,4 +785,6 @@ def response(request_name, account, request_values=None, *, account_path=None):
         except (ValueError, TypeError, KeyError, OSError, IndexError):
             result = request_name[:-3] + "Rsp", {"retcode": RSP_FAIL}
             stage._sync(account, before)
+        finally:
+            _CONSUMED_TICKETS.ids = set()
         return result

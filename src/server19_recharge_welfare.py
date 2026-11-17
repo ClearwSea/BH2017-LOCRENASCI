@@ -94,5 +94,7 @@ def response(name,account,values=None,*,account_path=None):
 
 
 def notification_snapshot(account):
-    return [('GetEquipmentDataRsp',{'retcode':0,**{k:deepcopy(account.get(k,[]))
-            for k in ('weapon_list','stigmata_list','material_list')}}),snapshot(account)]
+    return [('GetEquipmentDataRsp',{'retcode':0,
+            'weapon_list':deepcopy(account.get('weapon_list',[])),
+            'stigmata_list':deepcopy(account.get('stigmata_list',[])),
+            'material_list':[deepcopy(m) for m in account.get('material_list',[]) if m.get('num',0)>0]}),snapshot(account)]

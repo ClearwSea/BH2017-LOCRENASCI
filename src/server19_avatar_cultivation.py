@@ -10,9 +10,12 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+import threading
 
 import server19_protocol as proto
 import server19_stage as stage
+
+_MUTATION = threading.local()
 
 HANDLED_REQUESTS = frozenset(("AddAvatarExpByMaterialReq", "AvatarStarUpReq"))
 SUPPORTED_AVATARS = frozenset((101, 201))
@@ -139,6 +142,8 @@ def _grow(account, values):
     exp = min(exp, thresholds[level - 1]) if level == limit else exp
     avatar.update(level=level, exp=exp)
     material["num"] = count - amount  # Explicit zero tells Storage to delete it.
+    if material["num"] <= 0:
+        _MUTATION.consumed_materials = {material_id}
 
 
 def notification_snapshot(account, avatar_id=None, *, equipment_first=False):
@@ -154,14 +159,102 @@ def notification_snapshot(account, avatar_id=None, *, equipment_first=False):
         # its saved before-level-up avatar and native voice/dialog trigger.
         # Keep every avatar, put the actual mutation first (ARM14cfea8/14cfeac).
         avatars.sort(key=lambda row: row['avatar_id'] != avatar_id)
+    consumed = getattr(_MUTATION, "consumed_materials", None) or set()
+    materials = [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]
+    present_ids = {m["id"] for m in materials}
+    for cid in sorted(consumed):
+        if cid not in present_ids:
+            materials.append({"id": cid, "num": 0})
     packets = [("GetAvatarDataRsp", {"retcode": 0, "avatar_list": avatars}),
-               ("GetEquipmentDataRsp", {"retcode": 0, **{key: deepcopy(account[key])
-                for key in ("weapon_list", "stigmata_list", "material_list")}})]
+               ("GetEquipmentDataRsp", {"retcode": 0,
+                "weapon_list": deepcopy(account.get("weapon_list", [])),
+                "stigmata_list": deepcopy(account.get("stigmata_list", [])),
+                "material_list": materials})]
     if equipment_first or (FUKA_FRAGMENT_UNLOCK_ENABLED and avatar_id == 601):
         # The native avatar update resolves a newly created weapon UID through
         # Storage. Publish equipment first for every fragment unlock.
         packets.reverse()
     return packets
+
+
+def _sync_awakened_common_skills(account, base_id, awakened_id):
+    """Copy unlocked shared subskills from base avatar to newly unlocked awakened avatar."""
+    base_avatar = next((row for row in account.get("avatar_list", []) if row.get("avatar_id") == base_id), None)
+    awakened_avatar = next((row for row in account.get("avatar_list", []) if row.get("avatar_id") == awakened_id), None)
+    if not base_avatar or not awakened_avatar:
+        return
+    pair_rows = [row for row in stage._table("avatarexdata")
+                 if set(row.get("avatarIDList", ())) == {base_id, awakened_id}]
+    if not pair_rows:
+        return
+    base_levels = {}
+    for skill in base_avatar.get("skill_list", []):
+        for sub in skill.get("sub_skill_list", []):
+            base_levels[(skill.get("skill_id"), sub.get("sub_skill_id"))] = sub
+    for entry in pair_rows[0].get("commonSubSkillList", []):
+        s1 = tuple(int(x) for x in entry["Skill1"].split("-"))
+        s2 = tuple(int(x) for x in entry["Skill2"].split("-"))
+        if s1[0] == base_id and s2[0] == awakened_id:
+            src_skill, src_sub = s1[1], s1[2]
+            dst_skill, dst_sub = s2[1], s2[2]
+        elif s2[0] == base_id and s1[0] == awakened_id:
+            src_skill, src_sub = s2[1], s2[2]
+            dst_skill, dst_sub = s1[1], s1[2]
+        else:
+            continue
+        src = base_levels.get((src_skill, src_sub))
+        if not src or src.get("level", 0) <= 0:
+            continue
+        dst_skills = awakened_avatar.setdefault("skill_list", [])
+        target = next((row for row in dst_skills if row.get("skill_id") == dst_skill), None)
+        if target is None:
+            target = {"skill_id": dst_skill, "sub_skill_list": []}
+            dst_skills.append(target)
+        subs = target.setdefault("sub_skill_list", [])
+        existing = next((sub for sub in subs if sub.get("sub_skill_id") == dst_sub), None)
+        if existing is None:
+            subs.append({"sub_skill_id": dst_sub, "level": src["level"],
+                         "is_mask": bool(src.get("is_mask", False))})
+        elif existing.get("level", 0) < src["level"]:
+            existing["level"] = src["level"]
+
+
+def synchronize_common_skills(account):
+    """Reconcile already purchased shared levels for unlocked avatar pairs."""
+    owned = {row['avatar_id']: row for row in account.get('avatar_list', [])
+             if row.get('star', 0) > 0}
+    metadata = {row['avatarSubSkillId']: row for row in stage._table('avatarsubskilldata')}
+    for pair in stage._table('avatarexdata'):
+        for mapping in pair.get('commonSubSkillList', []):
+            first, second = (tuple(map(int, mapping[key].split('-'))) for key in ('Skill1', 'Skill2'))
+            if first[0] not in owned or second[0] not in owned:
+                continue
+            if any(identity[2] not in metadata or metadata[identity[2]]['skillId'] != identity[1]
+                   for identity in (first, second)):
+                continue
+            def find(identity):
+                avatar = owned[identity[0]]
+                skill = next((s for s in avatar.get('skill_list', []) if s['skill_id'] == identity[1]), None)
+                sub = next((s for s in skill.get('sub_skill_list', []) if s['sub_skill_id'] == identity[2]), None) if skill else None
+                return avatar, skill, sub
+            left, right = find(first), find(second)
+            levels = [side[2].get('level', 0) if side[2] else 0 for side in (left, right)]
+            level = max(levels)
+            if not level:
+                continue
+            if any(level > metadata[identity[2]]['maxLv'] for identity in (first, second)):
+                continue
+            for identity, (avatar, skill, sub), current in zip((first, second), (left, right), levels):
+                if current == level:
+                    continue
+                if skill is None:
+                    skill = {'skill_id': identity[1], 'sub_skill_list': []}
+                    avatar.setdefault('skill_list', []).append(skill)
+                if sub is None:
+                    skill.setdefault('sub_skill_list', []).append(
+                        {'sub_skill_id': identity[2], 'level': level, 'is_mask': False})
+                else:
+                    sub['level'] = level
 
 
 def _promote(account, values):
@@ -170,8 +263,12 @@ def _promote(account, values):
     if len(owned) == 1 and owned[0].get('star') == 0:
         tables = _tables()
         meta = _one(tables['avatardata'], 'avatarID', identity)
-        if meta['baseAvatarID']:
-            raise ValueError('Awakening/shared-fragment unlock requires separate audit')
+        base_id = meta['baseAvatarID']
+        if base_id:
+            base_owned = [row for row in account['avatar_list']
+                          if row['avatar_id'] == base_id and row.get('star', 0) > 0]
+            if len(base_owned) != 1:
+                raise _Rejected(1)
         if identity == 601:
             if not FUKA_FRAGMENT_UNLOCK_ENABLED or meta['unlockStar'] != 2 or meta['initialWeapon'] != 20611:
                 raise ValueError('601 resource capability or metadata mismatch')
@@ -191,13 +288,13 @@ def _promote(account, values):
         import server19_gacha
         server19_gacha._grant_card(account, meta['avatarCardID'])
         owned[0]['fragment'] = fragments - need
+        if base_id:
+            _sync_awakened_common_skills(account, base_id, identity)
         return
     if len(owned) != 1 or not owned[0].get('star'):
         raise ValueError('Promotion requires one owned, unlocked avatar')
     tables = _tables()
-    meta = _one(tables['avatardata'], 'avatarID', identity)
-    if meta['baseAvatarID']:
-        raise ValueError('Awakening/shared-fragment promotion requires separate audit')
+    _one(tables['avatardata'], 'avatarID', identity)
     avatar = owned[0]
     rank = stage._u32(avatar['star'], 'rank')
     rows = [row for row in tables['avatarstardata'] if row['avatarID'] == identity]
@@ -215,6 +312,7 @@ def _promote(account, values):
 def response(request_name, account, request_values=None, *, account_path=None):
     if request_name not in HANDLED_REQUESTS:
         return None
+    _MUTATION.consumed_materials = None
     response_name = request_name[:-3] + 'Rsp'
     path = Path(account_path or stage.DEFAULT_ACCOUNT).resolve()
     with stage._transaction_lock(path):
@@ -226,6 +324,8 @@ def response(request_name, account, request_values=None, *, account_path=None):
             proto.encode_message(*result)
             for packet in notification_snapshot(current):
                 proto.encode_message(*packet)
+            if isinstance(current.get("material_list"), list):
+                current["material_list"] = [m for m in current["material_list"] if m.get("num", 0) > 0]
             stage._save(path, before, current)
         except _Rejected as error:
             result = response_name, {"retcode": error.retcode}

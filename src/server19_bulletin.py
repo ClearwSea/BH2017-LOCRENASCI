@@ -32,7 +32,11 @@ UPDATE_CONTENT_V017 = '<color=#FF4040FF>该公告面向V0.1.7</color>，此版�
 
 UPDATE_CONTENT_V017R1 = '<color=#FF4040FF>该公告面向V0.1.7-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0修复舰长升至10级解锁家园时，因引导步骤缺失导致进入舰桥报错、黑屏卡死无法操作的问题。\n2.\u00a0补齐其余多条功能解锁与新手引导链中缺失的步骤数据，避免同类引导断链引发界面报错或卡死。\n3.\u00a0改进构建器对游戏内引导数据表的修补方式，由原先仅修补个别已知步骤调整为自动遍历整张引导链并补齐缺失节点。\n\n<color=#00C3FFFF>更新提示</color>\n本次为热修版本，Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
-UPDATE_CONTENT_V017R2 = '<color=#FF4040FF>当前版本为V0.1.7-r2</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>次元边界突破装备合金·吞噬火炮和奥吉尔三件套后，进入关卡时卡在加载界面的问题。\n2.\u00a0修复白骑士·月光「时空余震」开关无法保存的问题，重新登录后保留上次设置。\n3.\u00a0修复白极计划军备箱无法正常开启的问题。\n4.\u00a0修复崩坏世界的歌姬服装箱以及附带的水晶宝箱无法开启的问题\n5.\u00a0<color=#FF4040FF>兼容恢复</color>家园指挥中心派遣。可手动刷新任务、派遣女武神、提前收队、使用道具加速和领取奖励。\n6.\u00a0修复暗耀者手炮「律令之光」等部分武器技能描述和名称缺失的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi的开发帮助，daweieee的测试，以及各位AI。'
+UPDATE_CONTENT_V017R2 = '<color=#FF4040FF>该公告面向V0.1.7-r2</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>次元边界突破装备合金·吞噬火炮和奥吉尔三件套后，进入关卡时卡在加载界面的问题。\n2.\u00a0修复白骑士·月光「时空余震」开关无法保存的问题，重新登录后保留上次设置。\n3.\u00a0修复白极计划军备箱无法正常开启的问题。\n4.\u00a0修复崩坏世界的歌姬服装箱以及附带的水晶宝箱无法开启的问题\n5.\u00a0<color=#FF4040FF>兼容恢复</color>家园指挥中心派遣。可手动刷新任务、派遣女武神、提前收队、使用道具加速和领取奖励。\n6.\u00a0修复暗耀者手炮「律令之光」等部分武器技能描述和名称缺失的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi的开发帮助，daweieee的测试，以及各位AI。'
+
+UPDATE_CONTENT_V017R3 = '<color=#FF4040FF>该公告面向V0.1.7-r3</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0修复使用灵魂觉醒角色碎片（如八重樱等觉醒女武神）解锁及晋升时出现报错、无法解锁的问题。\n2.\u00a0调整装备仓库容量上限，改为随舰长等级逐步提升，亦或者可以使用存档编辑器修改\n3.\u00a0修复出售或消耗材料至数量为 0 后，在后续刷新装备数据时仍残留数量为 0 的条目，导致圣痕/装备强化点击「快速选择」异常选中并报错「材料不存在」的问题；同时在登录时自动清理历史存档中的异常零数量条目。\n4.\u00a0修复家园指挥中心的若干问题。\n\n<color=#00C3FFFF>更新提示</color>\n本次为热修版本，Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+
+UPDATE_CONTENT_V017R4 = '<color=#FF4040FF>当前版本为V0.1.7-r4</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>装备「浅井茶茶」圣痕套装后，进入主线 3-13、3-14、3-15 等关卡时卡死在加载界面的问题。\n2.\u00a0修复购买并使用装备补给卡等补给券消耗至 0 后，界面仍缓存残留数量导致再次点击十连无响应的问题。\n3.\u00a0修复部分每日任务描述文本缺失的问题。\n4.\u00a0<color=#FF4040FF>兼容调整</color>将基础技能点上限提升至 50（旧存档自动提升，保留更高自定义上限），并恢复家园枢纽港科技对技能点上限的加成功能。\n5.\u00a0修复部分灵魂觉醒角色的共享技能加点问题。\n\n<color=#00C3FFFF>更新提示</color>\n本次为热修版本，Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
 
 def response(name, account, values=None, *, account_path=None):
@@ -73,7 +77,7 @@ def response(name, account, values=None, *, account_path=None):
     # Original BulletinModule: event=0, system=1, holographic banner=2.
     # Supply content explicitly; the native body supports Unity rich text.
     announcements = [dict(
-        id=201701 + show_type, type=show_type, weight=101,
+        id=201701 + show_type, type=show_type, weight=102,
         title_button="V1.9离线版说明", title="", event_date_str="", content=ANNOUNCEMENT_CONTENT,
         banner_path="Server19/Announcement/TeaParty", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1793098800,
@@ -125,6 +129,18 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.1.7-r2", title="", event_date_str="", content=UPDATE_CONTENT_V017R2,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794585600,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201791 + show_type, type=show_type, weight=101,
+        title_button="更新公告V0.1.7-r3", title="", event_date_str="", content=UPDATE_CONTENT_V017R3,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1794672000,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201801 + show_type, type=show_type, weight=102,
+        title_button="更新公告V0.1.7-r4", title="", event_date_str="", content=UPDATE_CONTENT_V017R4,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1794844800,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)
