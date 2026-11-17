@@ -85,7 +85,7 @@ def build(config, reuse_data=None, resume=False):
         os.environ['BH3_CLIENT19_ANALYSIS_DIR'] = str(data / 'extracted/client19')
         stage('native-from-original', lambda: native.apply(config['client19'], work / 'native/libil2cpp.so'))
         stage('runtime-data-from-originals', lambda: runtime_data.prepare(config['client24'], data,
-            work / 'runtime', work / 'client-tables'))
+            work / 'runtime', work / 'client-tables', config['client19']))
         stage('client-resources-from-originals', lambda: resources.prepare(config['client19'], config['client24'],
             work / 'client-tables', work / 'resources', work / 'extracted-resource-base', supplemental_root / 'images'))
         stage('voices-from-7x', lambda: audio.prepare(config['client19'], config['resources7x'], config['voice_decoder'],

@@ -167,6 +167,8 @@ def response(request_name, account, request_values=None):
             **deepcopy(account.get("weekday_activity_data", {})),
         }
         server19_befall.update_activity_list(activity, account)
+        import server19_material_training
+        server19_material_training.update_activity_list(activity, account)
         # Handler 69130 (0xc13962) clears the complete activity list when
         # is_whole_data=true. At 0xc144eb it checks endless_data for null and
         # skips the schedule when absent; no active season is manufactured.

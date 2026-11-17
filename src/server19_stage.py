@@ -298,6 +298,9 @@ def is_befall_stage(stage_id):
 
 
 def _has_audited_active_plan(active, config):
+    import server19_material_training as training
+    if active.get('drop_policy') == training.DROP_POLICY:
+        return training.validate_active(active, config)
     if active.get("drop_policy") == "befall_55001_compat_v1":
         import server19_befall
         return server19_befall.validate_active(active, config)
@@ -696,6 +699,12 @@ def _begin(account, request):
             # successful first clear with silently missing rewards.
             return name, {"retcode": 1}
         return name, deepcopy(active["begin_response"])
+    import server19_material_training as training
+    if stage_id in training.STAGE_ACTIVITY:
+        identity = training.STAGE_ACTIVITY[stage_id]
+        if (not training.is_open(identity, account=account) or
+                training.completed_today(account, identity) >= training.daily_limit(identity) + training.exchanged_today(account, identity)):
+            return name, {"retcode": 7}
     if is_befall_stage(stage_id):
         import server19_befall
         if not server19_befall.is_open(server19_befall.STAGE_ACTIVITY[stage_id]):
@@ -713,7 +722,10 @@ def _begin(account, request):
     progress = level.get("progress", 0)
     drop_audit = None
     drop_policy = FIRST_CLEAR_DROP_POLICY
-    if is_befall_stage(stage_id):
+    if stage_id in training.STAGE_ACTIVITY:
+        plan = training.drop_plan(stage_id)
+        drop_policy = training.DROP_POLICY
+    elif is_befall_stage(stage_id):
         import server19_befall
         plan, drop_audit = server19_befall.draw(progress, stage_id)
         drop_policy = server19_befall.DROP_POLICY
@@ -913,6 +925,14 @@ def _end(account, request):
         if not isinstance(challenges, list) or len(set(challenges)) != len(challenges):
             return name, {"retcode": 4}
         config = stage_config(stage_id)
+        import server19_material_training as training
+        is_redpacket = training.STAGE_ACTIVITY.get(stage_id) == training.REDPACKET_ID
+        redpacket_score = redpacket_payout = None
+        if is_redpacket and status == STAGE_WIN:
+            # HighScore client metadata makes 1.9 report the actual native
+            # score. Missing data cannot be substituted with a guessed score.
+            redpacket_score = _u32(body.get('score'), 'red-packet score')
+            redpacket_payout = training.redpacket_reward(stage_id, redpacket_score, config)
         if status == STAGE_WIN and not _has_audited_active_plan(active, config):
             return name, {"retcode": 3}
         if any(type(index) is not int or not 0 <= index < len(config["challengeList"])
@@ -929,7 +949,7 @@ def _end(account, request):
         _u32(body.get("stage_pass_time", 0), "stage_pass_time")
         for key in ("scoin_reward", "avatar_exp_reward"):
             _u32(body.get(key, 0), key)
-        if body.get("scoin_reward", 0) > config["maxScoinReward"] or \
+        if (not is_redpacket and body.get("scoin_reward", 0) > config["maxScoinReward"]) or \
                 body.get("avatar_exp_reward", 0) > config["maxAvatarExpReward"]:
             return name, {"retcode": 3}
     except (ValueError, TypeError, KeyError):
@@ -957,11 +977,14 @@ def _end(account, request):
         pass_time = body.get("stage_pass_time", 0)
         if pass_time:
             level["min_stage_time"] = min(level.get("min_stage_time") or pass_time, pass_time)
+        if is_redpacket:
+            level['max_score'] = max(_u32(level.get('max_score', 0), 'stored max score'), redpacket_score)
+        coin_reward = redpacket_payout if is_redpacket else config["scoinReward"]
         result.update(player_exp_reward=config["playerExpReward"],
                       avatar_exp_reward=config["avatarExpReward"],
-                      scoin_reward=config["scoinReward"], progress=level["progress"])
+                      scoin_reward=coin_reward, progress=level["progress"])
         account["main"]["scoin"] = _u32(account["main"].get("scoin", 0) +
-                                         config["scoinReward"], "stored scoin")
+                                         coin_reward, "stored scoin")
         player_rows = _table("playerleveldata")
         player_exp_audit = player_progression.grant_player_exp(account["main"], config["playerExpReward"])
         result['scoin_reward'] += player_exp_audit.get('cap_exp_conversion', {}).get('scoin', 0)
@@ -974,6 +997,9 @@ def _end(account, request):
         if is_befall_stage(stage_id):
             import server19_befall
             server19_befall.record_win(account, stage_id)
+        import server19_material_training as training
+        if stage_id in training.STAGE_ACTIVITY:
+            training.record_win(account, stage_id)
         # Daily tasks "首次胜利" (any cleared stage) and "好友助战" (a cleared stage
         # entered with an assistant) advance here.
         import server19_duty
@@ -989,6 +1015,10 @@ def _end(account, request):
         "accepted_drops": body.get("drop_item_list", []) if status == STAGE_WIN else []})
     if "drop_audit" in active:
         runtime["settlements"][-1]["drop_audit"] = deepcopy(active["drop_audit"])
+    if redpacket_payout is not None:
+        runtime["settlements"][-1]['redpacket'] = {
+            'score': redpacket_score, 'scoin': redpacket_payout,
+            'client_scoin': body.get('scoin_reward', 0), 'multiplier': 5}
     if "revive_audit" in active:
         runtime["settlements"][-1]["revive_audit"] = deepcopy(active["revive_audit"])
     if player_exp_audit is not None:

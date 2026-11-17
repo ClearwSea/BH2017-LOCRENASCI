@@ -43,7 +43,7 @@ def copy_sources(output):
     return names
 
 
-def prepare(client24, data_work, output, client_tables):
+def prepare(client24, data_work, output, client_tables, client19):
     from server19_metadata_export import native_json
     output.mkdir(parents=True, exist_ok=False)
     client_tables.mkdir(parents=True, exist_ok=False)
@@ -118,10 +118,12 @@ def prepare(client24, data_work, output, client_tables):
     # Source recipes retain historical row selections. Overlay the restored
     # Befall dependencies into the client projection as well as server tables.
     befall = set(range(1601, 1672, 10))
+    import server19_material_training as training
+    activities = befall | set(training.ACTIVITY_IDS)
     restored_activities = json.loads(native_json(read_json(effective / 'weekdayactivity'))[0])
-    level_ids = {sid for row in restored_activities if row['weekDayActivityID'] in befall
+    level_ids = {sid for row in restored_activities if row['weekDayActivityID'] in activities
                  for sid in row['levelIDList']}
-    scopes = {'weekdayactivity': ('weekDayActivityID', befall),
+    scopes = {'weekdayactivity': ('weekDayActivityID', activities),
               'stagedata_main': ('levelId', level_ids),
               'tutorialstepdata': ('id', {10731}),
               'rewarddata': ('RewardID', set(range(200048, 200054))),
@@ -138,7 +140,18 @@ def prepare(client24, data_work, output, client_tables):
             by_id.update({row[key]: row for row in additions})
             rendered[table] = list(by_id.values())
         encoded_tables[table] = json.dumps(rendered[table], ensure_ascii=False, separators=(',', ':'))
+    # The retained themed covers exist in the 1.9 resource index under an
+    # extra Event directory. Correct only these client-facing paths after the
+    # historical recipe and restored-activity overlay have both been applied.
+    import server19_resources as native_resources
+    from .weekday_covers import adapt as adapt_weekday_covers
+    adapt_weekday_covers(rendered['weekdayactivity'],
+                         (row['path'] for row in native_resources.resource_map(client19)))
+    encoded_tables['weekdayactivity'] = json.dumps(rendered['weekdayactivity'], ensure_ascii=False,
+                                                   separators=(',', ':'))
     adapt_difficulties(rendered['stagedata_main'])
+    from .material_training import adapt_redpacket_record_type
+    adapt_redpacket_record_type(rendered['stagedata_main'])
     encoded_tables['stagedata_main'] = json.dumps(rendered['stagedata_main'], ensure_ascii=False,
                                                 separators=(',', ':'))
     adapt(rendered, read_json(ROOT / 'rules/recommendation-compatibility.json'))

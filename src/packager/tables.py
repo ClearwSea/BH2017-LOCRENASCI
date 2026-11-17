@@ -120,6 +120,19 @@ def restore(apk24, data_work, output):
         present = {row['levelId'] for row in tables['stagedata_main']}
         tables['stagedata_main'].extend(source.typed(
             'stagedata_main', 'levelId', sorted(befall_ids - present)))
+        # Retain source rows for the explicitly enabled material-training pilot.
+        # As with Befall, hide the native multiplayer switch when no backend exists.
+        import server19_material_training as training
+        from .material_training import source_stages
+        training_rows = source_stages(tables['weekdayactivity'], source, training.ACTIVITY_IDS)
+        present = {row['levelId'] for row in tables['stagedata_main']}
+        if present.intersection(row['levelId'] for row in training_rows):
+            raise BuildError('Material training source rows unexpectedly already present')
+        tables['stagedata_main'].extend(training_rows)
+        for activity in tables['weekdayactivity']:
+            if activity['weekDayActivityID'] in training.ACTIVITY_IDS:
+                activity['refIDSwitch'] = [0]
+                activity['enableCornerName'] = 0
         # Native resetCostType indexes the expanded source array (index 0 is
         # its serialized sentinel), not a one-element projection of Type1.
         tables['stageresetcostdata'] = source.projected_tsv('stageresetcostdata')

@@ -183,6 +183,10 @@ def response(name, account, request_values=None, *, account_path=None):
                                                    account_path=account_path)
     if display_result is not None:
         return display_result
+    import server19_material_training as training
+    training_result = training.response(name, account, request_values, account_path=account_path)
+    if training_result is not None:
+        return training_result
     stage_result = server19_stage.response(name, account, request_values,
                                          account_path=account_path)
     if stage_result is not None:
@@ -363,6 +367,12 @@ class GameHandler(socketserver.BaseRequestHandler):
                             level_avatar_granted = server19_player_progression.reconcile_level_avatar(
                                 account, RUN / "account.json")
                         packets = [(rsp_name, values)]
+                        if name in ("OpenWeekDayActivityReq", "ExchangeWeekDayActivityTimesReq") and values.get("retcode") == 0:
+                            packets = [
+                                server19_initialization.response("GetMainDataReq", account),
+                                response("GetEquipmentDataReq", account),
+                                server19_initialization.response("GetWeekDayActivityDataReq", account),
+                            ] + packets
                         if name == "ResetStageEnterTimesReq" and values.get("retcode") == 0:
                             packets = [
                                 server19_initialization.response("GetMainDataReq", account),
@@ -609,7 +619,8 @@ class GameHandler(socketserver.BaseRequestHandler):
                             if name == 'EquipmentEvoReq':
                                 event('game_equipment_evolution_replaced',
                                       transition=server19_equipment.evolution_detail())
-                        if name == "StageEndReq" and values.get("retcode") == 0 and server19_stage.is_befall_stage(values.get("stage_id")):
+                        import server19_material_training as training
+                        if name == "StageEndReq" and values.get("retcode") == 0 and (server19_stage.is_befall_stage(values.get("stage_id")) or values.get('stage_id') in training.STAGE_ACTIVITY):
                             packets.append(server19_initialization.response("GetWeekDayActivityDataReq", account))
                         if level_avatar_granted:
                             # Replace pre-grant snapshots; inventory must exist before
@@ -620,10 +631,10 @@ class GameHandler(socketserver.BaseRequestHandler):
                                 account, equipment_first=True))
                             event("game_level_avatar_granted", avatar_id=301,
                                   level=account["main"]["level"], request=name)
-                        # Login below 20 cached an empty Befall list. Deliver its
-                        # newly unlocked entry before level/achievement packets
-                        # can start the native introduction in this same session.
-                        if level_before < 20 <= account.get("main", {}).get("level", 1):
+                        # Refresh original activity and stage data when level 15
+                        # unlocks material training or level 20 unlocks Befall.
+                        level_after = account.get("main", {}).get("level", 1)
+                        if level_before < 15 <= level_after or level_before < 20 <= level_after:
                             packets[0:0] = [
                                 server19_initialization.response("GetStageDataReq", account),
                                 server19_initialization.response("GetWeekDayActivityDataReq", account),

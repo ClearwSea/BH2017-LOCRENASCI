@@ -29,6 +29,9 @@ def _record(config):
     first = config.get("firstDisplayDropList")
     if not isinstance(drop_ids, list) or not isinstance(first, list):
         raise ValueError("Stage has no authored drop display")
+    if (config.get('levelId') in (101601, 101602, 101603, 101604)
+            and len(drop_ids) == 1 and type(drop_ids[0]) is int and drop_ids[0] == 0):
+        drop_ids = []  # Source sentinel: the activity has no material preview.
     return {
         "stage_id": _u32(config["levelId"], "stage_id", positive=True),
         "drop_item_id_list": [_u32(item, "display item", positive=True)
@@ -81,6 +84,9 @@ def response(request_name, account=None, request_values=None, *, account_path=No
                if row.get("type") == 1 and row.get("actId") in ordinary_acts]
     befall = server19_befall.stage_ids() if (account or {}).get('main', {}).get('level', 1) >= 20 else set()
     configs.extend(row for row in stage._table('stagedata_main') if row['levelId'] in befall)
+    import server19_material_training as training
+    training_ids = set(training.STAGE_ACTIVITY) if (account or {}).get('main', {}).get('level', 1) >= 15 else set()
+    configs.extend(row for row in stage._table('stagedata_main') if row['levelId'] in training_ids)
     by_id = {row["levelId"]: row for row in configs}
     if len(by_id) != len(configs):
         raise ValueError("Duplicate ordinary story display stage")
@@ -91,7 +97,7 @@ def response(request_name, account=None, request_values=None, *, account_path=No
             return "GetStageDropDisplayRsp", {"retcode": 1}
     else:
         selected = sorted(row["levelId"] for row in configs
-                          if row.get("chapterId") == INITIAL_CHAPTER_ID or row["levelId"] in befall)
+                          if row.get("chapterId") == INITIAL_CHAPTER_ID or row["levelId"] in befall or row['levelId'] in training_ids)
         if not selected:
             raise ValueError("Initial chapter has no authored stage display")
     return "GetStageDropDisplayRsp", {

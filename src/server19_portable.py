@@ -63,6 +63,8 @@ def configure(data_directory):
         import server19_gacha_cache
         import server19_befall
         server19_befall.configure_battle()
+        import server19_material_training
+        server19_material_training.configure_battle()
         server19_config_cache.install(stage)
         server19_gacha_cache.install(stage)
         import server19_request_cost
