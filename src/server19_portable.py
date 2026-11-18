@@ -31,6 +31,8 @@ def configure(data_directory):
     if data == ROOT or ROOT in data.parents:
         raise ValueError('Writable data must be separate from the runtime bundle')
     data.mkdir(parents=True, exist_ok=True)
+    import server19_gm
+    server19_gm.configure(data)
     import server19 as s
     import server19_stage as stage
     import server19_equipment as equipment

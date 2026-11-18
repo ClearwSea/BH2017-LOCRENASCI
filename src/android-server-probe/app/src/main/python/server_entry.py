@@ -23,6 +23,8 @@ def stop():
         for session in sessions.OWNERS.values():
             session.retired = True
     SERVERS = None
+    import process_guard
+    process_guard.release()
     print('Integrated game task removed; server drained', flush=True)
 
 
@@ -30,6 +32,8 @@ def run(context):
     global SERVERS
     files = Path(str(context.getFilesDir().getAbsolutePath()))
     try:
+        import process_guard
+        process_guard.acquire(context)
         # Fail closed rather than silently booting a fresh or probe account.
         data = files / 'formal-data'
         account = data / 'account.json'
@@ -54,5 +58,7 @@ def run(context):
         (files / 'formal-ready.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
         return json.dumps(report)
     except BaseException:
+        import process_guard
+        process_guard.release()
         (files / 'formal-error.txt').write_text(traceback.format_exc(), encoding='utf-8')
         raise

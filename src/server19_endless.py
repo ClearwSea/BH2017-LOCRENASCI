@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 import hashlib,json,random,time
 import server19_stage as stage
 import server19_protocol as proto
+import server19_gm as gm
 
 CATALOG=None
 INFINITE_LEADERS=('第二名别凹了？','差一秒你不凹？','没第一我睡不着啊！！')
@@ -128,7 +129,9 @@ def data(a,s,now):
  cur_progress_item_id_list=[],random_seed=seed(s['begin'],s['group'])%2147483647,cur_top_group_level=7,top_group_player_num=20,
  top_group_promote_unlock_player_num=20,sin_type=1,burst_bomb_num=0,bombed_num=0,avg_player_level=a['main']['level'],hard_level=temperature(s,now))
 
-def temperature(s,now):return s.get('display_temperature',8+6*(s['group']-1)+min(10,max(0,int((now-s['begin'])/21600))))
+def temperature(s,now):
+ fixed=gm.temperature_override()
+ return fixed if fixed is not None else s.get('display_temperature',8+6*(s['group']-1)+min(10,max(0,int((now-s['begin'])/21600))))
 
 def avatar_hp_snapshot(a):
  owned={r['avatar_id'] for r in a['avatar_list'] if r.get('star',0)>0}

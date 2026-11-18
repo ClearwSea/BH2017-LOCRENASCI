@@ -38,7 +38,7 @@ Builder packages, supplemental inputs, and generated game files serve different 
 | `BH2017-LOCRENASCI-Supplements-v<version>.zip` | Images and older CGs supplied as build inputs | Use the version specified in the release; compatible older packs can be reused |
 | `client-videos.zip` | Phone video pack produced by a build | Pair it with the generated APK and select it on the phone's startup screen |
 
-First use: extract the base → run `构建器.exe` → click “导入构建主包” and select the main ZIP → click “打开构建界面” → choose the required inputs and build. Import the ZIP directly; manual copying over the program directory is unnecessary.
+First use: extract the base to a short path on the C: drive (such as `C:\BH3Builder`) → run `构建器.exe` → click “导入构建主包” and select the main ZIP → click “打开构建界面” → choose the required inputs and build. A deeply nested path may prevent Android tools from starting. Import the ZIP directly; manual copying over the program directory is unnecessary.
 
 For subsequent updates, keep the base and import the new main package. The launcher checks package integrity and toolchain compatibility. If incompatible, update the base as directed by that release. “恢复上一版” switches back to the previous main package. Signing keys, paths, and logs remain in `user-data/` when switching packages.
 
@@ -55,7 +55,7 @@ Reading and modifying the source can start immediately. A full Android applicati
 | 2.4 reference client APK | Extract tables and required client resources, then convert them to the 1.9 structure |
 | 7.x PC Windows resource directory | Voice and video. Choose the `StreamingAssets` directory that directly contains `Audio/` and `Video/` |
 | Separate supplemental resource ZIP | Companion images and supplemental older CGs, as specified by the selected release and resource format |
-| Compatible save | Supplied separately and imported after the application is installed |
+| Compatible save | Import an existing save after installation, or create one with the startup screen’s built-in editor |
 
 Users supply the client and 7.x resources themselves. [Build and inputs](docs/build.md) describes versions, directories, and tool requirements. [Supplemental resource format](assets/README.md) describes the ZIP layout.
 
@@ -77,7 +77,7 @@ This repository does not provide the original game client or the complete game r
 
 The command line or the graphical builder can, in order, recover tables, apply project rules, apply compatibility patches, convert resources, and assemble the APK. The graphical builder outputs `崩坏3·2017 独立版.apk` and a `client-videos.zip` from the same run. Command-line output paths are in the [build notes](docs/build.md).
 
-Install the generated APK, import the companion video pack and a compatible save on the startup screen, then launch the game. The startup screen provides resource and save management, plus a choice between normal 1× damage and assisted 20× damage.
+Install the generated APK, select the video pack from the same build on the startup screen, and import a compatible save or create one with the built-in editor before starting the game. The startup screen provides save editing, backup history and export, normal 1× or assisted 20× damage, and local server settings for the next Memorial Arena bosses and Abyss temperature. A replacement save is imported when the game starts, without another confirmation or an automatic backup; export the current save first if needed. Damage and server settings require a complete game restart and have not been fully tested.
 
 Covering updates keep the same signature. When using the graphical builder, leaving the key path empty generates a local key and reuses it. How to fill in and back up the key: [signing notes](docs/desktop-builder.md#签名). The game and the Python runtime use ARM32. Device requirements: [Android compatibility notes](docs/android-compatibility.md).
 
@@ -108,7 +108,7 @@ The following devices were actually tested by the maintainer and are listed for 
 
 ## Assets and license
 
-The game client, complete official tables, native libraries, and audio/video come from external inputs. Supplemental images are made from official assets, and five CGs are taken from extractions of other official versions. They load as a separate supplemental resource pack. They do not enter the source tree, the builder's built-in resources, or CI, and the project source license does not apply to them. Compatible saves are supplied separately.
+The game client, complete official tables, native libraries, and audio/video come from external inputs. Supplemental images are made from official assets, and five CGs are taken from extractions of other official versions. They load as a separate supplemental resource pack. They do not enter the source tree, the builder's built-in resources, or CI, and the project source license does not apply to them. Compatible saves can be imported or created with the built-in startup-screen editor.
 
 This project's own source is under the [MIT License](LICENSE), copyright ClearwSea. License notes for third-party dependencies and external assets are in [NOTICE](NOTICE.md). Origins of configuration and assets are in [data and rule sources](docs/data-sources.md).
 

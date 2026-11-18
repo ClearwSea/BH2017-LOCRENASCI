@@ -133,7 +133,11 @@ def runtime_bundle(config, work):
                     output / 'server19_virtual_friend_profiles.json')
     manifest = read_json(ROOT / 'SOURCE-MANIFEST.json')
     names = {row['path'] for row in manifest['files'] if row['role'] == 'runtime'}
-    names.update(('server19_portable.py', 'server19_build_capabilities.py'))
+    names.update(('server19_portable.py', 'server19_build_capabilities.py',
+                  'server19_editor_store.py', 'server19_editor_captain.py',
+                  'server19_editor_inventory.py', 'server19_editor_progress.py',
+                  'server19_editor_cabin.py', 'server19_editor_templates.py',
+                  'server19_editor_material_presets.py', 'server19_gm.py'))
     # Local runtime imports, including modules newly added after the source snapshot.
     import ast
     pending = list(names)
@@ -180,7 +184,7 @@ def runtime_bundle(config, work):
     return len(files)
 
 
-def compile_host(config, work):
+def compile_host(config, work, launcher_art=None):
     project = work / 'android-host'
     attempt = 1
     while project.exists():
@@ -190,6 +194,8 @@ def compile_host(config, work):
     assets = project / 'app/src/main/assets'
     assets.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(work / 'runtime.zip', assets / 'runtime.zip')
+    if launcher_art is not None and launcher_art.is_file():
+        shutil.copyfile(launcher_art, assets / 'launcher-hero-bg.png')
     libraries = project / 'app/src/main/jniLibs/armeabi-v7a'
     libraries.mkdir(parents=True, exist_ok=True)
     run_command([config['zig'], 'cc', '-target', 'arm-linux-musleabi', '-shared', '-nostdlib',
@@ -306,11 +312,11 @@ def assemble(config, resume=False):
         completed = {r['name'] for r in prior.get('stages', []) if r['status'] == 'success'} if prior else set()
         entries = stage('resource-packs', lambda: cached_resources(config, work) if 'resource-packs' in completed else resource_packs(config, work))
         count = stage('runtime-from-source', lambda: cached_runtime(config, work) if 'runtime-from-source' in completed else runtime_bundle(config, work))
-        host, java = stage('compile-android-host', lambda: compile_host(config, work))
-        prefab = stage('announcement-layout', lambda: announcement_prefab(config, work))
-        from .apk_format import build
         from .supplements import load as load_supplements
         supplemental_root = load_supplements(config['supplements'], work / 'supplements')
+        host, java = stage('compile-android-host', lambda: compile_host(config, work, supplemental_root / 'images/launcher/hero-bg.png'))
+        prefab = stage('announcement-layout', lambda: announcement_prefab(config, work))
+        from .apk_format import build
         stage('compose-apk', lambda: build(config['client19'], host, config['native'],
             work / 'unsigned.apk', work / 'embedded', prefab, supplemental_root / 'images/launcher/app-icon.png'))
         tools = config['tools_root'] / 'sdk/build-tools/35.0.0'

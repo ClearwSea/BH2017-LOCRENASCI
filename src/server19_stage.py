@@ -598,15 +598,20 @@ def chapter_star_count(account, chapter_id, difficulty):
     GetTotalFinishedChanllengeNum68120@85abf2 uses GetLevelList(difficulty),
     skips unavailable status1 and counts done challenge states. With this local
     batch's native IsExtraActHide=false it includes Extra stages as well. Server
-    counting additionally requires our real saved successful WIN receipt.
+    counting additionally requires a real saved successful WIN receipt, or an
+    explicit save-editor star entitlement. Editor entries never count as wins.
     """
     import server19_missions as missions
     wins = missions._confirmed_wins(account)
+    editor_stars = account.get("stage_editor_stars", {})
+    if not isinstance(editor_stars, dict):
+        raise ValueError("Invalid save-editor star state")
     total = 0
     for saved in account.get("stage_list", []):
-        if saved.get("id") not in wins:
+        identity = saved.get("id")
+        if identity not in wins and str(identity) not in editor_stars:
             continue
-        config = stage_config(saved["id"])
+        config = stage_config(identity)
         if (config["chapterId"], config["difficulty"]) != (chapter_id, difficulty):
             continue
         indices = saved.get("challenge_index_list", [])
@@ -614,7 +619,12 @@ def chapter_star_count(account, chapter_id, difficulty):
                 type(index) is not int or not 0 <= index < len(config["challengeList"])
                 for index in indices):
             raise ValueError("Invalid saved chapter-star indices")
-        total += len(indices)
+        edited = editor_stars.get(str(identity), [])
+        if not isinstance(edited, list) or len(set(edited)) != len(edited) or any(
+                type(index) is not int or not 0 <= index < len(config["challengeList"])
+                for index in edited):
+            raise ValueError("Invalid save-editor star indices")
+        total += len(indices) if identity in wins else len(set(indices) & set(edited))
     return total
 
 

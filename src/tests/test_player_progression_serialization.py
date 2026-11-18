@@ -30,7 +30,14 @@ class ProgressionSerializationTests(unittest.TestCase):
                         main = {"level": 1, "exp": 0, "scoin": 0, "stamina": 80}
                         progression.grant_player_exp(main, 10)
                         self.assertEqual(main, {"level": 2, "exp": 0,
-                                               "scoin": 50, "stamina": 85})
+                                               "scoin": 50, "stamina": 85,
+                                               "equipment_size_limit": 520})
+                for existing, expected in ((100, 520), (10000, 10000)):
+                    with self.subTest(existing_equipment_capacity=existing):
+                        main = {"level": 1, "exp": 0, "scoin": 0, "stamina": 80,
+                                "equipment_size_limit": existing}
+                        progression.grant_player_exp(main, 10)
+                        self.assertEqual(main["equipment_size_limit"], expected)
                 changed = copy.deepcopy(rows)
                 changed[1]["scBonus"] += 1
                 table.write_bytes(json.dumps(changed).encode())

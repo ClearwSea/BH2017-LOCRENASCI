@@ -291,6 +291,16 @@ def _handle(name, account, values):
     if name == 'TakeOpenworldStoryRewardReq':
         receipt = runtime['receipts'].get(str(identity))
         if receipt is not None:
+            # An editor rewind retains the genuine receipt to prevent a second
+            # payout. A completed replay must still advance the real story.
+            if current is not None:
+                if current['story_progress'] != config['MaxCount']:
+                    return {'retcode': 1}
+                world['cur_story_list'].remove(current)
+                if identity not in finished:
+                    finished.append(identity)
+                if identity == 405 and _CATALOG.get('fourth_cycle') and not world['servant_level']:
+                    world['servant_level'] = 1
             return {'retcode': 0, 'reward_list': []}
         if current is None:
             return {'retcode': 2}
@@ -308,6 +318,9 @@ def _handle(name, account, values):
         if identity == 405 and _CATALOG.get('fourth_cycle') and not world['servant_level']:
             world['servant_level'] = 1
         runtime['receipts'][str(identity)] = {'reward': reward, 'claimed_at': time.time()}
+        skipped = account.get('openworld_editor_skipped')
+        if isinstance(skipped, list) and identity in skipped:
+            skipped.remove(identity)
         return {'retcode': 0, 'reward_list': [reward]}
     raise AssertionError(name)
 

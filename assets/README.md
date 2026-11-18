@@ -23,6 +23,8 @@ videos/Season_CG01_Final_mux.mp4
 
 `supplements.json`至少包含`{"schema":1,"kind":"bh2017-locrenasci-external-supplements"}`。9张图片必须存在；视频从7.x资源或补充包中读取。
 
+可选的 `images/launcher/hero-bg.png` 用于启动页背景；旧补充包不含此文件时，启动页使用深色渐变背景。
+
 图鉴补充图片：`gallery/m134.png` 为 M134 武器图标（两档共用），`gallery/unavailable.png` 为两行文字“暂无资源\n占位显示”，用于缺失的琪亚娜·元旦及材料图片。旧的七图补充包需要补入这两张 PNG。
 
 Gallery supplements require the M134 weapon icon (shared by both rarities) and a two-line Chinese missing-resource placeholder. Older seven-image supplement bundles need these two PNG files.

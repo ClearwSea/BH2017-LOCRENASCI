@@ -33,6 +33,19 @@ class SupplementChecks(unittest.TestCase):
         self.make(kind='bh3-main-external-supplements')
         self.assertTrue((load(self.archive, self.root / 'loaded') / 'images/launcher/app-icon.png').is_file())
 
+    def test_optional_launcher_background_is_copied_and_validated(self):
+        self.make()
+        raw = b'\x89PNG\r\n\x1a\noptional-art'
+        with zipfile.ZipFile(self.archive, 'a') as z:
+            z.writestr('images/launcher/hero-bg.png', raw)
+        output = load(self.archive, self.root / 'loaded')
+        self.assertEqual((output / 'images/launcher/hero-bg.png').read_bytes(), raw)
+
+    def test_invalid_launcher_background_is_rejected(self):
+        self.make(extra='images/launcher/hero-bg.png')
+        with self.assertRaisesRegex(BuildError, 'launcher/hero-bg'):
+            load(self.archive, self.root / 'loaded')
+
     def test_traversal_member_is_rejected_before_extraction(self):
         self.make('../escape')
         with self.assertRaisesRegex(BuildError, 'Unsafe artifact'):

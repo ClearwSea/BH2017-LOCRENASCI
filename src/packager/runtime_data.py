@@ -21,7 +21,11 @@ def copy_sources(output):
                     output / 'server19_virtual_friend_profiles.json')
     manifest = read_json(ROOT / 'SOURCE-MANIFEST.json')
     names = {r['path'] for r in manifest['files'] if r['role'] == 'runtime'}
-    names.update(('server19_portable.py', 'server19_build_capabilities.py'))
+    names.update(('server19_portable.py', 'server19_build_capabilities.py',
+                  'server19_editor_store.py', 'server19_editor_captain.py',
+                  'server19_editor_inventory.py', 'server19_editor_progress.py',
+                  'server19_editor_cabin.py', 'server19_editor_templates.py',
+                  'server19_editor_material_presets.py', 'server19_gm.py'))
     pending = list(names)
     while pending:
         name = pending.pop()

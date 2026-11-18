@@ -96,7 +96,7 @@ def build(config, reuse_data=None, resume=False):
         stage('resource-packs', lambda: resources.pack(work / 'resources', work / 'embedded'))
         stage('runtime-capabilities', lambda: runtime_data.finish(work / 'runtime', work / 'native/libil2cpp.so',
             work / 'embedded/client-resources.json', work / 'runtime.zip'))
-        stage('android-compile', lambda: str(compile_host(config, work)[0]))
+        stage('android-compile', lambda: str(compile_host(config, work, supplemental_root / 'images/launcher/hero-bg.png')[0]))
         hosts = sorted(work.glob('android-host*/app/build/outputs/apk/debug/app-debug.apk'))
         host = hosts[-1]
         prefab = work / 'announcement.prefab'

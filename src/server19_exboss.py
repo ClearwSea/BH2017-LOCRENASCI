@@ -11,6 +11,7 @@ import server19_exboss_rank as ranking
 import server19_protocol as proto
 import server19_stage as stage
 import server19_missions as missions
+import server19_gm as gm
 
 REQUESTS = {'GetExBossScheduleReq', 'GetExBossInfoReq', 'GetExBossRankReq',
             'ExBossStageBeginReq', 'ExBossStageEndReq'}
@@ -30,7 +31,34 @@ def period(now):
 
 
 def _roots(begin):
+    selected = gm.bosses_for_period(begin)
+    return tuple(selected) if selected is not None else _default_roots(begin)
+
+
+def _default_roots(begin):
     return ROTATION[((begin - ROTATION_EPOCH) // (7 * 86400)) % len(ROTATION)]
+
+
+def _state_roots(s):
+    # Once a week has started, the actual saved roster is authoritative even
+    # if the next week's GM selection changes before this week is settled.
+    bosses = s.get('bosses')
+    if not isinstance(bosses, dict) or len(bosses) != 3:
+        raise ValueError('Invalid saved ExBoss roster')
+    try:
+        roots = tuple(int(k) for k in bosses)
+    except (TypeError, ValueError) as exc:
+        raise ValueError('Invalid saved ExBoss roster') from exc
+    if len(set(roots)) != 3 or not set(roots) <= gm.ALLOWED_BOSSES or any(str(int(k)) != k for k in bosses):
+        raise ValueError('Invalid saved ExBoss roster')
+    order = s.get('root_order')
+    if order is not None:
+        if not isinstance(order, list) or len(order) != 3 or set(order) != set(roots):
+            raise ValueError('Invalid saved ExBoss roster order')
+        return tuple(order)
+    # Older accounts used the fixed rotation and did not store an order.
+    expected = _default_roots(s['begin'])
+    return expected if set(expected) == set(roots) else roots
 
 
 def _state(account, now):
@@ -43,9 +71,11 @@ def _state(account, now):
                  'rank_id': _config_id(account) if account['main']['level'] >= 38 else 101,
                  'score_time': begin, 'active': None,
                  'last_end': None, 'score_rewards': []}
+        roots = _roots(begin)
+        state['root_order'] = list(roots)
         state['bosses'] = {str(root): {'boss_id': root, 'score': 0, 'score_time': 0,
                                       'avatars': [], 'weapons': [], 'stigmata': []}
-                           for root in _roots(begin)}
+                           for root in roots}
         account['exboss_runtime'] = state
     if state['day'] != day:
         state['day'], state['enter_times'] = day, 0
@@ -66,11 +96,11 @@ def _info(s, account):
                               'avatar_id_list': s['bosses'][str(root)]['avatars'],
                               'weapon_id_list': s['bosses'][str(root)]['weapons'],
                               'stigmata_id_list': s['bosses'][str(root)]['stigmata']}
-                             for root in _roots(s['begin'])]}
+                             for root in _state_roots(s)]}
 
 
 def _rank(account, s, now):
-    roots = _roots(s['begin'])
+    roots = _state_roots(s)
     finals = stage._table('exbossmonsterdata', field='BossId', identities=tuple(root + 4 for root in roots))
     if len(finals) != len(roots):
         raise ValueError('Missing boss maximum scores')
@@ -162,7 +192,7 @@ def _deliver_previous(account, now):
 
 def _score_rewards(account, s, now):
     config = s['rank_id']
-    visible_score = sum(s['bosses'][str(root)]['score'] for root in _roots(s['begin']))
+    visible_score = sum(s['bosses'][str(root)]['score'] for root in _state_roots(s))
     rows = [r for r in stage._table('exbossscorereward')
             if r['configId'] == config and r['scheduleId'] == 0
             and r['score'] <= visible_score and r['ID'] not in s['score_rewards']]
@@ -197,7 +227,7 @@ def _handle(name, account, request, now):
             team = [team]
         boss = request.get('boss_id')
         owned = {a['avatar_id']: a for a in account.get('avatar_list', []) if a.get('star', 0) > 0}
-        matches = [root for root in _roots(s['begin'])
+        matches = [root for root in _state_roots(s)
                    if s['bosses'][str(root)]['boss_id'] == boss]
         if (len(matches) != 1 or not 1 <= len(team) <= 3
                 or len(set(team)) != len(team) or any(a not in owned for a in team)):
@@ -208,7 +238,7 @@ def _handle(name, account, request, now):
         stigmata = [owned[a].get(f'stigmata_unique_id_{i}', 0) for a in team for i in (1, 2, 3)]
         if s['enter_times'] >= DAILY_LIMITS[s['rank_id']]:
             return {'retcode': 1}
-        for root in _roots(s['begin']):
+        for root in _state_roots(s):
             if root == matches[0]:
                 continue
             locked = s['bosses'][str(root)]

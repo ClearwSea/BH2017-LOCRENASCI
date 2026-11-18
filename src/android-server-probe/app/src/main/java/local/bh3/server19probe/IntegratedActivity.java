@@ -9,112 +9,81 @@ import android.provider.OpenableColumns;
 import android.widget.*;
 import java.io.*;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 /** User-controlled preparation and startup / 手动选择、准备与启动。 */
 public class IntegratedActivity extends Activity {
+    private static final Object PYTHON_INIT_LOCK = new Object();
     private boolean bound, leaving, busy, ready, starting, blocked;
-    private TextView status, countdown, resourceFile, saveFile, backupInfo, exportInfo;
-    private Button resourceButton, saveButton, exportButton, startButton;
+    private LauncherScreen screen;
+    private SaveEditorScreen editor;
+    private ServerSettingsScreen serverSettings;
     private CountDownTimer noticeTimer;
-    private Switch damageSwitch;
-    private boolean syncingDamage;
     private LauncherStore store;
     private final Handler main = new Handler(Looper.getMainLooper());
     private int dp(int value) { return (int)(value * getResources().getDisplayMetrics().density); }
 
-    private TextView selectionRow(LinearLayout panel, Button button) {
-        LinearLayout row = new LinearLayout(this); row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
-        row.addView(button, new LinearLayout.LayoutParams(dp(136), LinearLayout.LayoutParams.WRAP_CONTENT));
-        TextView file = new TextView(this); file.setTextSize(14); file.setTextColor(0xffeeeeee);
-        file.setTextIsSelectable(true); file.setPadding(dp(12), dp(10), dp(12), dp(10));
-        file.setMinHeight(dp(64));
-        android.graphics.drawable.GradientDrawable frame = new android.graphics.drawable.GradientDrawable();
-        frame.setColor(0xff424242); frame.setCornerRadius(dp(6)); frame.setStroke(dp(1), 0xff888888);
-        file.setBackground(frame);
-        LinearLayout.LayoutParams label = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-        label.setMargins(dp(8), 0, 0, 0); row.addView(file, label);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2); params.bottomMargin = dp(10);
-        panel.addView(row, params); return file;
-    }
+    private static final String NOTICE = "禁止非法倒卖\n如果你是从拼多多/淘宝/闲鱼等电商平台获取，说明你被骗了，请立即退款并举报。\n\n遇到问题之前请确保当前是最新构建版。\n\n仅于开发平台验证，不做可玩性技术承诺。\n\n项目仓库：GitHub/ClearwSea，如有疑问或反馈，请提交issue。";
     private void preparationPanel() {
-        ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true);
-        LinearLayout panel = new LinearLayout(this); panel.setOrientation(LinearLayout.VERTICAL);
-        int pad = dp(24); panel.setPadding(pad, pad, pad, pad);
-        TextView notice = new TextView(this);
-        LauncherNotice.setText(notice, "禁止非法倒卖\n如果你是从拼多多/淘宝/闲鱼等电商平台获取，说明你被骗了，请立即退款并举报。\n\n遇到问题之前请确保当前是最新构建版【当前版本：V0.1.7-r4】【最新版本：检查】\n\n已验证适配机型：\nSONY Xperia XZ1（Android 9）\nRAZER Phone 1/2（Android 9）\nOPPO PDRM00（Android 12）\nOnePlus PJZ110 （Android 16）\n\n其他平台不做可玩性技术承诺。\n\n项目仓库：GitHub/ClearwSea，如有疑问或反馈，请提交issue。");
-        notice.setTextSize(17); notice.setTextColor(0xff702400); notice.setBackgroundColor(0xffffefcf);
-        notice.setPadding(pad, pad, pad, pad); notice.setLineSpacing(dp(4), 1); panel.addView(notice);
-        status = new TextView(this); status.setTextSize(17); status.setPadding(0, dp(18), 0, dp(18)); panel.addView(status);
-        resourceButton = new Button(this); resourceButton.setAllCaps(false);
-        resourceFile = selectionRow(panel, resourceButton);
-        resourceButton.setOnClickListener(view -> choose(20));
-        saveButton = new Button(this); saveButton.setAllCaps(false);
-        saveFile = selectionRow(panel, saveButton);
-        saveButton.setOnClickListener(view -> choose(19));
-        TextView generateSave = new TextView(this); generateSave.setTextSize(14);
-        android.text.SpannableString generateLink = new android.text.SpannableString("生成存档");
-        generateLink.setSpan(new android.text.style.URLSpan("https://github.com/ClearwSea/BH-LOCRENASCI-ACT-EDIT/releases/latest"),
-            0, 4, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        generateSave.setText(generateLink); generateSave.setLinkTextColor(0xff66bbff);
-        generateSave.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
-        generateSave.setPadding(dp(12), 0, 0, dp(10)); panel.addView(generateSave);
-        TextView hint = new TextView(this); hint.setTextSize(14);
-        hint.setText("资源包请选择配套视频 ZIP。已有资源和存档可直接使用；重选存档将在开始游戏时确认替换，由你决定是否保留旧档备份。");
-        hint.setPadding(0, dp(4), 0, dp(12)); panel.addView(hint);
-        damageSwitch = new Switch(this); damageSwitch.setText("辅助伤害 20×（关闭为正常 1×）");
-        panel.addView(damageSwitch);
-        TextView damageHint = new TextView(this); damageHint.setTextSize(14);
-        damageHint.setText("默认开启，仅影响己方角色伤害，不修改存档。修改后请彻底退出并重新打开应用，在下次开始游戏时生效。");
-        panel.addView(damageHint);
-        damageSwitch.setOnCheckedChangeListener((button, checked) -> {
-            if (syncingDamage || store == null) return;
-            try {
-                JSONObject patch = new JSONObject(); patch.put("damage_boost", checked); store.updateChoices(patch);
-                status.setText("已选择" + (checked ? "辅助 20×" : "正常 1×") + "，请彻底退出并重新打开应用后开始游戏。");
-            } catch (Exception error) { showFailure("保存伤害设置失败", error);
-                syncingDamage = true; damageSwitch.setChecked(!checked); syncingDamage = false; }
-        });
-        backupInfo = new TextView(this); backupInfo.setTextSize(14); backupInfo.setTextIsSelectable(true); panel.addView(backupInfo);
-        exportButton = new Button(this); exportButton.setText("导出当前存档"); panel.addView(exportButton);
-        exportButton.setOnClickListener(view -> requestExport());
-        exportInfo = new TextView(this); exportInfo.setTextSize(14); exportInfo.setTextIsSelectable(true); panel.addView(exportInfo);
-        startButton = new Button(this); startButton.setText("开始游戏"); panel.addView(startButton);
-        startButton.setOnClickListener(view -> requestStart());
-        scroll.addView(panel);
-        LinearLayout screen = new LinearLayout(this); screen.setOrientation(LinearLayout.VERTICAL);
-        countdown = new TextView(this); countdown.setTextSize(17); countdown.setTextColor(0xffffd580);
-        countdown.setPadding(dp(24), dp(12), dp(24), dp(12)); countdown.setVisibility(android.view.View.GONE);
-        screen.addView(countdown);
-        screen.addView(scroll, new LinearLayout.LayoutParams(-1, 0, 1)); setContentView(screen);
+        screen = new LauncherScreen(this, new LauncherScreen.Actions() {
+            @Override public void selectResource() { choose(20); }
+            @Override public void selectSave() { requestSaveChoice(); }
+            @Override public void exportSave() { requestExport(); }
+            @Override public void editSave() { openEditor(); }
+            @Override public void adjustServer() { openServerSettings(); }
+            @Override public void start() { requestStart(); }
+            @Override public void changeDamage(boolean checked) {
+                if (!ready || busy || blocked || store == null) return;
+                try {
+                    JSONObject patch = new JSONObject(); patch.put("damage_boost", checked); store.updateChoices(patch);
+                } catch (Exception error) {
+                    try { refreshChoices(); } catch (Exception ignored) { }
+                    showFailure("保存伤害设置失败", error);
+                }
+            }
+        }, NOTICE);
+        screen.render(); controls();
     }
+    private void setStatus(String value) { if (screen != null) screen.status(value); }
     private void controls() {
         boolean enabled = ready && !busy && !blocked;
-        damageSwitch.setEnabled(enabled);
-        resourceButton.setEnabled(enabled); saveButton.setEnabled(enabled); startButton.setEnabled(enabled);
-        exportButton.setEnabled(enabled && store != null && store.account().isFile());
+        if (screen != null) screen.controls(enabled, starting, enabled && store != null && store.account().isFile());
     }
     private void refreshChoices() throws Exception {
         JSONObject chosen = store.choices();
-        syncingDamage = true; damageSwitch.setChecked(chosen.optBoolean("damage_boost", true)); syncingDamage = false;
         boolean resourcesPresent = new File(getFilesDir(), "embedded-resources.ready").isFile();
         boolean resourceChosen = !chosen.optString("resource_uri").isEmpty();
-        resourceButton.setText(resourceChosen || resourcesPresent ? "重选资源包" : "选择资源包");
-        if (resourceChosen) resourceFile.setText(chosen.optString("resource_name") + "\n位置：" + chosen.optString("resource_path")
-                + (chosen.optBoolean("resource_pending") ? "\n待校验" : ""));
-        else if (resourcesPresent) resourceFile.setText("已导入的离线视频资源\n原选择文件名未记录\n位置：…/files/assets/Video");
-        else resourceFile.setText("尚未选择\n请选择配套视频 ZIP");
-        boolean pending = store.pendingSave(), accountPresent = store.account().isFile();
-        saveButton.setText(pending || accountPresent ? "重选存档" : "选择存档");
-        if (!chosen.optString("save_name").isEmpty()) saveFile.setText(chosen.optString("save_name") + "\n位置：" + chosen.optString("save_path")
-                + (pending ? "\n待导入，现有进度未改变" : ""));
-        else if (accountPresent) saveFile.setText("account.json（当前存档）\n原选择文件名未记录\n位置：…/files/formal-data/account.json");
-        else saveFile.setText("尚未选择\n请选择服务端 JSON 存档");
-        String backup = chosen.optString("last_backup_path");
-        backupInfo.setText(backup.isEmpty() ? "" : "最近保留的旧档备份：\n" + backup + "\n卸载应用会删除，请自行复制到其他位置保存。");
-        String exported = chosen.optString("last_export_name");
-        exportInfo.setText(exported.isEmpty() ? "" : "最近导出：" + exported + "\n位置：" + chosen.optString("last_export_path"));
+        boolean resourcePending = chosen.optBoolean("resource_pending");
+        String resourceTitle,resourceState,resourceDetails;
+        if (resourceChosen) {
+            resourceTitle=chosen.optString("resource_name", "所选资源包");
+            resourceState=resourcePending ? "待校验" : resourcesPresent ? "已导入" : "已选择";
+            resourceDetails=chosen.optString("resource_path", "路径不可用");
+        } else if (resourcesPresent) {
+            resourceTitle="已导入的离线视频资源";resourceState="已导入";
+            resourceDetails="…/files/assets/Video";
+        } else {
+            resourceTitle="尚未选择";resourceState="未选择";resourceDetails="尚未选择";
+        }
+        boolean pending=store.pendingSave(), accountPresent=store.account().isFile();
+        String saveTitle,saveState,saveDetails;
+        if (!chosen.optString("save_name").isEmpty()) {
+            saveTitle=chosen.optString("save_name");saveState=pending ? "待导入" : accountPresent ? "已导入" : "未导入";
+            saveDetails=pending ? chosen.optString("save_path", "路径不可用") : accountPresent ? store.account().getAbsolutePath() : "尚未选择";
+        } else if (accountPresent) {
+            saveTitle="account.json（当前存档）";saveState="已导入";
+            saveDetails=store.account().getAbsolutePath();
+        } else {
+            saveTitle="尚未选择";saveState="未选择";saveDetails="尚未选择";
+        }
+        screen.choices(chosen.optBoolean("damage_boost", true),resourceTitle,resourceState,resourceDetails,saveTitle,saveState,saveDetails);
         controls();
+    }
+    private void selectionStatus(String otherwise) throws Exception {
+        JSONObject chosen=store.choices();
+        boolean resource=!chosen.optString("resource_uri").isEmpty() || new File(getFilesDir(),"embedded-resources.ready").isFile();
+        boolean save=store.pendingSave() || store.account().isFile();
+        setStatus(resource && save ? "点击开始游戏将校验内容，若为首次启动则需要较长时间，请耐心等待" : otherwise);
     }
     private void choose(int request) {
         if (!ready || busy || blocked) return;
@@ -122,6 +91,15 @@ public class IntegratedActivity extends Activity {
         picker.addCategory(Intent.CATEGORY_OPENABLE); picker.setType("*/*");
         picker.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         startActivityForResult(picker, request);
+    }
+    private void requestSaveChoice() {
+        if (!ready || busy || blocked || store == null) return;
+        if (!store.account().isFile()) { choose(19); return; }
+        new AlertDialog.Builder(this).setTitle("更换存档")
+            .setMessage("选择新存档后，点击开始游戏将覆盖当前已导入的存档。建议先导出当前存档，保存到指定位置。")
+            .setNeutralButton("导出当前存档", (dialog, which) -> requestExport())
+            .setNegativeButton("取消", null)
+            .setPositiveButton("继续选择", (dialog, which) -> choose(19)).show();
     }
     private String displayName(Uri uri) {
         try (Cursor cursor = getContentResolver().query(uri, new String[]{OpenableColumns.DISPLAY_NAME}, null, null, null)) {
@@ -152,11 +130,11 @@ public class IntegratedActivity extends Activity {
                 JSONObject selected = new JSONObject();
                 selected.put("resource_uri", uri.toString()).put("resource_name", name).put("resource_path", path);
                 selected.put("resource_pending", true).put("resource_persisted", persisted); store.updateChoices(selected);
-                refreshChoices(); status.setText("资源包已选择，点击“开始游戏”后校验。" + (persisted ? "" : "本文件授权可能只在本次有效。"));
+                refreshChoices(); selectionStatus("资源包已选择，请选择存档。" + (persisted ? "" : "本文件授权可能只在本次有效。"));
             } catch (Exception error) { showFailure("资源包选择失败", error); }
             return;
         }
-        busy = true; controls(); status.setText("正在校验所选存档，现有进度保持不变……");
+        busy = true; controls(); setStatus("正在校验所选存档，现有进度保持不变……");
         new Thread(() -> {
             try {
                 byte[] raw;
@@ -173,7 +151,7 @@ public class IntegratedActivity extends Activity {
                 store.stageSave(raw, name, path);
                 main.post(() -> {
                     busy = false;
-                    try { refreshChoices(); status.setText("存档已选择，尚未替换当前进度。点击“开始游戏”时确认导入。"); }
+                    try { refreshChoices(); selectionStatus("存档已选择，请选择资源包。"); }
                     catch (Exception error) { showFailure("读取选择记录失败", error); }
                 });
             } catch (Exception error) { main.post(() -> { busy = false; showFailure("存档选择失败", error); }); }
@@ -181,7 +159,7 @@ public class IntegratedActivity extends Activity {
     }
     private void requestExport() {
         if (!ready || busy || blocked) return;
-        if (serverRunning()) { status.setText("请先退出游戏并从最近任务划掉，再导出当前完整进度。"); return; }
+        if (serverRunning()) { setStatus("请先退出游戏并从最近任务划掉，再导出当前完整进度。"); return; }
         Intent create = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         create.addCategory(Intent.CATEGORY_OPENABLE); create.setType("application/json");
         String stamp = new java.text.SimpleDateFormat("yyyyMMdd-HHmmss", java.util.Locale.ROOT).format(new java.util.Date());
@@ -190,8 +168,8 @@ public class IntegratedActivity extends Activity {
         startActivityForResult(create, 21);
     }
     private void exportTo(Uri target) {
-        if (serverRunning()) { status.setText("服务端正在运行，未导出；请退出游戏后重试。"); return; }
-        busy = true; controls(); status.setText("正在导出当前存档……");
+        if (serverRunning()) { setStatus("服务端正在运行，未导出；请退出游戏后重试。"); return; }
+        busy = true; controls(); setStatus("正在导出当前存档……");
         final String name = displayName(target), path = displayPath(target);
         new Thread(() -> {
             try {
@@ -224,7 +202,7 @@ public class IntegratedActivity extends Activity {
                 final boolean checked = verified;
                 main.post(() -> {
                     busy = false;
-                    try { refreshChoices(); status.setText("已导出当前存档" + (checked ? "并校验一致" : "（此位置不支持回读校验）") + "：" + name + "\n位置：" + path); }
+                    try { refreshChoices(); setStatus("已导出当前存档" + (checked ? "并校验一致" : "（此位置不支持回读校验）") + "：" + name + "\n位置：" + path); }
                     catch (Exception error) { showFailure("读取导出记录失败", error); }
                 });
             } catch (Exception error) {
@@ -239,40 +217,169 @@ public class IntegratedActivity extends Activity {
             if ((getPackageName() + ":server").equals(process.processName)) return true;
         return false;
     }
+    private void openEditor() {
+        if (!ready || busy || blocked || editor != null) return;
+        if (serverRunning()) { setStatus("请先退出游戏并从最近任务划掉，再编辑存档。"); return; }
+        editor = new SaveEditorScreen(this, new EditorBackend(), () -> {
+            editor = null; screen.render();
+            try { refreshChoices(); } catch (Exception error) { showFailure("读取存档选择失败", error); }
+        });
+        editor.show();
+    }
+    private void openServerSettings() {
+        if (!ready || busy || blocked || editor != null || serverSettings != null) return;
+        if (serverRunning()) { setStatus("请先退出游戏并从最近任务划掉，再调整服务端。"); return; }
+        serverSettings = new ServerSettingsScreen(this, new ServerSettingsScreen.Backend() {
+            private boolean guardOwned;
+            private void requireStopped() throws IOException {
+                if (serverRunning()) throw new IOException("服务端仍在运行，请彻底退出游戏后重试");
+            }
+            @Override public JSONObject load() throws Exception {
+                com.chaquo.python.Python host = python();
+                host.getModule("process_guard").callAttr("acquire", IntegratedActivity.this); guardOwned = true;
+                requireStopped();
+                return new JSONObject(host.getModule("gm_entry").callAttr("load", IntegratedActivity.this).toString());
+            }
+            @Override public void save(JSONObject value) throws Exception {
+                requireStopped();
+                JSONObject config = new JSONObject();
+                config.put("abyss_temperature", value.isNull("abyss_temperature") ? JSONObject.NULL : value.getInt("abyss_temperature"));
+                config.put("next_bosses", value.isNull("next_bosses") ? JSONObject.NULL : value.getJSONArray("next_bosses"));
+                python().getModule("gm_entry").callAttr("save", IntegratedActivity.this, config.toString(), value.getLong("effective_begin"));
+            }
+            @Override public void close() throws Exception {
+                if (guardOwned) { python().getModule("process_guard").callAttr("release"); guardOwned = false; }
+            }
+        }, () -> { serverSettings = null; screen.render();
+            try { refreshChoices(); } catch (Exception error) { showFailure("读取启动设置失败", error); }
+        });
+        serverSettings.show();
+    }
+    private final class EditorBackend implements SaveEditorScreen.Backend {
+        private String sourceId, sourceHash, targetHash, targetToken;
+        private boolean guardOwned, backupDone;
+        private com.chaquo.python.PyObject module() throws Exception {
+            return python().getModule("editor_entry");
+        }
+        private void requireStopped() throws IOException {
+            if (serverRunning()) throw new IOException("服务端仍在运行，请彻底退出游戏后重试");
+        }
+        private void remember(LauncherStore.EditorSnapshot snapshot) {
+            sourceHash = snapshot.sourceHash; targetHash = snapshot.targetHash; targetToken = snapshot.targetToken;
+        }
+        @Override public JSONArray sources() throws Exception {
+            module();
+            if (!guardOwned) {
+                com.chaquo.python.Python.getInstance().getModule("process_guard").callAttr("acquire", IntegratedActivity.this);
+                guardOwned = true;
+            }
+            requireStopped(); return store.editorSources(backupRoot());
+        }
+        @Override public JSONObject load(String id) throws Exception {
+            requireStopped(); LauncherStore.EditorSnapshot snapshot = store.editorSnapshot(id, backupRoot());
+            sourceId = id; remember(snapshot);
+            return new JSONObject(module().callAttr("load", IntegratedActivity.this, new String(snapshot.source, "UTF-8")).toString());
+        }
+        @Override public JSONObject create(long uid, String kind) throws Exception {
+            requireStopped(); sourceId = "new"; remember(store.editorSnapshot(null, backupRoot()));
+            return new JSONObject(module().callAttr("create", IntegratedActivity.this, uid, kind).toString());
+        }
+        @Override public JSONObject apply(JSONObject account, JSONObject operation) throws Exception {
+            requireStopped();
+            return new JSONObject(module().callAttr("apply", account.toString(), operation.toString()).toString());
+        }
+        @Override public void save(JSONObject account) throws Exception {
+            requireStopped(); byte[] raw = account.toString().getBytes("UTF-8");
+            LauncherStore.validateAccount(raw);
+            store.withEditorLock(() -> {
+                store.requireEditorTarget(targetToken, targetHash);
+                String committedHash = LauncherStore.hash(raw);
+                boolean needBackup = !backupDone;
+                if ("selected".equals(sourceId) && targetToken.startsWith("pending:")) {
+                    store.saveEditedPending(sourceHash, raw, backupRoot(), needBackup);
+                } else if ("selected".equals(sourceId)) {
+                    File target = needBackup ? store.editorBackupForTarget(backupRoot()) : null;
+                    committedHash = module().callAttr("save", IntegratedActivity.this, account.toString(), target == null ? "" : target.getAbsolutePath(), sourceHash).toString();
+                    if (target != null) try { store.editorBackupComplete(backupRoot(), target); }
+                    catch (Exception warning) { editorWarning("存档已保存，但备份轮换未完成：" + warning.getMessage()); }
+                } else {
+                    final Exception[] failure = new Exception[1];
+                    Runnable action = () -> {
+                        try {
+                            if ("new".equals(sourceId)) store.saveNewEdited(targetHash, raw, backupRoot(), needBackup);
+                            else store.saveEditedHistory(sourceId, sourceHash, targetHash, raw, backupRoot(), needBackup);
+                        } catch (Exception error) { failure[0] = error; }
+                    };
+                    module().callAttr("with_account_lock", IntegratedActivity.this, action);
+                    if (failure[0] != null) throw failure[0];
+                }
+                backupDone = true;
+                sourceId = "selected"; sourceHash = committedHash; targetHash = committedHash; targetToken = "";
+                try { remember(store.editorSnapshot("selected", backupRoot())); }
+                catch (Exception warning) { editorWarning("存档已保存，请重新读取后继续编辑：" + warning.getMessage()); }
+            });
+        }
+        private void editorWarning(String text) { main.post(() -> Toast.makeText(IntegratedActivity.this, text, Toast.LENGTH_LONG).show()); }
+        @Override public void close() throws Exception {
+            if (guardOwned) {
+                com.chaquo.python.Python.getInstance().getModule("process_guard").callAttr("release");
+                guardOwned = false;
+            }
+        }
+    }
+    private com.chaquo.python.Python python() throws Exception {
+        synchronized (PYTHON_INIT_LOCK) {
+            if (!com.chaquo.python.Python.isStarted())
+                com.chaquo.python.Python.start(PythonPlatform.create(getApplicationContext()));
+            return com.chaquo.python.Python.getInstance();
+        }
+    }
     private void requestStart() {
         if (!ready || busy || blocked) return;
         try {
-            if (!store.account().isFile() && !store.pendingSave()) { status.setText("请先选择自己的服务端 JSON 存档。"); return; }
+            if (!store.account().isFile() && !store.pendingSave()) { setStatus("请先选择自己的服务端 JSON 存档。"); return; }
             JSONObject selected = store.choices();
             DamageMode.requireCanApply(this, selected.optBoolean("damage_boost", true) ? 20 : 1);
             if ((store.pendingSave() || selected.optBoolean("resource_pending")) && serverRunning()) {
-                status.setText("服务端仍在运行。请退出游戏并从最近任务划掉后，再应用重选的文件。"); return;
+                setStatus("服务端仍在运行。请退出游戏并从最近任务划掉后，再应用重选的文件。"); return;
             }
-            if (store.pendingSave() && store.account().isFile()) {
-                new AlertDialog.Builder(this).setTitle("确认替换当前存档")
-                    .setMessage("将导入“" + selected.optString("save_name") + "”并替换当前进度。\n\n请选择是否保留旧档备份。\n备份位置：\n"
-                        + (backupRoot() == null ? "当前不可用" : backupRoot().getAbsolutePath() + "/<时间>/account.json")
-                        + "\n\n该目录随卸载应用删除；建议用文件管理器另行复制保存。选择不备份，导入成功后不保留本次旧档。")
-                    .setNegativeButton("取消", null)
-                    .setNeutralButton("不备份导入", (dialog, which) -> beginStart(false))
-                    .setPositiveButton("备份并导入", (dialog, which) -> beginStart(true)).show();
-            } else beginStart(false);
+            beginStart();
         } catch (Exception error) { showFailure("无法开始", error); }
     }
     private File backupRoot() {
         File external = getExternalFilesDir(null);
         return external == null ? null : new File(external, "save-backups");
     }
-    private void beginStart(final boolean keepBackup) {
+    private void beginStart() {
         if (busy || blocked || isFinishing() || isDestroyed()) return;
-        busy = true; starting = true; controls(); status.setText("正在准备离线资源，请稍候……");
+        busy = true; starting = true; screen.begin(); controls(); screen.stage(1, "启动条件已检查，正在准备离线资源。");
         android.util.Log.i("Server19Launcher", "Start button accepted");
         new Thread(() -> {
+            com.chaquo.python.PyObject guard = null;
+            boolean guardOwned = false;
+            Exception failure = null;
+            boolean videoMissing = false, prepared = false;
             try {
+                guard = python().getModule("process_guard");
+                guard.callAttr("acquire", IntegratedActivity.this);
+                guardOwned = true;
                 JSONObject selected = store.choices();
                 Uri remembered = selected.optString("resource_uri").isEmpty() ? null : Uri.parse(selected.getString("resource_uri"));
                 Uri source = selected.optBoolean("resource_pending") ? remembered : null;
-                EmbeddedResources.Progress progress = text -> main.post(() -> status.setText(text));
+                EmbeddedResources.Progress progress = new EmbeddedResources.Progress() {
+                    @Override public void update(String text) { main.post(() -> setStatus(text)); }
+                    @Override public void stage(String phase,long done,long total) {
+                        int previous=phase.equals("verify")?1:2;
+                        String label=phase.equals("verify")?"正在校验资源":"正在解压资源";
+                        int percent=(int)Math.min(100,done*100/total);
+                        main.post(() -> screen.progress(previous,label+" "+percent+"%",done,total));
+                    }
+                    @Override public void skipped(String phase) {
+                        int completed=phase.equals("verify")?2:3;
+                        String message=phase.equals("verify")?"资源校验无需执行。":"资源无需解压。";
+                        main.post(() -> screen.stage(completed,message));
+                    }
+                };
                 try { EmbeddedResources.prepare(this, source, progress); }
                 catch (EmbeddedResources.VideoRequired missing) {
                     if (remembered == null || source != null) throw missing;
@@ -280,47 +387,67 @@ public class IntegratedActivity extends Activity {
                 }
                 if (isFinishing() || isDestroyed()) return;
                 store.resourcePrepared(remembered == null ? "" : remembered.toString());
+                main.post(() -> screen.stage(3, "离线资源已准备。"));
                 if (store.pendingSave() && serverRunning()) throw new IOException("服务端仍在运行，未替换存档");
                 DamageMode.apply(this, selected.optBoolean("damage_boost", true) ? 20 : 1);
-                store.commitPendingSave(keepBackup, backupRoot());
+                boolean importing = store.pendingSave();
+                store.commitPendingSave(false, backupRoot());
+                main.post(() -> screen.stage(4, importing ? "已导入所选存档。" : "沿用当前存档。"));
+                prepared = true;
+            } catch (EmbeddedResources.VideoRequired missing) {
+                videoMissing = true;
+            } catch (Exception error) { failure = error; }
+            finally {
+                if (guardOwned) {
+                    try { guard.callAttr("release"); }
+                    catch (Exception error) { failure = error; prepared = false; }
+                }
+            }
+            if (videoMissing) {
+                main.post(() -> { busy = false; starting = false; controls(); screen.failure("需要配套离线视频 ZIP，请先选择资源包，再点击“开始游戏”。"); });
+            } else if (failure != null) {
+                final Exception error = failure;
+                main.post(() -> { busy = false; starting = false; showFailure("准备失败", error); });
+            } else if (prepared) {
                 main.post(() -> {
                     try { refreshChoices(); startServer(); }
                     catch (Exception error) { busy = false; starting = false; showFailure("启动失败", error); }
                 });
-            } catch (EmbeddedResources.VideoRequired missing) {
-                main.post(() -> { busy = false; starting = false; controls(); status.setText("需要配套离线视频 ZIP，请先选择资源包，再点击“开始游戏”。"); });
-            } catch (Exception error) { main.post(() -> { busy = false; starting = false; showFailure("准备失败", error); }); }
+            }
         }, "launcher-prepare").start();
     }
     private void showFailure(String action, Exception error) {
-        android.util.Log.e("Server19Launcher", action, error); controls(); status.setText(action + "：" + error.getMessage());
+        android.util.Log.e("Server19Launcher", action, error); controls(); screen.failure(action + "：" + error.getMessage());
     }
     private void startServer() {
         if (isFinishing() || isDestroyed() || !starting) return;
         if (getIntent().getBooleanExtra("prepare_only", false)) {
             busy = false; starting = false; controls();
-            status.setText("离线资源准备及校验完成。尚未启动游戏或服务端。");
+            setStatus("离线资源准备及校验完成。尚未启动游戏或服务端。");
             android.util.Log.i("Server19Resources", "Private resources ready; uid=" + android.os.Process.myUid()); return;
         }
-        status.setText("离线资源已就绪，正在启动服务端……");
+        setStatus("离线资源已就绪，正在启动服务端……");
         Intent service = new Intent(this, IntegratedService.class);
         if (Build.VERSION.SDK_INT >= 26) startForegroundService(service); else startService(service);
         bound = bindService(service, connection, BIND_AUTO_CREATE);
-        main.postDelayed(() -> { if (starting && !leaving) status.setText("服务端尚未就绪，请保留现场并反馈。"); }, 30000);
+        if (!bound) { busy = false; starting = false; blocked = true; controls(); screen.failure("无法连接服务端，请退出应用后重试。"); return; }
+        main.postDelayed(() -> { if (starting && !leaving) setStatus("服务端尚未就绪，请保留现场并反馈。"); }, 30000);
     }
     private final Messenger reply = new Messenger(new Handler(Looper.getMainLooper(), msg -> {
         if (msg.what == 2 && starting && !leaving && !isFinishing()) {
             busy = false; starting = false; blocked = true; controls();
-            status.setText("服务端启动失败：" + msg.getData().getString("error", "未知错误") + "\n请退出应用后重试，或保留现场反馈。");
+            screen.failure("服务端启动失败：" + msg.getData().getString("error", "未知错误") + "\n请退出应用后重试，或保留现场反馈。");
         }
         if (msg.what == 1 && starting && !leaving && !isFinishing()) {
+            screen.stage(5, "本地服务端已就绪。");
             if (getIntent().getBooleanExtra("server_only", false)) {
-                busy = false; starting = false; controls(); status.setText("服务端已就绪（技术检查，未启动游戏）。");
+                busy = false; starting = false; controls(); setStatus("服务端已就绪（技术检查，未启动游戏）。");
                 return true;
             }
-            leaving = true; Intent game = new Intent();
+            Intent game = new Intent();
             game.setClassName(getPackageName(), "com.miHoYo.overridenativeactivity.OverrideNativeActivity");
-            startActivity(game); finish();
+            try { startActivity(game); screen.stage(6, "已交由系统启动游戏。"); leaving = true; finish(); }
+            catch (ActivityNotFoundException error) { busy = false; starting = false; showFailure("无法打开游戏", error); }
         }
         return true;
     }));
@@ -328,30 +455,37 @@ public class IntegratedActivity extends Activity {
         @Override public void onServiceConnected(ComponentName name, IBinder binder) {
             Message request = Message.obtain(null, 1); request.replyTo = reply;
             try { new Messenger(binder).send(request); }
-            catch (RemoteException error) { status.setText("服务端连接失败，请保留现场并反馈。"); }
+            catch (RemoteException error) { busy = false; starting = false; blocked = true; showFailure("服务端连接失败", error); }
         }
         @Override public void onServiceDisconnected(ComponentName name) {
-            busy = false; starting = false; controls(); status.setText("服务端已停止，请保留现场并反馈。");
+            busy = false; starting = false; controls(); setStatus("服务端已停止，请保留现场并反馈。");
         }
     };
     @Override public void onCreate(Bundle state) {
+        setTheme(android.R.style.Theme_Material_NoActionBar);
         super.onCreate(state); store = new LauncherStore(getFilesDir()); preparationPanel();
         try { store.recover(); refreshChoices(); }
         catch (Exception error) { blocked = true; showFailure("读取或恢复启动记录失败", error); return; }
-        countdown.setVisibility(android.view.View.VISIBLE);
-        countdown.setText("请阅读以上说明，5 秒后可开始游戏……");
+        screen.hint("请阅读公告，5 秒后可开始游戏……");
         noticeTimer = new CountDownTimer(5000, 1000) {
-            @Override public void onTick(long remaining) { countdown.setText("请阅读以上说明，" + ((remaining + 999) / 1000) + " 秒后可开始游戏……"); }
+            @Override public void onTick(long remaining) { screen.hint("请阅读公告，" + ((remaining + 999) / 1000) + " 秒后可开始游戏……"); }
             @Override public void onFinish() {
                 if (isFinishing() || isDestroyed()) return;
-                countdown.setVisibility(android.view.View.GONE);
-                ready = true; controls(); status.setText("请确认资源包和存档后，点击“开始游戏”。");
+                ready = true; controls();
+                try { selectionStatus("请确认资源包和存档后，点击“开始游戏”。"); }
+                catch (Exception error) { showFailure("读取选择记录失败", error); }
                 android.util.Log.i("Server19Notice", "Countdown finished at " + SystemClock.elapsedRealtime());
             }
         };
         android.util.Log.i("Server19Notice", "Countdown started at " + SystemClock.elapsedRealtime()); noticeTimer.start();
     }
+    @Override public void onConfigurationChanged(android.content.res.Configuration config) {
+        super.onConfigurationChanged(config); if (editor != null) editor.render(); else if (serverSettings != null) serverSettings.render(); else if (screen != null) screen.render();
+    }
+    @Override public void onBackPressed() { if (editor != null) editor.close(); else if (serverSettings != null) serverSettings.close(); else super.onBackPressed(); }
     @Override public void onDestroy() {
+        if (editor != null) editor.destroy();
+        if (serverSettings != null) serverSettings.destroy();
         if (noticeTimer != null) noticeTimer.cancel();
         if (bound) unbindService(connection);
         main.removeCallbacksAndMessages(null); super.onDestroy();
