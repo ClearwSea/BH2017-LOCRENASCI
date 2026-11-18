@@ -149,6 +149,11 @@ def prepare(client24, data_work, output, client_tables, client19):
                          (row['path'] for row in native_resources.resource_map(client19)))
     encoded_tables['weekdayactivity'] = json.dumps(rendered['weekdayactivity'], ensure_ascii=False,
                                                    separators=(',', ':'))
+    from .exboss_resources import adapt as adapt_exboss_resources
+    adapt_exboss_resources(rendered['exbossmonsterdata'],
+                           (row['path'] for row in native_resources.resource_map(client19)))
+    encoded_tables['exbossmonsterdata'] = json.dumps(rendered['exbossmonsterdata'], ensure_ascii=False,
+                                                    separators=(',', ':'))
     adapt_difficulties(rendered['stagedata_main'])
     from .material_training import adapt_redpacket_record_type
     adapt_redpacket_record_type(rendered['stagedata_main'])

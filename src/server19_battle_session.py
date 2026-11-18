@@ -8,7 +8,7 @@ import time
 
 import server19_stage as stage
 
-RUNTIMES = ('stage_runtime', 'openworld_runtime', 'endless_runtime')
+RUNTIMES = ('stage_runtime', 'openworld_runtime', 'endless_runtime', 'exboss_runtime')
 LOCK = threading.RLock()
 OWNERS = {}
 

@@ -90,6 +90,8 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
         training_scripts = extract_scripts(package, mapping,
                             output / 'private/data/bh3-server19-resources',
                             training.ACTIVITY_IDS)
+        from .exboss_resources import extract_script as extract_exboss_script
+        extract_exboss_script(package, mapping, output / 'private/data/bh3-server19-resources')
         # Restore the original scripts for independently audited Befall activities.
         for befall_path in ('lua/levels/event/bosslevel01_l.lua',
                             'lua/levels/event/bosslevel03_l.lua',
@@ -127,6 +129,14 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
                 rendered = _patch_baked_abilities(rendered, stringmap)
                 from .material_training import adapt_ability_data
                 rendered = adapt_ability_data(rendered, stringmap)
+                from .exboss_resources import adapt_ability_data as adapt_exboss_ability
+                rendered = adapt_exboss_ability(rendered, stringmap)
+            if destination == 'bh3-server19-baked/_baked/bakedmonsterdata':
+                sm_spec = recipes['resources']['bh3-server19-baked/_baked/stringmap.txt']
+                sm_src = (extracted / str(safe_relative(sm_spec['path']))).read_bytes()
+                stringmap = apply(sm_src, sm_spec['operations'])
+                from .exboss_resources import adapt_monster_data as adapt_exboss_monster
+                rendered = adapt_exboss_monster(rendered, stringmap)
             target.write_bytes(rendered)
     metadata = output / 'private/data/bh3-server19-metadata/_exceloutputasset'
     shutil.copytree(client_tables, metadata)
@@ -139,7 +149,7 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
         target = output / 'private/data/bh3-server19-resources' / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(supplemental_images / name, target)
-    return len(recipes['resources']) + len(list(client_tables.iterdir())) + 14 + len(training_scripts)
+    return len(recipes['resources']) + len(list(client_tables.iterdir())) + 15 + len(training_scripts)
 
 
 def pack(resource_root, output):

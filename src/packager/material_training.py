@@ -122,11 +122,14 @@ ABILITY_EDITS = {
 }
 
 
-def adapt_ability_data(payload, stringmap):
+def adapt_ability_data(payload, stringmap, edits=None):
     """Convert fingerprinted roots while preserving every other root."""
     strings = stringmap.decode('utf-8').split('\x1f')
     try:
-        targets = {strings.index(name): value for name, value in ABILITY_EDITS.items()}
+        targets = {}
+        for name, value in (ABILITY_EDITS if edits is None else edits).items():
+            key, variant = name if isinstance(name, tuple) else (name, None)
+            targets[(strings.index(key), None if variant is None else strings.index(variant))] = value
         header0, header1, count = struct.unpack_from('<III', payload, 0)
         pos = 12
         entries = [struct.unpack_from('<II', payload, pos + 8 * i) for i in range(count)]
@@ -148,8 +151,9 @@ def adapt_ability_data(payload, stringmap):
             right = offsets[index + 1] if index + 1 < len(offsets) else len(data)
             key, variant = refs[left]
             chunk = data[left:right]
-            if key in targets and variant is None:
-                before, after, edits = targets[key]
+            identity = (key, variant)
+            if identity in targets:
+                before, after, edits = targets[identity]
                 if hashlib.sha256(chunk).hexdigest() != before:
                     raise ValueError('Ability source fingerprint changed')
                 adapted = bytearray(chunk)
@@ -158,7 +162,7 @@ def adapt_ability_data(payload, stringmap):
                 chunk = bytes(adapted)
                 if hashlib.sha256(chunk).hexdigest() != after:
                     raise ValueError('Ability conversion fingerprint mismatch')
-                found.add(key)
+                found.add(identity)
             new_offsets[left] = len(output)
             output.extend(chunk)
         if found != targets.keys():

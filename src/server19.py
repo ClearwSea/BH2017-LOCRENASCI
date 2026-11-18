@@ -20,6 +20,7 @@ import server19_battle_session
 import server19_extra_story
 import server19_openworld
 import server19_endless
+import server19_exboss
 import server19_stage_display
 import server19_equipment
 import server19_profile
@@ -148,6 +149,9 @@ def load_account():
 
 
 def response(name, account, request_values=None, *, account_path=None):
+    exboss = server19_exboss.response(name, account, request_values, account_path=account_path)
+    if exboss is not None:
+        return exboss
     endless = server19_endless.response(name, account, request_values, account_path=account_path)
     if endless is not None:
         return endless
@@ -367,6 +371,17 @@ class GameHandler(socketserver.BaseRequestHandler):
                             level_avatar_granted = server19_player_progression.reconcile_level_avatar(
                                 account, RUN / "account.json")
                         packets = [(rsp_name, values)]
+                        if name in server19_exboss.REQUESTS and values.get('retcode') == 0:
+                            notices = server19_exboss.take_notifications(account, RUN / 'account.json')
+                            if notices:
+                                packets.extend(('TakeExBossRankRewardNotify', notice) for notice in notices)
+                                packets.extend(server19_stage.notification_snapshot(account))
+                                packets.append(server19_profile.response('GetMedalDataReq', account))
+                            if name == 'ExBossStageEndReq':
+                                last = account.get('exboss_runtime', {}).get('last_end') or {}
+                                if last.get('rewards'):
+                                    packets.append(('TakeExBossScoreRewardNotify', {'reward_list': last['rewards']}))
+                                    packets.extend(server19_stage.notification_snapshot(account))
                         if name in ("OpenWeekDayActivityReq", "ExchangeWeekDayActivityTimesReq") and values.get("retcode") == 0:
                             packets = [
                                 server19_initialization.response("GetMainDataReq", account),
