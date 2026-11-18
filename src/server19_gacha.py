@@ -736,7 +736,7 @@ _HANDLERS = {"GetGachaDisplayReq": lambda account, values: display_payload(accou
              "BuyGachaTicketReq": _buy_ticket}
 
 
-def notification_snapshot(account):
+def notification_snapshot(account, *, consume_ticket_updates=False):
     """Authoritative snapshots after a successful pull; sent after the Rsp."""
     import server19_initialization
     materials = [deepcopy(m) for m in account.get("material_list", []) if m.get("num", 0) > 0]
@@ -744,6 +744,8 @@ def notification_snapshot(account):
     for tid in sorted(getattr(_CONSUMED_TICKETS, "ids", None) or set()):
         if tid not in present_ids:
             materials.append({"id": tid, "num": 0})
+    if consume_ticket_updates:
+        _CONSUMED_TICKETS.ids = set()
     return [server19_initialization.response("GetMainDataReq", account),
             ("GetAvatarDataRsp", {"retcode": 0,
                                   "avatar_list": deepcopy(account.get("avatar_list", []))}),
@@ -761,6 +763,7 @@ def response(request_name, account, request_values=None, *, account_path=None):
         before = stage._read(path, account)
         current = deepcopy(before)
         _CONSUMED_TICKETS.ids = set()
+        result = None
         try:
             payload = _HANDLERS[request_name](current, request_values or {})
             result = request_name[:-3] + "Rsp", payload
@@ -786,5 +789,6 @@ def response(request_name, account, request_values=None, *, account_path=None):
             result = request_name[:-3] + "Rsp", {"retcode": RSP_FAIL}
             stage._sync(account, before)
         finally:
-            _CONSUMED_TICKETS.ids = set()
+            if result is None or result[1].get("retcode") != RSP_SUCC:
+                _CONSUMED_TICKETS.ids = set()
         return result

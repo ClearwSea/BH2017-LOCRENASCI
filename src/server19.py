@@ -515,7 +515,7 @@ class GameHandler(socketserver.BaseRequestHandler):
                             # Refresh wallet/storage before it reads ticket counts;
                             # keep avatar ownership after the result so unlock
                             # dialogs still see the pre-pull ownership state.
-                            snapshots = server19_gacha.notification_snapshot(account)
+                            snapshots = server19_gacha.notification_snapshot(account, consume_ticket_updates=True)
                             if name == "BuyGachaTicketReq":
                                 packets = snapshots + packets
                             else:

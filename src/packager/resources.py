@@ -122,6 +122,9 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
             target = output / 'private/data' / destination
             target.parent.mkdir(parents=True, exist_ok=True)
             rendered = apply(source, spec['operations'])
+            from .sakura_exit import SCRIPTS as SAKURA_EXIT_SCRIPTS, adapt as adapt_sakura_exit
+            if destination.startswith('bh3-server19-resources/lua/levels/owmission/') and target.name in SAKURA_EXIT_SCRIPTS:
+                rendered = adapt_sakura_exit(target.name, rendered)
             if destination == 'bh3-server19-baked/_baked/bakedabilitydata':
                 sm_spec = recipes['resources']['bh3-server19-baked/_baked/stringmap.txt']
                 sm_src = (extracted / str(safe_relative(sm_spec['path']))).read_bytes()
@@ -138,6 +141,8 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
                 from .exboss_resources import adapt_monster_data as adapt_exboss_monster
                 rendered = adapt_exboss_monster(rendered, stringmap)
             target.write_bytes(rendered)
+    from .sakura_exit import verify_helper as verify_sakura_save_helper
+    verify_sakura_save_helper((output / 'private/data/bh3-server19-resources/lua/base/openworldareadesign.lua').read_bytes())
     metadata = output / 'private/data/bh3-server19-metadata/_exceloutputasset'
     shutil.copytree(client_tables, metadata)
     from .recommendations import sync_tsv
