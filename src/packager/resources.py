@@ -26,11 +26,31 @@ _GARLAND_OF_FIRE_EDITS = (
     (792, 795, b'\xdc\x00\x1d'), (901, 902, b'\r'), (912, 913, b'\r'),
 )
 
+# 2.4 -> 1.9 structural translation for Equip_EX6_HomBlewHimself (Homu 2-piece set):
+# translates ConfigAbilityModifier 30->29, SpawnPropObject 26->24, DamageByAttackValue 25->24,
+# tag 0x28 first field [None, key, None]->key, and polymorphic tags 0x6e->0x68, 0x0e->0x0d,
+# 0x36->0x34, 0x2c->0x28, 0x62->0x59, 0x3e->0x38 (385 -> 375 bytes).
+_HOM_BLEW_HIMSELF_EDITS = (
+    (39, 42, b'\xdc\x00\x1d'), (52, 53, b'h'), (58, 59, b'\r'), (70, 71, b''),
+    (99, 102, b'\xdc\x00\x1d'), (120, 121, b''), (128, 133, b'{\xdc\x00\x18'),
+    (155, 156, b''), (156, 157, b''), (163, 164, b'4'), (180, 181, b'('),
+    (182, 184, b''), (187, 188, b''), (192, 193, b'4'),
+    (228, 231, b'\xdc\x00\x1d'), (249, 250, b''),
+    (257, 258, b'Y'), (269, 270, b'8'), (291, 295, b'-\xdc\x00\x18'),
+    (305, 306, b''), (367, 368, b'\r'),
+)
+
+_BAKED_ABILITY_PATCHES = (
+    ('Equip_EX3_GarlandOfFire', 966, _GARLAND_OF_FIRE_EDITS),
+    ('Equip_EX6_HomBlewHimself', 385, _HOM_BLEW_HIMSELF_EDITS),
+)
+
 
 def _patch_baked_abilities(raw_bytes, stringmap_bytes):
-    """Patch Equip_EX3_GarlandOfFire from 2.4 schema to 1.9 inside bakedabilitydata."""
+    """Patch known 2.4-schema abilities to 1.9 schema inside bakedabilitydata."""
     strings = stringmap_bytes.decode('utf-8', 'replace').split('\x1f')
-    target_idx = strings.index('Equip_EX3_GarlandOfFire')
+    patches = {(strings.index(name), None): (name, expected_len, edits)
+               for name, expected_len, edits in _BAKED_ABILITY_PATCHES}
     h0, h1 = struct.unpack_from('<II', raw_bytes, 0)
     pos = 8
     ne = struct.unpack_from('<I', raw_bytes, pos)[0]
@@ -55,11 +75,12 @@ def _patch_baked_abilities(raw_bytes, stringmap_bytes):
         ident = refs[o]
         left, right = spans[ident]
         chunk = data[left:right]
-        if ident == (target_idx, None):
-            if len(chunk) != 966:
-                raise BuildError('Unexpected Equip_EX3_GarlandOfFire span length')
+        if ident in patches:
+            name, expected_len, edits = patches[ident]
+            if len(chunk) != expected_len:
+                raise BuildError(f'Unexpected {name} span length')
             buf = bytearray(chunk)
-            for start, end, rep in sorted(_GARLAND_OF_FIRE_EDITS, key=lambda x: (x[0], x[1]), reverse=True):
+            for start, end, rep in sorted(edits, key=lambda x: (x[0], x[1]), reverse=True):
                 buf[start:end] = rep
             chunk = bytes(buf)
         new_offs[o] = len(out)

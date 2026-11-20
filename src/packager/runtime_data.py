@@ -107,16 +107,22 @@ def prepare(client24, data_work, output, client_tables, client19):
         for field in edit['set']:
             target[field] = dresses[edit['id']][field]
     encoded_tables['dressdata'] = json.dumps(rendered['dressdata'], ensure_ascii=False, separators=(',', ':'))
-    names = {key: spec['authored'] for key, spec in presentation['text_edits'].items()
-             if key.startswith('DressName') and 'authored' in spec}
-    for row in rendered['textmap']:
-        if row['ID'] in names:
-            row['Text'] = names[row['ID']]
+    effective_text = {row['ID']: row['Text'] for row in read_json(effective / 'textmap')}
+    names = {key: effective_text[key] for key in presentation['text_edits'] if key in effective_text}
+    by_text_id = {row['ID']: row for row in rendered['textmap']}
+    for key, value in names.items():
+        if key in by_text_id:
+            by_text_id[key]['Text'] = value
+        else:
+            rendered['textmap'].append({'ID': key, 'Text': value})
     for path in output.rglob('textmap'):
         rows = read_json(path)
-        for row in rows:
-            if row['ID'] in names:
-                row['Text'] = names[row['ID']]
+        path_by_id = {row['ID']: row for row in rows}
+        for key, value in names.items():
+            if key in path_by_id:
+                path_by_id[key]['Text'] = value
+            else:
+                rows.append({'ID': key, 'Text': value})
         if names:
             write_json(path, rows)
     # Source recipes retain historical row selections. Overlay the restored

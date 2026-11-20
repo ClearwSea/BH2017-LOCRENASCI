@@ -174,8 +174,8 @@ final class LauncherScreen {
         LinearLayout h=panel(0xff24272b);h.setBackground(new HeroArt(compact));h.setPadding(d(compact?14:18),d(compact?9:14),d(compact?14:18),d(compact?8:14));
         LinearLayout top=row();top.addView(text("LEGACY PROJECT / 2017",compact?8:11,muted,true),new LinearLayout.LayoutParams(0,-2,1));top.addView(text("●  LOCAL BUILD",compact?8:10,green,true));h.addView(top);
         add(h,text(compact?"崩壞3rd · 2017":"崩壞3rd  ·  2017",compact?23:26,white,true),compact?4:12);
-        String subtitle="LOC-RENASCI 项目   /   V0.2.0";TextView sub=text(subtitle,compact?10:12,0xffc0c5ca,compact);
-        SpannableString highlighted=new SpannableString(subtitle);int version=subtitle.indexOf("V0.2.0");highlighted.setSpan(new ForegroundColorSpan(0xffb9dcf1),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);highlighted.setSpan(new StyleSpan(Typeface.BOLD),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);sub.setText(highlighted);add(h,sub,compact?1:3);
+        String subtitle="LOC-RENASCI 项目   /   V0.2.0-r1";TextView sub=text(subtitle,compact?10:12,0xffc0c5ca,compact);
+        SpannableString highlighted=new SpannableString(subtitle);int version=subtitle.indexOf("V0.2.0-r1");highlighted.setSpan(new ForegroundColorSpan(0xffb9dcf1),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);highlighted.setSpan(new StyleSpan(Typeface.BOLD),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);sub.setText(highlighted);add(h,sub,compact?1:3);
         if(compact){View divider=new View(activity);divider.setBackgroundColor(line);LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,d(1));p.topMargin=d(6);h.addView(divider,p);}
         LinearLayout bottom=row();bottom.addView(text("由 GitHub/ClearwSea 适配",compact?9:10,muted,false),new LinearLayout.LayoutParams(0,-2,1));
         TextView update=text("检查更新 ↗",compact?9:12,white,true);update.setPadding(d(6),d(compact?4:9),0,d(compact?4:9));update.setOnClickListener(v->openUrl("https://github.com/ClearwSea/BH2017-LOCRENASCI/releases/latest"));bottom.addView(update);add(h,bottom,compact?0:12);shadow(h);return h;

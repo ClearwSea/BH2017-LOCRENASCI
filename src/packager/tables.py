@@ -152,7 +152,17 @@ def restore(apk24, data_work, output):
         # reachable from tutorialdata.startStepID -> nextStepID.
         _restore_missing_tutorial_steps(tables, source)
 
-        tables['stigmatadata'].extend(source.projected_tsv('stigmatadata', 'ID', [30034, 30087]))
+        tables['stigmatadata'].extend(source.projected_tsv('stigmatadata', 'ID', [
+            30034, 30087,
+            # Complete missing pieces for partial stigmata sets (Issue #22).
+            30075, 30076, 30077, 30128, 30129, 30130,  # 呼邪(中)/(下)
+            30131, 30132, 30133,                        # 阿提拉(下)
+            30160, 30161, 30162, 30163, 30164, 30165,  # 姬鳞·戏水(上)/(中)
+            30335, 30336, 30337, 30341, 30342, 30343,  # 罗兰(上)/(下)
+            30377, 30378, 30379,                        # 查理曼(下)
+            30518, 30519, 30520,                        # 时雨绮罗(上)
+            30590, 30591, 30592,                        # 里纳尔多(下)
+        ]))
         tables['stigmatadata'] = complete_stigmata_evolution(
             tables['stigmatadata'], source.projected_tsv('stigmatadata'))
         original_positions = {row['name'] for row in tables['stigmatapositiondata']}

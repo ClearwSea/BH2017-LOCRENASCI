@@ -28,19 +28,11 @@ UPDATE_CONTENT_V015 = '<color=#FF4040FF>该公告面向V0.1.5</color>，此版�
 
 UPDATE_CONTENT_V016 = '<color=#FF4040FF>该公告面向V0.1.6</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0修复雷天使等装备强化、进化报错，以及部分降临武器进化配方和同名装备素材消耗异常的问题。\n2.\u00a0修复金币道具错误提示仓库上限，以及装备强化、进化、技能升级和补给后任务进度未及时刷新的问题。\n3.\u00a0<color=#FF4040FF>兼容修复</color>薛定谔（上）等部分圣痕技能配置导致的关卡加载异常；修复女武神·强袭「连段保持」、真炎幸魂「梦稽古」无法解锁的问题。\n<color=#FF4040FF>4.\u00a0修复轩辕篇、蚩尤篇、永世回忆领奖后红点残留、一键领取故障问题；</color>\n5.\u00a0修复部分成就领奖报错和空白奖励弹窗。\n6.\u00a0修复商店部分材料、活动礼盒详情打开异常及图片缺失的问题。\n7.\u00a0修复武器、圣痕及材料图鉴中的图片错误、串图和碎片图标显示异常；<color=#FF4040FF>暂无资源的条目使用文字占位显示</color>。\n8.\u00a0修复「糖果恶魔」服装图片；紫苑无名换色服装兼容命名为「处刑装·红苑」，使用默认服装图片。\n9.\u00a0开放所有46套服装的列表显示，可配合存档编辑器V0.8.2调整解锁。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
 
-UPDATE_CONTENT_V017 = '<color=#FF4040FF>该公告面向V0.1.7</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0修复女武神达到当前等级上限、经验条已满后，提升舰长等级仍无法继续使用经验芯片升级的问题。\n2.\u00a0修复崩坏碎片等部分物品点击「获取」时出现报错，并导致后续界面显示异常的问题。\n3.\u00a0按本地实际商店、关卡掉落及任务奖励修正物品获取列表，修正商店名称并合并重复途径；移除当前不存在或不产出该物品的入口，没有有效途径的物品不再显示「获取」按钮。\n4.\u00a0构建器改为<b>基础包＋构建主包</b>分开提供。首次使用需准备基础包和主包；后续工具链未变更时，只需下载新版主包并导入构建器，补充资源包继续独立提供。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
-
-UPDATE_CONTENT_V017R1 = '<color=#FF4040FF>该公告面向V0.1.7-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0修复舰长升至10级解锁家园时，因引导步骤缺失导致进入舰桥报错、黑屏卡死无法操作的问题。\n2.\u00a0补齐其余多条功能解锁与新手引导链中缺失的步骤数据，避免同类引导断链引发界面报错或卡死。\n3.\u00a0改进构建器对游戏内引导数据表的修补方式，由原先仅修补个别已知步骤调整为自动遍历整张引导链并补齐缺失节点。\n\n<color=#00C3FFFF>更新提示</color>\n本次为热修版本，Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
-
-UPDATE_CONTENT_V017R2 = '<color=#FF4040FF>该公告面向V0.1.7-r2</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>次元边界突破装备合金·吞噬火炮和奥吉尔三件套后，进入关卡时卡在加载界面的问题。\n2.\u00a0修复白骑士·月光「时空余震」开关无法保存的问题，重新登录后保留上次设置。\n3.\u00a0修复白极计划军备箱无法正常开启的问题。\n4.\u00a0修复崩坏世界的歌姬服装箱以及附带的水晶宝箱无法开启的问题\n5.\u00a0<color=#FF4040FF>兼容恢复</color>家园指挥中心派遣。可手动刷新任务、派遣女武神、提前收队、使用道具加速和领取奖励。\n6.\u00a0修复暗耀者手炮「律令之光」等部分武器技能描述和名称缺失的问题。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi的开发帮助，daweieee的测试，以及各位AI。'
-
-UPDATE_CONTENT_V017R3 = '<color=#FF4040FF>该公告面向V0.1.7-r3</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0修复使用灵魂觉醒角色碎片（如八重樱等觉醒女武神）解锁及晋升时出现报错、无法解锁的问题。\n2.\u00a0调整装备仓库容量上限，改为随舰长等级逐步提升，亦或者可以使用存档编辑器修改\n3.\u00a0修复出售或消耗材料至数量为 0 后，在后续刷新装备数据时仍残留数量为 0 的条目，导致圣痕/装备强化点击「快速选择」异常选中并报错「材料不存在」的问题；同时在登录时自动清理历史存档中的异常零数量条目。\n4.\u00a0修复家园指挥中心的若干问题。\n\n<color=#00C3FFFF>更新提示</color>\n本次为热修版本，Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
-
-UPDATE_CONTENT_V017R4 = '<color=#FF4040FF>该公告面向V0.1.7-r4</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>本次修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>装备「浅井茶茶」圣痕套装后，进入主线 3-13、3-14、3-15 等关卡时卡死在加载界面的问题。\n2.\u00a0修复购买并使用装备补给卡等补给券消耗至 0 后，界面仍缓存残留数量导致再次点击十连无响应的问题。\n3.\u00a0修复部分每日任务描述文本缺失的问题。\n4.\u00a0<color=#FF4040FF>兼容调整</color>将基础技能点上限提升至 50（旧存档自动提升，保留更高自定义上限），并恢复家园枢纽港科技对技能点上限的加成功能。\n5.\u00a0修复部分灵魂觉醒角色的共享技能加点问题。\n\n<color=#00C3FFFF>更新提示</color>\n本次为热修版本，Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi，以及各位AI。'
+UPDATE_CONTENT_V017 = '<color=#FF4040FF>该公告面向V0.1.7（含 r1–r4）</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n<color=#00C3FFFF>V0.1.7 修复与改进</color>\n1.\u00a0修复女武神达到当前等级上限、经验条已满后，提升舰长等级仍无法继续使用经验芯片升级的问题。\n2.\u00a0修复崩坏碎片等部分物品点击「获取」时出现报错，并导致后续界面显示异常的问题。\n3.\u00a0按本地实际商店、关卡掉落及任务奖励修正物品获取列表，修正商店名称并合并重复途径；移除当前不存在或不产出该物品的入口，没有有效途径的物品不再显示「获取」按钮。\n4.\u00a0构建器改为<b>基础包＋构建主包</b>分开提供。首次使用需准备基础包和主包；后续工具链未变更时，只需下载新版主包并导入构建器，补充资源包继续独立提供。\n\n<color=#00C3FFFF>V0.1.7-r1 修复与改进</color>\n1.\u00a0修复舰长升至10级解锁家园时，因引导步骤缺失导致进入舰桥报错、黑屏卡死无法操作的问题。\n2.\u00a0补齐其余多条功能解锁与新手引导链中缺失的步骤数据，避免同类引导断链引发界面报错或卡死。\n3.\u00a0改进构建器对游戏内引导数据表的修补方式，由原先仅修补个别已知步骤调整为自动遍历整张引导链并补齐缺失节点。\n\n<color=#00C3FFFF>V0.1.7-r2 修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>次元边界突破装备合金·吞噬火炮和奥吉尔三件套后，进入关卡时卡在加载界面的问题。\n2.\u00a0修复白骑士·月光「时空余震」开关无法保存的问题，重新登录后保留上次设置。\n3.\u00a0修复白极计划军备箱无法正常开启的问题。\n4.\u00a0修复崩坏世界的歌姬服装箱以及附带的水晶宝箱无法开启的问题\n5.\u00a0<color=#FF4040FF>兼容恢复</color>家园指挥中心派遣。可手动刷新任务、派遣女武神、提前收队、使用道具加速和领取奖励。\n6.\u00a0修复暗耀者手炮「律令之光」等部分武器技能描述和名称缺失的问题。\n\n<color=#00C3FFFF>V0.1.7-r3 修复与改进</color>\n1.\u00a0修复使用灵魂觉醒角色碎片（如八重樱等觉醒女武神）解锁及晋升时出现报错、无法解锁的问题。\n2.\u00a0调整装备仓库容量上限，改为随舰长等级逐步提升，亦或者可以使用存档编辑器修改\n3.\u00a0修复出售或消耗材料至数量为 0 后，在后续刷新装备数据时仍残留数量为 0 的条目，导致圣痕/装备强化点击「快速选择」异常选中并报错「材料不存在」的问题；同时在登录时自动清理历史存档中的异常零数量条目。\n4.\u00a0修复家园指挥中心的若干问题。\n\n<color=#00C3FFFF>V0.1.7-r4 修复与改进</color>\n1.\u00a0<color=#FF4040FF>兼容修复</color>装备「浅井茶茶」圣痕套装后，进入主线 3-13、3-14、3-15 等关卡时卡死在加载界面的问题。\n2.\u00a0修复购买并使用装备补给卡等补给券消耗至 0 后，界面仍缓存残留数量导致再次点击十连无响应的问题。\n3.\u00a0修复部分每日任务描述文本缺失的问题。\n4.\u00a0<color=#FF4040FF>兼容调整</color>将基础技能点上限提升至 50（旧存档自动提升，保留更高自定义上限），并恢复家园枢纽港科技对技能点上限的加成功能。\n5.\u00a0修复部分灵魂觉醒角色的共享技能加点问题。\n\n<color=#00C3FFFF>更新提示</color>\nV0.1.7 系列热修版本（r1–r4）Windows 构建器沿用 <b>V0.1.7 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n<color=#00C3FFFF>问题反馈</color>\n如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n鸣谢 Hssssssssi的开发帮助，daweieee的测试，以及各位AI。'
 
 
 UPDATE_CONTENT_V020 = (
-    '<color=#FF4040FF>当前版本为V0.2.0</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
+    '<color=#FF4040FF>该公告面向V0.2.0</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
     '<color=#00C3FFFF>本次修复与改进</color>\n'
     '1.\u00a0<color=#FF4040FF>兼容开放</color>女武神训练基地的生物、异能、机械、武器及圣痕材料训练；掉落数据采用本地兼容规则并适当提高。\n'
     '2.\u00a0<color=#FF4040FF>兼容开放</color>单人曜日活动；修复部分活动及训练基地封面显示异常的问题，未完整验收，按照本地规则实现。\n'
@@ -48,6 +40,21 @@ UPDATE_CONTENT_V020 = (
     '4.\u00a0进一步修复部分补给券消耗至 0 后，界面数量未及时清零的问题。\n'
     '5.\u00a0<color=#FF4040FF>兼容修复</color>樱色轮回第二轮回末尾剧情结束后报错的问题。\n'
     '6.\u00a0重构更美观的启动页面，保留原核心功能，以及更丰富的内置存档编辑备份，伪服务端GM功能（未做完整测试）。\n\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
+UPDATE_CONTENT_V020R1 = (
+    '<color=#FF4040FF>当前版本为V0.2.0-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1.\u00a0<color=#FF4040FF>兼容修复</color>装备「吼姆」圣痕套装后，进入主线困难 2-18 等关卡时卡死在加载界面的问题。\n'
+    '2.\u00a0修复脉冲装·绯红闪避技能「瞬斩」及分支「樱花散落」等部分女武神技能描述文本缺失的问题。\n'
+    '3.\u00a0补全里纳尔多（下）、时雨绮罗（上）、阿提拉（下）、呼邪（中/下）、姬鳞·戏水（上/中）、查理曼（下）、罗兰（上/下）圣痕缺失部位的数据配置（<color=#FF4040FF>尚未逐一实机穿戴验收</color>）。\n\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '本次为热修版本，Windows 构建器沿用 <b>V0.2.0 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n'
     '<color=#00C3FFFF>问题反馈</color>\n'
     '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n'
     '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
@@ -133,30 +140,6 @@ def response(name, account, values=None, *, account_path=None):
         id=201761 + show_type, type=show_type, weight=98,
         title_button="更新公告V0.1.7", title="", event_date_str="", content=UPDATE_CONTENT_V017,
         banner_path="Server19/Announcement/Update", mark=0,
-        begin_time=1767225600, end_time=2145916800, update_time=1794412801,
-    ) for show_type in (0, 1)]
-    announcements += [dict(
-        id=201771 + show_type, type=show_type, weight=99,
-        title_button="更新公告V0.1.7-r1", title="", event_date_str="", content=UPDATE_CONTENT_V017R1,
-        banner_path="Server19/Announcement/Update", mark=0,
-        begin_time=1767225600, end_time=2145916800, update_time=1794499200,
-    ) for show_type in (0, 1)]
-    announcements += [dict(
-        id=201781 + show_type, type=show_type, weight=100,
-        title_button="更新公告V0.1.7-r2", title="", event_date_str="", content=UPDATE_CONTENT_V017R2,
-        banner_path="Server19/Announcement/Update", mark=0,
-        begin_time=1767225600, end_time=2145916800, update_time=1794585600,
-    ) for show_type in (0, 1)]
-    announcements += [dict(
-        id=201791 + show_type, type=show_type, weight=101,
-        title_button="更新公告V0.1.7-r3", title="", event_date_str="", content=UPDATE_CONTENT_V017R3,
-        banner_path="Server19/Announcement/Update", mark=0,
-        begin_time=1767225600, end_time=2145916800, update_time=1794672000,
-    ) for show_type in (0, 1)]
-    announcements += [dict(
-        id=201801 + show_type, type=show_type, weight=102,
-        title_button="更新公告V0.1.7-r4", title="", event_date_str="", content=UPDATE_CONTENT_V017R4,
-        banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794844800,
     ) for show_type in (0, 1)]
     announcements += [dict(
@@ -164,6 +147,12 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.2.0", title="", event_date_str="", content=UPDATE_CONTENT_V020,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1794931200,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201821 + show_type, type=show_type, weight=104,
+        title_button="更新公告V0.2.0-r1", title="", event_date_str="", content=UPDATE_CONTENT_V020R1,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1795017600,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)
