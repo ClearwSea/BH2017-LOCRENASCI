@@ -5,7 +5,8 @@ import argparse, hashlib, json, re, struct as st, zipfile
 NONE = 0xffffffff
 ANDROID = 'http://schemas.android.com/apk/res/android'
 OLD = 'com.miHoYo.enterprise.NGHSoD'
-NEW = 'com.miHoYo.enterprise.NGHSoI'
+import os
+NEW = 'com.miHoYo.enterprise.NGHSoT' if os.environ.get('BH3_ACCEPTANCE_ISOLATED') == '1' else 'com.miHoYo.enterprise.NGHSoI'
 
 def u32(b, offset): return st.unpack_from('<I', b, offset)[0]
 
@@ -100,7 +101,7 @@ class Manifest:
                         self.element('action',[a('name','android.intent.action.MAIN',0x01010003)])+
                         self.element('category',[a('name','android.intent.category.LAUNCHER',0x01010003)]))
                     chunks += self.element('activity',[
-                        a('name','local.bh3.server19probe.IntegratedActivity',0x01010003),
+                        a('name','local.bh3.server19probe.GmProbeLauncher',0x01010003),
                         # Rotate the existing preparation view without recreating its import worker.
                         a('screenOrientation',10,0x0101001e,0x10),
                         a('configChanges',0x0d80,0x0101001f,0x11),
@@ -127,7 +128,7 @@ class Manifest:
         body=b''.join(pool if st.unpack_from('<H',c)[0]==1 else resources if st.unpack_from('<H',c)[0]==0x180 else c for c in self.chunks)
         return st.pack('<HHI',3,8,len(body)+8)+body
 
-def build(game, host, native, output, embedded=None, announcement_prefab=None, icon=None, unity_overrides=None):
+def build(game, host, native, output, embedded=None, announcement_prefab=None, icon=None, unity_overrides=None, audio_override=None):
     # APK readers reject ZIP64; Python's conservative default switches at 2 GiB.
     zipfile.ZIP64_LIMIT = 0xFFFFFFFF
     assert not output.exists(), 'Do not overwrite a candidate'
@@ -145,6 +146,8 @@ def build(game, host, native, output, embedded=None, announcement_prefab=None, i
             n=entry.filename
             if n.startswith('META-INF/') or entry.is_dir():continue
             payload=raw if n=='AndroidManifest.xml' else native.read_bytes() if n=='lib/armeabi-v7a/libil2cpp.so' else src.read(entry)
+            if audio_override and n=='assets/Audio/GeneratedSoundBanks/Android/AUDIO_Default.pck':
+                payload=Path(audio_override).read_bytes()
             if n.startswith('assets/bin/Data/') and n.removeprefix('assets/bin/Data/') in unity_files:
                 payload = unity_files[n.removeprefix('assets/bin/Data/')].read_bytes()
             if announcement_prefab and n=='assets/bin/Data/b753f392eb85c9b4e9a3255042f9064a':

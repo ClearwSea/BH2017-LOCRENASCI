@@ -1,5 +1,6 @@
 """Load explicitly supplied artwork/media without embedding it in the source."""
 from pathlib import Path
+import re
 import shutil
 import stat
 import zipfile
@@ -8,11 +9,15 @@ from .core import BuildError, read_json, safe_relative
 IMAGES = ('bridge/celebration.png', 'bridge/github.png', 'gacha/dracula.png',
           'gacha/ziyuan.png', 'announcement/teaparty.png', 'announcement/update.png', 'launcher/app-icon.png',
           'gallery/m134.png', 'gallery/unavailable.png')
+ROTATION_IMAGES = tuple(f'gacha/rotation/{prefix}{number:02d}.png'
+                        for prefix, count in (('P', 8), ('E', 6)) for number in range(1, count + 1))
 OPTIONAL_IMAGES = ('launcher/hero-bg.png',)
 VIDEOS = ('ExtraStory_BlackXuanyuan_01.mp4', 'ExtraStory_BlackXuanyuan_02.mp4',
           'ExtraStory_BlackXuanyuan_03.mp4', 'Sakura_4_CG12_SP_mux.mp4',
           'Season_CG01_Final_mux.mp4')
-ALLOWED = {'supplements.json', 'README.md'} | {'images/' + n for n in IMAGES + OPTIONAL_IMAGES} | {'videos/' + n for n in VIDEOS}
+ALLOWED = {'supplements.json', 'README.md'} | {'images/' + n for n in IMAGES + OPTIONAL_IMAGES + ROTATION_IMAGES} | {'videos/' + n for n in VIDEOS}
+V030_CONTENT = 'fuka601/v1/content/'
+V030_BINARY = 'fuka601/v1/fuka601-v1-content.zip'
 PACKAGE_KIND = 'bh2017-locrenasci-external-supplements'
 # Keep existing external archives readable when the project's display name changes.
 SUPPORTED_KINDS = {PACKAGE_KIND, 'bh3-main-external-supplements'}
@@ -55,7 +60,9 @@ def load(source, destination):
             names.add(name)
             if entry.is_dir():
                 continue
-            if name not in ALLOWED:
+            is_reviewed_v030 = (name in (V030_BINARY, V030_CONTENT + 'manifest.json') or
+                                re.fullmatch(re.escape(V030_CONTENT) + r'payload/[0-9a-f]{64}', name))
+            if name not in ALLOWED and not is_reviewed_v030:
                 raise BuildError('Unexpected supplemental member: ' + name)
             size += entry.file_size
         if size > 2 * 1024**3:

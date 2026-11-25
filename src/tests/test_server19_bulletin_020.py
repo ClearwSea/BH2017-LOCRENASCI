@@ -20,8 +20,8 @@ APPROVED_V020 = (
     '鸣谢 Hssssssssi，以及各位AI。'
 )
 
-APPROVED = (
-    '<color=#FF4040FF>当前版本为V0.2.0-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
+APPROVED_V020R1 = (
+    '<color=#FF4040FF>该公告面向V0.2.0-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
     '<color=#00C3FFFF>本次修复与改进</color>\n'
     '1.\u00a0<color=#FF4040FF>兼容修复</color>装备「吼姆」圣痕套装后，进入主线困难 2-18 等关卡时卡死在加载界面的问题。\n'
     '2.\u00a0修复脉冲装·绯红闪避技能「瞬斩」及分支「樱花散落」等部分女武神技能描述文本缺失的问题。\n'
@@ -35,15 +35,57 @@ APPROVED = (
 )
 
 
+APPROVED_V021 = (
+    '<color=#FF4040FF>该公告面向V0.2.1</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1. <b>商店调整</b>。对商店进行重新清洗，规划了商店分类与内容，购买更加直观合理\n'
+    '2. <b>新增游戏内 GM 浮窗</b>。可快速方便调节商店上架商品，当期卡池，深渊温度，记忆战场轮值BOSS等多种游戏内容\n'
+    '3. <b>新增补给主题轮换</b>。可在 GM 中切换当期卡池与UP\n'
+    '\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
+    '\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
+    '\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
+APPROVED_V030 = (
+    '<color=#FF4040FF>当前版本为V0.3.0</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1. <b>新增女武神·迅羽</b>。接入战斗与养成，当前仅可使用初始武器，可以在商店，GM，最新轮换池获取该角色（实验性）\n'
+    '2. <b>新增训练场</b>。可从游戏内 GM 打开训练场，在战斗中补满当前角色 SP，并调整假人行动、生命和护盾；切换设置会刷新假人并重置生命与护盾。\n'
+    '3. <b>兼容修复部分女武神子技能</b>。完善白练、月光、绯红、影舞、强袭、鬼铠、次元、凯旋、深红、勿忘、紫苑和樱火轮舞的部分子技能配置\n'
+    '4. 修复血色玫瑰“火焰爆裂”附加火伤类型及部分角色共享技能学习问题。\n'
+    '5. 修复部分圣痕无法正常强化和进化的问题\n'
+    '\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
+    '\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
+    '\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
 class Bulletin020Test(unittest.TestCase):
     def test_approved_text_and_whitespace(self):
-        self.assertEqual(APPROVED, bulletin.UPDATE_CONTENT_V020R1)
+        self.assertEqual(APPROVED_V020R1, bulletin.UPDATE_CONTENT_V020R1)
+        self.assertEqual(APPROVED_V021, bulletin.UPDATE_CONTENT_V021)
+        self.assertEqual(APPROVED_V030, bulletin.UPDATE_CONTENT_V030)
         self.assertEqual(APPROVED_V020, bulletin.UPDATE_CONTENT_V020)
-        numbered = [line for line in APPROVED.splitlines() if line[:2] in
+        numbered = [line for line in APPROVED_V020R1.splitlines() if line[:2] in
                     ('1.', '2.', '3.')]
         self.assertEqual([line[:3] for line in numbered],
                          [str(i) + '.\u00a0' for i in range(1, 4)])
-        self.assertNotIn('\\<color', APPROVED)
+        self.assertNotIn('\\<color', APPROVED_V030)
 
     def test_both_tabs_and_prior_announcement(self):
         kind, response = bulletin.response('GetBulletinReq', {}, {'type': 1})
@@ -52,7 +94,15 @@ class Bulletin020Test(unittest.TestCase):
         self.assertEqual(len({row['id'] for row in all_rows}), len(all_rows))
         rows = [row for row in all_rows if row['title_button'] == '更新公告V0.2.0-r1']
         self.assertEqual({(row['id'], row['type']) for row in rows}, {(201821, 0), (201822, 1)})
-        self.assertTrue(all(row['content'] == APPROVED for row in rows))
+        self.assertTrue(all(row['content'] == APPROVED_V020R1 for row in rows))
+        new = [row for row in all_rows if row['title_button'] == '更新公告V0.3.0']
+        self.assertEqual({(row['id'], row['type']) for row in new}, {(201841, 0), (201842, 1)})
+        self.assertTrue(all(row['content'] == APPROVED_V030 for row in new))
+        previous = [row for row in all_rows if row['title_button'] == '更新公告V0.2.1']
+        self.assertEqual({(row['id'], row['type']) for row in previous}, {(201831, 0), (201832, 1)})
+        self.assertTrue(all(row['content'] == APPROVED_V021 for row in previous))
+        self.assertGreater(new[0]['weight'], previous[0]['weight'])
+        self.assertGreater(previous[0]['weight'], rows[0]['weight'])
         old_v020 = [row for row in all_rows if row['title_button'] == '更新公告V0.2.0']
         self.assertEqual({(row['id'], row['type']) for row in old_v020}, {(201811, 0), (201812, 1)})
         self.assertTrue(all(row['content'] == APPROVED_V020 for row in old_v020))
@@ -70,10 +120,10 @@ class Bulletin020Test(unittest.TestCase):
 
     def test_specific_id_fetch(self):
         _, result = bulletin.response('GetBulletinReq', {},
-                                      {'type': 2, 'bulletin_id_list': [201821, 201822]})
+                                      {'type': 2, 'bulletin_id_list': [201841, 201842]})
         self.assertFalse(result['is_all'])
-        self.assertEqual({row['id'] for row in result['bulletin_list']}, {201821, 201822})
-        self.assertTrue(all(row['content'] == APPROVED for row in result['bulletin_list']))
+        self.assertEqual({row['id'] for row in result['bulletin_list']}, {201841, 201842})
+        self.assertTrue(all(row['content'] == APPROVED_V030 for row in result['bulletin_list']))
 
     def test_offline_guide_precedes_all_update_weights_in_each_tab(self):
         _, result = bulletin.response('GetBulletinReq', {}, {'type': 1})
@@ -88,7 +138,7 @@ class Bulletin020Test(unittest.TestCase):
                 v020 = next(row for row in updates if row['title_button'] == '更新公告V0.2.0')
                 current = next(row for row in updates if row['title_button'] == '更新公告V0.2.0-r1')
                 self.assertGreater(current['weight'], v020['weight'])
-                expected = ['更新公告V0.2.0-r1', '更新公告V0.2.0', '更新公告V0.1.7',
+                expected = ['更新公告V0.3.0', '更新公告V0.2.1', '更新公告V0.2.0-r1', '更新公告V0.2.0', '更新公告V0.1.7',
                             '更新公告V0.1.6', '更新公告V0.1.5', '更新公告V0.1.4',
                             '更新公告V0.1.3', '更新公告V0.1.2']
                 self.assertEqual([row['title_button'] for row in sorted(updates, key=lambda x: -x['weight'])], expected)

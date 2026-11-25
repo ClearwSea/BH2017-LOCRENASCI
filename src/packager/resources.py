@@ -96,6 +96,20 @@ def _patch_baked_abilities(raw_bytes, stringmap_bytes):
     return bytes(res)
 
 
+def restore_fixed_fire_damage(payload, stringmap):
+    from .material_training import adapt_ability_data
+
+    # Skill 1601 supplies points of fire damage to a native DynamicFloat.
+    # Move the parameter from ModifyDamageMixin.FireDamagePercentage to FireDamage.
+    return adapt_ability_data(payload, stringmap, {
+        'Himeko_BZ_AttackBonusAddFireDamage': (
+            'fbc71ed113aee8955168868ec3fc65b63d71f37c85da8d73bbae7e12518a027f',
+            'c29589c639bf57e6204c5c42cf4db3e2303a8a84949e818f859c4310b4548562',
+            ((21, 30, bytes.fromhex('93c3c0cd2b4bc0c0c0')),),
+        ),
+    })
+
+
 def prepare(client19, client24, client_tables, output, extracted, supplemental_images):
     import server19_resources as resources
     import server19_baked as baked
@@ -155,6 +169,7 @@ def prepare(client19, client24, client_tables, output, extracted, supplemental_i
                 rendered = adapt_ability_data(rendered, stringmap)
                 from .exboss_resources import adapt_ability_data as adapt_exboss_ability
                 rendered = adapt_exboss_ability(rendered, stringmap)
+                rendered = restore_fixed_fire_damage(rendered, stringmap)
             if destination == 'bh3-server19-baked/_baked/bakedmonsterdata':
                 sm_spec = recipes['resources']['bh3-server19-baked/_baked/stringmap.txt']
                 sm_src = (extracted / str(safe_relative(sm_spec['path']))).read_bytes()

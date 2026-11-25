@@ -1,0 +1,149 @@
+{
+  "runtime": {
+    "gm-catalog.json": {
+      "before": null,
+      "after": "c93bc86e976a034c20a0493f6b9a1ad1e9d42753eeb73a52a5eae833b53919ee"
+    },
+    "server19.py": {
+      "before": "3d78ae7ee6bae4f8231576b7d3372af2cd6f3840fa173ca91fe2e48c2cfa6d51",
+      "after": "8fe4c1a97525bf71ab72510e82ed8556c79d1c2ab34ce885c29596e48c71de32"
+    },
+    "server19_equipment.py": {
+      "before": "ca0ee80c7a0b3babb96e92162c2490abcc493e9adf62826d0813dde1489fb77d",
+      "after": "988a0309b52cfbed3f1e041c17563c963c1ae731d2cff1b0a41489a85bce5c00"
+    },
+    "server19_exboss.py": {
+      "before": "269de3284d9132461ee11ad544f2817bfc020ebc982c1a1e3619cded76819915",
+      "after": "3720f70882a1f20eb3a002b8a50ba73bf883682785c7191c0cf34771c7cea292"
+    },
+    "server19_gacha.py": {
+      "before": "c0708946d13d6ca099ebde0ebc7688b9cff7ce32c879e9039ed4e06700ca36ab",
+      "after": "a8a50bcc0da3d42409684ea068ecc902451f4b012c85aa5191cf7b77db83cb41"
+    },
+    "server19_gacha_cache.py": {
+      "before": "e5063f96010e078964e2547d89a51ff5ec2afb60d709dad6292a13648201f96a",
+      "after": "289d02089e027a52063317e3ade6c1479067b23851ba21ad00f743556851fe4b"
+    },
+    "server19_gacha_policy.py": {
+      "before": "17ce98e514c15324e03026e90e4b8abf8d5ac0289c922cf5300cb604c8cefcd0",
+      "after": "d19c3dd7e0d6eba431859c8c85a150ff2281fb21fbe2ad7d936d66c9f34a5af8"
+    },
+    "server19_gm_overlay.py": {
+      "before": null,
+      "after": "eef63761d00734aff8533d7a8e3ddabc0f0c171a5bca9f677d39a487dfa152b4"
+    },
+    "server19_shop.py": {
+      "before": "6cd97168e9f885f4d53c0ed75d85d66f01519682c6ad10050497f43986fb45b7",
+      "after": "3f3b62a7c18faf4ec35ac7553c31c9b2aae66c3078cc8747ad228345bec2a7de"
+    },
+    "server19_shop_config.json": {
+      "before": "ce620084ffc7098445141a9f5bb1b5ffcd587829586da20a33aea345b4f94261",
+      "after": "cac80261debf4127b110d0ff77f5d0fb9830f4bf99b38d6e346d9e1fbc9d1015"
+    },
+    "server19_supply_rotation.py": {
+      "before": null,
+      "after": "9ef78354ce1fb0464b01312c0a763115b75ad6957a1af74e21ea00b5d6c971a2"
+    },
+    "server19-run/sakura-20261025/candidate-v1/_exceloutputasset/stigmatadata": {
+      "before": "5b6394a673bc446f120e0b670f765b0b72f0cd41f86f82c45b4de1cb941cd1df",
+      "after": "37b5072f45a112883648dd212ab4f6430165bcf49681a5c15b3d4d4e4073da92"
+    },
+    ".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/shopgoodsdata": {
+      "before": "ef139338817c92e726bae04076de5de71523903c48b2194cc839afca3933fec2",
+      "after": "432b81d5e181dd2094967220f2f8b7c4e4b6c93198894d793dedb51d0577e2e4"
+    },
+    ".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/stigmatadata": {
+      "before": "5b6394a673bc446f120e0b670f765b0b72f0cd41f86f82c45b4de1cb941cd1df",
+      "after": "37b5072f45a112883648dd212ab4f6430165bcf49681a5c15b3d4d4e4073da92"
+    },
+    ".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/stigmatapositiondata": {
+      "before": "2c86e3840d5a633f6ea846979510fcd9cf4bc3b181dbf7c6c58907fea9b2bf0e",
+      "after": "f1454aad03415187662974685e1392c6b1e4f827e416696cc37ba924015f7399"
+    },
+    ".local-baseline/server19-dev/metadata-cg-icons-corrected/_exceloutputasset/textmap": {
+      "before": "c4235f28e37f5f5f25bdc1dffc84d73bf24da50c6260a3796bcd16a77f6c9e93",
+      "after": "033a183018a86f9a74fefa948ea55751eaa6822357f071a5ea88ba8b2d8a4edf"
+    }
+  },
+  "resources": {
+    "private/data/bh3-server19-resources/data/_exceloutput/shopgoodsdata": {
+      "before": "93149352c13cc68770584c87d2b78b063e6d5e840ce68fa6f8f5e32f54bdb6a4",
+      "after": "9975b20f50181d4e1724f494a22fe910e016ffbaaba8c083312f825d0afbe861"
+    },
+    "private/data/bh3-server19-resources/data/_exceloutput/textmap": {
+      "before": "5f76e8e0eb9eafa2a5190c3bd095d246d960d6a32b59449bc3ec4e3a94eb4be1",
+      "after": "015c2708de2d8c1af46e48e420cfdd6d1a28788ed1bdfe537a1cdd6c100f906e"
+    },
+    "private/data/bh3-server19-metadata/_exceloutputasset/shopgoodsdata": {
+      "before": "c482a6ce853e7069725cfae797a0688ecd08225d694f8106f4bbb2da0d8bbac8",
+      "after": "690a742f77068dec973f4a840ef5e2cd5eb3f3a73664a93cafa68c1444f8e9e8"
+    },
+    "private/data/bh3-server19-metadata/_exceloutputasset/stigmatadata": {
+      "before": "adaf46a9516511978eeaa9dcbb28b5200d665a9f90cb2174542febcc3697b16d",
+      "after": "37b5072f45a112883648dd212ab4f6430165bcf49681a5c15b3d4d4e4073da92"
+    },
+    "private/data/bh3-server19-metadata/_exceloutputasset/stigmatapositiondata": {
+      "before": "e9259c29f4d140cd7a955650ae034e88a108b5259dbae4c1c1cf633a98ba666b",
+      "after": "f1454aad03415187662974685e1392c6b1e4f827e416696cc37ba924015f7399"
+    },
+    "private/data/bh3-server19-metadata/_exceloutputasset/textmap": {
+      "before": "b7d0b59842cda6180954598ab72753fac9589663035ef8ea77d66f0f674071f6",
+      "after": "ddcea2d517ac8ce3c1596cd16b7999703d96238aa84c3cc7eebb7a2a2ea2fb5d"
+    }
+  },
+  "native": {
+    "before": "6c833a3b8cba1785183e2df7aa4559fbe904cd649ba20517764cb4d92c6de856",
+    "after": "b1dc9d0ef6253a62efdd3d4944d64bcf4ddebae57dcdb799e8598cd5054f572b",
+    "ranges": [
+      [
+        28,
+        "c07c5d"
+      ],
+      [
+        44,
+        "2b"
+      ],
+      [
+        11511604,
+        "04c09f"
+      ],
+      [
+        11511608,
+        "0cc08fe01cff2fe1e0889306"
+      ],
+      [
+        22980868,
+        "8a"
+      ],
+      [
+        55323732,
+        "c03043"
+      ],
+      [
+        55323736,
+        "c0204d"
+      ],
+      [
+        55323740,
+        "f8"
+      ]
+    ],
+    "length": 90014240
+  },
+  "posters": {
+    "E01.png": "2d3986300953b3cf9e18c4fb61d4bf10e110df8a1eb538b15f5267a4078ef361",
+    "E02.png": "6746b370954408c927f47b7637bf23293b6382c6ef7e5daefd8930f2e1704586",
+    "E03.png": "6746b370954408c927f47b7637bf23293b6382c6ef7e5daefd8930f2e1704586",
+    "E04.png": "196286d8bbe8fdd26692907c7e4dd59ff5896e18563461c889ccddffa2040800",
+    "E05.png": "5113d61e44ec8f5d2cbe2d9d11665af980acb5408713e0594c7fda187f67e277",
+    "E06.png": "2d3986300953b3cf9e18c4fb61d4bf10e110df8a1eb538b15f5267a4078ef361",
+    "P01.png": "fa288dc514e2915f5ec9234ad5fe25a2b8dfe860bada772131d5a47c4d21520d",
+    "P02.png": "f2ef7934078d6ab191d38d305a38e284ef47a9c3f9a10b2b9b1d2f747116888b",
+    "P03.png": "87b434ea96693678b1cb1cec1d0608150911d34a53c2f793c424f6b86ddb8fbc",
+    "P04.png": "90ee119edfc07910c326ae9e391ee0b020ab6421c0fc78ea1b24cbe828aed3e2",
+    "P05.png": "db17882063443fe6fa30eb51c37260e8775c15780e63db8bf69a526679a1e003",
+    "P06.png": "13b3fd09664a4c53b3e7c458acb031dcbf8ba3fb5ee6e5be1c78fd0a86c251bd",
+    "P07.png": "14b5f82d6bd177674f6c7f2482a00f0997eee6556be408616cf990589fe4dcd6",
+    "P08.png": "a64bf674c0405a3cfe976be1021e743d71d2d6b133a452b61a6bc927842653cd"
+  }
+}

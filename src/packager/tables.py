@@ -97,6 +97,18 @@ def complete_stigmata_positions(stigmata, positions, source_positions):
     return deepcopy(positions) + [deepcopy(candidates[name]) for name in sorted(required)]
 
 
+def restore_native_branch_subskills(rows, source):
+    """Restore the three branch subskills verified on the 1.9 ARM client."""
+    expected = {604: 62, 804: 82, 805: 82}
+    key = 'avatarSubSkillId'
+    missing = expected.keys() - {row[key] for row in rows}
+    restored = source.projected_tsv('avatarsubskilldata', key, missing) if missing else []
+    branch_rows = [row for row in rows + restored if row[key] in expected]
+    if len(branch_rows) != len(expected) or {row[key]: row['skillId'] for row in branch_rows} != expected:
+        raise BuildError('Original branch subskill IDs or parent skills changed')
+    return sorted(rows + restored, key=lambda row: row[key])
+
+
 def restore(apk24, data_work, output):
     base = data_work / 'generated/tables/_exceloutputasset'
     tables = {p.name: read_json(p) for p in base.iterdir() if p.is_file() and not p.name.endswith('.chars')}

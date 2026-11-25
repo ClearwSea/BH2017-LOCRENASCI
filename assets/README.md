@@ -5,6 +5,9 @@
 ```text
 supplements.json
 README.md
+fuka601/v1/fuka601-v1-content.zip
+fuka601/v1/content/manifest.json
+fuka601/v1/content/payload/<SHA-256>
 images/gacha/dracula.png
 images/gacha/ziyuan.png
 images/bridge/celebration.png
@@ -22,6 +25,8 @@ videos/Season_CG01_Final_mux.mp4
 ```
 
 `supplements.json`至少包含`{"schema":1,"kind":"bh2017-locrenasci-external-supplements"}`。9张图片必须存在；视频从7.x资源或补充包中读取。
+
+V0.3.0 构建另需同版补充包内的迅羽及训练场内容清单、资源载荷和原生兼容增量。构建器核对完整清单、载荷和上版生成内容的前像；缺少、损坏或与输入不匹配时停止构建。载荷保存经实机验收的派生资源，并非宣称可逐项从原始 2.0 资源自动生成；来源和用途记录在载荷清单中。V0.2.1 补充包不能替代 V0.3.0 补充包。
 
 可选的 `images/launcher/hero-bg.png` 用于启动页背景；旧补充包不含此文件时，启动页使用深色渐变背景。
 

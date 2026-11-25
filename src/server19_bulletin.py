@@ -48,7 +48,7 @@ UPDATE_CONTENT_V020 = (
 
 
 UPDATE_CONTENT_V020R1 = (
-    '<color=#FF4040FF>当前版本为V0.2.0-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
+    '<color=#FF4040FF>该公告面向V0.2.0-r1</color>，此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n\n'
     '<color=#00C3FFFF>本次修复与改进</color>\n'
     '1.\u00a0<color=#FF4040FF>兼容修复</color>装备「吼姆」圣痕套装后，进入主线困难 2-18 等关卡时卡死在加载界面的问题。\n'
     '2.\u00a0修复脉冲装·绯红闪避技能「瞬斩」及分支「樱花散落」等部分女武神技能描述文本缺失的问题。\n'
@@ -57,6 +57,46 @@ UPDATE_CONTENT_V020R1 = (
     '本次为热修版本，Windows 构建器沿用 <b>V0.2.0 基础包</b>，仅需下载并导入新版构建主包重新构建 APK；覆盖安装前请先导出备份存档。\n\n'
     '<color=#00C3FFFF>问题反馈</color>\n'
     '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
+UPDATE_CONTENT_V021 = (
+    '<color=#FF4040FF>该公告面向V0.2.1</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1. <b>商店调整</b>。对商店进行重新清洗，规划了商店分类与内容，购买更加直观合理\n'
+    '2. <b>新增游戏内 GM 浮窗</b>。可快速方便调节商店上架商品，当期卡池，深渊温度，记忆战场轮值BOSS等多种游戏内容\n'
+    '3. <b>新增补给主题轮换</b>。可在 GM 中切换当期卡池与UP\n'
+    '\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
+    '\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
+    '\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
+UPDATE_CONTENT_V030 = (
+    '<color=#FF4040FF>当前版本为V0.3.0</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1. <b>新增女武神·迅羽</b>。接入战斗与养成，当前仅可使用初始武器，可以在商店，GM，最新轮换池获取该角色（实验性）\n'
+    '2. <b>新增训练场</b>。可从游戏内 GM 打开训练场，在战斗中补满当前角色 SP，并调整假人行动、生命和护盾；切换设置会刷新假人并重置生命与护盾。\n'
+    '3. <b>兼容修复部分女武神子技能</b>。完善白练、月光、绯红、影舞、强袭、鬼铠、次元、凯旋、深红、勿忘、紫苑和樱火轮舞的部分子技能配置\n'
+    '4. 修复血色玫瑰“火焰爆裂”附加火伤类型及部分角色共享技能学习问题。\n'
+    '5. 修复部分圣痕无法正常强化和进化的问题\n'
+    '\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
+    '\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
+    '\n'
     '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
     '鸣谢 Hssssssssi，以及各位AI。'
 )
@@ -153,6 +193,18 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.2.0-r1", title="", event_date_str="", content=UPDATE_CONTENT_V020R1,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1795017600,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201831 + show_type, type=show_type, weight=105,
+        title_button="更新公告V0.2.1", title="", event_date_str="", content=UPDATE_CONTENT_V021,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1795276800,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201841 + show_type, type=show_type, weight=106,
+        title_button="更新公告V0.3.0", title="", event_date_str="", content=UPDATE_CONTENT_V030,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1795564800,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)

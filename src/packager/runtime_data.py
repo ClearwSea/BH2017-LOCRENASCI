@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import shutil
 import zipfile
-from .core import ROOT, read_json, write_json, digest
+from .core import ROOT, BuildError, read_json, write_json, digest
 from .json_recipes import render, sources
 
 READY = {
@@ -14,6 +14,49 @@ READY = {
     'equipment': '.local-baseline/server19-dev/cultivation-full-equipment-ready/runtime-ready.json',
     'extra_story': 'server19-run/kallen-20261025/all-open-delivery/runtime-ready.json',
 }
+
+_COMBO_RESIST_ROOTS = {
+    'Mei_DH_ComboClearResist': 'ba836b53ceb8a26d68a7cc0720fd2a1099d65bcaccfb5f6e71cc8fdeee81561e',
+    'Sakura_GW_ComboClearResist': 'bc2e7cace2c9a0dcd14845be0d47e5d747b302d5bef99e9b46740654d5ca53e0',
+}
+_COMBO_RESIST_STRINGMAP_SHA = '87020a6c2c09f42f1509fb260e01c4983604ca4f5524d6af69e1b6414dc861d7'
+
+
+def resource_capabilities(native, resource_manifest):
+    from .material_training import adapt_ability_data
+
+    with Path(native).open('rb') as stream:
+        elf = stream.read(20)
+    if elf[:4] != b'\x7fELF' or elf[4:6] != b'\x01\x01' or elf[18:20] != b'\x28\x00':
+        return []
+
+    entries = {row['path']: row for row in read_json(resource_manifest)['entries']}
+    base = 'private/data/bh3-server19-baked/_baked/'
+    try:
+        with zipfile.ZipFile(Path(resource_manifest).with_name('client-resources.zip')) as packed:
+            payloads = []
+            for name in ('stringmap.txt', 'bakedabilitydata'):
+                path = base + name
+                entry = entries[path]
+                raw = packed.read(path)
+                if entry['pack'] != 'main' or len(raw) != entry['size'] or hashlib.sha256(raw).hexdigest() != entry['sha256']:
+                    return []
+                payloads.append(raw)
+        stringmap, abilities = payloads
+        # The accepted 0.3.0 overlay changes the string map and native code.
+        # Both capabilities are allowed only for the exact reviewed triplet.
+        if (digest(Path(native)) == '5eae22d032e51af62f1f365fe1e67abba0a50058edf17eae3be555c194ff1d62'
+                and hashlib.sha256(stringmap).hexdigest() == 'e0b5016153ff0c2d19cd787f739dbff4989bd1eb2079f276430dab327c57da84'
+                and hashlib.sha256(abilities).hexdigest() == 'c13373e86e2cef402b33968645724a701f6b25493eb103fdbc2030fd57e04077'):
+            return ['avatar_combo_resist_v1', 'avatar_ordinary_shield_predicate_v1']
+        # The reviewed map also binds the string references inside the two roots.
+        if hashlib.sha256(stringmap).hexdigest() != _COMBO_RESIST_STRINGMAP_SHA:
+            return []
+        fingerprints = {name: (sha, sha, ()) for name, sha in _COMBO_RESIST_ROOTS.items()}
+        adapt_ability_data(abilities, stringmap, fingerprints)
+    except (KeyError, OSError, BuildError, zipfile.BadZipFile):
+        return []
+    return ['avatar_combo_resist_v1']
 
 
 def copy_sources(output):
@@ -80,6 +123,7 @@ def prepare(client24, data_work, output, client_tables, client19):
     from .recommendations import adapt
     encoded_tables = {name: native_json(render(recipe, data))[0]
                       for name, recipe in recipes['client_tables'].items()}
+    (default / 'avatarsubskilldata').write_text(encoded_tables['avatarsubskilldata'] + '\n', encoding='utf-8')
     # native_json removes source array-length markers. Validate the actual
     # client representation rather than treating those counts as references.
     rendered = {name: json.loads(encoded) for name, encoded in encoded_tables.items()}
@@ -237,22 +281,11 @@ def finish(output, native, resource_manifest, archive):
         native_caps.update(ready.get('required_native_capabilities', []))
         write_json(path, ready)
         records[scope] = capabilities.canonical_sha(ready)
-    resource_caps = []
-    # Only the reviewed ARM resources enable the two combo-protection skills.
-    with Path(native).open('rb') as stream:
-        elf = stream.read(20)
-    if elf[:4] == b'\x7fELF' and elf[18:20] == b'\x28\x00' and any(
-            row['path'] == 'private/data/bh3-server19-baked/_baked/bakedabilitydata'
-            and row['sha256'] in (
-                '2a4fb06ce8d7f62e8d98291e2769774c81258b1747878130f9a6b75f3a9aa982',
-                '9a43c2f6b2ce18701c68c6656b7772065aead08b54277374bf2d0b0081070e01',
-            )
-            for row in read_json(resource_manifest)['entries']):
-        resource_caps.append('avatar_combo_resist_v1')
     write_json(output / 'build-capabilities.json', {'schema': 1, 'evidence_kind': 'packaged-artifacts',
         'source_mode': 'original-inputs', 'human_gameplay_verified': False,
         'native_sha256': digest(native), 'resource_manifest_sha256': digest(resource_manifest),
-        'native_capabilities': sorted(native_caps), 'resource_capabilities': resource_caps, 'records': records})
+        'native_capabilities': sorted(native_caps),
+        'resource_capabilities': resource_capabilities(native, resource_manifest), 'records': records})
     files = [{'path': p.relative_to(output).as_posix(), 'size': p.stat().st_size, 'sha256': digest(p)}
              for p in sorted(output.rglob('*')) if p.is_file()]
     write_json(output / 'portable-manifest.json', {'schema': 1, 'files': files,

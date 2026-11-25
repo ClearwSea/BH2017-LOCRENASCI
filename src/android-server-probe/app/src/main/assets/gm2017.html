@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:;">
+<title>GM 控制台</title>
+<style>
+*{box-sizing:border-box}body{background:#121a26;color:#eaf0f7;margin:0;font:14px sans-serif}
+nav{display:flex;background:#151d2b;border-bottom:1px solid #384758;padding:4px 9px}
+button,select,input{font:inherit;color:inherit;border:1px solid #41566b;border-radius:6px;background:#202d3e;padding:9px}
+button{cursor:pointer}nav button{flex:1;padding:9px 4px;white-space:nowrap;border:0;background:transparent;color:#b9c8d9}
+nav button[aria-current=true]{color:#fff;background:#274658}
+main{padding:10px 12px}label{display:block;margin-bottom:9px;color:#bfd1df}
+select,input{width:100%;margin-top:4px}button.primary{background:#25576b;border-color:#36758b;width:100%;margin-top:8px}
+button[disabled]{opacity:.45}.details{padding:7px 0;line-height:1.45}#status{min-height:1.4em;color:#ffdd9d}
+.items{max-height:132px;overflow:auto;border:1px solid #41566b;border-radius:6px;margin:5px 0}
+.items button{display:block;width:100%;border:0;border-radius:0;text-align:left;font-size:12px}
+.items button+button{border-top:1px solid #41566b}.items button[aria-selected=true]{background:#274658}
+small{color:#aabecf}.filters{display:flex;gap:8px}.filters label{flex:1;min-width:0}.filters label:first-child{flex:2}
+.pager{display:flex;justify-content:space-between;align-items:center;gap:6px}.pager button{padding:5px 8px}
+#supplyPreview{display:block;width:100%;height:auto;border:1px solid #41566b;border-radius:6px}
+#historyRows article{border-bottom:1px solid #384758;padding:8px 0}
+[hidden]{display:none!important}
+</style>
+<nav aria-label="GM 功能"></nav>
+<main>
+<p id="status" role="status" hidden></p>
+<section id="shop" aria-label="商店货架">
+<div class="filters">
+<label>货架分类<select id="section"></select></label>
+<label id="subLabel">类别<select id="subsection"></select></label>
+</div>
+<label>货架槽位<select id="slots"></select></label>
+<label>更换商品<select id="choices"></select></label>
+<div id="price" class="details"></div>
+<button id="replace" class="primary" disabled>替换货架</button>
+</section>
+<section id="grant" aria-label="仓库发放" hidden>
+<div class="filters">
+<label>物品名称或 ID<input id="search" placeholder="输入名称或 ID" autocomplete="off"></label>
+<label>类别<select id="kind"></select></label>
+</div>
+<div class="pager">
+<button id="previous" aria-label="上一页">上一页</button>
+<small id="resultCount"></small>
+<button id="next" aria-label="下一页">下一页</button>
+</div>
+<div id="matches" class="items"></div>
+<div id="selected" class="details"></div>
+<label id="formLabel" hidden>星级／形态<select id="form"></select></label>
+<label id="qtyLabel" hidden>数量<input id="qty" type="number" min="1" max="9999" value="1"></label>
+<button id="send" class="primary" disabled>发到仓库</button>
+</section>
+<section id="resources" aria-label="资源补充" hidden>
+<label>资源<select id="resourceField"></select></label>
+<label>设置为<input id="resourceValue" type="number" min="0"></label>
+<button id="saveResource" class="primary">保存数量</button>
+<label style="margin-top:16px">常用材料方案<select id="presets"></select></label>
+<div id="presetDetail" class="details"></div>
+<button id="replenish" class="primary">补足所选材料</button>
+</section>
+<section id="gameplay" aria-label="玩法设置" hidden>
+<label>深渊温度<select id="temperatureMode"><option value="auto">默认</option><option value="fixed">固定</option></select></label>
+<label id="temperatureLabel" hidden>固定温度<input id="temperature" type="number" min="0" max="180000"></label>
+<small>退出深渊页面后重新进入时查看。</small>
+<button id="saveTemperature" class="primary">保存温度</button>
+<div style="margin-top:16px">
+<strong>本周记忆战场</strong>
+<div id="currentInfo" class="details"></div>
+<div id="currentControls" hidden>
+<label id="currentModeLabel" hidden>重置后名单<select id="currentMode">
+<option value="keep">保留当前名单</option><option value="replace">更换三名 Boss</option>
+</select></label>
+<div id="currentBossList">
+<label>Boss 1<select id="currentBoss0"></select></label>
+<label>Boss 2<select id="currentBoss1"></select></label>
+<label>Boss 3<select id="currentBoss2"></select></label>
+</div>
+<button id="currentAction" class="primary"></button>
+<div id="resetConfirmation" hidden>
+<p>将清空本周分数、已通关难度和阵容锁定，恢复今日挑战次数。已发奖励、领取记录、本周结算时间和下周名单保留。确认后会先备份存档。</p>
+<p id="resetRoster" class="details"></p>
+<div class="pager"><button id="cancelReset">取消</button><button id="confirmReset">确认重置本周</button></div>
+</div>
+</div>
+</div>
+<label style="margin-top:16px">下周记忆战场<select id="bossMode"><option value="auto">默认轮换</option><option value="fixed">指定三名 Boss</option></select></label>
+<small id="effectiveDate"></small>
+<div id="bossList" hidden>
+<label>Boss 1<select id="boss0"></select></label>
+<label>Boss 2<select id="boss1"></select></label>
+<label>Boss 3<select id="boss2"></select></label>
+</div>
+<button id="saveBosses" class="primary">保存下周名单</button>
+</section>
+<section id="supply" aria-label="补给轮换" hidden>
+<label>补给通道<select id="supplyChannel"><option value="3">精准补给</option><option value="5">扩充补给</option></select></label>
+<p id="supplyCurrent"></p>
+<label>切换到<select id="supplyTheme"></select></label>
+<img id="supplyPreview" alt="主题海报" hidden>
+<div id="supplyDetail" class="details"></div>
+<button id="switchSupply" class="primary" disabled>切换主题</button>
+<div id="supplyConfirm" hidden>
+<p id="confirmTheme"></p>
+<div class="pager"><button id="cancelSupply">取消</button><button id="confirmSupply">确认切换</button></div>
+</div>
+<button id="supplyHistory" class="primary">查看抽取记录</button>
+<div id="historyBox" hidden><div id="historyRows"></div>
+<div class="pager"><button id="historyPrev">上一页</button><button id="historyNext">下一页</button></div></div>
+</section>
+</main>
+<script>
+'use strict';
+var data=/*CATALOG*/ null;
+var supplyData=/*SUPPLY*/ null;
+var currentSupply=null, pendingSupply=null, historyPage=0;
+var byId=function(id){return document.getElementById(id);};
+var active={}, itemId='', busy=false, page=0, pageSize=12;
+var names=Object.keys(data.items), state=null;
+var pendingReset=null;
+var shelfSections=[
+  {title:'武器',groups:['双枪','太刀','重炮','大剑','十字架']},
+  {title:'圣痕',groups:['圣痕套装','散件圣痕']},
+  {title:'置换空间',groups:['置换空间']}
+];
+var resourceNames={scoin:'金币',hcoin:'水晶',stamina:'体力'};
+var resourceLimits={scoin:100000000,hcoin:4294967295,stamina:999};
+var modules=[
+  {id:'shop',label:'商店货架',open:loadShelf},{id:'grant',label:'仓库发放',open:renderMatches},
+  {id:'resources',label:'资源补充',open:function(){call({action:'state'},renderResources);}},
+  {id:'gameplay',label:'玩法设置',open:function(){call({action:'state'},renderGameplay);}},
+  {id:'supply',label:'补给轮换',open:function(){call({action:'supply_state'},loadSupply);}}
+];
+
+function option(box,value,label){
+  var opt=document.createElement('option');opt.value=value;opt.textContent=label;box.appendChild(opt);
+}
+function loadSupply(){
+  currentSupply=state.supply;
+  renderSupply();
+}
+function supplyTheme(key){
+  return supplyData.themes.filter(function(theme){return theme.key===key;})[0];
+}
+function renderSupply(){
+  var channel=byId('supplyChannel').value,current=currentSupply[channel],p=current.pity;
+  var box=byId('supplyTheme');
+  box.textContent='';
+  supplyData.themes.forEach(function(theme){
+    if(String(theme.channel)===channel)option(box,theme.key,theme.version+' · '+theme.name);
+  });
+  box.value=current.key;
+  byId('supplyCurrent').textContent='当前 '+supplyTheme(current.key).name+
+      ' · 当前保底累计 '+p.since_common+'/10、'+p.since_rare+'/100、'+p.since_up+'/200';
+  previewSupply();
+}
+function closeSupplyConfirm(){pendingSupply=null;byId('supplyConfirm').hidden=true;}
+function previewSupply(){
+  closeSupplyConfirm();
+  var channel=byId('supplyChannel').value, selected=supplyTheme(byId('supplyTheme').value);
+  byId('supplyPreview').src=supplyData.previews[selected.key];
+  byId('supplyPreview').hidden=false;
+  byId('supplyDetail').textContent=selected.date+' · '+selected.pool.join('、');
+  byId('switchSupply').disabled=selected.key===currentSupply[channel].key;
+}
+function readSupplyHistory(pageNumber){
+  call({action:'supply_history',page:pageNumber},function(){
+    var history=state.supply_history, rows=byId('historyRows');
+    rows.textContent='';
+    historyPage=history.page;
+    history.rows.forEach(function(row){
+      var card=document.createElement('article'),title=document.createElement('strong');
+      var names={1:'友情',2:'标配角色',3:'精准',5:'扩充',10:'标配装备'};
+      title.textContent=(names[row.channel]||'补给')+' · '+(row.theme_name||((row.channel===3||row.channel===5||!row.channel)?'旧记录':'常驻'));
+      card.appendChild(title);
+      var time=document.createElement('div');
+      time.textContent=new Date(row.time*1000).toLocaleString();
+      card.appendChild(time);
+      var result=document.createElement('small');
+      result.textContent=row.items.map(function(item){return (item.name||('ID '+item.item_id))+' ×'+item.num;}).join('、');
+      card.appendChild(result);
+      rows.appendChild(card);
+    });
+    if(!history.rows.length)rows.textContent='暂无抽取记录';
+    byId('historyPrev').disabled=historyPage===0;
+    byId('historyNext').disabled=!history.more;
+    byId('historyBox').hidden=false;
+  });
+}
+function status(message){
+  byId('status').textContent=message;
+  byId('status').hidden=!message;
+}
+function call(command,done){
+  if(busy)return;
+  busy=true;
+  status('处理中…');
+  byId('replace').disabled=true;
+  byId('send').disabled=true;
+  window.setTimeout(function(){
+    var response;
+    try{response=JSON.parse(GmNative.request(JSON.stringify(command)));}
+    catch(e){response={ok:false,message:'无法连接本地游戏'};}
+    busy=false;
+    status(response.ok?'':response.message);
+    if(response.ok){state=response;active=response.slots;done();}
+    renderPrice();
+    renderGrantButton();
+  },30);
+}
+function currentSlot(){
+  var key=byId('slots').value;
+  return data.slots.filter(function(s){return s.key===key;})[0];
+}
+function renderGroups(){
+  var groups=shelfSections[byId('section').selectedIndex].groups;
+  var box=byId('subsection');
+  box.textContent='';
+  groups.forEach(function(group){option(box,group,group==='圣痕套装'?'套装':group==='散件圣痕'?'散件':group);});
+  byId('subLabel').hidden=groups.length===1;
+  renderSlots('');
+}
+function renderSlots(selected){
+  var box=byId('slots');
+  box.textContent='';
+  data.slots.filter(function(slot){return slot.group===byId('subsection').value;})
+    .forEach(function(slot,i){
+      var row=data.choices[slot.group][active[slot.key]];
+      var title=row?row.title:'';
+      if(slot.group==='圣痕套装')title=title.replace(/[（(]上[）)]$/,'');
+      option(box,slot.key,'槽 '+(i+1)+(title?' · '+title:''));
+    });
+  if(selected)box.value=selected;
+  renderChoices();
+}
+function renderChoices(){
+  var slot=currentSlot(), box=byId('choices');
+  box.textContent='';
+  if(!slot){renderPrice();return;}
+  var choices=data.choices[slot.group];
+  var taken=data.slots.filter(function(s){return s.group===slot.group&&s.key!==slot.key;})
+                      .map(function(s){return active[s.key];});
+  Object.keys(choices).sort(function(a,b){
+    return a===active[slot.key]?-1:b===active[slot.key]?1:choices[a].title.localeCompare(choices[b].title);
+  }).forEach(function(k){
+    if(taken.indexOf(k)<0)option(box,k,choices[k].title+(k===active[slot.key]?'（当前）':''));
+  });
+  renderPrice();
+}
+function renderPrice(){
+  var slot=currentSlot();
+  if(!slot){byId('replace').disabled=true;return;}
+  var key=byId('choices').value;
+  byId('replace').disabled=busy||!key||!active[slot.key]||key===active[slot.key];
+  var row=data.choices[slot.group][key];
+  byId('price').textContent=row?row.items.map(function(id,i){
+    var price=row.prices[i];
+    return data.items[id].name+' · '+(price.coins?price.coins+' 金币':price.crystals+' 水晶');
+  }).join('　  '):'';
+}
+function loadShelf(){call({action:'state'},function(){renderSlots(byId('slots').value);});}
+function renderResourceValue(){
+  var key=byId('resourceField').value;
+  byId('resourceValue').max=resourceLimits[key];
+  byId('resourceValue').value=state.resources[key];
+}
+function renderPreset(){
+  var preset=state.presets[byId('presets').selectedIndex];
+  byId('presetDetail').textContent=preset.items.map(function(row){
+    return data.items[row.id].name+' ≥ '+row.num;
+  }).join('　');
+}
+function renderResources(){
+  renderResourceValue();
+  var box=byId('presets'), selected=box.value;
+  box.textContent='';
+  state.presets.forEach(function(p){option(box,p.id,p.name);});
+  if(selected)box.value=selected;
+  renderPreset();
+}
+function renderGameplay(){
+  var g=state.gameplay;
+  byId('temperatureMode').value=g.abyss_temperature===null?'auto':'fixed';
+  byId('temperature').value=g.abyss_temperature===null?'':g.abyss_temperature;
+  byId('temperatureLabel').hidden=g.abyss_temperature===null;
+  byId('bossMode').value=g.next_bosses===null?'auto':'fixed';
+  byId('bossList').hidden=g.next_bosses===null;
+  byId('effectiveDate').textContent='生效时间 '+chinaDate(g.effective_begin);
+  renderBossSelects('boss',g.next_bosses);
+  renderCurrentExboss();
+}
+function chinaDate(stamp){
+  return new Date((stamp+28800)*1000).toISOString().slice(0,10)+' 04:00（北京时间）';
+}
+function bossNames(ids){
+  return ids.map(function(id){
+    return state.gameplay.bosses.filter(function(b){return b.id===id;})[0].name;
+  }).join('、');
+}
+function renderBossSelects(prefix,selected){
+  for(var i=0;i<3;i++){
+    var box=byId(prefix+i);
+    box.textContent='';
+    option(box,'','请选择');
+    state.gameplay.bosses.forEach(function(b){option(box,b.id,b.name);});
+    if(selected!==null)box.value=selected[i];
+  }
+}
+function renderCurrentExboss(){
+  var current=state.gameplay.current_exboss;
+  var note=current.settled?'本周已结算':!current.available?'舰长等级 38 级解锁':
+    current.active?'请先结束正在进行的战斗，再重新打开玩法设置':current.entered?'本周已有出战记录':'本周尚未出战';
+  byId('currentInfo').textContent=bossNames(current.bosses)+' · '+note+' · 结算 '+chinaDate(current.end);
+  byId('currentControls').hidden=!current.available||current.active;
+  byId('currentModeLabel').hidden=!current.entered;
+  byId('currentMode').value='keep';
+  byId('currentBossList').hidden=current.entered;
+  byId('currentAction').textContent=current.entered?'重置本周':'保存本周名单';
+  renderBossSelects('currentBoss',current.bosses);
+  closeReset();
+}
+function selectedBosses(prefix){
+  var ids=[0,1,2].map(function(i){return Number(byId(prefix+i).value);});
+  if(ids.some(function(id,i){return !id||ids.indexOf(id)!==i;})){
+    status('请选择三名不同的 Boss');return null;
+  }
+  return ids;
+}
+function closeReset(){
+  pendingReset=null;
+  byId('resetConfirmation').hidden=true;
+}
+function saveCurrentExboss(command){
+  var message=command.operation==='reset'?'本周已重置':'本周名单已保存';
+  call(command,function(){
+    renderGameplay();status(message+'。请退出记忆战场页面后重新进入查看。');
+  });
+}
+function numberField(id,max){
+  var raw=byId(id).value;
+  var value=Number(raw);
+  return raw!==''&&Number.isInteger(value)&&value>=0&&value<=max?value:null;
+}
+function saveGameplay(optionName,value,message){
+  call({action:'gameplay',option:optionName,value:value,effective_begin:state.gameplay.effective_begin},function(){
+    renderGameplay();status(message);
+  });
+}
+function renderMatches(){
+  var query=byId('search').value.trim().toLowerCase(),kind=byId('kind').value;
+  var list=byId('matches');
+  list.textContent='';
+  var ordered=names.filter(function(id){
+    var row=data.items[id];
+    if(kind&&row.kind!==kind)return false;
+    if(query&&id.indexOf(query)<0&&row.name.toLowerCase().indexOf(query)<0)return false;
+    return !row.root||Number(id)===row.root||id===query;
+  });
+  var pages=Math.max(1,Math.ceil(ordered.length/pageSize));
+  page=Math.min(page,pages-1);
+  ordered.slice(page*pageSize,(page+1)*pageSize).forEach(function(id){
+    var row=data.items[id],btn=document.createElement('button');
+    btn.textContent=row.name+' · '+id+' · '+row.kind+(row.available?'':' · 暂不可发放');
+    btn.setAttribute('aria-selected',id===itemId);
+    btn.onclick=function(){pickItem(id);};
+    list.appendChild(btn);
+  });
+  byId('resultCount').textContent=(page+1)+' / '+pages+' 页 · '+ordered.length+' 项';
+  byId('previous').disabled=page===0;
+  byId('next').disabled=page+1>=pages;
+}
+function pickItem(id){
+  itemId=id;
+  var row=data.items[id], forms=byId('form');
+  forms.textContent='';
+  byId('selected').textContent=row.name+' · '+id;
+  var gear=row.kind==='武器'||row.kind==='圣痕';
+  byId('formLabel').hidden=!gear;
+  byId('qtyLabel').hidden=gear||row.kind==='服饰';
+  byId('qty').value=1;
+  if(gear){
+    (row.forms||[{id:id,stars:row.stars}]).forEach(function(k){
+      option(forms,k.id,k.stars+' 星 · ID '+k.id);
+    });
+    forms.value=id;
+  }
+  renderMatches();
+  renderGrantButton();
+}
+function renderGrantButton(){
+  byId('send').disabled=busy||!itemId||!data.items[itemId].available;
+}
+modules.forEach(function(module){
+  var btn=document.createElement('button');
+  btn.textContent=module.label;
+  btn.onclick=function(){
+    modules.forEach(function(other){byId(other.id).hidden=other!==module;other.button.setAttribute('aria-current',other===module);});
+    status('');
+    module.open();
+  };
+  module.button=btn;document.querySelector('nav').appendChild(btn);
+});
+shelfSections.forEach(function(section,i){option(byId('section'),i,section.title);});
+Object.keys(resourceNames).forEach(function(key){option(byId('resourceField'),key,resourceNames[key]);});
+byId('section').onchange=function(){status('');renderGroups();};
+byId('subsection').onchange=function(){status('');renderSlots('');};
+byId('resourceField').onchange=renderResourceValue;
+byId('presets').onchange=renderPreset;
+byId('saveResource').onclick=function(){
+  if(!state)return;
+  var key=byId('resourceField').value, value=numberField('resourceValue',resourceLimits[key]);
+  if(value===null){status('请输入 0 到 '+resourceLimits[key]+' 的整数');return;}
+  call({action:'resources',field:key,value:value},function(){renderResourceValue();status(resourceNames[key]+'已设为 '+value);});
+};
+byId('replenish').onclick=function(){
+  if(!state||!byId('presets').value)return;
+  call({action:'replenish',group:byId('presets').value},function(){status('材料已补足，原有较高数量保留');});
+};
+byId('temperatureMode').onchange=function(){byId('temperatureLabel').hidden=this.value==='auto';};
+byId('supplyChannel').onchange=function(){if(currentSupply)renderSupply();};
+byId('supplyTheme').onchange=previewSupply;
+byId('switchSupply').onclick=function(){
+  if(busy||!currentSupply)return;
+  var channel=Number(byId('supplyChannel').value),target=byId('supplyTheme').value;
+  pendingSupply={action:'supply_switch',channel:channel,target:target,expected:currentSupply[channel].key};
+  byId('confirmTheme').textContent='切换至 '+supplyTheme(target).name+'。本通道保底与记录继续累计。';
+  byId('supplyConfirm').hidden=false;
+};
+byId('cancelSupply').onclick=closeSupplyConfirm;
+byId('confirmSupply').onclick=function(){
+  if(!pendingSupply||busy)return;
+  var command=pendingSupply;
+  closeSupplyConfirm();
+  call(command,function(){loadSupply();status('已切换。若已打开补给页，请退出再进入查看。');});
+};
+byId('supplyHistory').onclick=function(){readSupplyHistory(0);};
+byId('historyPrev').onclick=function(){readSupplyHistory(historyPage-1);};
+byId('historyNext').onclick=function(){readSupplyHistory(historyPage+1);};
+byId('bossMode').onchange=function(){byId('bossList').hidden=this.value==='auto';};
+byId('currentMode').onchange=function(){closeReset();byId('currentBossList').hidden=this.value==='keep';};
+[0,1,2].forEach(function(i){byId('currentBoss'+i).onchange=closeReset;});
+byId('cancelReset').onclick=closeReset;
+byId('confirmReset').onclick=function(){
+  if(!pendingReset||busy)return;
+  var command=pendingReset;
+  closeReset();
+  saveCurrentExboss(command);
+};
+byId('currentAction').onclick=function(){
+  if(!state||busy)return;
+  var current=state.gameplay.current_exboss;
+  var choose=!current.entered||byId('currentMode').value==='replace';
+  var bosses=choose?selectedBosses('currentBoss'):null;
+  if(choose&&!bosses)return;
+  var command={action:'exboss_current',operation:current.entered?'reset':'replace',
+    begin:current.begin,revision:current.revision,bosses:bosses};
+  if(!current.entered){saveCurrentExboss(command);return;}
+  pendingReset=command;
+  byId('resetRoster').textContent='重置后名单 '+bossNames(bosses||current.bosses);
+  byId('resetConfirmation').hidden=false;
+  byId('confirmReset').scrollIntoView(false);
+};
+byId('saveTemperature').onclick=function(){
+  if(!state)return;
+  var fixed=byId('temperatureMode').value==='fixed',value=fixed?numberField('temperature',180000):null;
+  if(fixed&&value===null){status('请输入 0 到 180000 的整数');return;}
+  saveGameplay('temperature',value,'已保存温度，重新进入深渊查看');
+};
+byId('saveBosses').onclick=function(){
+  if(!state)return;
+  var bosses=null;
+  if(byId('bossMode').value==='fixed'){
+    bosses=selectedBosses('boss');
+    if(!bosses)return;
+  }
+  saveGameplay('bosses',bosses,'已保存，下周生效');
+};
+['全部','武器','圣痕','材料道具','角色碎片','服饰'].forEach(function(kind){option(byId('kind'),kind==='全部'?'':kind,kind);});
+byId('slots').onchange=function(){status('');renderChoices();};
+byId('choices').onchange=renderPrice;
+function resetPage(){page=0;renderMatches();}
+byId('search').oninput=resetPage;
+byId('kind').onchange=resetPage;
+byId('previous').onclick=function(){page--;renderMatches();};
+byId('next').onclick=function(){page++;renderMatches();};
+byId('replace').onclick=function(){
+  var slot=currentSlot();
+  call({action:'replace',slot:slot.key,target:byId('choices').value,expected:active[slot.key]},function(){
+    renderSlots(slot.key);status('已更新 '+slot.title+'。若商店已打开，可退出该页再进入。');
+  });
+};
+byId('send').onclick=function(){
+  var item=Number(byId('formLabel').hidden?itemId:byId('form').value);
+  var count=byId('qtyLabel').hidden?1:Number(byId('qty').value);
+  if(!Number.isInteger(count)||count<1||count>9999){status('请输入 1 到 9999 的整数');return;}
+  call({action:'grant',item:item,quantity:count},function(){
+    status('已发放 '+data.items[item].name+' × '+count+'（ID '+item+'）');
+  });
+};
+renderGroups();
+modules[0].button.click();
+</script>
+</html>

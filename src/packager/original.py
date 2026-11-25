@@ -93,6 +93,12 @@ def build(config, reuse_data=None, resume=False):
         stage('videos-from-7x-and-explicit-extras', lambda: video.prepare(config['resources7x'],
             work / 'client-tables', config['ffmpeg'], work / 'resources/external/assets/Video',
             work / 'logs/video', config.get('extra_videos') or supplemental_root / 'videos'))
+        from . import release_021
+        stage('v021-game-content', lambda: release_021.apply(work, supplemental_root))
+        from . import v030_verified_content, v030_binary_overlay
+        overlay = supplemental_root / 'fuka601/v1/fuka601-v1-content.zip'
+        stage('v030-reviewed-content', lambda: v030_verified_content.apply(work, supplemental_root))
+        stage('v030-native-overlay', lambda: v030_binary_overlay.apply_native(overlay, work / 'native/libil2cpp.so'))
         stage('resource-packs', lambda: resources.pack(work / 'resources', work / 'embedded'))
         stage('runtime-capabilities', lambda: runtime_data.finish(work / 'runtime', work / 'native/libil2cpp.so',
             work / 'embedded/client-resources.json', work / 'runtime.zip'))
@@ -103,9 +109,11 @@ def build(config, reuse_data=None, resume=False):
         stage('announcement-layout', lambda: str(announcement_prefab(config, work)))
         from . import shop_art
         stage('shop-artwork', lambda: shop_art.prepare(config['client19'], config['client24'], work / 'unity-overrides', supplemental_root / 'images'))
+        stage('v030-unity-overlay', lambda: v030_binary_overlay.apply_unity(overlay, config['client19'], work / 'unity-overrides'))
+        stage('v030-audio-overlay', lambda: v030_binary_overlay.apply_audio(overlay, config['client19'], work / 'v030-audio.pck'))
         stage('apk-compose', lambda: compose(config['client19'], host, work / 'native/libil2cpp.so',
             work / 'unsigned.apk', work / 'embedded', prefab, supplemental_root / 'images/launcher/app-icon.png',
-            unity_overrides=work / 'unity-overrides'))
+            unity_overrides=work / 'unity-overrides', audio_override=work / 'v030-audio.pck'))
         tools = config['tools_root'] / 'sdk/build-tools/35.0.0'
         java = next((config['tools_root'] / 'jdk').glob('*/bin/java.exe'))
         env = os.environ.copy()
@@ -114,6 +122,7 @@ def build(config, reuse_data=None, resume=False):
         stage('sign', lambda: run_command([tools / 'apksigner.bat', 'sign', '--ks', config['keystore'], '--ks-key-alias', config['key_alias'],
             '--ks-pass', 'env:BH3_KEYSTORE_PASSWORD', '--key-pass', 'env:BH3_KEY_PASSWORD', '--out', work / 'candidate.apk', work / 'aligned.apk'], work, 'sign', env))
         stage('verify-signature', lambda: run_command([tools / 'apksigner.bat', 'verify', work / 'candidate.apk'], work, 'verify-signature', env))
+        receipt.pop('error', None)
         receipt.update(status='success', finished_utc=now(), apk='candidate.apk')
         write_json(work / 'original-build.json', receipt)
         return receipt

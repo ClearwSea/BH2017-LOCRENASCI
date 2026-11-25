@@ -194,6 +194,9 @@ def compile_host(config, work, launcher_art=None):
     assets = project / 'app/src/main/assets'
     assets.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(work / 'runtime.zip', assets / 'runtime.zip')
+    gm_page = work / 'gm2017.html'
+    if gm_page.is_file():
+        shutil.copyfile(gm_page, assets / 'gm2017.html')
     if launcher_art is not None and launcher_art.is_file():
         shutil.copyfile(launcher_art, assets / 'launcher-hero-bg.png')
     libraries = project / 'app/src/main/jniLibs/armeabi-v7a'

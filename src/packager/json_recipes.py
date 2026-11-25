@@ -42,7 +42,7 @@ def render(recipe, sources):
 def sources(data_work, effective, apk24):
     from pathlib import Path
     from .core import ROOT, read_json
-    from .tables import SourceTables
+    from .tables import SourceTables, restore_native_branch_subskills
     result = {}
     for label, root in (('base', data_work / 'generated/tables/_exceloutputasset'), ('server', effective)):
         for path in root.iterdir():
@@ -50,6 +50,7 @@ def sources(data_work, effective, apk24):
                 result[label + '/' + path.name] = read_json(path)
     source = SourceTables(apk24, read_json(data_work / 'generated/base-tables/manifest.json'))
     try:
+        result['server/avatarsubskilldata'] = restore_native_branch_subskills(result['server/avatarsubskilldata'], source)
         for name in ('monsterconfigdata', 'uniquemonsterdata', 'endlessitem', 'equipmentskilldata'):
             result['unfiltered/' + name] = source.projected_tsv(name)
         _, raw = source.objects.object(source.mapping['_baked/stringmap'])
