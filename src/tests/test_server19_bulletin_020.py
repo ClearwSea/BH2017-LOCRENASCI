@@ -55,7 +55,7 @@ APPROVED_V021 = (
 
 
 APPROVED_V030 = (
-    '<color=#FF4040FF>当前版本为V0.3.0</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '<color=#FF4040FF>该公告面向V0.3.0</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
     '\n'
     '<color=#00C3FFFF>本次修复与改进</color>\n'
     '1. <b>新增女武神·迅羽</b>。接入战斗与养成，当前仅可使用初始武器，可以在商店，GM，最新轮换池获取该角色（实验性）\n'
@@ -75,17 +75,38 @@ APPROVED_V030 = (
 )
 
 
+APPROVED_V030R1 = (
+    '<color=#FF4040FF>当前版本为V0.3.0-r1</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1. 修复V0.3.0音频资源异常导致的舰桥、界面、商店、部分关卡及「女武神·迅羽」战斗、波动拳及通关结算语音与音效丢失的问题，恢复正常声音播放。\n'
+    '2. 修复使用「体验模板」存档时，因前置主线任务未同步完成及教学引导记录缺失，导致角色详情页「技能」格显示「未解锁」与主界面连续弹出教学引导的问题。\n'
+    '3. 「女武神·迅羽」的展示模型为包体内原生测试版模型，为实验性内容，显示效果异常是可预见情况。\n'
+    '\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '本次为热修版本，请导入新版构建主包并选择对应配套补充资源包重新构建 APK；覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
+    '\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
+    '\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
 class Bulletin020Test(unittest.TestCase):
     def test_approved_text_and_whitespace(self):
         self.assertEqual(APPROVED_V020R1, bulletin.UPDATE_CONTENT_V020R1)
         self.assertEqual(APPROVED_V021, bulletin.UPDATE_CONTENT_V021)
         self.assertEqual(APPROVED_V030, bulletin.UPDATE_CONTENT_V030)
+        self.assertEqual(APPROVED_V030R1, bulletin.UPDATE_CONTENT_V030R1)
         self.assertEqual(APPROVED_V020, bulletin.UPDATE_CONTENT_V020)
         numbered = [line for line in APPROVED_V020R1.splitlines() if line[:2] in
                     ('1.', '2.', '3.')]
         self.assertEqual([line[:3] for line in numbered],
                          [str(i) + '.\u00a0' for i in range(1, 4)])
         self.assertNotIn('\\<color', APPROVED_V030)
+        self.assertNotIn('\\<color', APPROVED_V030R1)
 
     def test_both_tabs_and_prior_announcement(self):
         kind, response = bulletin.response('GetBulletinReq', {}, {'type': 1})
@@ -95,12 +116,16 @@ class Bulletin020Test(unittest.TestCase):
         rows = [row for row in all_rows if row['title_button'] == '更新公告V0.2.0-r1']
         self.assertEqual({(row['id'], row['type']) for row in rows}, {(201821, 0), (201822, 1)})
         self.assertTrue(all(row['content'] == APPROVED_V020R1 for row in rows))
+        latest = [row for row in all_rows if row['title_button'] == '更新公告V0.3.0-r1']
+        self.assertEqual({(row['id'], row['type']) for row in latest}, {(201851, 0), (201852, 1)})
+        self.assertTrue(all(row['content'] == APPROVED_V030R1 for row in latest))
         new = [row for row in all_rows if row['title_button'] == '更新公告V0.3.0']
         self.assertEqual({(row['id'], row['type']) for row in new}, {(201841, 0), (201842, 1)})
         self.assertTrue(all(row['content'] == APPROVED_V030 for row in new))
         previous = [row for row in all_rows if row['title_button'] == '更新公告V0.2.1']
         self.assertEqual({(row['id'], row['type']) for row in previous}, {(201831, 0), (201832, 1)})
         self.assertTrue(all(row['content'] == APPROVED_V021 for row in previous))
+        self.assertGreater(latest[0]['weight'], new[0]['weight'])
         self.assertGreater(new[0]['weight'], previous[0]['weight'])
         self.assertGreater(previous[0]['weight'], rows[0]['weight'])
         old_v020 = [row for row in all_rows if row['title_button'] == '更新公告V0.2.0']
@@ -120,10 +145,10 @@ class Bulletin020Test(unittest.TestCase):
 
     def test_specific_id_fetch(self):
         _, result = bulletin.response('GetBulletinReq', {},
-                                      {'type': 2, 'bulletin_id_list': [201841, 201842]})
+                                      {'type': 2, 'bulletin_id_list': [201851, 201852]})
         self.assertFalse(result['is_all'])
-        self.assertEqual({row['id'] for row in result['bulletin_list']}, {201841, 201842})
-        self.assertTrue(all(row['content'] == APPROVED_V030 for row in result['bulletin_list']))
+        self.assertEqual({row['id'] for row in result['bulletin_list']}, {201851, 201852})
+        self.assertTrue(all(row['content'] == APPROVED_V030R1 for row in result['bulletin_list']))
 
     def test_offline_guide_precedes_all_update_weights_in_each_tab(self):
         _, result = bulletin.response('GetBulletinReq', {}, {'type': 1})
@@ -138,7 +163,8 @@ class Bulletin020Test(unittest.TestCase):
                 v020 = next(row for row in updates if row['title_button'] == '更新公告V0.2.0')
                 current = next(row for row in updates if row['title_button'] == '更新公告V0.2.0-r1')
                 self.assertGreater(current['weight'], v020['weight'])
-                expected = ['更新公告V0.3.0', '更新公告V0.2.1', '更新公告V0.2.0-r1', '更新公告V0.2.0', '更新公告V0.1.7',
+                expected = ['更新公告V0.3.0-r1', '更新公告V0.3.0', '更新公告V0.2.1', '更新公告V0.2.0-r1',
+                            '更新公告V0.2.0', '更新公告V0.1.7',
                             '更新公告V0.1.6', '更新公告V0.1.5', '更新公告V0.1.4',
                             '更新公告V0.1.3', '更新公告V0.1.2']
                 self.assertEqual([row['title_button'] for row in sorted(updates, key=lambda x: -x['weight'])], expected)

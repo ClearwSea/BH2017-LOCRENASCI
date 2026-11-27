@@ -16,7 +16,7 @@ python -B -m packager build --target apk --config configs/packager-original.exam
 
 `resources7x` 指向包含 `Audio/` 与 `Video/` 的PC Windows版StreamingAssets目录；语音使用 `Audio/GeneratedSoundBanks/Windows/`。`src/profiles/android-launcher-20261102.json`列出参考输入。整个APK的参考哈希或大小不同仍可尝试构建；原生库、类型及资源结构按对应版本配置处理。
 
-构建依次完成协议提取、251表恢复、项目规则、派生目录、原生差分补丁、客户端资源修补、7.x语音/视频转换、运行包配置、Android编译、APK组装、对齐和签名。原生补丁检查原库指纹及指令前像，输出需匹配该补丁配置。
+构建共 21 个阶段，依次完成补充资源校验与加载、协议与 251 表恢复、原生差分补丁、服务端运行数据与客户端基础资源提取、7.x 语音/视频转换、V0.2.1/V0.3.0 兼容数据与原生/Unity/音频叠加、运行包配置、Android 编译、公告布局与商店图鉴资源修补、APK 组装、对齐、签名与签名校验。原生补丁检查原库指纹及指令前像，输出需匹配该补丁配置。
 
 输出位于配置的 `work_dir`：
 

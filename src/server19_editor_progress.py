@@ -154,6 +154,51 @@ def _count_stars(account, saved, configs, chapter, difficulty):
     return total
 
 
+_STORY_MISSION_IDS = tuple(range(10001, 10031))
+_STORY_MISSION_POLICY = 'deployed24_scoped_story_manual_claim'
+
+
+def _sync_completed_story_missions(account, saved, configs):
+    """Close completed contiguous Chapter 1 normal story missions so UI gates unlock."""
+    prefix = []
+    for mission_id in _STORY_MISSION_IDS:
+        stage_id = mission_id + 100
+        if stage_id not in configs or saved.get(stage_id, {}).get('is_done') is not True:
+            break
+        prefix.append(mission_id)
+    if not prefix:
+        return
+    runtime = account.get('mission_runtime')
+    if runtime is None:
+        rows = account.get('mission_data', {}).get('mission_list', [])
+        closed = sorted(row['mission_id'] for row in rows
+                        if isinstance(row, dict) and row.get('mission_id') in _STORY_MISSION_IDS
+                        and row.get('status') == 5)
+        runtime = {'schema': 1, 'source_policy': _STORY_MISSION_POLICY,
+                   'claimed_ids': closed, 'receipts': []}
+        account['mission_runtime'] = runtime
+    elif (not isinstance(runtime, dict) or runtime.get('schema') != 1 or
+          runtime.get('source_policy') != _STORY_MISSION_POLICY or
+          not isinstance(runtime.get('claimed_ids'), list)):
+        raise ValueError('主线任务记录格式错误')
+    claimed = runtime['claimed_ids']
+    claimed_set = set(claimed)
+    added = False
+    for mission_id in prefix:
+        if mission_id not in claimed_set:
+            claimed.append(mission_id)
+            claimed_set.add(mission_id)
+            added = True
+    if added:
+        base_claimed = sorted(mid for mid in claimed if mid in _STORY_MISSION_IDS)
+        other_claimed = [mid for mid in claimed if mid not in _STORY_MISSION_IDS]
+        runtime['claimed_ids'] = base_claimed + other_claimed
+        data = account.get('mission_data')
+        if isinstance(data, dict) and isinstance(data.get('mission_list'), list):
+            data['mission_list'] = [row for row in data['mission_list']
+                                    if not (isinstance(row, dict) and row.get('mission_id') in claimed_set)]
+
+
 def _unlock(account, catalog, identity):
     configs = _stages(catalog)
     if identity not in configs:
@@ -213,6 +258,7 @@ def _unlock(account, catalog, identity):
         finally:
             visiting.remove(stage_id)
     prepare(identity, False)
+    _sync_completed_story_missions(account, saved, configs)
     return ['已满足关卡 %d 的前置条件，目标关原有进度保持不变' % identity]
 
 
@@ -233,6 +279,8 @@ def _max_stars(account, catalog, op):
         _set_stars(account, saved, cfg, identity, range(len(cfg['challengeList'])))
         row = saved[identity]
         row.update(progress=max(row.get('progress', 0), cfg['maxProgress']), is_done=True)
+    if chapter == 1 and difficulty == 1 and kind in (None, 'story'):
+        _sync_completed_story_missions(account, saved, configs)
     return ['已设置 %d 个关卡全部星级' % len(selected)]
 
 

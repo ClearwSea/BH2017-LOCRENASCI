@@ -9,7 +9,7 @@ import argparse,hashlib,json,zipfile
 from pathlib import Path
 
 PREFIX='fuka601/v1/'
-BUNDLE_SHA256='8c2a17ad5379f629f097e6525475ce2be22e021b7ca0474822a383752084043e'
+BUNDLE_SHA256='8a39942e61f83e72089c4bc6ff804419c4f2c9830b756fbbd246d68f4a837026'
 def digest(b):return hashlib.sha256(b).hexdigest()
 def load(bundle):
     with Path(bundle).open('rb') as f:

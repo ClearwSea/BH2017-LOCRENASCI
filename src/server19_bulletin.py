@@ -82,7 +82,7 @@ UPDATE_CONTENT_V021 = (
 
 
 UPDATE_CONTENT_V030 = (
-    '<color=#FF4040FF>当前版本为V0.3.0</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '<color=#FF4040FF>该公告面向V0.3.0</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
     '\n'
     '<color=#00C3FFFF>本次修复与改进</color>\n'
     '1. <b>新增女武神·迅羽</b>。接入战斗与养成，当前仅可使用初始武器，可以在商店，GM，最新轮换池获取该角色（实验性）\n'
@@ -93,6 +93,25 @@ UPDATE_CONTENT_V030 = (
     '\n'
     '<color=#00C3FFFF>更新提示</color>\n'
     '覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
+    '\n'
+    '<color=#00C3FFFF>问题反馈</color>\n'
+    '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
+    '\n'
+    '——来自 <color=#00C3FFFF>GITHUB/ClearwSea</color>\n'
+    '鸣谢 Hssssssssi，以及各位AI。'
+)
+
+
+UPDATE_CONTENT_V030R1 = (
+    '<color=#FF4040FF>当前版本为V0.3.0-r1</color>。此版本由独立打包器进行构建，并未同整包进行完善验收，遇见BUG是正常情况，请提交issue反馈\n'
+    '\n'
+    '<color=#00C3FFFF>本次修复与改进</color>\n'
+    '1. 修复V0.3.0音频资源异常导致的舰桥、界面、商店、部分关卡及「女武神·迅羽」战斗、波动拳及通关结算语音与音效丢失的问题，恢复正常声音播放。\n'
+    '2. 修复使用「体验模板」存档时，因前置主线任务未同步完成及教学引导记录缺失，导致角色详情页「技能」格显示「未解锁」与主界面连续弹出教学引导的问题。\n'
+    '3. 「女武神·迅羽」的展示模型为包体内原生测试版模型，为实验性内容，显示效果异常是可预见情况。\n'
+    '\n'
+    '<color=#00C3FFFF>更新提示</color>\n'
+    '本次为热修版本，请导入新版构建主包并选择对应配套补充资源包重新构建 APK；覆盖安装前，请先在启动页导出当前存档并妥善保管。\n'
     '\n'
     '<color=#00C3FFFF>问题反馈</color>\n'
     '如遇异常，请提交issue，并尽可能提供游戏包版本、手机型号、操作步骤、使用角色及报错截图；涉及存档的问题，请同时保留并上传出错时的存档，方便复现与排查，感谢。\n'
@@ -205,6 +224,12 @@ def response(name, account, values=None, *, account_path=None):
         title_button="更新公告V0.3.0", title="", event_date_str="", content=UPDATE_CONTENT_V030,
         banner_path="Server19/Announcement/Update", mark=0,
         begin_time=1767225600, end_time=2145916800, update_time=1795564800,
+    ) for show_type in (0, 1)]
+    announcements += [dict(
+        id=201851 + show_type, type=show_type, weight=107,
+        title_button="更新公告V0.3.0-r1", title="", event_date_str="", content=UPDATE_CONTENT_V030R1,
+        banner_path="Server19/Announcement/Update", mark=0,
+        begin_time=1767225600, end_time=2145916800, update_time=1795824000,
     ) for show_type in (0, 1)]
     bulletins = announcements + [banner_standard, banner_ziyuan]
     whole = int((values or {}).get("type", 1)) in (0, 1)

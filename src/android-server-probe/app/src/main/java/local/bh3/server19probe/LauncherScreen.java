@@ -8,6 +8,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.CountDownTimer;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -47,6 +48,7 @@ import java.util.Locale;
 
 /** Native launcher presentation. All actions and progress come from IntegratedActivity. */
 final class LauncherScreen {
+    static final String VERSION = "V0.3.0-r1";
     interface Actions {
         void selectResource();
         void selectSave();
@@ -80,6 +82,8 @@ final class LauncherScreen {
     private Switch damageSwitch;
     private Steps steps;
     private ScrollView contentScroll;
+    private Dialog mandatoryNoticeDialog;
+    private CountDownTimer mandatoryNoticeTimer;
 
     LauncherScreen(Activity activity,Actions actions,String notice){
         this.activity=activity;this.actions=actions;this.notice=notice;this.eventFile=new File(activity.getFilesDir(),"launcher-startup.log");
@@ -174,8 +178,8 @@ final class LauncherScreen {
         LinearLayout h=panel(0xff24272b);h.setBackground(new HeroArt(compact));h.setPadding(d(compact?14:18),d(compact?9:14),d(compact?14:18),d(compact?8:14));
         LinearLayout top=row();top.addView(text("LEGACY PROJECT / 2017",compact?8:11,muted,true),new LinearLayout.LayoutParams(0,-2,1));top.addView(text("●  LOCAL BUILD",compact?8:10,green,true));h.addView(top);
         add(h,text(compact?"崩壞3rd · 2017":"崩壞3rd  ·  2017",compact?23:26,white,true),compact?4:12);
-        String subtitle="LOC-RENASCI 项目   /   V0.3.0";TextView sub=text(subtitle,compact?10:12,0xffc0c5ca,compact);
-        SpannableString highlighted=new SpannableString(subtitle);int version=subtitle.indexOf("V0.3.0");highlighted.setSpan(new ForegroundColorSpan(0xffb9dcf1),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);highlighted.setSpan(new StyleSpan(Typeface.BOLD),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);sub.setText(highlighted);add(h,sub,compact?1:3);
+        String subtitle="LOC-RENASCI 项目   /   "+VERSION;TextView sub=text(subtitle,compact?10:12,0xffc0c5ca,compact);
+        SpannableString highlighted=new SpannableString(subtitle);int version=subtitle.indexOf(VERSION);highlighted.setSpan(new ForegroundColorSpan(0xffb9dcf1),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);highlighted.setSpan(new StyleSpan(Typeface.BOLD),version,subtitle.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);sub.setText(highlighted);add(h,sub,compact?1:3);
         if(compact){View divider=new View(activity);divider.setBackgroundColor(line);LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,d(1));p.topMargin=d(6);h.addView(divider,p);}
         LinearLayout bottom=row();bottom.addView(text("由 GitHub/ClearwSea 适配",compact?9:10,muted,false),new LinearLayout.LayoutParams(0,-2,1));
         TextView update=text("检查更新 ↗",compact?9:12,white,true);update.setPadding(d(6),d(compact?4:9),0,d(compact?4:9));update.setOnClickListener(v->openUrl("https://github.com/ClearwSea/BH2017-LOCRENASCI/releases/latest"));bottom.addView(update);add(h,bottom,compact?0:12);shadow(h);return h;
@@ -186,12 +190,78 @@ final class LauncherScreen {
         TextView body=text("项目仅供数字遗产保存与学习交流，版权归米哈游所有\n------------------\n禁止倒卖；如果你是花钱付费获取，说明你被骗了，请申请退款并举报。",compact?10:12,0xffc7b9a7,false);body.setLineSpacing(d(compact?2:3),1);add(p,body,compact?4:8);
         TextView details=text("查看完整公告  →",compact?9:10,0xffe3c69e,true);details.setGravity(Gravity.RIGHT);details.setPadding(0,d(compact?3:7),0,0);details.setOnClickListener(v->noticeDialog());add(p,details,compact?2:4);return p;
     }
-    private void noticeDialog(){
-        Dialog pop=new Dialog(activity);LinearLayout box=col();box.setPadding(d(22),d(20),d(20),d(20));box.setBackground(shape(0xff1b1e22,0xff34383d,16));
-        LinearLayout header=row();header.addView(text("重要公告",19,white,true),new LinearLayout.LayoutParams(0,-2,1));header.addView(button("×",pop::dismiss),new LinearLayout.LayoutParams(d(38),d(38)));box.addView(header);
+    private LinearLayout noticeDialogBox(boolean closeable,Dialog pop){
+        LinearLayout box=col();box.setPadding(d(22),d(20),d(20),d(20));box.setBackground(shape(0xff1b1e22,0xff34383d,16));
+        LinearLayout header=row();header.addView(text("重要公告",19,white,true),new LinearLayout.LayoutParams(0,-2,1));
+        if(closeable)header.addView(button("×",pop::dismiss),new LinearLayout.LayoutParams(d(38),d(38)));
+        else header.addView(text("请完整阅读",11,muted,true));
+        box.addView(header);
         TextView body=text("",13,0xffb6bcc5,false);LauncherNotice.setText(body,notice);body.setTextColor(0xffb6bcc5);body.setLinkTextColor(accents[theme]);body.setLineSpacing(d(6),1);
-        ScrollView scrolling=new ScrollView(activity);scrolling.addView(body);LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,0,1);lp.topMargin=d(20);box.addView(scrolling,lp);
-        LinearLayout footer=row();footer.setGravity(Gravity.RIGHT);footer.addView(button("我知道了",pop::dismiss));add(box,footer,22);pop.setContentView(box);pop.show();if(pop.getWindow()!=null){pop.getWindow().setBackgroundDrawableResource(android.R.color.transparent);pop.getWindow().setLayout(Math.min(d(460),activity.getResources().getDisplayMetrics().widthPixels-d(32)),Math.min(d(400),activity.getResources().getDisplayMetrics().heightPixels-d(48)));}
+        ScrollView scrolling=new ScrollView(activity);scrolling.addView(body);LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,0,1);lp.topMargin=d(18);box.addView(scrolling,lp);
+        return box;
+    }
+    private void showDialogWindow(Dialog pop,View content){
+        pop.setContentView(content);pop.show();
+        if(pop.getWindow()!=null){pop.getWindow().setBackgroundDrawableResource(android.R.color.transparent);pop.getWindow().setLayout(Math.min(d(470),activity.getResources().getDisplayMetrics().widthPixels-d(28)),Math.min(d(490),activity.getResources().getDisplayMetrics().heightPixels-d(44)));}
+    }
+    private void noticeDialog(){
+        Dialog pop=new Dialog(activity);LinearLayout box=noticeDialogBox(true,pop);
+        LinearLayout footer=row();footer.setGravity(Gravity.RIGHT);footer.addView(button("我知道了",pop::dismiss));add(box,footer,18);
+        showDialogWindow(pop,box);
+    }
+    void showMandatoryNotice(Runnable onAccepted){
+        if(mandatoryNoticeDialog!=null&&mandatoryNoticeDialog.isShowing())return;
+        if(mandatoryNoticeTimer!=null){mandatoryNoticeTimer.cancel();mandatoryNoticeTimer=null;}
+        Dialog pop=new Dialog(activity);pop.setCancelable(false);pop.setCanceledOnTouchOutside(false);mandatoryNoticeDialog=pop;
+        LinearLayout box=noticeDialogBox(false,pop);
+        LinearLayout footer=col();
+        CheckBox readBox=new CheckBox(activity);readBox.setText("我已阅读");readBox.setTextColor(white);readBox.setTextSize(13);
+        readBox.setButtonTintList(android.content.res.ColorStateList.valueOf(accents[theme]));
+        footer.addView(readBox,new LinearLayout.LayoutParams(-2,-2));
+        TextView confirm=text("请阅读公告（10 秒）",12,0xffd0d4d9,true);confirm.setGravity(Gravity.CENTER);confirm.setPadding(d(16),d(11),d(16),d(11));
+        confirm.setBackground(shape(0xff202327,line,8));confirm.setEnabled(false);confirm.setClickable(false);confirm.setAlpha(.55f);
+        add(footer,confirm,10);add(box,footer,16);
+        final int[] remain={10};
+        Runnable refreshGate=()->{
+            boolean timerDone=remain[0]<=0;
+            boolean checked=readBox.isChecked();
+            boolean unlocked=timerDone&&checked;
+            confirm.setEnabled(unlocked);confirm.setClickable(unlocked);
+            if(!timerDone){
+                confirm.setText("请阅读公告（"+remain[0]+" 秒）");confirm.setTextColor(0xffd0d4d9);confirm.setBackground(shape(0xff202327,line,8));confirm.setAlpha(.55f);
+            }else if(!checked){
+                confirm.setText("请先勾选“我已阅读”");confirm.setTextColor(0xffd0d4d9);confirm.setBackground(shape(0xff202327,line,8));confirm.setAlpha(.68f);
+            }else{
+                confirm.setText("确认关闭");confirm.setTextColor(0xff111518);confirm.setBackground(shape(accents[theme],0,8));confirm.setAlpha(1f);
+            }
+        };
+        readBox.setOnCheckedChangeListener((buttonView,isChecked)->refreshGate.run());
+        confirm.setOnClickListener(v->{
+            if(remain[0]>0||!readBox.isChecked())return;
+            if(mandatoryNoticeTimer!=null){mandatoryNoticeTimer.cancel();mandatoryNoticeTimer=null;}
+            mandatoryNoticeDialog=null;pop.dismiss();
+            if(!activity.isFinishing()&&!activity.isDestroyed())onAccepted.run();
+        });
+        pop.setOnDismissListener(d->{
+            if(mandatoryNoticeTimer!=null){mandatoryNoticeTimer.cancel();mandatoryNoticeTimer=null;}
+            if(mandatoryNoticeDialog==pop)mandatoryNoticeDialog=null;
+        });
+        mandatoryNoticeTimer=new CountDownTimer(10000,250){
+            @Override public void onTick(long remaining){
+                int secs=Math.max(1,(int)((remaining+999)/1000));
+                if(secs!=remain[0]){remain[0]=secs;refreshGate.run();}
+            }
+            @Override public void onFinish(){
+                if(activity.isFinishing()||activity.isDestroyed()||!pop.isShowing())return;
+                remain[0]=0;refreshGate.run();
+                android.util.Log.i("Server19Notice","Mandatory notice 10s wait finished at "+android.os.SystemClock.elapsedRealtime());
+            }
+        };
+        showDialogWindow(pop,box);refreshGate.run();mandatoryNoticeTimer.start();
+    }
+    void destroy(){
+        if(mandatoryNoticeTimer!=null){mandatoryNoticeTimer.cancel();mandatoryNoticeTimer=null;}
+        if(mandatoryNoticeDialog!=null){if(mandatoryNoticeDialog.isShowing())mandatoryNoticeDialog.dismiss();mandatoryNoticeDialog=null;}
     }
     private void themeDialog(){
         Dialog pop=new Dialog(activity);LinearLayout box=col();box.setPadding(d(18),d(16),d(18),d(16));box.setBackground(shape(cards[theme],line,14));

@@ -176,6 +176,46 @@ class EditorProgressTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             templates.create(catalog, 'starter', uid=0)
 
+    def test_full_level_and_story_edits_close_chapter1_mission_chain(self):
+        stages = [row(10100 + i, pre=[10100 + i - 1] if i > 1 else ()) for i in range(1, 31)]
+        catalog = {
+            'playerleveldata': [{'level': 1, 'stamina': 50, 'avatarLevelLimit': 15},
+                                {'level': 80, 'stamina': 160, 'avatarLevelLimit': 80}],
+            'avatardata': [{'avatarID': 101, 'unlockStar': 1, 'avatarFragmentID': 10101,
+                            'skillList': [], 'initialWeapon': 20001, 'weaponBaseTypeList': [1]}],
+            'avatarexdata': [],
+            'dressdata': [],
+            'weapondata': [{'ID': 20001, 'maxLv': 5, 'expType': 1, 'baseType': 1, 'cost': 1}],
+            'equipmentleveldata': [{'level': 1, 'Type1': [0, 100]}],
+            'avatarleveldata': [{'level': i, 'cost': 10} for i in range(1, 81)],
+            'avatarfragmentdata': [{'ID': 10101, 'quantityLimit': 999}],
+            'stages': stages,
+            'tutorialdata': [{'id': 1010}, {'id': 9081}],
+            'stagetutorialdata': [{'tutorialId': 10001}, {'tutorialId': 10002}],
+        }
+        starter_plain = templates.create(catalog, 'starter', uid=54320)
+        self.assertEqual(starter_plain['guide_id_list'], [])
+        full = templates.create(catalog, 'full_level', uid=54321)
+        self.assertEqual(full['guide_id_list'], [1010, 9081, 10001, 10002])
+        self.assertEqual(full['mission_runtime']['source_policy'], 'deployed24_scoped_story_manual_claim')
+        self.assertEqual(full['mission_runtime']['claimed_ids'], list(range(10001, 10031)))
+        self.assertEqual(full['mission_runtime']['receipts'], [])
+
+        account = {'main': {'level': 80, 'scoin': 0, 'hcoin': 0}, 'stage_list': [],
+                   'stage_runtime': {'schema': 1, 'active': None, 'settlements': []},
+                   'mission_runtime': {'schema': 1, 'source_policy': 'deployed24_scoped_story_manual_claim',
+                                       'claimed_ids': [10001], 'receipts': [{'mission_id': 10001}]},
+                   'mission_data': {'mission_list': [{'mission_id': 10007, 'status': 2, 'progress': 0}]}}
+        unlocked, _ = editor.apply(account, {'stages': stages}, {'op': 'story_unlock', 'stage_id': 10108})
+        self.assertEqual(unlocked['mission_runtime']['claimed_ids'], list(range(10001, 10008)))
+        self.assertEqual(unlocked['mission_runtime']['receipts'], [{'mission_id': 10001}])
+        self.assertEqual(unlocked['mission_data']['mission_list'], [])
+
+        maxed, _ = editor.apply(unlocked, {'stages': stages},
+                                {'op': 'story_max_stars', 'chapter_id': 1, 'difficulty': 1, 'kind': 'story'})
+        self.assertEqual(maxed['mission_runtime']['claimed_ids'], list(range(10001, 10031)))
+        self.assertEqual(maxed['mission_runtime']['receipts'], [{'mission_id': 10001}])
+
 
 if __name__ == '__main__':
     unittest.main()

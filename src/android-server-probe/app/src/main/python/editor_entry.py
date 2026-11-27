@@ -71,7 +71,8 @@ def _catalog(context):
         names = ('avatardata', 'avatarsubskilldata', 'avatarexdata', 'dressdata',
                  'weapondata', 'stigmatadata', 'materialdata', 'equipmentleveldata',
                  'avatarleveldata', 'playerleveldata', 'avatarfragmentdata',
-                 'cabinleveldata', 'cabinextendgradedata', 'cabintechtreedata')
+                 'cabinleveldata', 'cabinextendgradedata', 'cabintechtreedata',
+                 'tutorialdata', 'stagetutorialdata')
         catalog.update({name: stage._table(name) for name in names})
         # Send only text IDs referenced by these tables through the Java bridge.
         # The full source textmap remains in the configured runtime itself.

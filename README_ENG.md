@@ -40,7 +40,7 @@ You can study and modify this code directly, hand the repository to an Agent for
 
 - **Python Local Server**: Custom local protocol handling, business logic, caching, and local data controls (`src/server19.py` and business modules).
 - **Cross-Version Table & Resource Adaptation**: Recovers tables from a 2.4 reference client into the 1.9 structure, and converts 7.x PC audio/video assets for mobile use.
-- **Android Startup Launcher & Tools**: Includes the startup screen, ARM32 Python hosting layer, save editing, backup history and export, normal 1× or assisted 20× damage toggle, and local server settings for the next Memorial Arena bosses and Abyss temperature.
+- **Android Startup Launcher & Tools**: Includes the startup screen, ARM32 Python hosting layer, built-in save editor and template generator, backup history and export, normal 1× or assisted 20× damage toggle, local event/Abyss settings, and an in-game GM menu (shop, supply rotation, and training ground).
 - **Dual-Mode Builder**: Supports both a Windows GUI (`launch_gui.py` / `构建器.exe`) and CLI (`python -m packager`) to recover tables, apply project rules, apply compatibility patches, convert resources, and assemble the APK.
 - **Split Base + Main Package Updates**: Keeps the offline toolchain and import launcher in the base package while distributing project updates via main package ZIPs with integrity/compatibility checks and rollback ("恢复上一版").
 
@@ -79,7 +79,7 @@ Builder packages, supplemental inputs, and generated game files serve different 
 | --- | --- | --- |
 | `BH2017-LOCRENASCI-Builder-Base-Windows-x64.zip` | **Base**: import launcher, Python, Android toolchain, audio/video tools, and companion third-party materials | Download initially; update when required by a toolchain or launcher change |
 | `BH2017-LOCRENASCI-Builder-Main-v<version>.zip` | **Main**: the release's complete project program, build UI, server, rules, and patch sources | Download the desired release and import it; intermediate main-package versions are unnecessary |
-| `BH2017-LOCRENASCI-Supplements-v<version>.zip` | **Supplements**: images and older CGs supplied as build inputs | Use the version specified in the release; compatible older packs can be reused (layout in [assets/README.md](assets/README.md)) |
+| `BH2017-LOCRENASCI-Supplements-v<version>.zip` | **Supplements**: images, older CGs, and reviewed content/binary overlays supplied as build inputs | Use the version specified in the release; update the supplements pack together whenever the main package updates its overlays (layout in [assets/README.md](assets/README.md)) |
 | `client-videos.zip` | **Phone video pack**: produced by a build | Pair it with the generated APK and select it on the phone's startup screen |
 
 - **First use**: Extract the base to a short path on the C: drive (such as `C:\BH3Builder`; a deeply nested path may prevent Android tools from starting) → run `构建器.exe` → click “导入构建主包” and select the main ZIP (manual copying over the program directory is unnecessary) → click “打开构建界面” → choose the required inputs and build.

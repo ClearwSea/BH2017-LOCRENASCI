@@ -23,7 +23,20 @@ public class IntegratedActivity extends Activity {
     private final Handler main = new Handler(Looper.getMainLooper());
     private int dp(int value) { return (int)(value * getResources().getDisplayMetrics().density); }
 
-    private static final String NOTICE = "禁止非法倒卖\n如果你是从拼多多/淘宝/闲鱼等电商平台获取，说明你被骗了，请立即退款并举报。\n\n遇到问题之前请确保当前是最新构建版。\n\n仅于开发平台验证，不做可玩性技术承诺。\n\n项目仓库：GitHub/ClearwSea，如有疑问或反馈，请提交issue。";
+    private static final String PREF_NOTICE_ACK_VERSION = "notice_ack_version";
+    private static final String NOTICE =
+        "禁止非法倒卖\n" +
+        "该项目完全免费，仅供技术交流学习，如果你是从拼多多/淘宝/闲鱼等电商平台获取，说明你被骗了，请立即退款并举报。\n\n" +
+        "遇到问题之前请确保当前是最新构建版！\n" +
+        "遇到问题之前请确保当前是最新构建版！\n" +
+        "遇到问题之前请确保当前是最新构建版！\n\n" +
+        "仅在特定开发平台验证，不做可玩性技术承诺。\n" +
+        "以下情况出现问题（例如卡死，崩溃）是可预见的：\n" +
+        "1.过高的Android版本\n" +
+        "2.纯64位处理器，且系统内无可靠转译层\n" +
+        "3.部分联发科天玑，新款海思麒麟处理器机型，如\n" +
+        "\u3000\u3000部分采用Mali GPU的新款机型\n" +
+        "\u3000\u3000采用Maleoon GPU的机型";
     private void preparationPanel() {
         screen = new LauncherScreen(this, new LauncherScreen.Actions() {
             @Override public void selectResource() { choose(20); }
@@ -466,9 +479,26 @@ public class IntegratedActivity extends Activity {
         super.onCreate(state); store = new LauncherStore(getFilesDir()); preparationPanel();
         try { store.recover(); refreshChoices(); }
         catch (Exception error) { blocked = true; showFailure("读取或恢复启动记录失败", error); return; }
-        screen.hint("请阅读公告，5 秒后可开始游戏……");
-        noticeTimer = new CountDownTimer(5000, 1000) {
-            @Override public void onTick(long remaining) { screen.hint("请阅读公告，" + ((remaining + 999) / 1000) + " 秒后可开始游戏……"); }
+        String ackVersion = getPreferences(Activity.MODE_PRIVATE).getString(PREF_NOTICE_ACK_VERSION, "");
+        if (!LauncherScreen.VERSION.equals(ackVersion)) {
+            screen.hint("首次进入或版本更新，请阅读重要公告并勾选“我已阅读”……");
+            android.util.Log.i("Server19Notice", "Mandatory notice shown for " + LauncherScreen.VERSION + " (previous=" + ackVersion + ")");
+            screen.showMandatoryNotice(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                getPreferences(Activity.MODE_PRIVATE).edit().putString(PREF_NOTICE_ACK_VERSION, LauncherScreen.VERSION).apply();
+                ready = true; controls();
+                try { selectionStatus("请确认资源包和存档后，点击“开始游戏”。"); }
+                catch (Exception error) { showFailure("读取选择记录失败", error); }
+                android.util.Log.i("Server19Notice", "Mandatory notice confirmed at " + SystemClock.elapsedRealtime());
+            });
+            return;
+        }
+        screen.hint("请阅读公告，3 秒后可开始游戏……");
+        noticeTimer = new CountDownTimer(3000, 250) {
+            @Override public void onTick(long remaining) {
+                int secs = Math.max(1, (int) ((remaining + 999) / 1000));
+                screen.hint("请阅读公告，" + secs + " 秒后可开始游戏……");
+            }
             @Override public void onFinish() {
                 if (isFinishing() || isDestroyed()) return;
                 ready = true; controls();
@@ -487,6 +517,7 @@ public class IntegratedActivity extends Activity {
         if (editor != null) editor.destroy();
         if (serverSettings != null) serverSettings.destroy();
         if (noticeTimer != null) noticeTimer.cancel();
+        if (screen != null) screen.destroy();
         if (bound) unbindService(connection);
         main.removeCallbacksAndMessages(null); super.onDestroy();
     }

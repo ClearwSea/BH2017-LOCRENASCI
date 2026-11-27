@@ -64,4 +64,10 @@ def create(catalog, kind, *, uid):
     for identity, cfg in configs.items():
         progress._set_stars(account, saved, cfg, identity, range(len(cfg['challengeList'])))
         saved[identity].update(progress=cfg['maxProgress'], is_done=True)
+    progress._sync_completed_story_missions(account, saved, configs)
+    guide_ids = ({row['id'] for row in catalog.get('tutorialdata', ()) if type(row.get('id')) is int}
+                 | {row['tutorialId'] for row in catalog.get('stagetutorialdata', ())
+                    if type(row.get('tutorialId')) is int})
+    if guide_ids:
+        account['guide_id_list'] = sorted(set(account.get('guide_id_list', ())) | guide_ids)
     return account
